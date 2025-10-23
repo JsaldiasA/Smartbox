@@ -28,7 +28,16 @@ $result = $conn->query($sql);
 
 date_default_timezone_set('America/Santiago');
 
-$FechaActual= date_create(date("Y-m-d H:i:s")); 
+$FechaActual= date_create(date("Y-m-d H:i:s"));
+
+if ($unidadTipo_Nombre == 'Estanque7600')
+{
+    $isEstanque = true;
+}
+else
+{
+    $isEstanque = false;
+}
 
 if ($result->num_rows > 0) {
     
@@ -40,11 +49,17 @@ if ($result->num_rows > 0) {
 		<th scope="col">Número</th>
 		<th scope="col">ÚltimaActz</th>
 		<th scope="col">Estado</th>
-		<th scope="col">Batería</th>
-		<th scope="col">Volumen</th>
-		<th scope="col"></th>
+		<th scope="col">Batería</th>';
+
+    if ($isEstanque == true)
+    {
+        echo '<th scope="col">Volumen</th>';
+    }
+    
+    echo '<th scope="col"></th>
 		</thead>
-		<tbody>';// Header tabla
+		<tbody>';
+        // Header tabla
 	
     // output data of each row 
 	while($row = $result->fetch_assoc()) 
@@ -68,17 +83,21 @@ if ($result->num_rows > 0) {
 		
 		//print row
         echo "<tr> 
-		<td>". $row["Nombre"].
-		"</td> <td>". $row["tag"].
-		"</td> <td>". $row["Ubicacion"].	
-		"</td> <td>". $row["numero"].	
-		"</td> <td>" .$UltimaActROW.		
-		"</td> <td>". $row["Estado"].
-		"</td> <td>". $BatNivel->get_HtmlTableField() .
-		"</td> <td>". $row["Volumen"].
-		"</td> <td> <a href='unidadver.php?tag=". $row["tag"]."'>Ver</a></td>
-		 
-		 </tr>";
+        <td>".$row["Nombre"]."</td>
+        <td>".$row["tag"]."</td>
+        <td>".$row["Ubicacion"]."</td>
+        <td>".$row["numero"]."</td>
+        <td>".$UltimaActROW."</td>
+        <td>".$row["Estado"]."</td>
+        <td>".$BatNivel->get_HtmlTableField()."</td>";
+
+    if ($isEstanque == true)
+    {
+        echo
+		"<td>".$row["Volumen"]."</td>";
+    }
+        echo
+		"<td> <a href='unidadver.php?tag=".$row["tag"]."'>Ver</a></td></tr>";
 	}
 	echo '</tbody></table>';
 } 
@@ -86,7 +105,6 @@ else
 {
     echo "0 results";
 }
-
 
 $conn->close();
 ?>
