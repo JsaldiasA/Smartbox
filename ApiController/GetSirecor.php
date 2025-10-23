@@ -33,6 +33,7 @@ if ($result->num_rows > 0) {
 		<thead>
 		<th scope="col">Nombre</th>
 		<th scope="col">IMEI</th>
+		<th scope="col">Ubicación</th>
 		<th scope="col">Número</th>
 		<th scope="col">ÚltimaActz</th>
 		<th scope="col">Estado</th>
@@ -66,6 +67,7 @@ if ($result->num_rows > 0) {
         echo "<tr> 
 		<td>". $row["Nombre"].
 		"</td> <td>". $row["tag"].
+		"</td> <td>". $row["Ubicacion"].	
 		"</td> <td>". $row["numero"].	
 		"</td> <td>" .$UltimaActROW.		
 		"</td> <td>". $row["Estado"].
