@@ -51,7 +51,7 @@ if ($result->num_rows > 0) {
 		<th scope="col">Estado</th>
 		<th scope="col">Batería</th>';
 
-    if ($isEstanque == true)
+    if ($isEstanque == false)
     {
         echo '<th scope="col">Volumen</th>';
     }
@@ -91,7 +91,7 @@ if ($result->num_rows > 0) {
         <td>".$row["Estado"]."</td>
         <td>".$BatNivel->get_HtmlTableField()."</td>";
 
-    if ($isEstanque == true)
+    if ($isEstanque == false)
     {
         echo
 		"<td>".$row["Volumen"]."</td>";
