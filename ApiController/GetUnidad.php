@@ -23,6 +23,7 @@ foreach ($unidadestipo as $unidadtipo)
 		} 
 }
 $UnidadesFiltradasPorTipo = [];
+$IsNotMilesight = true;
 
 $Unidades = $model->get_unidades();
 $unidadTipoFound_id = is_null($UnidadTipoFound) ? NULL : $UnidadTipoFound->get_id();
@@ -38,15 +39,20 @@ if( is_null($UnidadTipoFound) )
 }
 }
 else{	
-foreach ($Unidades as $unidad)
-{
-		if($unidad->get_Id_UnidadTipo() ==  $unidadTipoFound_id )
+		foreach ($Unidades as $unidad)
 		{
-			$UnidadesFiltradasPorTipo [] = $unidad;
-		} 
+				if($unidad->get_Id_UnidadTipo() ==  $unidadTipoFound_id )
+				{
+					$UnidadesFiltradasPorTipo [] = $unidad;
+				} 
 
-}
-}
+		}
+
+		if ($UnidadTipoFound->get_IsMilesight() == true)
+		{
+			$IsNotMilesight = false;
+		}
+		}
 
 $isEstanque = false;
 
@@ -54,14 +60,6 @@ if ($unidadTipo_Nombre == 'Estanque7600')
 {
     $isEstanque = true;
 }
-
-$IsNotMilesight = true;
-
-if ($UnidadTipoFound->get_IsMilesight() == true)
-{
-    $IsNotMilesight = false;
-}
-
 // Retornar valores como tabla
 echo '<table class="table">
 		<thead>
