@@ -13,7 +13,7 @@ $unidadTipo_Nombre= $_GET['unidadtipo'];
 
 $unidadestipo =$model->get_unidadtipos();
 
-$UnidadTipoFound = NULL;
+//$UnidadTipoFound = NULL;
 
 foreach ($unidadestipo as $unidadtipo)
 {
