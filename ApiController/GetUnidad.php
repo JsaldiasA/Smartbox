@@ -9,11 +9,11 @@ require_once $sitebasepath."/Model/model.php";
 
 $model = new Model();
 
-$unidadTipo_Nombre= $_GET['unidadtipo'];
+$unidadTipo_Nombre= $_GET['unidadtipo'] ;
 
 $unidadestipo =$model->get_unidadtipos();
 
-//$UnidadTipoFound = NULL;
+$UnidadTipoFound = NULL;
 
 foreach ($unidadestipo as $unidadtipo)
 {
@@ -25,7 +25,7 @@ foreach ($unidadestipo as $unidadtipo)
 $UnidadesFiltradasPorTipo = [];
 
 $Unidades = $model->get_unidades();
-//$unidadTipoFound_id = is_null($UnidadTipoFound) ? NULL : $UnidadTipoFound->get_id();
+$unidadTipoFound_id = is_null($UnidadTipoFound) ? NULL : $UnidadTipoFound->get_id();
 
 foreach ($Unidades as $unidad)
 {
