@@ -29,7 +29,7 @@ $Unidades = $model->get_unidades();
 
 foreach ($Unidades as $unidad)
 {
-		if($unidad->get_Id_UnidadTipo() ==  1 )
+		if($unidad->get_Id_UnidadTipo() ==  $UnidadTipoFound->get_Id())
 		{
 			$UnidadesFiltradasPorTipo [] = $unidad;
 		} 
@@ -46,7 +46,7 @@ if ($unidadTipo_Nombre == 'Estanque7600')
 
 $IsNotMilesight = true;
 
-if ($UnidadTipo->get_IsMilesight() == true)
+if ($UnidadTipoFound->get_IsMilesight() == true)
 {
     $IsNotMilesight = false;
 }
