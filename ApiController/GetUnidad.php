@@ -10,25 +10,29 @@ require_once $sitebasepath."/Model/model.php";
 $model = new Model();
 
 $unidadTipo_Nombre= $_GET['unidadtipo'];
-$sql = "SELECT Id FROM unidadtipo WHERE Nombre LIKE '$unidadTipo_Nombre'";
-$result = $model->executeSQL($sql);
 
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {$unidad_id = $row["Id"];}
+$unidadestipo =$model->get_unidadtipos();
+
+foreach ($unidadestipo as $unidadtipo)
+{
+		if($unidadtipo->get_Nombre() == $unidadTipo_Nombre)
+		{
+			$UnidadTipo = $unidad;
+		} 
 }
-
-$Unidades = $model->get_unidades();
-
 $UnidadesFiltradasPorTipo = [];
+$Unidades = $model->get_unidades();
+$unidadTipo_id = is_null($UnidadTipo) ? NULL : $UnidadTipo->get_id();
 
 foreach ($Unidades as $unidad)
 {
-		if($unidad->get_Id_UnidadTipo() == $unidad_id)
+		if($unidad->get_Id_UnidadTipo() == $UnidadTipo->get_id())
 		{
 			$UnidadesFiltradasPorTipo [] = $unidad;
 		} 
 
 }
+
 
 $isEstanque = false;
 
@@ -37,14 +41,21 @@ if ($unidadTipo_Nombre == 'Estanque7600')
     $isEstanque = true;
 }
 
+$IsNotMilesight = true;
+
+if ($UnidadTipo->get_IsMilesight() == true)
+{
+    $IsNotMilesight = false;
+}
+
 // Retornar valores como tabla
 echo '<table class="table">
 		<thead>
-		<th scope="col">Nombre</th>
-		<th scope="col">IMEI</th>
-		<th scope="col">Ubicación</th>
-		<th scope="col">Número</th>
-		<th scope="col">ÚltimaActz</th>
+		<th scope="col">Nombre</th>';
+		echo $IsNotMilesight ? '<th scope="col">IMEI</th>' : '<th scope="col">DevEUI</th>' ;
+		echo '<th scope="col">Ubicación</th>';
+		echo $IsNotMilesight ? '<th scope="col">Número</th>' : '';
+		echo '<th scope="col">ÚltimaActz</th>
 		<th scope="col">Estado</th>
 		<th scope="col">Batería</th>';
 		echo !$isEstanque ? '<th scope="col">Volumen</th>' : ''; 
@@ -61,8 +72,8 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
         echo "<tr>"; 
         echo "<td>".$unidad->get_Serie()."</td>";   
         echo "<td>". $unidad->get_Tag()."</td>";
-        echo "<td>".""."</td>";
-        echo "<td>".$unidad->get_Numero()."</td>";
+        echo "<td>".$unidad->get_Ubicacion()."</td>";
+        echo $IsNotMilesight ? "<td>".$unidad->get_Numero()."</td>" : "";
         echo "<td>".$unidad->get_UltimaActualizacion()."</td>";
         echo "<td>".$unidad->get_Estado()."</td>";
         echo "<td>".$BatNivel->get_HtmlTableField()."</td>";

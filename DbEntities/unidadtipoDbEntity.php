@@ -4,20 +4,23 @@ class unidadtipoDbEntity {
 public $Id;
 public $Nombre;
 public $Descripcion;
+public $IsMilesight;
 
 	
   function __construct($Id,
 $Nombre,
-$Descripcion)
+$Descripcion,
+$IsMilesight)
   {
 	$this->Id = $Id;
 	$this->Nombre = $Nombre;
 	$this->Descripcion = $Descripcion;
+	$this->IsMilesight = $IsMilesight;
   }
 	function get_Id() { return $this->Id; }
 	function get_Nombre() { return $this->Nombre; }
 	function get_Descripcion() { return $this->Descripcion; }
-  	
+	function get_IsMilesight() { return $this->IsMilesight; }
 
 }
 //testing 

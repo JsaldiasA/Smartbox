@@ -60,7 +60,7 @@ class Model {
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) 
 			{
-				$TiposDeUnidades[] = new unidadtipoDbEntity($row["Id"],$row["Nombre"],$row["Descripcion"]);
+				$TiposDeUnidades[] = new unidadtipoDbEntity($row["Id"],$row["Nombre"],$row["Descripcion"],$row["IsMilesight"]);
 			}
 		}
 		return $TiposDeUnidades;
