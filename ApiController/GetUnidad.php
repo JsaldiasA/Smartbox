@@ -2,30 +2,37 @@
 
 require_once 'BatteryLevel.php';
 
-$servername = "localhost:3306";
-$username = "Sirecor_usuario";
-$password = "Helegta1!";
-$dbname = "sirecor";
+$self=$_SERVER['PHP_SELF'];
+$thispath=dirname($_SERVER['PHP_SELF']);
+$sitebasepath=$_SERVER['DOCUMENT_ROOT'];
+require_once $sitebasepath."/Model/model.php";
+
+$model = new Model();
 
 $unidadTipo_Nombre= $_GET['unidadtipo'];
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-
 $sql = "SELECT Id FROM unidadtipo WHERE Nombre LIKE '$unidadTipo_Nombre'";
-$result = $conn->query($sql);
+$result = $model->executeSQL($sql);
+
 if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {$unidad_id = $row["Id"];}
 }
 
-$sql = "SELECT * FROM `unidad` WHERE `id_unidadTipo` = $unidad_id ORDER BY `UltimaActualizacion` DESC";
-$result = $conn->query($sql);
+$Unidades = $model->get_unidades();
 
+$UnidadesFiltradasPorTipo = [];
+
+foreach ($Unidades as $unidad)
+{
+		if($unidad->get_Id_UnidadTipo() == $unidad_id)
+		{
+			$UnidadesFiltradasPorTipo [] = $unidad;
+		} 
+
+}
+
+echo var_dump($UnidadesFiltradasPorTipo);
+//Retrornar valores
+/*
 date_default_timezone_set('America/Santiago');
 
 $FechaActual= date_create(date("Y-m-d H:i:s"));
@@ -105,6 +112,5 @@ else
 {
     echo "0 results";
 }
-
-$conn->close();
+*/
 ?>
