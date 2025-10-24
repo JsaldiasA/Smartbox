@@ -67,10 +67,10 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
         echo "<td>".$unidad->get_Estado()."</td>";
         echo "<td>".$BatNivel->get_HtmlTableField()."</td>";
         echo !$isEstanque ? "<td>".$unidad->get_Volumen()."</td>" : '';
-    	
+    	echo "<td> <a href='unidadver.php?tag=".$unidad->get_Tag()."'>Ver</a></td></tr>";
 }// columnas
 
-    echo	"<td> <a href='unidadver.php?tag=".$unidad->get_Tag()."'>Ver</a></td></tr>";
+    
 	echo '</tbody></table>';
 
 
