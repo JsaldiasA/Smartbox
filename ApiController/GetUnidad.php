@@ -13,20 +13,23 @@ $unidadTipo_Nombre= $_GET['unidadtipo'];
 
 $unidadestipo =$model->get_unidadtipos();
 
+$UnidadTipoFound = NULL;
+
 foreach ($unidadestipo as $unidadtipo)
 {
 		if($unidadtipo->get_Nombre() == $unidadTipo_Nombre)
 		{
-			$UnidadTipo = $unidadtipo;
+			$UnidadTipoFound = $unidadtipo;
 		} 
 }
 $UnidadesFiltradasPorTipo = [];
+
 $Unidades = $model->get_unidades();
-$unidadTipo_id = is_null($UnidadTipo) ? NULL : $UnidadTipo->get_id();
+$unidadTipoFound_id = is_null($UnidadTipoFound) ? NULL : $UnidadTipo->get_id();
 
 foreach ($Unidades as $unidad)
 {
-		if($unidad->get_Id_UnidadTipo() == $unidadTipo_id)
+		if($unidad->get_Id_UnidadTipo() == $unidadTipoFound_id)
 		{
 			$UnidadesFiltradasPorTipo [] = $unidad;
 		} 
