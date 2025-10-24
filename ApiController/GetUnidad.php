@@ -17,7 +17,7 @@ foreach ($unidadestipo as $unidadtipo)
 {
 		if($unidadtipo->get_Nombre() == $unidadTipo_Nombre)
 		{
-			$UnidadTipo = $unidad;
+			$UnidadTipo = $unidadtipo;
 		} 
 }
 $UnidadesFiltradasPorTipo = [];
