@@ -30,8 +30,50 @@ foreach ($Unidades as $unidad)
 
 }
 
-echo var_dump($UnidadesFiltradasPorTipo);
-//Retrornar valores
+$isEstanque = false;
+
+if ($unidadTipo_Nombre == 'Estanque7600')
+{
+    $isEstanque = true;
+}
+
+//Retrornar valores como tabla
+echo '<table class="table">
+		<thead>
+		<th scope="col">Nombre</th>
+		<th scope="col">IMEI</th>
+		<th scope="col">Ubicación</th>
+		<th scope="col">Número</th>
+		<th scope="col">ÚltimaActz</th>
+		<th scope="col">Estado</th>
+		<th scope="col">Batería</th>';
+		echo !$isEstanque ? '<th scope="col">Volumen</th>' : ''; 
+		echo '<th scope="col"></th>
+		</thead>
+		<tbody>';
+
+foreach ($UnidadesFiltradasPorTipo as $unidad)
+{
+		$level = $row["BatNivel"];
+	    $BatNivel = new BatteryLevel($level);
+		
+		//print row
+        echo "<tr>"; 
+        echo "<td>".$row["Nombre"]."</td>";     
+        echo "<td>".$row["tag"]."</td>";
+        echo "<td>".$row["Ubicacion"]."</td>";
+        echo "<td>".$row["numero"]."</td>";
+        echo "<td>".$UltimaActROW."</td>";
+        echo "<td>".$row["Estado"]."</td>";
+        echo "<td>".$BatNivel->get_HtmlTableField()."</td>";
+        echo !$isEstanque ? '<th scope="col">Volumen</th>' : '';
+    	
+}// columnas
+
+    echo	"<td> <a href='unidadver.php?tag=".$row["tag"]."'>Ver</a></td></tr>";
+	echo '</tbody></table>';
+
+
 /*
 date_default_timezone_set('America/Santiago');
 
