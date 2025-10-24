@@ -29,7 +29,13 @@ $unidadTipoFound_id = is_null($UnidadTipoFound) ? NULL : $UnidadTipoFound->get_i
 
 if( is_null($UnidadTipoFound) )
 {
-	$UnidadesFiltradasPorTipo [] = $Unidades;
+	foreach ($Unidades as $unidad)
+{
+	
+			$UnidadesFiltradasPorTipo [] = $unidad;
+	
+
+}
 }
 else{	
 foreach ($Unidades as $unidad)
