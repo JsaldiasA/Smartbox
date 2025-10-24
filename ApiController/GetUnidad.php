@@ -54,23 +54,23 @@ echo '<table class="table">
 
 foreach ($UnidadesFiltradasPorTipo as $unidad)
 {
-		$level = $row["BatNivel"];
+		$level = $unidad->get_BatNivel();
 	    $BatNivel = new BatteryLevel($level);
 		
 		//print row
         echo "<tr>"; 
-        echo "<td>".$row["Nombre"]."</td>";     
-        echo "<td>".$row["tag"]."</td>";
-        echo "<td>".$row["Ubicacion"]."</td>";
-        echo "<td>".$row["numero"]."</td>";
-        echo "<td>".$UltimaActROW."</td>";
-        echo "<td>".$row["Estado"]."</td>";
+        echo "<td>".$unidad->get_Nombre()."</td>";     
+        echo "<td>". $unidad->get_Tag()."</td>";
+        echo "<td>".""."</td>";
+        echo "<td>".$unidad->get_Numero()."</td>";
+        echo "<td>".$unidad->get_UltimaActualizacion()."</td>";
+        echo "<td>".$unidad->get_Estado()."</td>";
         echo "<td>".$BatNivel->get_HtmlTableField()."</td>";
-        echo !$isEstanque ? '<th scope="col">Volumen</th>' : '';
+        echo !$isEstanque ? "<td>".$unidad->get_Volumen()."</td>" : '';
     	
 }// columnas
 
-    echo	"<td> <a href='unidadver.php?tag=".$row["tag"]."'>Ver</a></td></tr>";
+    echo	"<td> <a href='unidadver.php?tag=".$unidad->get_Tag()."'>Ver</a></td></tr>";
 	echo '</tbody></table>';
 
 
