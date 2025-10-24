@@ -29,7 +29,7 @@ $Unidades = $model->get_unidades();
 
 foreach ($Unidades as $unidad)
 {
-		if($unidad->get_Id_UnidadTipo() ==  $UnidadTipoFound->get_Id())
+		if($unidad->get_Id_UnidadTipo() ==  1 )
 		{
 			$UnidadesFiltradasPorTipo [] = $unidad;
 		} 
