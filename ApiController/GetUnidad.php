@@ -27,6 +27,11 @@ $UnidadesFiltradasPorTipo = [];
 $Unidades = $model->get_unidades();
 $unidadTipoFound_id = is_null($UnidadTipoFound) ? NULL : $UnidadTipoFound->get_id();
 
+if( is_null($UnidadTipoFound) )
+{
+	$UnidadesFiltradasPorTipo [] = $Unidades;
+}
+else{	
 foreach ($Unidades as $unidad)
 {
 		if($unidad->get_Id_UnidadTipo() ==  $unidadTipoFound_id )
@@ -35,7 +40,7 @@ foreach ($Unidades as $unidad)
 		} 
 
 }
-
+}
 
 $isEstanque = false;
 
