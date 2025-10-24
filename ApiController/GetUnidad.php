@@ -74,7 +74,7 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
 	echo '</tbody></table>';
 
 
-/*
+ /*
 date_default_timezone_set('America/Santiago');
 
 $FechaActual= date_create(date("Y-m-d H:i:s"));
