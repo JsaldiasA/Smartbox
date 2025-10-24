@@ -25,7 +25,7 @@ foreach ($unidadestipo as $unidadtipo)
 $UnidadesFiltradasPorTipo = [];
 
 $Unidades = $model->get_unidades();
-$unidadTipoFound_id = is_null($UnidadTipoFound) ? NULL : $UnidadTipo->get_id();
+$unidadTipoFound_id = is_null($UnidadTipoFound) ? NULL : $UnidadTipoFound->get_id();
 
 foreach ($Unidades as $unidad)
 {
