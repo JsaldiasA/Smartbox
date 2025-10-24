@@ -25,11 +25,11 @@ foreach ($unidadestipo as $unidadtipo)
 $UnidadesFiltradasPorTipo = [];
 
 $Unidades = $model->get_unidades();
-$unidadTipoFound_id = is_null($UnidadTipoFound) ? NULL : $UnidadTipoFound->get_id();
+//$unidadTipoFound_id = is_null($UnidadTipoFound) ? NULL : $UnidadTipoFound->get_id();
 
 foreach ($Unidades as $unidad)
 {
-		if($unidad->get_Id_UnidadTipo() == $unidadTipoFound_id)
+		if($unidad->get_Id_UnidadTipo() ==  $UnidadTipoFound->get_id())
 		{
 			$UnidadesFiltradasPorTipo [] = $unidad;
 		} 
