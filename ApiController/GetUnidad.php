@@ -37,7 +37,7 @@ if ($unidadTipo_Nombre == 'Estanque7600')
     $isEstanque = true;
 }
 
-//Retrornar valores como tabla
+// Retornar valores como tabla
 echo '<table class="table">
 		<thead>
 		<th scope="col">Nombre</th>
@@ -59,7 +59,7 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
 		
 		//print row
         echo "<tr>"; 
-        echo "<td>".$unidad->get_Nombre()."</td>";     
+        echo "<td>".$unidad->get_Serie()."</td>";   
         echo "<td>". $unidad->get_Tag()."</td>";
         echo "<td>".""."</td>";
         echo "<td>".$unidad->get_Numero()."</td>";

@@ -9,7 +9,7 @@ require_once $sitebasepath.'/DbEntities/checklistDbEntity.php';
 require_once $sitebasepath.'/DbEntities/checklistmotivoDbEntity.php';
 require_once $sitebasepath.'/DbEntities/comandos_milesightDbEntity.php';
 require_once $sitebasepath.'/DbEntities/eventosDbEntity.php';
-require_once $sitebasepath.'/config/DbSirecorConfig.php';	
+require_once $sitebasepath.'/config/DbSirecorConfig.php';
 
 class Model {
 	
@@ -28,8 +28,22 @@ class Model {
 		if ($result->num_rows > 0) {
 		while($row = $result->fetch_assoc()) 
 		{
-	    $Unidades[] = new 			unidadDbEntity($row["id"],$row["Nombre"],$row["tag"],$row["Numero"],$row["UltimaActualizacion"],$row["Volumen"],$row["Estado"],$row["id_unidadTipo"],$row["InvertirEntrada"],$row["BatNivel"]);
-//cuidado con el casing, distinge de mayusculas y minusculas
+	    $Unidades[] = new unidadDbEntity(
+		$row["id"],
+		$row["Serie"],
+		$row["tag"],
+		$row["Ubicacion"],
+		$row["numero"],
+		$row["UltimaActualizacion"],
+		$row["Volumen"],
+		$row["Estado"],
+		$row["id_unidadTipo"],
+		$row["InvertirEntrada"],
+		$row["BatNivel"],
+		$row["Temperatura"],
+		$row["Humedad"],
+		$row["EC"],);
+		// cuidado con el casing, distinge de mayusculas y minusculas
 		}
 		}
 		return $Unidades;
