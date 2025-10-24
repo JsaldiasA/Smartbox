@@ -24,10 +24,10 @@ var myRefreshGetSensorHumedadMilesight = setInterval(GetSensorHumedadMilesight, 
 //GetEstanques
 function GetEstanques() 
 	{
-    	var URL = "ApiController/GetEstanques.php"; 
+    	var URL = "ApiController/GetUnidad.php?unidadtipo=Estanque7600" 
 		$.ajax({
             url:URL,    //the page containing php script
-            type: "post",    //request 
+            type: "get",    //request 
 		    success: function(result){document.getElementById("GetEstanqueResult").innerHTML= result;}    
 		});	
 	}
