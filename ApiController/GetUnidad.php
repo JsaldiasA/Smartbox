@@ -26,7 +26,7 @@ $unidadTipo_id = is_null($UnidadTipo) ? NULL : $UnidadTipo->get_id();
 
 foreach ($Unidades as $unidad)
 {
-		if($unidad->get_Id_UnidadTipo() == $UnidadTipo->get_id())
+		if($unidad->get_Id_UnidadTipo() == $unidadTipo_id)
 		{
 			$UnidadesFiltradasPorTipo [] = $unidad;
 		} 
@@ -51,7 +51,7 @@ if ($UnidadTipo->get_IsMilesight() == true)
 // Retornar valores como tabla
 echo '<table class="table">
 		<thead>
-		<th scope="col">Nombre</th>';
+		<th scope="col">Serie</th>';
 		echo $IsNotMilesight ? '<th scope="col">IMEI</th>' : '<th scope="col">DevEUI</th>' ;
 		echo '<th scope="col">Ubicación</th>';
 		echo $IsNotMilesight ? '<th scope="col">Número</th>' : '';
