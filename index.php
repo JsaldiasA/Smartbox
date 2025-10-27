@@ -24,7 +24,7 @@ var myRefreshGetSensorHumedadMilesight = setInterval(GetSensorHumedadMilesight, 
 //GetEstanques
 function GetEstanques() 
 	{
-    	var URL = "ApiController/GetUnidad.php?unidadtipo=Estanque7600" 
+    	var URL = "ApiController/GetUnidad.php?unidadtipo=Estanque7600"
 		$.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
@@ -34,40 +34,40 @@ function GetEstanques()
 //GetSirecor	
 function GetSirecor() 
 	{
-    	var URL = "ApiController/GetSirecor.php"; 
+    	var URL = "ApiController/GetUnidad.php?unidadtipo=Sirecor7600"
 		$.ajax({
             url:URL,    //the page containing php script
-            type: "post",    //request 
+            type: "get",    //request 
 		    success: function(result){document.getElementById("GetSirecorResult").innerHTML= result;}    
 		});
 	}
 //GetMilesight	
 function GetMilesight() 
 	{
-    	var URL = "ApiController/GetMilesight.php"; 
+    	var URL = "ApiController/GetUnidad.php?unidadtipo=Milesight"
 		$.ajax({
             url:URL,    //the page containing php script
-            type: "post",    //request 
+            type: "get",    //request 
 		    success: function(result){document.getElementById("GetMilesightResult").innerHTML= result;}    
 		});
 	}
 //GetMilesight	
 function GetUnidadIndefinida() 
 	{
-    	var URL = "ApiController/GetUnidadIndefinida.php"; 
+    	var URL = "ApiController/GetUnidad.php?unidadtipo="
 		$.ajax({
             url:URL,    //the page containing php script
-            type: "post",    //request 
+            type: "get",    //request 
 		    success: function(result){document.getElementById("GetUnidadIndefinidaResult").innerHTML= result;}    
 		});
 	}
 //GetSensorHumedadMilesight	
 function GetSensorHumedadMilesight() 
 	{
-    	var URL = "ApiController/GetSensorHumedadMilesight.php"; 
+    	var URL = "ApiController/GetUnidad.php?unidadtipo=SensorHumedadMilesight"
 		$.ajax({
             url:URL,    //the page containing php script
-            type: "post",    //request 
+            type: "get",    //request
 		    success: function(result){document.getElementById("GetSensorHumedadMilesightResult").innerHTML= result;}    
 		});
 	}

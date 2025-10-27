@@ -1,7 +1,7 @@
 <?php
 class BatteryLevel {
 	
-  public $Level;
+  public $level;
   public $HtmlTableField;
 	    
   function __construct($level) {

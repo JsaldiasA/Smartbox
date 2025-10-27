@@ -155,7 +155,7 @@ function FunctionComandosMilesight( ComandoNombre ) {
 <div class="row" >
 	<div class="col" >
 	<?php
-	$CabeceraName = $unidadDbEntity->get_Nombre();
+	$CabeceraName = $unidadDbEntity->get_Serie();
 	 
 		if($CabeceraName == "")
 		{
@@ -180,7 +180,7 @@ function FunctionComandosMilesight( ComandoNombre ) {
 		  		<th scope="col">'.$tagTitle.'</th>
 		  	  </thead><tbody>';// Header tabla
 		//print row
-        echo "<tr> <td>". $unidadDbEntity->get_Nombre().
+        echo "<tr> <td>". $unidadDbEntity->get_Serie().
 		"</td><td>". $unidadDbEntity->get_Tag().
 		"</td> </tr>";
 		echo '</tbody></table>';

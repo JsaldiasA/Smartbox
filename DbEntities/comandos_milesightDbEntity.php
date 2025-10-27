@@ -24,7 +24,7 @@ $Descripcion ) {
 function get_Nombre() { return $this->Nombre; }
 function get_Comando_HEX() { return $this->Comando_HEX; }
 function get_Comando_Base64() { return $this->Comando_Base64; }
-function get_Descripcion() { return $this->Descripción; }
+function get_Descripcion() { return $this->Descripcion; }
   	
 
 }
