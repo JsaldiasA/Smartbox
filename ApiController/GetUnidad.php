@@ -32,10 +32,10 @@ if( is_null($UnidadTipoFound) )
 {
 	foreach ($Unidades as $unidad)
 {
-	
-			$UnidadesFiltradasPorTipo [] = $unidad;
-	
-
+	if($unidad->get_Id_UnidadTipo() ==  NULL )
+	{
+		$UnidadesFiltradasPorTipo [] = $unidad;
+	}
 }
 }
 else{	
