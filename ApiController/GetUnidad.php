@@ -27,7 +27,7 @@ $UnidadesFiltradasPorTipo = [];
 $Unidades = $model->get_unidades();
 $unidadTipoFound_id = is_null($UnidadTipoFound) ? NULL : $UnidadTipoFound->get_id();
 
-$IsNotMilesight = is_null($UnidadTipoFound) ? true : $UnidadTipoFound->get_IsMilesight();
+$IsMilesight = is_null($UnidadTipoFound) ? true : $UnidadTipoFound->get_IsMilesight();
 
 $isEstanque = ($unidadTipo_Nombre == 'Estanque7600') ? true : false;
 
@@ -39,18 +39,18 @@ $isEstanque = ($unidadTipo_Nombre == 'Estanque7600') ? true : false;
 				} 
 
 		}
-		
+
 // Retornar valores como tabla
 echo '<table class="table">
 		<thead>
 		<th scope="col">Serie</th>';
-		echo $IsNotMilesight ? '<th scope="col">IMEI</th>' : '<th scope="col">DevEUI</th>' ;
+		echo $IsMilesight ? '<th scope="col">DevEUI</th>' : '<th scope="col">IMEI</th>' ;
 		echo '<th scope="col">Ubicación</th>';
-		echo $IsNotMilesight ? '<th scope="col">Número</th>' : '';
+		echo $IsMilesight ? '' : '<th scope="col">Número</th>';
 		echo '<th scope="col">ÚltimaActz</th>
 		<th scope="col">Estado</th>
 		<th scope="col">Batería</th>';
-		echo !$isEstanque ? '<th scope="col">Volumen</th>' : ''; 
+		echo !$isEstanque ? '<th scope="col">Volumen</th>' : '';
 		echo '<th scope="col"></th>
 		</thead>
 		<tbody>';
@@ -65,7 +65,7 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
         echo "<td>".$unidad->get_Serie()."</td>";   
         echo "<td>". $unidad->get_Tag()."</td>";
         echo "<td>".$unidad->get_Ubicacion()."</td>";
-        echo $IsNotMilesight ? "<td>".$unidad->get_Numero()."</td>" : "";
+        echo $IsMilesight ? "" : "<td>".$unidad->get_Numero()."</td>";
         echo "<td>".$unidad->get_UltimaActualizacion()."</td>";
         echo "<td>".$unidad->get_Estado()."</td>";
         echo "<td>".$BatNivel->get_HtmlTableField()."</td>";
