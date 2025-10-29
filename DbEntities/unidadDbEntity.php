@@ -63,7 +63,7 @@ $EC)
   function get_Humedad() { return $this->Humedad; }
   function get_EC() { return $this->EC; }
   
-  function UltimaActualizacion() {
+  function DiffBetweenNow_and_UltimaActualizacion() {
 	
 	date_default_timezone_set('America/Santiago');
 	$FechaActual= date_create(date("Y-m-d H:i:s"));

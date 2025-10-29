@@ -66,7 +66,7 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
         echo "<td>". $unidad->get_Tag()."</td>";
         echo "<td>".$unidad->get_Ubicacion()."</td>";
         echo $IsMilesight ? "" : "<td>".$unidad->get_Numero()."</td>";
-        echo "<td>".$unidad->get_UltimaActualizacion()."</td>";
+        echo "<td>".$unidad->DiffBetweenNow_and_UltimaActualizacion()."</td>";
         echo "<td>".$unidad->get_Estado()."</td>";
         echo "<td>".$BatNivel->get_HtmlTableField()."</td>";
         echo !$isEstanque ? "<td>".$unidad->get_Volumen()."</td>" : '';
