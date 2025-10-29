@@ -17,7 +17,14 @@ if ($conn->connect_error) {
 $data= $_GET['name'];
 
 //Insertando En tabla RowData
-$sql = "select u.*, ul.CAUDAL from unidades_lastortolas ul inner join unidad u on ul.unidad_id = u.id group by ul.unidad_id order by ul.`DATETIME` desc";
+$sql = "SELECT u.*,o.CAUDAL,o.DATETIME
+FROM unidades_lastortolas o
+JOIN (
+    SELECT ul.unidad_id, MAX(ul.DATETIME) AS last_order_date
+    FROM unidades_lastortolas ul
+    GROUP BY ul.unidad_id
+) t ON o.unidad_id = t.unidad_id AND o.DATETIME = t.last_order_date
+INNER JOIN unidad u on u.id = o.unidad_id;";
 
 $sth = mysqli_query($conn, $sql);
 $rows = array();
