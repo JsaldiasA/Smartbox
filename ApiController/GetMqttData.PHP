@@ -14,10 +14,16 @@ $Model = new model();
 
 $Unidad = $Model->UnidadByTag($obj->devEUI);
 
-if( is_null($Unidad) == true )
+if( is_null($Unidad) )
 {$batAnterior = "0";}
 else
-{$batAnterior= $Unidad->get_BatNivel();}
+{
+	$batAnterior= $Unidad->get_BatNivel();
+	$VolumenAnterior = $Unidad->get_Volumen();
+	$VolumenActual = $obj->valve_2_pulse;
+	$CAUDALcalculado= $VolumenActual - $VolumenAnterior;
+
+}
 
 
 //Insertando En tabla RowData
@@ -60,7 +66,7 @@ else
 	$ESTADO = $obj->valve_1;
 	$VOLUMEN = $obj->valve_2_pulse;
 	$BATNIVEL = $obj->battery ?? $batAnterior;
-	$CAUDAL = 0;
+	$CAUDAL = $CAUDALcalculado;
 	$Temperatura = 0;
 	$Humedad = 0;
 	$EC = 0;
