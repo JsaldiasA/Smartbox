@@ -17,7 +17,7 @@ if ($conn->connect_error) {
 $data= $_GET['name'];
 
 //Insertando En tabla RowData
-$sql = "SELECT * FROM `unidad`;";
+$sql = "select u.*, ul.CAUDAL from unidades_lastortolas ul inner join unidad u on ul.unidad_id = u.id group by ul.unidad_id order by ul.`DATETIME` desc";
 
 $sth = mysqli_query($conn, $sql);
 $rows = array();
