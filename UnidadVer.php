@@ -47,10 +47,10 @@ function FunctionNuevaUbicacion(  unidad ) {
 	var URL = "UnidadCambiarNombre.php";
 	var Respuesta;
 	var NuevaUbicacion = document.getElementById("NuevaUbicacion").value;
-	var token = document.getElementById("password").value ;
+	var token = document.getElementById("password").value;
 	$.ajax({
             url:URL,    //the page containing php script
-            type: "post",    //request 
+            type: "post",    //request
 			dataType: 'text',
 			  data: {
             tag: unidad,
@@ -299,13 +299,13 @@ function FunctionComandosMilesight( ComandoNombre ) {
 	echo '</div>';
 	
 	echo '<div class="subContainer" >';
-	echo '<button onclick="FunctionNuevoNombre('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button>Nuevo Nombre';// boton cambio de nombre
-	echo '<input type="text" id="NuevoNombre" name="NuevoNombre" class="form-control"> ';// input cambio de nombre
+	echo '<button onclick="FunctionNuevaUbicacion('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button>Nueva Ubicacion';// boton cambio de ubicacion
+	echo '<input type="text" id="NuevaUbicacion" name="NuevaUbicacion" class="form-control"> ';// input cambio de ubicacion
 	echo ' </div> ';
 	
 	echo '<div class="subContainer" >';
-	echo '<button onclick="FunctionNuevoNumero('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button> Nuevo Numero';// boton cambio de nombre
-	echo '<input type="text" id="NuevoNumero" name="NuevoNumero" class="form-control"> ';// input cambio de nombre
+	echo '<button onclick="FunctionNuevoNumero('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button> Nuevo Numero';// boton cambio de numero
+	echo '<input type="text" id="NuevoNumero" name="NuevoNumero" class="form-control"> ';// input cambio de numero
 	echo ' </div> ';
 	
 	echo '<div class="subContainer" >';
@@ -344,7 +344,7 @@ function FunctionComandosMilesight( ComandoNombre ) {
 		  
 		<div class="overflow-auto">
         <?php	
-// TABLA REGISTROS DARIARIOS	
+// TABLA REGISTROS DIARIOS
 	
 	$sql = "SELECT `UL`.`id`,`U`.`tag`,`UL`.`ESTADO`,`UL`.`VOLUMEN`,`UL`.`CAUDAL`,`UL`.`SENAL`,`UL`.`VOLTAJE`,`UL`.`DATETIME` FROM 		`unidades_lastortolas` `UL` INNER JOIN `unidad` `U` ON `U`.`ID` = `UL`.`unidad_id`  WHERE `U`.`tag` LIKE '%{$unidadDbEntity->get_Tag()}%' ORDER BY `UL`.`id` DESC LIMIT 1000";
 
