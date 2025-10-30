@@ -10,11 +10,11 @@ public $Descripcion;
 $Nombre,
 $Descripcion)
   {
-	$this->id = $id;
+	$this->Id = $id;
 	$this->Nombre = $Nombre;
 	$this->Descripcion = $Descripcion;
   }
-	function get_id() { return $this->id; }
+	function get_id() { return $this->Id; }
 	function get_Nombre() { return $this->Nombre; }
 	function get_Descripcion() { return $this->Descripcion; }
   	
