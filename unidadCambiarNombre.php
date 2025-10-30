@@ -9,8 +9,6 @@ $tag= $_POST['tag'];
 $NuevaUbicacion= $_POST['NuevaUbicacion'];
 $token= $_POST['token'];
 
-
-
 if (strcmp($token,'eco3spa')==0)
 {
 	// Create connection
@@ -28,15 +26,13 @@ if (strcmp($token,'eco3spa')==0)
 	echo '</tbody></table>';
 	}
 	else
-	{   echo $result;}
+	{echo $result;}
 	
 	echo "Cambio de ubicación hecho correctamente. Nueva ubicación: ".$NuevaUbicacion;
 	$conn->close();
-	
 }
 else
 {
 	echo "Contraseña incorrecta";
 }
-
 ?>

@@ -15,130 +15,129 @@ $checklistDbEntity= $Model->UltimochecklistById_unidad($unidadDbEntity->get_id()
 ?>	
 <!-- SCRIPTS PARA editar panel -->
 <script>
-function FunctionNuevoNumero(  unidad ) {
-  let text = "Estas seguro de cambiar el Numero de la unidad";
-  if (confirm(text) == true) { 
+function FunctionNuevoNumero(unidad) {
+  let text = "¿Esta seguro de cambiar el número de la unidad?";
+  if (confirm(text) == true) {
 	 
-	var URL = "UnidadCambiarNumero.php"; 
+	var URL = "UnidadCambiarNumero.php";
 	var Respuesta;
 	var NuevoNumero =  document.getElementById("NuevoNumero").value;
 	var token = document.getElementById("password").value ;
 	$.ajax({
-            url:URL,    //the page containing php script
-            type: "post",    //request 
+            url:URL, //the page containing php script
+            type: "post", //request
 			dataType: 'text',
 			  data: {
             tag: unidad,
 			NuevoNumero: NuevoNumero,
 			token: token,
         	},
-		    success: function(result){alert(result)}    
-		  });		 
-	  
+		    success: function(result){alert(result)}
+		  });
+
   } else {
-    alert("Has cancelado");
+    alert("La operación se ha cancelado");
   }
 }
 
-function FunctionNuevaUbicacion(  unidad ) {
-  let text = "Estas seguro de cambiar la ubicación de la unidad";
-  if (confirm(text) == true) { 
-	 
+function FunctionNuevaUbicacion(unidad) {
+  let text = "¿Esta seguro de cambiar la ubicación de la unidad?";
+  if (confirm(text) == true) {
+
 	var URL = "UnidadCambiarNombre.php";
 	var Respuesta;
 	var NuevaUbicacion = document.getElementById("NuevaUbicacion").value;
 	var token = document.getElementById("password").value;
 	$.ajax({
-            url:URL,    //the page containing php script
-            type: "post",    //request
+            url:URL, //the page containing php script
+            type: "post", //request
 			dataType: 'text',
 			  data: {
             tag: unidad,
 			NuevaUbicacion: NuevaUbicacion,
 			token: token,
         	},
-		    success: function(result){alert(result)}    
-		  });		 
-	  
+		    success: function(result){alert(result)}
+		  });
+
   } else {
-    alert("Has cancelado");
+    alert("La operación se ha cancelado");
   }
 }
 	
-function FunctionNuevoTipo(  unidad ) {
-  let text = "Estas seguro de cambiar el Tipo de la unidad";
-  if (confirm(text) == true) { 
-	 
-	var URL = "UnidadCambiarTipo.php"; 
+function FunctionNuevoTipo(unidad) {
+  let text = "¿Esta seguro de cambiar el tipo de unidad?";
+  if (confirm(text) == true) {
+
+	var URL = "UnidadCambiarTipo.php";
 	var Respuesta;
-	  
+
 	var e = document.getElementById("NuevoTipo");
 	var value = e.value;
-	var NuevoTipo = e.options[e.selectedIndex].text;  
-	  
-	var token = document.getElementById("password").value ;
+	var NuevoTipo = e.options[e.selectedIndex].text;
+
+	var token = document.getElementById("password").value;
 	$.ajax({
-            url:URL,    //the page containing php script
-            type: "post",    //request 
+            url:URL, //the page containing php script
+            type: "post", //request
 			dataType: 'text',
 			  data: {
             tag: unidad,
 			NuevoTipo: NuevoTipo,
 			token: token,
         	},
-		    success: function(result){alert(result)}    
-		  });		 
-	  
+		    success: function(result){alert(result)}
+		  });
+
   } else {
-    alert("Has cancelado");
+    alert("La operación se ha cancelado");
   }
 }	
 	
-function FunctionEliminar(  unidad ) {
-  let text = "Estas seguro de elimina la unidad";
-  if (confirm(text) == true) { 
-	 
-	var URL = "UnidadEliminar.php"; 
+function FunctionEliminar(unidad) {
+  let text = "¿Esta seguro de eliminar la unidad?";
+  if (confirm(text) == true) {
+
+	var URL = "UnidadEliminar.php";
 	var Respuesta;
-	var token = document.getElementById("password").value ;
+	var token = document.getElementById("password").value;
 	$.ajax({
-            url:URL,    //the page containing php script
-            type: "post",    //request 
+            url:URL, //the page containing php script
+            type: "post", //request 
 			dataType: 'text',
 			  data: {
             tag: unidad,
 			token: token,
         	},
-		    success: function(result){alert(result)}    
-		  });		 
-	  
-  } else {
-    alert("Has cancelado");
-  }
+		    success: function(result){alert(result)} 
+		  });	 
 
+  } else {
+    alert("La operación se ha cancelado");
+  }
 }
 	
-function FunctionComandosMilesight( ComandoNombre ) {
-  let text = "Estas seguro de accionar la unidad";
-  if (confirm(text) == true) { 
-	 
-	var URL = "ApiController/Postcomandos_milesight.php"; 
+function FunctionComandosMilesight(ComandoNombre) {
+  let text = "¿Esta seguro de accionar la unidad?";
+  if (confirm(text) == true) {
+
+	var URL = "ApiController/Postcomandos_milesight.php";
 	var Respuesta;
-	var token = document.getElementById("password").value ;
+	var token = document.getElementById("password").value;
 	$.ajax({
-            url:URL,    //the page containing php script
-            type: "post",    //request 
+            url:URL, //the page containing php script
+            type: "post", //request
 			dataType: 'text',
 			data: {
             tag: '<?php echo $unidadDbEntity->get_Tag(); ?>',
 			nombre: ComandoNombre,
 			token: token,
         	},
-		    success: function(result){alert(result)}    
-		  });		 
-	  
+		    success: function(result){alert(result)}
+		  });
+
   } else {
-    alert("Has cancelado");
+    alert("La operación se ha cancelado");
   }
 
 }	
