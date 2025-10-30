@@ -17,7 +17,7 @@ if ($conn->connect_error) {
 $data= $_GET['name'];
 
 //Insertando En tabla RowData
-$sql = "SELECT * FROM unidades_lastortolas;";
+$sql = "SELECT * FROM unidades_lastortolas ul ORDER BY ul.DATETIME DESC;";
 
 $sth = mysqli_query($conn, $sql);
 $rows = array();
