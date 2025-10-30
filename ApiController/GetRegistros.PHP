@@ -17,7 +17,7 @@ if ($conn->connect_error) {
 $data= $_GET['name'];
 
 //Insertando En tabla RowData
-$sql = "SELECT u.*,o.CAUDAL,o.DATETIME
+$sql = "SELECT u.*,o.CAUDAL,o.DATETIME,o.id AS id_registro
 FROM unidades_lastortolas o
 JOIN (
     SELECT ul.unidad_id, MAX(ul.DATETIME) AS last_order_date
