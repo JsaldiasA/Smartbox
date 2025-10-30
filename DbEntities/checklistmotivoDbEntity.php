@@ -1,7 +1,7 @@
 <?php
 class checklistmotivoDbEntity {
 
-public $Id;
+public $id;
 public $Nombre;
 public $Descripcion;
 
