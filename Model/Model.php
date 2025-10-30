@@ -111,7 +111,7 @@ class Model {
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) 
 			{
-				$checklistmotivos[] = new checklistmotivoDbEntity($row["Id"],$row["Nombre"],$row["Descripcion"]);
+				$checklistmotivos[] = new checklistmotivoDbEntity($row["id"],$row["Nombre"],$row["Descripcion"]);
 			}
 		}
 		return $checklistmotivos;		 

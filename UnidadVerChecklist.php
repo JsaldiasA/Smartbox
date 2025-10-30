@@ -97,13 +97,6 @@ if( $HasChecklist == true)
 ?>
 
 
-	
-<?php
-// close sql connection
-$conn->close();
-?>
-
-
 
 </body>
 </html>

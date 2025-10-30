@@ -1,7 +1,7 @@
 <?php
 class checklistmotivoDbEntity {
 
-public $Id;
+public $id;
 public $Nombre;
 public $Descripcion;
 
@@ -10,11 +10,11 @@ public $Descripcion;
 $Nombre,
 $Descripcion)
   {
-	$this->Id = $id;
+	$this->id = $id;
 	$this->Nombre = $Nombre;
 	$this->Descripcion = $Descripcion;
   }
-	function get_id() { return $this->Id; }
+	function get_id() { return $this->id; }
 	function get_Nombre() { return $this->Nombre; }
 	function get_Descripcion() { return $this->Descripcion; }
   	
