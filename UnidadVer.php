@@ -6,7 +6,7 @@ require_once 'views/navbar.php';
 	
 $dat= $_GET['tag'];
 $limit= 100;
-require_once 'Model/model.php';	
+require_once 'Model/model.php';
 	
 $Model = new Model();	
 $unidadDbEntity = $Model->unidadByTag($dat);
@@ -40,13 +40,13 @@ function FunctionNuevoNumero(  unidad ) {
   }
 }
 
-function FunctionNuevoNombre(  unidad ) {
-  let text = "Estas seguro de cambiar el nombre de la unidad";
+function FunctionNuevaUbicacion(  unidad ) {
+  let text = "Estas seguro de cambiar la ubicación de la unidad";
   if (confirm(text) == true) { 
 	 
-	var URL = "UnidadCambiarNombre.php"; 
+	var URL = "UnidadCambiarNombre.php";
 	var Respuesta;
-	var NuevoNombre =  document.getElementById("NuevoNombre").value;
+	var NuevaUbicacion = document.getElementById("NuevaUbicacion").value;
 	var token = document.getElementById("password").value ;
 	$.ajax({
             url:URL,    //the page containing php script
@@ -54,7 +54,7 @@ function FunctionNuevoNombre(  unidad ) {
 			dataType: 'text',
 			  data: {
             tag: unidad,
-			NuevoNombre: NuevoNombre,
+			NuevaUbicacion: NuevaUbicacion,
 			token: token,
         	},
 		    success: function(result){alert(result)}    
@@ -450,7 +450,7 @@ $(document).ready(function(){
 });
 </script>";
 } else {
-    echo "unidad sin checklist";
+    echo "Unidad sin checklist";
 }
 		  ?>
 	</div>
@@ -461,9 +461,5 @@ $(document).ready(function(){
 	</div>
 	</div>
 		</div>
-
-
-
-
 </body>
 </html>

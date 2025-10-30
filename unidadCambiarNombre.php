@@ -6,7 +6,7 @@ $password = "Helegta1!";
 $dbname = "sirecor";
 
 $tag= $_POST['tag'];
-$NuevoNombre= $_POST['NuevoNombre'];
+$NuevaUbicacion= $_POST['NuevaUbicacion'];
 $token= $_POST['token'];
 
 
@@ -19,7 +19,7 @@ if (strcmp($token,'eco3spa')==0)
 	if ($conn->connect_error) {
  	 die("Connection failed: " . $conn->connect_error);
 	}
-	 $sql = "UPDATE `unidad` SET `nombre` = '{$NuevoNombre}' WHERE `tag` LIKE '{$tag}'";
+	 $sql = "UPDATE `unidad` SET `Ubicacion` = '{$NuevaUbicacion}' WHERE `tag` LIKE '{$tag}'";
 
 	$result = $conn->query($sql);
 
@@ -30,13 +30,13 @@ if (strcmp($token,'eco3spa')==0)
 	else
 	{   echo $result;}
 	
-	echo "Cambio de nombre hecho correctamente Nuevo Nombre:".$NuevoNombre;
+	echo "Cambio de ubicación hecho correctamente. Nueva ubicación: ".$NuevaUbicacion;
 	$conn->close();
 	
 }
 else
 {
-	echo "password Incorrecta";
+	echo "Contraseña incorrecta";
 }
 
 ?>
