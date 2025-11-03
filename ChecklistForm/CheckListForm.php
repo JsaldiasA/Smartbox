@@ -8,10 +8,15 @@ require_once $sitebasepath."/views/head.php";
 require_once $sitebasepath."/views/navbar.php";
 require_once $sitebasepath.'/DbEntities/unidadDbEntity.php';
 require_once $sitebasepath.'/DbEntities/checklistDbEntity.php';
-require_once $sitebasepath.'/config/DbSirecorConfig.php';	
+require_once $sitebasepath.'/config/DbSirecorConfig.php';
+require_once $sitebasepath."/Model/model.php";
+
+
 ?>
 <?php
+
 $UnidadTag= $_GET['tag'];
+$model = new Model();
 
 $dbConfig = new DbSirecorConfig();		
 // Create connection
@@ -24,15 +29,7 @@ if ($conn->connect_error) {
 $sql = "SELECT * FROM `unidad` WHERE `tag`= '{$UnidadTag}'";
 $result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
-	while($row = $result->fetch_assoc()) 
-	{
-	    $unidadDbEntity= new unidadDbEntity($row["id"],$row["Nombre"],$row["tag"],$row["Numero"],$row["UltimaActualizacion"],$row["Volumen"],$row["Estado"],$row["id_unidadTipo"],$row["InvertirEntrada"],$row["BatNivel"]);
-//cuidado con el casing, distinge de mayusculas y minusculas
-	}
-} 
-else 
-{ echo "0 results"; }
+$unidadDbEntity=$model->unidadByTag($UnidadTag);
 
 	?>	
 	
