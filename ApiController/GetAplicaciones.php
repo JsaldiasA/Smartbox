@@ -19,6 +19,7 @@ echo '<table class="table">
 		<thead>
 		<th scope="col">AppName</th>';
 		echo '<th scope="col">LastUpdate</th>
+		<th scope="col">Estado</th>
 		</thead>
 		<tbody>';
 
@@ -29,8 +30,9 @@ foreach ($externalapps as $app)
 		//print row
         echo "<tr>"; 
         echo "<td>".$app->get_AppName()."</td>";   
-        echo "<td>". $app->get_LastUpdate()."</td>";
-       
+        echo "<td>". $app->DiffBetweenNow_and_LastUpdate()."</td>";
+		echo ($app->DiffBetweenNow_and_LastUpdate() == "0 min") ? "<td>Connectado</td>" : "<td>Desconectado</td> ";
+	
 }// columnas
 
     
