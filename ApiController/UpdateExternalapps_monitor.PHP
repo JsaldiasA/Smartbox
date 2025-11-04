@@ -12,7 +12,7 @@ $AppName= $_GET['AppName'];
 $Model = new model();
 
 //Insertando En tabla RowData
-$result=$Model->executeSQL( "update externalapps_monitor e set e.LastUpdate = NOW() WHERE e.AppName like '".$AppName."');");
+$result=$Model->executeSQL( "update externalapps_monitor e set e.LastUpdate = NOW() WHERE e.AppName like '".$AppName."'");
 
 echo "OK";
 
