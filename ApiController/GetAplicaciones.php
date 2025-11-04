@@ -31,7 +31,7 @@ foreach ($externalapps as $app)
         echo "<tr>"; 
         echo "<td>".$app->get_AppName()."</td>";   
         echo "<td>". $app->DiffBetweenNow_and_LastUpdate()."</td>";
-		echo ($app->DiffBetweenNow_and_LastUpdate() == "0 min") ? "<td>Connectado</td>" : "<td>Desconectado</td> ";
+		echo ($app->DiffBetweenNow_and_LastUpdate() == "0 Min") ? "<td>Connectado</td>" : "<td>Desconectado</td> ";
 	
 }// columnas
 
