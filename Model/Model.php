@@ -9,6 +9,7 @@ require_once $sitebasepath.'/DbEntities/checklistDbEntity.php';
 require_once $sitebasepath.'/DbEntities/checklistmotivoDbEntity.php';
 require_once $sitebasepath.'/DbEntities/comandos_milesightDbEntity.php';
 require_once $sitebasepath.'/DbEntities/eventosDbEntity.php';
+require_once $sitebasepath.'/DbEntities/externalapps_monitorDbEntity.php';
 require_once $sitebasepath.'/config/DbSirecorConfig.php';
 
 class Model {
@@ -18,6 +19,29 @@ class Model {
 		
   	}
 	
+			function get_externalapps_monitor()
+	{ 			
+		$sql = "SELECT * FROM `externalapps_monitor`";
+		$result = $this->executeSQL($sql);
+		
+		$externalapps_monitors = [];
+			
+		if ($result->num_rows > 0) {
+		while($row = $result->fetch_assoc()) 
+		{
+	    $externalapps_monitors[] = new externalapps_monitorDbEntity(
+		$row["id"],
+		$row["LastUpdate"],
+		$row["AppName"],
+		$row["Description"]
+		);
+		// cuidado con el casing, distinge de mayusculas y minusculas
+		}
+		}
+		return $externalapps_monitors;
+			 
+	}
+
 		function get_unidades()
 	{ 			
 		$sql = "SELECT * FROM `unidad`";
