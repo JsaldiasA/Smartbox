@@ -11,7 +11,7 @@ require_once $sitebasepath."/Model/model.php";
 $Model = new model();
 
 //Insertando En tabla RowData
-$Model->executeSQL( "update externalapps_monitor e set e.LastUpdate = NOW() WHERE e.AppName like '$AppName');");
+$Model->executeSQL( "update externalapps_monitor e set e.LastUpdate = NOW() WHERE e.AppName like '".$AppName."');");
 
 echo 'OK';
 
