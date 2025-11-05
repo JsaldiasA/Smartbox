@@ -76,7 +76,7 @@ $EC)
 		{
 			$UltimaActROW=$UltimaAct->format('<b style="color: green;"> %i Min');
 		}
-		else {$UltimaActROW=$UltimaAct->format('<b style="color: red;">%h Horas');}`
+		else {$UltimaActROW=$UltimaAct->format('<b style="color: red;">%h Horas');}
 		}
 	else {$UltimaActROW=$UltimaAct->format('<b style="color: red;">%a Dias');}
 	  
