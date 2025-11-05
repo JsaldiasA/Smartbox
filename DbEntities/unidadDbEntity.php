@@ -74,11 +74,11 @@ $EC)
 	{	
 	   if ($UltimaAct->format("%h")=="0")
 		{
-			$UltimaActROW=$UltimaAct->format("%i Min");
+			$UltimaActROW=$UltimaAct->format('<b style="color: green;"> %i Min');
 		}
-		else {$UltimaActROW=$UltimaAct->format("%h Horas");}
+		else {$UltimaActROW=$UltimaAct->format('<b style="color: red;">%h Horas');}`
 		}
-	else {$UltimaActROW=$UltimaAct->format("%a Dias");}
+	else {$UltimaActROW=$UltimaAct->format('<b style="color: red;">%a Dias');}
 	  
 	return $UltimaActROW;
   }	
@@ -89,4 +89,4 @@ $EC)
 //$apple = new unidadDbEntity("999","Caja","Cmile","99292312","1 min","10","on","4","2","100%");
 //echo "ok".$apple->get_Id_UnidadTipo();
 
-?>
+?>`
