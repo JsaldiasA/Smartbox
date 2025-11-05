@@ -74,11 +74,11 @@ $EC)
 	{	
 	   if ($UltimaAct->format("%h")=="0")
 		{
-			$UltimaActROW=$UltimaAct->format('<b style="color: green;"> %i Min');
+			$UltimaActROW= ($UltimaAct->format("%i") > 30) ? $UltimaAct->format('<a style="color: yellow;"> %i Min</a>') : $UltimaAct->format('<a style="color: green;"> %i Min</a>')  ;
 		}
-		else {$UltimaActROW=$UltimaAct->format('<b style="color: red;">%h Horas');}
+		else {$UltimaActROW=$UltimaAct->format('<a style="color: red;">%h Horas</a>');}
 		}
-	else {$UltimaActROW=$UltimaAct->format('<b style="color: red;">%a Dias');}
+	else {$UltimaActROW=$UltimaAct->format('<a style="color: red;">%a Dias');}
 	  
 	return $UltimaActROW;
   }	
