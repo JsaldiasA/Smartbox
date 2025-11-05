@@ -9,43 +9,14 @@ $thispath=dirname($_SERVER['PHP_SELF']);
 $sitebasepath=$_SERVER['DOCUMENT_ROOT'];
 require_once $sitebasepath."/Model/model.php";
 
-
 $Model = new model();
 
-$Unidad = $Model->UnidadByTag($obj->devEUI);
-
-if( is_null($Unidad) )
-{$batAnterior = "0";}
-else
-{
-	$batAnterior= $Unidad->get_BatNivel();
-	$VolumenAnterior = $Unidad->get_Volumen();
-	$VolumenActual = $obj->valve_2_pulse;
-	$CAUDALcalculado= $VolumenActual - $VolumenAnterior;
-
-}
+$UnidadExistente = $Model->UnidadByTag($obj->devEUI);
 
 
 //Insertando En tabla RowData
 $sql = "INSERT INTO `rowdata`(`RowData`) VALUES ('{$data}');";
 $result = $Model->executeSQL($sql);
-//if ($result->num_rows > 0) { echo 'Agregado a DB ROWDATA';} else { echo 'Sin resultados en DB'; }
-    
-
-// SP ingresoMilesight Parametros.
-// $UNIDAD, $ESTADO, $VOLUMEN, $CAUDAL, $SENAL, $VOLTAJE, $VOLTAJE, $NOMBRE,$Temperatura, $Humedad,$EC
-
- $UNIDAD="";
- $ESTADO="";
- $VOLUMEN="";
- $CAUDAL="";
- $SENAL="0";
- $VOLTAJE="0";
- $BATNIVEL="0";
- $NOMBRE="";
- $Temperatura="";
- $Humedad="";
- $EC="";
 
 //Parseando la data del String que viene desde Sirecor
 if( $obj->deviceName === "sensor humedad test")
@@ -54,29 +25,47 @@ if( $obj->deviceName === "sensor humedad test")
 	$UNIDAD= $obj->devEUI; 
 	$ESTADO= $obj->temperature;
 	$VOLUMEN=$obj->moisture;
+	$BATNIVEL = $obj->battery ?? "0";
 	$CAUDAL= $obj->ec;
-	$TEMPERATURA = $obj->temperature;
-	$HUMEDAD = $obj->moisture;
+	$Temperatura = $obj->temperature;
+	$Humedad = $obj->moisture;
 	$EC = $obj->ec;
 }
-else
+else // si es caja u511 soleniod valve controller
 {
-	$NOMBRE = $obj->deviceName;
-	$UNIDAD = $obj->devEUI;
-	$ESTADO = $obj->valve_1;
-	$VOLUMEN = $obj->valve_2_pulse;
-	$BATNIVEL = $obj->battery ?? $batAnterior;
-	$CAUDAL = $CAUDALcalculado;
-	$Temperatura = 0;
-	$Humedad = 0;
-	$EC = 0;
+	// si la unidad se esta registrando por primera vez
+	if( is_null($UnidadExistente) ) 
+	{
+		$NOMBRE = $obj->deviceName;
+		$UNIDAD = $obj->devEUI;
+		$ESTADO = $obj->valve_1;
+		$VOLUMEN = $obj->valve_2_pulse ?? "0";
+		$BATNIVEL = $obj->battery ?? "0";
+		$CAUDAL = "0";
+		$Temperatura = 0;
+		$Humedad = 0;
+		$EC = 0;
+	}
+	else
+	{
+		$NOMBRE = $obj->deviceName;
+		$UNIDAD = $obj->devEUI;
+		$ESTADO = $obj->valve_1;
+		$VOLUMEN = $obj->valve_2_pulse ?? $UnidadExistente->get_Volumen();
+		$BATNIVEL = $obj->battery ?? $UnidadExistente->get_BatNivel();
+		$CAUDAL = $VOLUMEN - $UnidadExistente->get_Volumen();
+		$Temperatura = 0;
+		$Humedad = 0;
+		$EC = 0;
+	}
 }
 
+// SP ingresoMilesight Parametros.
+// $UNIDAD, $ESTADO, $VOLUMEN, $CAUDAL, $SENAL, $VOLTAJE, $VOLTAJE, $NOMBRE,$Temperatura, $Humedad,$EC
 
-$sql = "CALL ingresoMilesight('{$UNIDAD}', '{$ESTADO}', '{$VOLUMEN}','{$CAUDAL}', '{$SENAL}','{$VOLTAJE}','{$BATNIVEL}','{$NOMBRE}','{$Temperatura}','{$Humedad}','{$EC}')";
+$sql = "CALL ingresoMilesight('{$UNIDAD}', '{$ESTADO}', '{$VOLUMEN}','{$CAUDAL}', '0','{$BATNIVEL}','{$BATNIVEL}','{$NOMBRE}','{$Temperatura}','{$Humedad}','{$EC}')";
 
 $resultB = $Model->executeSQL($sql);
-//if ($resultB->num_rows > 0) { echo 'CALL ingresoMilesight Exitoso';} else { echo 'Sin resultados en DB'; }
-echo "unidad: {$UNIDAD}', ESTADO'{$ESTADO}', VOLUMEN'{$VOLUMEN}',CAUDAL'{$CAUDAL}', SENAL '{$SENAL}',VOLTAJE'{$VOLTAJE}',BATNIVEL'{$BATNIVEL}',NOMBRE'{$NOMBRE}',Temperatura'{$Temperatura}',Humedad'{$Humedad}',EC'{$EC}')";;
+echo "unidad: {$UNIDAD}', ESTADO'{$ESTADO}', VOLUMEN'{$VOLUMEN}',CAUDAL'{$CAUDAL}', SENAL '{0}',VOLTAJE'{$BATNIVEL}',BATNIVEL'{$BATNIVEL}',NOMBRE'{$NOMBRE}',Temperatura'{$Temperatura}',Humedad'{$Humedad}',EC'{$EC}')";;
 
 ?>
