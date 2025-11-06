@@ -3,6 +3,12 @@
 <?php
 require_once 'views/head.php';	
 require_once 'views/navbar.php';	
+$self=$_SERVER['PHP_SELF']; 
+$thispath=dirname($_SERVER['PHP_SELF']);
+$sitebasepath=$_SERVER['DOCUMENT_ROOT'];
+
+require($sitebasepath.'/vendor/autoload.php');
+require_once $sitebasepath."/helpers/JWT.php";
 ?>	
 <script>
 
@@ -111,8 +117,9 @@ function GetBodega()
 $tk= $_GET['tk'];
 $jwtHelper = new JWT();
 $decoded = $jwtHelper->decode($tk);
+
 if ($decoded) {
-    print_r($decoded); // Prints header and payload
+echo ($decoded); // Prints header and payload
 echo '<br>
 <div class="container">
 	<div class="row">
