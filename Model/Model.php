@@ -66,7 +66,8 @@ class Model {
 		$row["BatNivel"],
 		$row["Temperatura"],
 		$row["Humedad"],
-		$row["EC"],);
+		$row["EC"],
+		$$row["VolMax"]);
 		// cuidado con el casing, distinge de mayusculas y minusculas
 		}
 		}
