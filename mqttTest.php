@@ -6,12 +6,12 @@ require_once 'Model/model.php';
 use \PhpMqtt\Client\MqttClient;
 use \PhpMqtt\Client\ConnectionSettings;
 
-$server   = 'y612198b.ala.eu-central-1.emqxsl.com';
+$server   = 'i707fd0d.ala.us-east-1.emqxsl.com';
 // TLS port
 $port     = 8883;
 $clientId = rand(5, 15);
-$username = 'testcsharp';
-$password = 'password';
+$username = 'Milesight_Bridge';
+$password = 'eco3_bridge';
 $clean_session = false;
 
 $connectionSettings  = (new ConnectionSettings)
