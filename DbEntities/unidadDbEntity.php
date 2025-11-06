@@ -15,6 +15,7 @@ public $BatNivel;
 public $Temperatura;
 public $Humedad;
 public $EC;
+public $VolMax;
 	    
 function __construct($id,
 $Serie,
@@ -29,7 +30,8 @@ $InvertirEntrada,
 $BatNivel,
 $Temperatura,
 $Humedad,
-$EC)
+$EC,
+$VolMax)
 
 { 		
   $this->id = $id;
@@ -46,6 +48,7 @@ $EC)
   $this->Temperatura = $Temperatura;
   $this->Humedad = $Humedad;
   $this->EC = $EC;
+  $this->$VolMax = $VolMax;
 }
 
   function get_id() { return $this->id; }
@@ -62,6 +65,8 @@ $EC)
   function get_Temperatura() { return $this->Temperatura; }
   function get_Humedad() { return $this->Humedad; }
   function get_EC() { return $this->EC; }
+  function get_VolMax() { return $this->VolMax; }
+
   
   function DiffBetweenNow_and_UltimaActualizacion() {
 	
@@ -74,11 +79,11 @@ $EC)
 	{	
 	   if ($UltimaAct->format("%h")=="0")
 		{
-			$UltimaActROW=$UltimaAct->format('<b style="color: green;"> %i Min');
+			$UltimaActROW= ($UltimaAct->format("%i") > 30) ? $UltimaAct->format('<a style="color: yellow;"> %i Min</a>') : $UltimaAct->format('<a style="color: green;"> %i Min</a>')  ;
 		}
-		else {$UltimaActROW=$UltimaAct->format('<b style="color: red;">%h Horas');}
+		else {$UltimaActROW=$UltimaAct->format('<a style="color: red;">%h Horas</a>');}
 		}
-	else {$UltimaActROW=$UltimaAct->format('<b style="color: red;">%a Dias');}
+	else {$UltimaActROW=$UltimaAct->format('<a style="color: red;">%a Dias');}
 	  
 	return $UltimaActROW;
   }	
