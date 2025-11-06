@@ -59,3 +59,5 @@ class JWT
         ];
     }
 }
+$token = new JWT(['email' => 'email', 'role' => 'admin']);
+		echo " jwt: " .$token;
