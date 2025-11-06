@@ -14,7 +14,7 @@ require_once 'views/navbar.php';
 	
 function Login() 
 	{
-    		var URL = "UnidadCambiarNumero.php";
+    		var URL = "ApiController/Login.php";
 
 	var email =  document.getElementById("email").value;
 	var password = document.getElementById("password").value ;
