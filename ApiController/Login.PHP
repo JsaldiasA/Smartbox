@@ -16,9 +16,11 @@ if (strcmp($email,'info@eco3.cl')==0)
 		echo "password Incorrecta";
 	}
 }
-	else
-	{
-		echo "Usuario desconocido";
-	}
+else
+{
+	echo "Usuario desconocido";
+}
+
+	echo "p:".$email."e:".$password;
 
 ?>
