@@ -15,6 +15,7 @@ public $BatNivel;
 public $Temperatura;
 public $Humedad;
 public $EC;
+public $VolMax;
 	    
 function __construct($id,
 $Serie,
@@ -29,7 +30,8 @@ $InvertirEntrada,
 $BatNivel,
 $Temperatura,
 $Humedad,
-$EC)
+$EC,
+$VolMax)
 
 { 		
   $this->id = $id;
@@ -46,6 +48,7 @@ $EC)
   $this->Temperatura = $Temperatura;
   $this->Humedad = $Humedad;
   $this->EC = $EC;
+  $this->$VolMax = $VolMax;
 }
 
   function get_id() { return $this->id; }
@@ -62,6 +65,8 @@ $EC)
   function get_Temperatura() { return $this->Temperatura; }
   function get_Humedad() { return $this->Humedad; }
   function get_EC() { return $this->EC; }
+  function get_VolMax() { return $this->VolMax; }
+
   
   function DiffBetweenNow_and_UltimaActualizacion() {
 	
