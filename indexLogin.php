@@ -26,7 +26,11 @@ function Login()
             email: email,
 			password: password,
         	},
+<<<<<<< HEAD
 		    success: function(result){alert(result)}
+=======
+		    success: function(result){window.location.replace("http://smartbox.eco3.cl/index.php?tk="+result);}
+>>>>>>> 97a7e5fe5ad96657051f0bc273aecfad1c16b730
 		  });
 	}
 	

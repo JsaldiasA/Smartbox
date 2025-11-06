@@ -102,10 +102,18 @@ function GetBodega()
         window.location = $(this).data("href");
     });
 });
-	
+
 </script>
 <body>
-<br>
+
+<?php
+
+$tk= $_GET['tk'];
+$jwtHelper = new JWT();
+$decoded = $jwtHelper->decode($tk);
+if ($decoded) {
+    print_r($decoded); // Prints header and payload
+echo '<br>
 <div class="container">
 	<div class="row">
 		<H1>Aplicaciones</H1>
@@ -149,6 +157,12 @@ function GetBodega()
 			<div id="GetSensorHumedadMilesightResult"></div>
 		</div>
 	</div>
-</div>
+</div>';
+} else {
+    echo "Invalid token.";
+}
+
+?>
+
 </body>
 </html>
