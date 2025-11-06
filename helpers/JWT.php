@@ -59,7 +59,3 @@ class JWT
         ];
     }
 }
-$jwt = new JWT();
-$token = $jwt->encode(['email' => 'email', 'role' => 'admin']); 
-
-		echo " jwt: " .$token;
