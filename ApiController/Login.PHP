@@ -29,6 +29,4 @@ else
 	echo "Usuario desconocido";
 }
 
-	echo "p:".$email."e:".$password;
-
 ?>
