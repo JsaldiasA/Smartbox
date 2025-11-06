@@ -41,10 +41,10 @@ $isEstanque = ($unidadTipo_Nombre == 'Estanque7600') ? true : false;
 		}
 
 usort($UnidadesFiltradasPorTipo, function($a, $b) {
-    if ($a->get_UltimaActualizacion() == $b->get_UltimaActualizacion()) {
+    if ($a->get_Volumen() == $b->get_Volumen()) {
         return 0;
     }
-    return ($a->get_UltimaActualizacion() > $b->get_UltimaActualizacion()) ? -1 : 1;
+    return ($a->get_Volumen() < $b->get_Volumen()) ? -1 : 1;
 });
 
 
