@@ -16,8 +16,9 @@ if (strcmp($email,'info@eco3.cl')==0)
 	if (strcmp($password,'eco3spa')==0)
 	{
 		echo "password correcta";
-		$token = new JWT(['email' => 'email', 'role' => 'admin']);
-		echo " jwt: " .$token;
+		$jwt = new JWT();
+		$token =  $jwt->encode(['email' => 'email', 'role' => 'admin']);
+		echo $token;
 		
 	}
 	else
