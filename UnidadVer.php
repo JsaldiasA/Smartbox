@@ -207,9 +207,31 @@ function FunctionComandosMilesight(ComandoNombre) {
 			"</td></tr>";
 			echo '</tbody></table>';
 		}
-	?>	
-</div>
+		?>	
 	</div>
+</div>
+
+<div class="row" >
+	<div class="col" >
+		<h2>Config</h2>
+		<?php
+			
+			echo '<table class="table">
+			<thead >
+			<th scope="col">Parametro</th>
+			<th scope="col">Valor</th>	
+			</thead><tbody>';// Header tabla
+			//print row
+			echo "<tr>  
+			<td>". "<b>Volemn Maximo</b>".
+			"</td> <td>". $unidadDbEntity->get_VolMax().
+			" [L]</td></tr>";
+			echo '</tbody></table>';
+		
+		?>	
+
+	</div>		
+</div>
 
 <div class="row" >
 	<?php
