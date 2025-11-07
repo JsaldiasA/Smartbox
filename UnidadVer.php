@@ -229,7 +229,6 @@ function FunctionComandosMilesight(ComandoNombre) {
 			echo '</tbody></table>';
 		
 		?>	
-
 	</div>		
 </div>
 
