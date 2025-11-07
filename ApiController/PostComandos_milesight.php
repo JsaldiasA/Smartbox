@@ -16,17 +16,15 @@ $ComandoNombre= $_POST['nombre'];
 $token= $_POST['token'];
 
 
-
 use \PhpMqtt\Client\MqttClient;
 use \PhpMqtt\Client\ConnectionSettings;
 
 try {
-$server   = 'y612198b.ala.eu-central-1.emqxsl.com';
-// TLS port
+$server   = 'i707fd0d.ala.us-east-1.emqxsl.com';
 $port     = 8883;
 $clientId = rand(5, 15);
-$username = 'testcsharp';
-$password = 'password';
+$username = 'Milesight_Bridge';
+$password = 'eco3_bridge';
 $clean_session = false;
 
 $connectionSettings  = (new ConnectionSettings)
@@ -41,7 +39,7 @@ $mqtt = new MqttClient($server, $port, $clientId, MqttClient::MQTT_3_1_1);
 
 $mqtt->connect($connectionSettings, $clean_session);
 
-$mqtt->subscribe('downlink/24e124460e221474', function ($topic, $message) {
+$mqtt->subscribe('downlink/'.$tag, function ($topic, $message) {
     printf("Received message on topic [%s]: %s\n", $topic, $message);
 }, 0);
 
