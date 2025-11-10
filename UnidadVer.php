@@ -224,7 +224,7 @@ function FunctionComandosMilesight(ComandoNombre) {
 			//print row
 			echo "<tr>  
 			<td>". "<b>Volemn Maximo</b>".
-			"</td> <td>". var_dump($unidadDbEntity).
+			"</td> <td>". $unidadDbEntity->get_VolMax().
 			" [L]</td></tr>";
 			echo '</tbody></table>';
 		
