@@ -48,7 +48,7 @@ $VolMax)
   $this->Temperatura = $Temperatura;
   $this->Humedad = $Humedad;
   $this->EC = $EC;
-  $this->$VolMax = $VolMax;
+  $this->VolMax = $VolMax;
 }
 
   function get_id() { return $this->id; }
