@@ -1,20 +1,21 @@
 <?php
-//echo "hola";
 
-$servername = "localhost:3306";
-$username = "Sirecor_usuario";
-$password = "Helegta1!";
-$dbname = "sirecor";
+$self=$_SERVER['PHP_SELF'];
+$thispath=dirname($_SERVER['PHP_SELF']);
+$sitebasepath=$_SERVER['DOCUMENT_ROOT'];
+require_once $sitebasepath."/Model/model.php";
 
-//echo 'Hello ' . htmlspecialchars($_GET["name"]) . '!';
+$Model = new model();
+
 $data= $_GET['name'];
 
-
-$Head= substr($data,  -5);
+$StringFinal= substr($data,  -5); // deberia ser .fin* para las versiones del codigo 4.1 en adelante
 $TIPO= substr($data,  0, 3);
 $UNIDAD= substr($data,  strpos($data,".V*")+3, strpos($data,".U*")-(strpos($data,".V*")+3) );
+$TipoBat;
 
-if($Head==".fin*"){ 
+
+if($StringFinal==".fin*"){ 
 	if( $TIPO == "INI" or $TIPO == "ACT" or $TIPO == "ERR"  ){
 			
 		$ADMIN= substr($data, strpos($data,".A*")-8,8);
@@ -27,7 +28,8 @@ if($Head==".fin*"){
 		$VerCodigo=substr($data,  3, strpos($data,".V*")-3);
 		$VOLUMEN=substr($data,  strpos($data,".U2*")+4, strpos($data,".C*")-(strpos($data,".U2*")+4));
 		$INV=substr($data,  strpos($data,".C*")+3, strpos($data,".I*")-(strpos($data,".C*")+3));
-		$LVOLTAJE=substr($data,  (strpos($data,".I*")+3),2);
+		$TipoBat =substr($data,  strpos($data,".I*")+3, strpos($data,".L*")-(strpos($data,".I*")+3)) ;
+		$LVOLTAJE=substr($data,  (strpos($data,".L*")+3),2);
 	}
 }	
 else
@@ -61,21 +63,7 @@ else
 		$LVOLTAJE=substr($data,  (strpos($data,".I*")+3),strlen($data));
 	}
 }
-echo $UNIDAD;
-//echo $data;
-//echo '!';
-//echo $ESTADO;
-//echo '!';
-//echo $VOLUMEN;
-//echo '!';
-//echo $CAUDAL;
-//echo '!';
-//echo $SENAL;
-//echo '!';
-//echo $VOLTAJE;
-//echo '!';
 
-//echo $UNIDAD;
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
@@ -84,31 +72,15 @@ if ($conn->connect_error) {
 }
 
 $IP = $_SERVER['REMOTE_ADDR'];
-$dataAndIP= $IP+$data;
 
-echo $dataAndIP;
 //Insertando En tabla RowData
 $sql = "INSERT INTO `rowdata`(`RowData`,`IP`) VALUES ('{$data}','{$IP}');";
 
-if ($conn->query($sql) === TRUE) {
- echo "ROW agregado exitosamente";
-} else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
-}
+$result=$Model->executeSQL( $sql);
 
-
-//$VOLUMEN = intval($VOLUMEN);
-
-
-$sql = "INSERT INTO `eventos` (`UNIDAD`, `USUARIO1`, `USUARIO2`, `USUARIO3`, `USUARIO4`, `ADMIN`, `MANTENCION`, `INTERNET`, `VerCodigo`, `LVOLTAJE`, `INV`, `VOLUMEN MAX`, `TIMESTAMP`, `TIPO`) VALUES ('{$UNIDAD}', '{$USUARIO1}', '{$USUARIO2}', '{$USUARIO3}', '{$USUARIO4}', '{$ADMIN}', '{$MANTENCION}', '{$INTERNET}', '{$VerCodigo}', '{$LVOLTAJE}', '{$INV}', '{$VOLUMEN}', current_timestamp(), '{$TIPO}')";
+$sql = "INSERT INTO `eventos` (`UNIDAD`, `USUARIO1`, `USUARIO2`, `USUARIO3`, `USUARIO4`, `ADMIN`, `MANTENCION`, `INTERNET`, `VerCodigo`, `LVOLTAJE`, `INV`, `VOLUMEN MAX`, `TIMESTAMP`, `TIPO`,`TipoBat`) VALUES ('{$UNIDAD}', '{$USUARIO1}', '{$USUARIO2}', '{$USUARIO3}', '{$USUARIO4}', '{$ADMIN}', '{$MANTENCION}', '{$INTERNET}', '{$VerCodigo}', '{$LVOLTAJE}', '{$INV}', '{$VOLUMEN}', current_timestamp(), '{$TIPO}','{$TipoBat}')";
 	
-//$sql = "INSERT INTO `eventos` (`UNIDAD`, `USUARIO1`, `USUARIO2`, `USUARIO3`, `USUARIO4`, `ADMIN`, `MANTENCION`, `LVOLTAJE`, `INV`, `VOLUMEN MAX`, `TIMESTAMP`, `TIPO`) VALUES ('7', '7', '7', '7', '7', '77', '77', '7', '7', '7', current_timestamp(), '7')";
-
+$result=$Model->executeSQL( $sql);
 	
-if ($conn->query($sql) === TRUE) {
- echo "New record created successfully";
-} else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
-}
-$conn->close();
+
  ?>
