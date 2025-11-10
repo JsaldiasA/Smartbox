@@ -104,7 +104,6 @@ $jwtHelper = new JWT();
 $decoded = $jwtHelper->decode($tk);
 
 if ($decoded) {
-echo ($decoded); // Prints header and payload
 echo '<br>
 <div class="container">
 	<div class="row">
@@ -135,18 +134,6 @@ echo '<br>
 		<h1>Unidad Indefinida</H1>
 		<div class="overflow-auto">
 			<div id="GetUnidadIndefinidaResult"></div>
-		</div>
-	</div>
-	<div class="row">
-		<H1>Unidad Bodega</H1>
-		<div class="overflow-auto">
-			<div id="GetBodegaResult"></div>
-		</div>
-	</div>
-		<div class="row">
-		<H1>Milesight Sensor Humedad</H1>
-		<div class="overflow-auto">	
-			<div id="GetSensorHumedadMilesightResult"></div>
 		</div>
 	</div>
 </div>';
