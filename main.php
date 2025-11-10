@@ -17,16 +17,16 @@ GetEstanques();
 GetSirecor();
 GetMilesight();
 GetUnidadIndefinida();
-GetBodega();
-GetSensorHumedadMilesight();
+//GetBodega();
+//GetSensorHumedadMilesight();
 // hilo	
 var myRefreshEstanque = setInterval(GetAplicaciones, 1000);
 var myRefreshEstanque = setInterval(GetEstanques, 1000);
 var myRefreshSirecor = setInterval(GetSirecor, 1000);
 var myRefreshMilesight = setInterval(GetMilesight, 1000);
 var myRefreshUnidadIndefinida = setInterval(GetUnidadIndefinida, 1000);
-var myRefreshGetBodega = setInterval(GetBodega, 1000);
-var myRefreshGetSensorHumedadMilesight = setInterval(GetSensorHumedadMilesight, 1000);		
+//var myRefreshGetBodega = setInterval(GetBodega, 1000);
+//var myRefreshGetSensorHumedadMilesight = setInterval(GetSensorHumedadMilesight, 1000);		
 
 //Funciones
 
@@ -81,7 +81,7 @@ function GetUnidadIndefinida()
 		    success: function(result){document.getElementById("GetUnidadIndefinidaResult").innerHTML= result;}    
 		});
 	}
-//GetSensorHumedadMilesight	
+/*//GetSensorHumedadMilesight	
 function GetSensorHumedadMilesight() 
 	{
     	var URL = "ApiController/GetUnidad.php?unidadtipo=SensorHumedadMilesight"
@@ -91,23 +91,8 @@ function GetSensorHumedadMilesight()
 		    success: function(result){document.getElementById("GetSensorHumedadMilesightResult").innerHTML= result;}    
 		});
 	}
-//GetBodega
-	
-function GetBodega() 
-	{
-    	var URL = "ApiController/GetBodega.php"; 
-		$.ajax({
-            url:URL,    //the page containing php script
-            type: "post",    //request 
-		    success: function(result){document.getElementById("GetBodegaResult").innerHTML= result;}    
-		});
-	}
+*/
 
-	jQuery(document).ready(function($) {
-    $(".clickable-row").click(function() {
-        window.location = $(this).data("href");
-    });
-});
 
 </script>
 <body>
