@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 
 //Tomando datos desde solicitud HTTP GET
 
-$data= $_GET['name'];
+//$data= $_GET['name'];
 
 //Insertando En tabla RowData
 $sql = "SELECT u.*,o.CAUDAL,o.DATETIME,o.id AS id_registro

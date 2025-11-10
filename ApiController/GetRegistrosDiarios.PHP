@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 
 //Tomando datos desde solicitud HTTP GET
 
-$data= $_GET['name'];
+//$data= $_GET['name'];
 
 //Insertando En tabla RowData
 $sql = "SELECT * FROM unidades_lastortolas ul ORDER BY ul.DATETIME DESC;";
