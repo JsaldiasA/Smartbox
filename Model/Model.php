@@ -304,6 +304,20 @@ class Model {
 		return $checklistsOfThisUnit;
 		
 	}
+
+	function RegistrosIniciacionByTag( $tag ) 
+	{ 			
+		$RegistrosIniciacion = $this->get_eventos();
+		$RegistrosIniciacionForThisUnit = [];	
+		foreach ($RegistrosIniciacion as $r) {
+ 			if($r->get_UNIDAD() == $tag )
+			{	
+			$RegistrosIniciacionForThisUnit[] = $r;
+			}
+		}		
+		return $RegistrosIniciacionForThisUnit;
+		
+	}
 	
 		
 	

@@ -409,7 +409,7 @@ else
 			
 			<?php
 			// REGISTROS INICIACION
-			$RegistrosIniciacion = $Model->get_eventos();
+			$RegistrosIniciacion = $Model->RegistrosIniciacionByTag($unidadDbEntity->get_tag());
 
 			foreach($RegistrosIniciacion  as $r) {
 				echo "<tr>  <td>". $r->get_UNIDAD(). "</td> <td>". $r->get_USUARIO1(). "</td><td>" . $r->get_USUARIO2() ."</td> <td>" . $r->get_ADMIN() ."</td><td>" . $r->get_INTERNET() ."</td> <td>". $r->get_VerCodigo() ."</td> <td>". $r->get_INV() ."</td><td>" . $r->get_VOLUMEN_MAX() ."</td><td>" .$r->get_LVOLTAJE() ."</td><td>" . $r->get_TIMESTAMP() ."</td><td>" . $r->get_TIPO() ."</td><td>".$r->get_TipoBat()."</td></tr>" ;	
@@ -421,7 +421,7 @@ else
 			$('#TablaIniciacion').dataTable();
 			});
 			</script>
-			
+
 		  </div>
       </div>
     </div>
