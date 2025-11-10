@@ -15,22 +15,25 @@ class eventosDbEntity {
 	public $VOLUMEN_MAX;
 	public $TIMESTAMP;
 	public $TIPO;
+	public $TipoBat;
 
-	
-  function __construct($UNIDAD,
-$USUARIO1,
-$USUARIO2,
-$USUARIO3,
-$USUARIO4,
-$ADMIN,
-$MANTENCION,
-$INTERNET,
-$VerCodigo,
-$LVOLTAJE,
-$INV,
-$VOLUMEN_MAX,
-$TIMESTAMP,
-$TIPO	 ) 
+  function __construct(
+	$UNIDAD,
+	$USUARIO1,
+	$USUARIO2,
+	$USUARIO3,
+	$USUARIO4,
+	$ADMIN,
+	$MANTENCION,
+	$INTERNET,
+	$VerCodigo,
+	$LVOLTAJE,
+	$INV,
+	$VOLUMEN_MAX,
+	$TIMESTAMP,
+	$TIPO,
+	$TipoBat)
+
   {
 	$this->UNIDAD = $UNIDAD;
 	$this->USUARIO1 = $USUARIO1;
@@ -46,6 +49,7 @@ $TIPO	 )
 	$this->VOLUMEN_MAX = $VOLUMEN_MAX;
 	$this->TIMESTAMP = $TIMESTAMP;
 	$this->TIPO = $TIPO;
+	$this->TipoBat = $TipoBat;
   }
 	function get_UNIDAD() { return $this->UNIDAD; }
 	function get_USUARIO1() { return $this->USUARIO1; }
@@ -61,8 +65,9 @@ $TIPO	 )
 	function get_VOLUMEN_MAX() { return $this->VOLUMEN_MAX; }
 	function get_TIMESTAMP() { return $this->TIMESTAMP; }
 	function get_TIPO() { return $this->TIPO; }
+	function get_TipoBat() { return $this->TipoBat; }
 }
-//testing 
+//testing
 //$apple = new unidadDbEntity("999","Caja","Cmile","99292312","1 min","10","on","4","2","100%");
 //echo "ok".$apple->get_Id_UnidadTipo();
 
