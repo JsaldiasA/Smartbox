@@ -49,29 +49,7 @@ class Model {
 		
 		$Unidades = [];
 			
-		if ($result->num_rows > 0) {
-		while($row = $result->fetch_assoc()) 
-		{
-	    $Unidades[] = new unidadDbEntity(
-		$row["id"],
-		$row["Serie"],
-		$row["tag"],
-		$row["Ubicacion"],
-		$row["numero"],
-		$row["UltimaActualizacion"],
-		$row["Volumen"],
-		$row["Estado"],
-		$row["id_unidadTipo"],
-		$row["InvertirEntrada"],
-		$row["BatNivel"],
-		$row["Temperatura"],
-		$row["Humedad"],
-		$row["EC"],
-		$row["VolMax"]);
-		// cuidado con el casing, distinge de mayusculas y minusculas
-		}
-		}
-		return $Unidades;
+	
 			 
 	}
 	
