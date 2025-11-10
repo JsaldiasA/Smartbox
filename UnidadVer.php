@@ -402,38 +402,26 @@ else
     </h2>
     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-	  <div class="overflow-auto">
-       <?php
-// REGISTROS INICIACION
-		  
- $sql = "SELECT LEFT(`unidad`,15) AS `UNIDAD`,
- LEFT(`USUARIO1`,10) AS `USUARIO1`,
- LEFT(`USUARIO2`,10) AS `USUARIO2`,
- LEFT(`ADMIN`,10) AS `ADMIN` ,
- LEFT(`INTERNET`,5) AS `INTERNET`,
- LEFT(`VerCodigo`,10) AS `VerCodigo`,
- LEFT(`INV`,5) AS `INV`,
- LEFT(`VOLUMEN MAX`,5) AS `VOLUMEN MAX`,
- LEFT(`TIPO`,4) AS `TIPO`,
- LEFT(`LVOLTAJE`,2) AS `LVOLTAJE`,
- `TIMESTAMP` FROM `eventos` WHERE `UNIDAD` LIKE '{$dat}'  ORDER BY `TIMESTAMP` DESC";
-$result = $Model->executeSQL($sql);
-if ($result->num_rows > 0) {
-    // output data of each row
-		echo '<script>let table = new DataTable("#TablaIniciacion");</script>';
-	echo '<table id="TablaIniciacion" class="display"><thead><th scope="col">unidad</th><th scope="col">USUARIO1</th><th scope="col">USUARIO2</th><th scope="col">ADMIN</th><th scope="col">INTERNET</th><th scope="col">Codigo</th><th scope="col">INV</th><th scope="col">VMAX</th><th scope="col">Bat</th><th scope="col">TIMESTAMP</th><th scope="col">TIPO</th></thead><tbody>';
-    while($row = $result->fetch_assoc()) {
-           echo "<tr>  <td>". $row["UNIDAD"]. "</td> <td>". $row["USUARIO1"]. "</td><td>" . $row["USUARIO2"] ."</td> <td>" . $row["ADMIN"] ."</td><td>" . $row["INTERNET"] ."</td> <td>". $row["VerCodigo"] ."</td> <td>". $row["INV"] ."</td><td>" . $row["VOLUMEN MAX"] ."</td><td>" .$row["LVOLTAJE"] ."</td><td>" . $row["TIMESTAMP"] ."</td><td>" . $row["TIPO"] ."</td></tr>" ;}
-echo '</tbody></table>';
-echo "<script>
-$(document).ready(function(){
-    $('#TablaIniciacion').dataTable();
-});
-</script>";
-} else {
-    echo "0 results";
-}
-		  ?>
+		<div class="overflow-auto">
+
+			<script>let table = new DataTable("#TablaIniciacion");</script>
+			<table id="TablaIniciacion" class="display"><thead><th scope="col">unidad</th><th scope="col">USUARIO1</th><th scope="col">USUARIO2</th><th scope="col">ADMIN</th><th scope="col">INTERNET</th><th scope="col">Codigo</th><th scope="col">INV</th><th scope="col">VMAX</th><th scope="col">Bat</th><th scope="col">TIMESTAMP</th><th scope="col">TIPO</th><th scope="col">TipoBat</th></thead><tbody> 
+			
+			<?php
+			// REGISTROS INICIACION
+			$RegistrosIniciacion = $Model->get_eventos();
+
+			foreach($RegistrosIniciacion  as $r) {
+				echo "<tr>  <td>". $r->get_UNIDAD(). "</td> <td>". $r->get_USUARIO1(). "</td><td>" . $r->get_USUARIO2() ."</td> <td>" . $r->get_ADMIN() ."</td><td>" . $r->get_INTERNET() ."</td> <td>". $r->get_VerCodigo() ."</td> <td>". $r->get_INV() ."</td><td>" . $r->get_VOLUMEN_MAX() ."</td><td>" .$r->get_LVOLTAJE() ."</td><td>" . $r->get_TIMESTAMP() ."</td><td>" . $r->get_TIPO() ."</td><td>".$r->get_TipoBat()."</td></tr>" ;	
+			}
+			?>
+			</tbody></table>
+			<script>
+			$(document).ready(function(){
+			$('#TablaIniciacion').dataTable();
+			});
+			</script>
+			
 		  </div>
       </div>
     </div>

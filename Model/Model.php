@@ -144,7 +144,17 @@ class Model {
 	
 	function get_eventos() 
 	{ 			
-		$sql = "SELECT * FROM `eventos`";
+		$sql = "SELECT LEFT(`unidad`,15) AS `UNIDAD`,
+ LEFT(`USUARIO1`,10) AS `USUARIO1`,
+ LEFT(`USUARIO2`,10) AS `USUARIO2`,
+ LEFT(`ADMIN`,10) AS `ADMIN` ,
+ LEFT(`INTERNET`,5) AS `INTERNET`,
+ LEFT(`VerCodigo`,10) AS `VerCodigo`,
+ LEFT(`INV`,5) AS `INV`,
+ LEFT(`VOLUMEN MAX`,5) AS `VOLUMEN MAX`,
+ LEFT(`TIPO`,4) AS `TIPO`,
+ LEFT(`LVOLTAJE`,2) AS `LVOLTAJE`,
+ `TIMESTAMP` FROM `eventos` ";
 		$result = $this->executeSQL($sql);
 		
 		$eventos = [];
