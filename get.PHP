@@ -17,9 +17,7 @@ if ($conn->connect_error) {
 $data= $_GET['name'];
 
 $IP = $_SERVER['REMOTE_ADDR'];
-$dataAndIP= $IP+$data;
 
-echo $dataAndIP;
 //Insertando En tabla RowData
 $sql = "INSERT INTO `rowdata`(`RowData`,`IP`) VALUES ('{$data}','{$IP}');";
 
