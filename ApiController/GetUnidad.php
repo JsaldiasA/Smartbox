@@ -61,11 +61,11 @@ echo '<table class="table">
 		<th scope="col">Serie</th>';
 		echo $IsMilesight ? '<th scope="col">DevEUI</th>' : '<th scope="col">IMEI</th>' ;
 		echo '<th scope="col">Ubicación</th>';
-		echo $IsMilesight ? '' : '<th scope="col">Número</th>';
+		echo $IsMilesight ? null : '<th scope="col">Número</th>';
 		echo '<th scope="col">ÚltimaActz</th>
 		<th scope="col">Estado</th>
 		<th scope="col">Batería</th>';
-		echo !$isEstanque ? '<th scope="col">Volumen</th>' : '';
+		echo !$isEstanque ? '<th scope="col">Volumen</th>' : null;
 		echo '<th scope="col"></th>
 		</thead>
 		<tbody>';
@@ -80,11 +80,11 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
         echo "<td>".$unidad->get_Serie()."</td>";   
         echo "<td>". $unidad->get_Tag()."</td>";
         echo "<td>".$unidad->get_Ubicacion()."</td>";
-        echo $IsMilesight ? "" : "<td>".$unidad->get_Numero()."</td>";
+        echo $IsMilesight ? null : "<td>".$unidad->get_Numero()."</td>";
         echo "<td>".$unidad->DiffBetweenNow_and_UltimaActualizacion()."</td>";
         echo "<td>".$unidad->get_Estado()."</td>";
         echo "<td>".$BatNivel->get_HtmlTableField()."</td>";
-        echo !$isEstanque ? "<td>".$unidad->get_Volumen()."</td>" : '';
+        echo !$isEstanque ? "<td>".$unidad->get_Volumen()."</td>" : null;
     	echo "<td> <a href='unidadver.php?tag=".$unidad->get_Tag()."'>Ver</a></td></tr>";
 }// columnas
 
