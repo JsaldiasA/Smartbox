@@ -154,7 +154,7 @@ class Model {
  LEFT(`VOLUMEN MAX`,5) AS `VOLUMEN MAX`,
  LEFT(`TIPO`,4) AS `TIPO`,
  LEFT(`LVOLTAJE`,2) AS `LVOLTAJE`,
- `TIMESTAMP` FROM `eventos` ";
+ `TIMESTAMP`,`TipoBat` FROM `eventos` ";
 		$result = $this->executeSQL($sql);
 		
 		$eventos = [];
@@ -175,7 +175,8 @@ class Model {
 				$row["INV"],
 				$row["VOLUMEN MAX"],
 				$row["TIMESTAMP"],
-				$row["TIPO"]);
+				$row["TIPO"],
+				$row["TipoBat"]);
 			}
 		}
 		return $eventos;		 
