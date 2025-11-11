@@ -16,6 +16,7 @@ public $Temperatura;
 public $Humedad;
 public $EC;
 public $VolMax;
+public $FactorFlujometro;
 	    
 function __construct($id,
 $Serie,
@@ -31,7 +32,8 @@ $BatNivel,
 $Temperatura,
 $Humedad,
 $EC,
-$VolMax)
+$VolMax,
+$FactorFlujometro)
 
 { 		
   $this->id = $id;
@@ -49,6 +51,7 @@ $VolMax)
   $this->Humedad = $Humedad;
   $this->EC = $EC;
   $this->VolMax = $VolMax;
+  $this->FactorFlujometro = $FactorFlujometro;
 }
 
   function get_id() { return $this->id; }
@@ -66,7 +69,13 @@ $VolMax)
   function get_Humedad() { return $this->Humedad; }
   function get_EC() { return $this->EC; }
   function get_VolMax() { return $this->VolMax; }
-
+  function get_FactorFlujometro() { return $this->FactorFlujometro; }
+  function get_VolumenForMilesight( ) 
+  {
+    $factor = floatval($this->FactorFlujometro);
+    $volumen = intval($this->Volumen);
+    return ($factor*$volumen)/60;
+  }
   
   function DiffBetweenNow_and_UltimaActualizacion() {
 	
