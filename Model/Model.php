@@ -67,7 +67,9 @@ class Model {
 			$row["Temperatura"],
 			$row["Humedad"],
 			$row["EC"],
-			$row["VolMax"]);
+			$row["VolMax"],
+			$row["FactorFlujometro"]
+			);
 			// cuidado con el casing, distinge de mayusculas y minusculas
 			}
 		}
