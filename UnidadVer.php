@@ -140,7 +140,33 @@ function FunctionComandosMilesight(ComandoNombre) {
     alert("La operación se ha cancelado");
   }
 
-}	
+}
+
+function FunctionCambiarVolMax(unidad) {
+  let text = "¿Esta seguro de cambiar volumen maximo de la unidad?";
+  if (confirm(text) == true) {
+
+	var URL = "UnidadCambiarVolMax.php";
+	var Respuesta;
+	var NuevoVolMax = document.getElementById("VolMax").value;
+	var token = document.getElementById("password").value;
+	$.ajax({
+            url:URL, //the page containing php script
+            type: "post", //request
+			dataType: 'text',
+			  data: {
+            tag: unidad,
+			NuevoVolMax: NuevoVolMax,
+			token: token,
+        	},
+		    success: function(result){alert(result)}
+		  });
+
+  } else {
+    alert("La operación se ha cancelado");
+  }
+}
+
 </script>	
 
 <body>	
@@ -312,43 +338,49 @@ function FunctionComandosMilesight(ComandoNombre) {
     <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
       <div class="accordion-body">
 		  
-	<?php
-	// PANEL EDITAR
-	echo '<div class="subContainer" >';
-	echo '<button onclick="FunctionEliminar('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Eliminar</button>';// boton eliminar
-	echo '</div>';
-	
-	echo '<div class="subContainer" >';
-	echo '<button onclick="FunctionNuevaUbicacion('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button>Nueva Ubicacion';// boton cambio de ubicacion
-	echo '<input type="text" id="NuevaUbicacion" name="NuevaUbicacion" class="form-control"> ';// input cambio de ubicacion
-	echo ' </div> ';
-	
-	echo '<div class="subContainer" >';
-	echo '<button onclick="FunctionNuevoNumero('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button> Nuevo Numero';// boton cambio de numero
-	echo '<input type="text" id="NuevoNumero" name="NuevoNumero" class="form-control"> ';// input cambio de numero
-	echo ' </div> ';
-	
-	echo '<div class="subContainer" >';
-	echo '<button onclick="FunctionNuevoTipo('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button>';// boton cambio de unidad tipo
-	
-    $q = $Model->executeSQL("SELECT `Nombre` FROM `unidadtipo`");
-    echo  '<select name="NuevoTipo" id="NuevoTipo" required>';
-    while($rows = $q->fetch_assoc()){
-              $unidadTipo_name= $rows['Nombre'];
-              echo "<option value='$unidadTipo_name'>$unidadTipo_name</option>";
-            }
-	echo "<option value='NULL'>Unidad Indefinida</option>";
-    echo'</select>';// select TAG con unidad tipo
-	
-	echo ' </div> ';
-	
-	
-	echo '<div class="subContainer" >';
-	echo 'Password <input type="text" id="password" name="password"  class="form-control" > '; // password para accionar
-	echo ' </div> ';
-	
-	//echo ' </div> ';
-	?>
+		<?php
+		// PANEL EDITAR
+
+		echo '<div class="subContainer" >';
+		echo '<button onclick="FunctionCambiarVolMax('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button> Volumen maximo';// boton cambio de numero
+		echo '<input type="text" id="VolMax" name="VolMax" class="form-control"> ';// input cambio de numero
+		echo ' </div>';
+		
+		echo '<div class="subContainer" >';
+		echo '<button onclick="FunctionEliminar('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Eliminar</button>';// boton eliminar
+		echo '</div>';
+		
+		echo '<div class="subContainer" >';
+		echo '<button onclick="FunctionNuevaUbicacion('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button>Nueva Ubicacion';// boton cambio de ubicacion
+		echo '<input type="text" id="NuevaUbicacion" name="NuevaUbicacion" class="form-control"> ';// input cambio de ubicacion
+		echo ' </div> ';
+		
+		echo '<div class="subContainer" >';
+		echo '<button onclick="FunctionNuevoNumero('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button> Nuevo Numero';// boton cambio de numero
+		echo '<input type="text" id="NuevoNumero" name="NuevoNumero" class="form-control"> ';// input cambio de numero
+		echo ' </div> ';
+		
+		echo '<div class="subContainer" >';
+		echo '<button onclick="FunctionNuevoTipo('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button>';// boton cambio de unidad tipo
+		
+		$q = $Model->executeSQL("SELECT `Nombre` FROM `unidadtipo`");
+		echo  '<select name="NuevoTipo" id="NuevoTipo" required>';
+		while($rows = $q->fetch_assoc()){
+				$unidadTipo_name= $rows['Nombre'];
+				echo "<option value='$unidadTipo_name'>$unidadTipo_name</option>";
+				}
+		echo "<option value='NULL'>Unidad Indefinida</option>";
+		echo'</select>';// select TAG con unidad tipo
+		
+		echo ' </div> ';
+		
+		
+		echo '<div class="subContainer" >';
+		echo 'Password <input type="text" id="password" name="password"  class="form-control" > '; // password para accionar
+		echo ' </div> ';
+		
+		//echo ' </div> ';
+		?>
 	
       </div>
     </div>
