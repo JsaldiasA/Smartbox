@@ -10,72 +10,105 @@ require_once $sitebasepath.'/DbEntities/checklistmotivoDbEntity.php';
 require_once $sitebasepath.'/DbEntities/comandos_milesightDbEntity.php';
 require_once $sitebasepath.'/DbEntities/eventosDbEntity.php';
 require_once $sitebasepath.'/DbEntities/externalapps_monitorDbEntity.php';
+require_once $sitebasepath.'/DbEntities/unidades_lastortolasDbEntity.php';
 require_once $sitebasepath.'/config/DbSirecorConfig.php';
 
 class Model {
 	
-
   	function __construct( ) {
-		
+
   	}
 	
-			function get_externalapps_monitor()
-	{ 			
-		$sql = "SELECT * FROM `externalapps_monitor`";
-		$result = $this->executeSQL($sql);
-		
-		$externalapps_monitors = [];
-			
-		if ($result->num_rows > 0) {
-		while($row = $result->fetch_assoc()) 
-		{
-	    $externalapps_monitors[] = new externalapps_monitorDbEntity(
-		$row["id"],
-		$row["LastUpdate"],
-		$row["AppName"],
-		$row["Description"]
-		);
-		// cuidado con el casing, distinge de mayusculas y minusculas
-		}
-		}
-		return $externalapps_monitors;
-			 
-	}
+	function get_unidades_lastortolas()
 
-		function get_unidades()
-	{ 			
-		$sql = "SELECT * FROM `unidad`";
-		$result = $this->executeSQL($sql);
-		
-		$Unidades = [];
+		{ 			
+			$sql = "SELECT * FROM `unidades_lastortolas`";
+			$result = $this->executeSQL($sql);
 			
-		if ($result->num_rows > 0) {
-			while($row = $result->fetch_assoc()) 
+			$unidades_lastortolas = [];
+				
+			if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc())
 			{
-			$Unidades[] = new unidadDbEntity(
-			$row["id"],
-			$row["Serie"],
-			$row["tag"],
-			$row["Ubicacion"],
-			$row["numero"],
-			$row["UltimaActualizacion"],
-			$row["Volumen"],
-			$row["Estado"],
-			$row["id_unidadTipo"],
-			$row["InvertirEntrada"],
-			$row["BatNivel"],
-			$row["Temperatura"],
-			$row["Humedad"],
-			$row["EC"],
-			$row["VolMax"],
-			$row["FactorFlujometro"]
-			);
-			// cuidado con el casing, distinge de mayusculas y minusculas
+				$unidades_lastortolas[] = new unidades_lastortolasDbEntity(
+				$row["id"],
+				$row["unidad_id"],
+				$row["ESTADO"],
+				$row["VOLUMEN"],
+				$row["CAUDAL"],
+				$row["SENAL"],
+				$row["VOLTAJE"],
+				$row["DATETIME"],
+				);
+				// cuidado con el casing, distinge de mayusculas y minusculas
 			}
 		}
+
+		return $unidades_lastortolas;
+
+		}
+
+	function get_externalapps_monitor()
+
+		{ 	
+			$sql = "SELECT * FROM `externalapps_monitor`";
+			$result = $this->executeSQL($sql);
+		
+			$externalapps_monitors = [];
+			
+			if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) 
+			{
+	    		$externalapps_monitors[] = new externalapps_monitorDbEntity(
+				$row["id"],
+				$row["LastUpdate"],
+				$row["AppName"],
+				$row["Description"]
+				);
+				// cuidado con el casing, distinge de mayusculas y minusculas
+			}
+		}
+
+		return $externalapps_monitors;
+
+		}
+
+	function get_unidades()
+		
+		{
+			$sql = "SELECT * FROM `unidad`";
+			$result = $this->executeSQL($sql);
+		
+			$Unidades = [];
+			
+			if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) 
+				{
+					$Unidades[] = new unidadDbEntity(
+					$row["id"],
+					$row["Serie"],
+					$row["tag"],
+					$row["Ubicacion"],
+					$row["numero"],
+					$row["UltimaActualizacion"],
+					$row["Volumen"],
+					$row["Estado"],
+					$row["id_unidadTipo"],
+					$row["InvertirEntrada"],
+					$row["BatNivel"],
+					$row["Temperatura"],
+					$row["Humedad"],
+					$row["EC"],
+					$row["VolMax"],
+					$row["FactorFlujometro"]
+					);
+					// cuidado con el casing, distinge de mayusculas y minusculas
+				}
+		}
+
 		return $Unidades;
 			 
-	}
+		}
 	
 	function get_unidadtipos( ) 
 	{ 			
@@ -310,8 +343,30 @@ class Model {
 		return $RegistrosIniciacionForThisUnit;
 		
 	}
-	
-		
+
+	function UltimoRegistroDiarioById_unidad( $Id_unidad )
+	{ 			
+		$RegistrosDiarios = $this->get_unidades_lastortolas();
+
+		usort($RegistrosDiarios, function($a, $b)
+		{
+    		if ($a->get_DATETIME() == $b->get_DATETIME())
+				{
+        			return 0;
+    			}
+
+    		return ($a->get_DATETIME() > $b->get_DATETIME()) ? -1 : 1;
+		}
+		);
+
+		foreach ($RegistrosDiarios as $r)
+		{
+ 			if($r->get_unidad_id() == $Id_unidad )
+			{
+				return $r;
+			}
+		}		
+	}
 	
 	function executeSQL( $SQLscript ) 
 	{ 			

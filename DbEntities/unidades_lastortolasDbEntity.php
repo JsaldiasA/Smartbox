@@ -1,5 +1,5 @@
 <?php
-class unidadeslastortolasDbEntity {
+class unidades_lastortolasDbEntity {
 	
   public $id;
   public $unidad_id;
