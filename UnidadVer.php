@@ -264,7 +264,7 @@ function FunctionCambiarVolMax(unidad) {
 		<h2>Config</h2>
 		<?php
 			
-			$ultimoRegistro = $Model->UltimochecklistById_unidad($unidadDbEntity->get_id());
+			$ultimoRegistro = $Model->UltimoRegistroDiarioById_unidad($unidadDbEntity->get_id());
 			echo '<h2>Ultimo Registro</h2>';// Header tabla
 			//print row
 			echo var_dump($ultimoRegistro);
