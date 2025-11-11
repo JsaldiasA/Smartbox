@@ -249,7 +249,7 @@ function FunctionCambiarVolMax(unidad) {
 			</thead><tbody>';// Header tabla
 			//print row
 			echo "<tr>  
-			<td>". "<b>Volemn Maximo</b>".
+			<td>". "<b>Volumen Maximo</b>".
 			"</td> <td>". $unidadDbEntity->get_VolMax().
 			" [L]</td></tr>";
 			echo '</tbody></table>';
@@ -261,22 +261,27 @@ function FunctionCambiarVolMax(unidad) {
 
 <div class="row" >
 	<div class="col" >
-		<h2>Config</h2>
 		<?php
-			
 			$ultimoRegistro = $Model->UltimoRegistroDiarioById_unidad($unidadDbEntity->get_id());
 			echo '<h2>Ultimo Registro</h2>';// Header tabla
 			//print row
-			echo var_dump($ultimoRegistro);
-	
-		
+			echo '<table class="table" >
+		  <thead >';
+	echo '<th scope="col">Ultimo Registro</th>';
+	echo '<th scope="col"></th>';
+	echo '</thead><tbody>';
+	echo '<tr><td><b>Estado</b></td><td>'.$ultimoRegistro->get_ESTADO().'</td></tr>';
+	echo '<tr><td><b>Volumen</b></td><td>'.$ultimoRegistro->get_VOLUMEN().'</td></tr>';
+	echo '<tr><td><b>Caudal</b></td><td>'.$ultimoRegistro->get_CAUDAL().'</td></tr>';
+	echo '<tr><td><b>Última Actualización</b></td><td>'.$ultimoRegistro->get_DATETIME().'</td></tr>';
+	echo '</tbody></table>';
 		?>	
 	</div>		
 </div>
 
 <div class="row" >
 	<?php
-  
+
 	if(!empty($checklistDbEntity))
 	{
 	echo '<div class="col-md-auto overflow-auto" >';	
