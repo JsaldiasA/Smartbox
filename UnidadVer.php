@@ -258,6 +258,22 @@ function FunctionCambiarVolMax(unidad) {
 	</div>		
 </div>
 
+
+<div class="row" >
+	<div class="col" >
+		<h2>Config</h2>
+		<?php
+			
+			$ultimoRegistro = $Model->UltimochecklistById_unidad($unidadDbEntity->get_id());
+			echo '<h2>Ultimo Registro</h2>';// Header tabla
+			//print row
+			echo var_dump($ultimoRegistro);
+	
+		
+		?>	
+	</div>		
+</div>
+
 <div class="row" >
 	<?php
   
