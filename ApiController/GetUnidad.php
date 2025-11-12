@@ -54,6 +54,13 @@ usort($UnidadesFiltradasPorTipo, function($a, $b) {
     return ($a->get_Volumen() > $b->get_Volumen()) ? -1 : 1;
 });
 
+usort($UnidadesFiltradasPorTipo, function($a, $b) {
+    if ($a->get_Estado() == $b->get_Estado()) {
+        return 0;
+    }
+    return ($a->get_Estado() > $b->get_Estado()) ? -1 : 1;
+});
+
 // Retornar valores como tabla
 echo '<table class="table">
 		<thead>
