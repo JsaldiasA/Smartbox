@@ -54,7 +54,6 @@ usort($UnidadesFiltradasPorTipo, function($a, $b) {
     return ($a->get_Volumen() > $b->get_Volumen()) ? -1 : 1;
 });
 
-
 // Retornar valores como tabla
 echo '<table class="table">
 		<thead>
@@ -74,11 +73,10 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
 {
 		$level = $unidad->get_BatNivel();
 	    $BatNivel = new BatteryLevel($level);
-		$ultimoRegistro = $Model->UltimoRegistroDiarioById_unidad($unidad->get_id());
 		
 		//print row
-        echo "<tr>"; 
-        echo "<td>".$unidad->get_Serie()."</td>";   
+        echo "<tr>";
+        echo "<td>".$unidad->get_Serie()."</td>"; 
         echo "<td>". $unidad->get_Tag()."</td>";
         echo "<td>".$unidad->get_Ubicacion()."</td>";
         echo $IsMilesight ? null : "<td>".$unidad->get_Numero()."</td>";
@@ -88,10 +86,8 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
         echo !$isEstanque ?( $IsMilesight ?  "<td>".$unidad->get_VolumenForMilesight()."</td>":"<td>".$unidad->get_Volumen()."</td>" ): null;
     	echo "<td> <a href='unidadver.php?tag=".$unidad->get_Tag()."'>Ver</a></td></tr>";
 }// columnas
-
     
 	echo '</tbody></table>';
-
 
  /*
 date_default_timezone_set('America/Santiago');
