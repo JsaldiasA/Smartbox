@@ -22,7 +22,7 @@ class Model {
 	function get_unidades_lastortolas()
 
 		{ 			
-			$sql = "SELECT * FROM `unidades_lastortolas`";
+			$sql = "SELECT * FROM `unidades_lastortolas` LIMIT 10000";
 			$result = $this->executeSQL($sql);
 			
 			$unidades_lastortolas = [];
