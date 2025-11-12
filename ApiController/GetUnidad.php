@@ -84,8 +84,7 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
 		$level = $unidad->get_BatNivel();
 	    $BatNivel = new BatteryLevel($level);
 
-		$ultimoRegistro = $Model->UltimoRegistroDiarioById_unidad($unidadDbEntity->get_id());
-
+		$ultimoRegistro = $Model->UltimoRegistroDiarioById_unidad($unidad->get_id());
 		//print row
         echo "<tr>";
         echo "<td>".$unidad->get_Serie()."</td>"; 
