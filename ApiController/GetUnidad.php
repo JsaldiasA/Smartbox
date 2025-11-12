@@ -9,8 +9,6 @@ require_once $sitebasepath."/Model/model.php";
 
 $model = new Model();
 
-
-
 $unidadTipo_Nombre= $_GET['unidadtipo'] ;
 
 $unidadestipo =$model->get_unidadtipos();
@@ -72,7 +70,6 @@ echo '<table class="table">
 		echo $IsMilesight ? null : '<th scope="col">Número</th>';
 		echo '<th scope="col">ÚltimaActz</th>
 		<th scope="col">Estado</th>
-		<th scope="col">Caudal</th>
 		<th scope="col">Batería</th>';
 		echo !$isEstanque ? '<th scope="col">Volumen</th>' : null;
 		echo '<th scope="col"></th>
@@ -83,8 +80,8 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
 {
 		$level = $unidad->get_BatNivel();
 	    $BatNivel = new BatteryLevel($level);
-
 		$ultimoRegistro = $Model->UltimoRegistroDiarioById_unidad($unidad->get_id());
+		
 		//print row
         echo "<tr>";
         echo "<td>".$unidad->get_Serie()."</td>"; 
@@ -93,8 +90,8 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
         echo $IsMilesight ? null : "<td>".$unidad->get_Numero()."</td>";
         echo "<td>".$unidad->DiffBetweenNow_and_UltimaActualizacion()."</td>";
         echo "<td>".$unidad->get_Estado()."</td>";
-		echo $ultimoRegistro? "<td>".$unidad->get_Estado()."</td>" : "<td> no data </td>" ;
         echo "<td>".$BatNivel->get_HtmlTableField()."</td>";
+		echo $ultimoRegistro == null ? "<td>Sin datos</td>":"<td>".$ultimoRegistro->get_CAUDAL()."</td>";
         echo !$isEstanque ?( $IsMilesight ?  "<td>".$unidad->get_VolumenForMilesight()."</td>":"<td>".$unidad->get_Volumen()."</td>" ): null;
     	echo "<td> <a href='unidadver.php?tag=".$unidad->get_Tag()."'>Ver</a></td></tr>";
 }// columnas
