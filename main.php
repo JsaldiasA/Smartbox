@@ -19,76 +19,76 @@ GetMilesight();
 GetUnidadIndefinida();
 //GetBodega();
 //GetSensorHumedadMilesight();
-// hilo	
+// hilo
 var myRefreshAplicaciones = setInterval(GetAplicaciones, 1000);
 var myRefreshEstanque = setInterval(GetEstanques, 1000);
 var myRefreshSirecor = setInterval(GetSirecor, 1000);
 var myRefreshMilesight = setInterval(GetMilesight, 1000);
 var myRefreshUnidadIndefinida = setInterval(GetUnidadIndefinida, 1000);
 //var myRefreshGetBodega = setInterval(GetBodega, 1000);
-//var myRefreshGetSensorHumedadMilesight = setInterval(GetSensorHumedadMilesight, 1000);		
+//var myRefreshGetSensorHumedadMilesight = setInterval(GetSensorHumedadMilesight, 1000);
 
-//Funciones
+// Funciones
 
-//GetEstanques
-function GetAplicaciones() 
+// GetEstanques
+function GetAplicaciones()
 	{
     	var URL = "ApiController/GetAplicaciones.php"
 		$.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
-		    success: function(result){document.getElementById("GetAplicacionesResult").innerHTML= result;}    
+		    success: function(result){document.getElementById("GetAplicacionesResult").innerHTML= result;}
 		});	
 	}
 
-//GetEstanques
-function GetEstanques() 
+// GetEstanques
+function GetEstanques()
 	{
     	var URL = "ApiController/GetUnidad.php?unidadtipo=Estanque7600"
 		$.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
-		    success: function(result){document.getElementById("GetEstanqueResult").innerHTML= result;}    
+		    success: function(result){document.getElementById("GetEstanqueResult").innerHTML= result;}
 		});	
 	}
 //GetSirecor	
-function GetSirecor() 
+function GetSirecor()
 	{
     	var URL = "ApiController/GetUnidad.php?unidadtipo=Sirecor7600"
 		$.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
-		    success: function(result){document.getElementById("GetSirecorResult").innerHTML= result;}    
+		    success: function(result){document.getElementById("GetSirecorResult").innerHTML= result;}
 		});
 	}
 //GetMilesight	
-function GetMilesight() 
+function GetMilesight()
 	{
     	var URL = "ApiController/GetUnidad.php?unidadtipo=Milesight"
 		$.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
-		    success: function(result){document.getElementById("GetMilesightResult").innerHTML= result;}    
+		    success: function(result){document.getElementById("GetMilesightResult").innerHTML= result;}
 		});
 	}
 //GetMilesight	
-function GetUnidadIndefinida() 
+function GetUnidadIndefinida()
 	{
     	var URL = "ApiController/GetUnidad.php?unidadtipo="
 		$.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
-		    success: function(result){document.getElementById("GetUnidadIndefinidaResult").innerHTML= result;}    
+		    success: function(result){document.getElementById("GetUnidadIndefinidaResult").innerHTML= result;}
 		});
 	}
-/*//GetSensorHumedadMilesight	
-function GetSensorHumedadMilesight() 
+/*//GetSensorHumedadMilesight
+function GetSensorHumedadMilesight()
 	{
     	var URL = "ApiController/GetUnidad.php?unidadtipo=SensorHumedadMilesight"
 		$.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request
-		    success: function(result){document.getElementById("GetSensorHumedadMilesightResult").innerHTML= result;}    
+		    success: function(result){document.getElementById("GetSensorHumedadMilesightResult").innerHTML= result;}
 		});
 	}
 */
