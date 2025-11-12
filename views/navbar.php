@@ -93,10 +93,10 @@ function myFunction() {
   <div><img src="../images/Logocortado.png"  style="margin-left: 0px;width:55px;height:auto;"></div>
   <div><img src="../images/Logo letra.png"  style="margin-left: -5px;margin-right: 15px;margin-top: 5px;width:60px;height:auto;"></div></a>
   <div id="RmyTopnav" class="topnav-right">
-  <a  href="../index.php" class="active">Home</a>
-  <a  href="../UnidadVerRowData.php" class="active">RowData</a>
-  <a  href="../OldVersion.php" class="active">OldVersion</a> 	
-  <a  href="../Sirecor2.0/views/riego/index.php" class="active">Sirecor2.0<a> 	
+  <a  href="../index.php" >Home</a>
+  <a  href="../UnidadVerRowData.php" >RowData</a>
+  <a  href="../OldVersion.php" >OldVersion</a> 	
+  <a  href="../Sirecor2.0/views/riego/index.php" >Docs<a> 	
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
   </a>
