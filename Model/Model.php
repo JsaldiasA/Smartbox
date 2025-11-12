@@ -84,6 +84,9 @@ class Model {
 			if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) 
 				{
+
+					$UltimoRegistro=$this->UltimoRegistroDiarioById_unidad($row["id"]);
+
 					$Unidades[] = new unidadDbEntity(
 					$row["id"],
 					$row["Serie"],
@@ -100,7 +103,8 @@ class Model {
 					$row["Humedad"],
 					$row["EC"],
 					$row["VolMax"],
-					$row["FactorFlujometro"]
+					$row["FactorFlujometro"],
+					$UltimoRegistro
 					);
 					// cuidado con el casing, distinge de mayusculas y minusculas
 				}

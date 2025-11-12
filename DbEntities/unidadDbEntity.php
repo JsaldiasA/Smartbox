@@ -17,6 +17,7 @@ public $Humedad;
 public $EC;
 public $VolMax;
 public $FactorFlujometro;
+public $UltimoRegistro;
 	    
 function __construct($id,
 $Serie,
@@ -33,7 +34,8 @@ $Temperatura,
 $Humedad,
 $EC,
 $VolMax,
-$FactorFlujometro)
+$FactorFlujometro,
+$UltimoRegistro)
 
 { 		
   $this->id = $id;
@@ -52,6 +54,7 @@ $FactorFlujometro)
   $this->EC = $EC;
   $this->VolMax = $VolMax;
   $this->FactorFlujometro = $FactorFlujometro;
+  $this->UltimoRegistro = $UltimoRegistro;
 }
 
   function get_id() { return $this->id; }
@@ -70,11 +73,20 @@ $FactorFlujometro)
   function get_EC() { return $this->EC; }
   function get_VolMax() { return $this->VolMax; }
   function get_FactorFlujometro() { return $this->FactorFlujometro; }
-  function get_VolumenForMilesight( ) 
+  function get_UltimoRegistro() { return $this->UltimoRegistro; }
+  function get_VolumenForMilesight( )
   {
     $factor = floatval($this->FactorFlujometro);
     $volumen = intval($this->Volumen);
     return ($factor*$volumen)/60;
+  }
+
+  function get_CaudalForMilesight( )
+  {
+  
+    $factor = floatval($this->FactorFlujometro);
+    $caudal = intval($this->UltimoRegistro->get_CAUDAL());
+    return ($factor*$caudal)/60;
   }
   
   function DiffBetweenNow_and_UltimaActualizacion() {
