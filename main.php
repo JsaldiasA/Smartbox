@@ -17,16 +17,16 @@ GetEstanques();
 GetSirecor();
 GetMilesight();
 GetUnidadIndefinida();
-//GetBodega();
-//GetSensorHumedadMilesight();
+// GetBodega();
+// GetSensorHumedadMilesight();
 // hilo
 var myRefreshAplicaciones = setInterval(GetAplicaciones, 1000);
 var myRefreshEstanque = setInterval(GetEstanques, 1000);
 var myRefreshSirecor = setInterval(GetSirecor, 1000);
 var myRefreshMilesight = setInterval(GetMilesight, 1000);
 var myRefreshUnidadIndefinida = setInterval(GetUnidadIndefinida, 1000);
-//var myRefreshGetBodega = setInterval(GetBodega, 1000);
-//var myRefreshGetSensorHumedadMilesight = setInterval(GetSensorHumedadMilesight, 1000);
+// var myRefreshGetBodega = setInterval(GetBodega, 1000);
+// var myRefreshGetSensorHumedadMilesight = setInterval(GetSensorHumedadMilesight, 1000);
 
 // Funciones
 
@@ -51,7 +51,7 @@ function GetEstanques()
 		    success: function(result){document.getElementById("GetEstanqueResult").innerHTML= result;}
 		});	
 	}
-//GetSirecor	
+// GetSirecor	
 function GetSirecor()
 	{
     	var URL = "ApiController/GetUnidad.php?unidadtipo=Sirecor7600"
@@ -61,7 +61,7 @@ function GetSirecor()
 		    success: function(result){document.getElementById("GetSirecorResult").innerHTML= result;}
 		});
 	}
-//GetMilesight	
+// GetMilesight	
 function GetMilesight()
 	{
     	var URL = "ApiController/GetUnidad.php?unidadtipo=Milesight"
@@ -71,7 +71,7 @@ function GetMilesight()
 		    success: function(result){document.getElementById("GetMilesightResult").innerHTML= result;}
 		});
 	}
-//GetMilesight	
+// GetMilesight	
 function GetUnidadIndefinida()
 	{
     	var URL = "ApiController/GetUnidad.php?unidadtipo="
@@ -81,7 +81,7 @@ function GetUnidadIndefinida()
 		    success: function(result){document.getElementById("GetUnidadIndefinidaResult").innerHTML= result;}
 		});
 	}
-/*//GetSensorHumedadMilesight
+/*// GetSensorHumedadMilesight
 function GetSensorHumedadMilesight()
 	{
     	var URL = "ApiController/GetUnidad.php?unidadtipo=SensorHumedadMilesight"
@@ -92,7 +92,6 @@ function GetSensorHumedadMilesight()
 		});
 	}
 */
-
 
 </script>
 <body>
