@@ -346,6 +346,11 @@ class Model {
 
 	function UltimoRegistroDiarioById_unidad( $Id_unidad )
 	{ 			
+		if(!$Id_unidad)
+		{
+			return null;
+		}
+
 		$RegistrosDiarios = $this->get_unidades_lastortolas();
 
 		usort($RegistrosDiarios, function($a, $b)
@@ -365,7 +370,8 @@ class Model {
 			{
 				return $r;
 			}
-		}		
+		}
+		return null;		
 	}
 	
 	function executeSQL( $SQLscript ) 
@@ -380,7 +386,7 @@ class Model {
 		$sql = $SQLscript;
 		$result = $conn->query($sql);
 
-		return $result; 
+		return $result;
 	}
 
 }
