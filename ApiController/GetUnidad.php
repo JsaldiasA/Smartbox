@@ -64,7 +64,7 @@ echo '<table class="table">
 		echo '<th scope="col">ÚltimaActz</th>
 		<th scope="col">Estado</th>
 		<th scope="col">Batería</th>';
-		echo !$isEstanque ? '<th scope="col">Caudal</th>' : null;
+		// echo !$isEstanque ? '<th scope="col">Caudal</th>' : null;
 		echo !$isEstanque ? '<th scope="col">Volumen</th>' : null;
 		echo '<th scope="col"></th>
 		</thead>
@@ -74,7 +74,7 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
 {
 		$level = $unidad->get_BatNivel();
 	    $BatNivel = new BatteryLevel($level);
-		$ultimoRegistro = $model->UltimoRegistroDiarioById_unidad($unidad->get_id());
+		// $ultimoRegistro = $model->UltimoRegistroDiarioById_unidad($unidad->get_id());
 		
 		//print row
         echo "<tr>";
@@ -85,7 +85,7 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
         echo "<td>".$unidad->DiffBetweenNow_and_UltimaActualizacion()."</td>";
         echo "<td>".$unidad->get_Estado()."</td>";
         echo "<td>".$BatNivel->get_HtmlTableField()."</td>";
-		echo !$isEstanque ? ($ultimoRegistro == null ? "<td>Sin datos</td>":"<td>".$ultimoRegistro->get_CAUDAL()."</td>"): null;
+		// echo !$isEstanque ? ($ultimoRegistro == null ? "<td>Sin datos</td>":"<td>".$ultimoRegistro->get_CAUDAL()."</td>"): null;
         echo !$isEstanque ? ($IsMilesight ?  "<td>".$unidad->get_VolumenForMilesight()."</td>":"<td>".$unidad->get_Volumen()."</td>" ): null;
     	echo "<td> <a href='unidadver.php?tag=".$unidad->get_Tag()."'>Ver</a></td></tr>";
 }// columnas

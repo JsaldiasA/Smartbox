@@ -22,7 +22,7 @@ class Model {
 	function get_unidades_lastortolas()
 
 		{ 			
-			$sql = "SELECT * FROM `unidades_lastortolas` ORDER BY ID DESC LIMIT 1000";
+			$sql = "SELECT * FROM `unidades_lastortolas` ORDER BY ID DESC LIMIT 100";
 			$result = $this->executeSQL($sql);
 			
 			$unidades_lastortolas = [];
@@ -85,7 +85,7 @@ class Model {
 			while($row = $result->fetch_assoc()) 
 				{
 
-					$UltimoRegistro=$this->UltimoRegistroDiarioById_unidad($row["id"]);
+					// $UltimoRegistro=$this->UltimoRegistroDiarioById_unidad($row["id"]);
 
 					$Unidades[] = new unidadDbEntity(
 					$row["id"],
@@ -103,9 +103,9 @@ class Model {
 					$row["Humedad"],
 					$row["EC"],
 					$row["VolMax"],
-					$row["FactorFlujometro"],
-					$UltimoRegistro
-					);
+					$row["FactorFlujometro"])
+					// $UltimoRegistro
+					
 					// cuidado con el casing, distinge de mayusculas y minusculas
 				}
 		}
