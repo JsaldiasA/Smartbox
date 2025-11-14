@@ -22,7 +22,7 @@ class Model {
 	function get_unidades_lastortolas()
 
 		{ 			
-			$sql = "SELECT * FROM `unidades_lastortolas` ORDER BY ID DESC LIMIT 100";
+			$sql = "SELECT * FROM `unidades_lastortolas`";
 			$result = $this->executeSQL($sql);
 			
 			$unidades_lastortolas = [];
@@ -350,10 +350,10 @@ class Model {
 
 	function UltimoRegistroDiarioById_unidad( $Id_unidad )
 	{ 			
-		if(!$Id_unidad)
-		{
-			return null;
-		}
+		// if(!$Id_unidad)
+		// {
+		// 	return null;
+		// }
 
 		$RegistrosDiarios = $this->get_unidades_lastortolas();
 
@@ -375,7 +375,7 @@ class Model {
 				return $r;
 			}
 		}
-		return null;		
+		// return null;		
 	}
 	
 	function executeSQL( $SQLscript ) 
@@ -390,7 +390,7 @@ class Model {
 		$sql = $SQLscript;
 		$result = $conn->query($sql);
 
-		return $result;
+		// return $result;
 	}
 
 }
