@@ -103,7 +103,7 @@ class Model {
 					$row["Humedad"],
 					$row["EC"],
 					$row["VolMax"],
-					$row["FactorFlujometro"])
+					$row["FactorFlujometro"]);
 					// $UltimoRegistro
 					
 					// cuidado con el casing, distinge de mayusculas y minusculas
