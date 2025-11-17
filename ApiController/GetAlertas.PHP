@@ -1,25 +1,21 @@
 <?php
 // Create SQL Connection
 
-$servername = "localhost:3306";
-$username = "Sirecor_usuario";
-$password = "7bp0c@81X";
-$dbname = "sirecor";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-
-//Tomando datos desde solicitud HTTP GET
-
 $data= $_GET['name'];
+
+
+$self=$_SERVER['PHP_SELF'];
+$thispath=dirname($_SERVER['PHP_SELF']);
+$sitebasepath=$_SERVER['DOCUMENT_ROOT'];
+require_once $sitebasepath."/Model/model.php";
+
+$model = new Model();
 
 //Insertando En tabla RowData
 $sql = "INSERT INTO `rowdata`(`RowData`) VALUES ('{$data}');";
 
-if ($conn->query($sql) === TRUE) {
+$result = $model->executeSQL($sql);
+if ($result === TRUE) {
  echo "ROW agregado exitosamente";
 } else {
   echo "Error: " . $sql . "<br>" . $conn->error;
@@ -62,12 +58,12 @@ if ($SENAL == "NULL") {
 //Ingresando la data a unidades las tortolas
 $sql = "CALL ingreso('{$UNIDAD}', '{$ESTADO}', '{$VOLUMEN}','{$CAUDAL}', '{$SENAL}','{$VOLTAJE}')";
 
-if ($conn->query($sql) === TRUE) {
- echo "Registro agregado exitosamente";
+$result = $model->executeSQL($sql);
+if ($result === TRUE) {
+ echo "ROW agregado exitosamente";
 } else {
   echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
-//Cerrando conexion SQL
-$conn->close();
+
 ?>

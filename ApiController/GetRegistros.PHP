@@ -1,20 +1,13 @@
 <?php
 // Create SQL Connection
 
-$servername = "localhost:3306";
-$username = "Sirecor_usuario";
-$password = "7bp0c@81X";
-$dbname = "sirecor";
+$self=$_SERVER['PHP_SELF'];
+$thispath=dirname($_SERVER['PHP_SELF']);
+$sitebasepath=$_SERVER['DOCUMENT_ROOT'];
+require_once $sitebasepath."/Model/model.php";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
+$model = new Model();
 
-//Tomando datos desde solicitud HTTP GET
-
-//$data= $_GET['name'];
 
 //Insertando En tabla RowData
 $sql = "SELECT u.*,o.CAUDAL,o.DATETIME,o.id AS id_registro
@@ -26,13 +19,12 @@ JOIN (
 ) t ON o.unidad_id = t.unidad_id AND o.DATETIME = t.last_order_date
 INNER JOIN unidad u on u.id = o.unidad_id;";
 
-$sth = mysqli_query($conn, $sql);
+$result = $model->executeSQL($sql);
 $rows = array();
-while($r = mysqli_fetch_assoc($sth)) {
-    $rows[] = $r;
+
+while($row = $result->fetch_assoc()) {
+  $rows[] = $row;
 }
 print json_encode($rows);
 
-//Cerrando conexion SQL
-$conn->close();
 ?>
