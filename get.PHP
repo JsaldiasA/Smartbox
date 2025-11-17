@@ -1,16 +1,12 @@
 <?php
 // Create SQL Connection
 
-$servername = "localhost:3306";
-$username = "Sirecor_usuario";
-$password = "7bp0c@81X";
-$dbname = "sirecor";
+$self=$_SERVER['PHP_SELF'];
+$thispath=dirname($_SERVER['PHP_SELF']);
+$sitebasepath=$_SERVER['DOCUMENT_ROOT'];
+require_once $sitebasepath."/Model/model.php";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
+$model = new Model();
 
 //Tomando datos desde solicitud HTTP GET
 
@@ -20,12 +16,8 @@ $IP = $_SERVER['REMOTE_ADDR'];
 
 //Insertando En tabla RowData
 $sql = "INSERT INTO `rowdata`(`RowData`,`IP`) VALUES ('{$data}','{$IP}');";
+$result = $model->executeSQL($sql);
 
-if ($conn->query($sql) === TRUE) {
- echo "ROW agregado exitosamente";
-} else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
-}
 
 //Parseando la data del String que viene desde Sirecor
 
@@ -59,22 +51,6 @@ if ($SENAL == "") {
   $VOLTAJE="0";
 }
 
-//echo $UNIDAD;
-//echo '!';
-//echo $ESTADO;
-//echo '!';
-//echo $VOLUMEN;
-//echo '!';
-//echo $CAUDAL;
-//echo '!';
-//echo $SENAL;
-//echo '!';
-//echo $VOLTAJE;
-//echo '!';
-
-//echo $UNIDAD;
-// Create connection
-
 if ($SENAL == "NULL") {
   $SENAL="0";
 }
@@ -87,20 +63,8 @@ if ($CAUDAL == "NULL") {
 if ($VOLTAJE == "NULL") {
   $VOLTAJE="0";
 }
-//$VOLUMEN = intval($VOLUMEN);
 
-//$sql = "INSERT INTO `unidades_lastortolas` (`UNIDAD`, `ESTADO`, `VOLUMEN`, `CAUDAL`, `SENAL`, `VOLTAJE`, `FECHA`, `TIEMPO`) VALUES ('"+ //$UNIDAD + "', '" + $ESTADO + "', '" + $VOLUMEN + "','" + $CAUDAL + "', '" + $SENAL +"','" + $VOLTAJE + "', CURRENT_DATE(), CURRENT_TIME())";
-//$sql = "INSERT INTO `unidades_lastortolas` (`UNIDAD`, `ESTADO`, `VOLUMEN`, `CAUDAL`, `SENAL`, `VOLTAJE`, `FECHA`, `TIEMPO`) VALUES ('{$UNIDAD}', '{$ESTADO}', '{$VOLUMEN}','{$CAUDAL}', '{$SENAL}','{$VOLTAJE}', CURRENT_DATE(), CURRENT_TIME())";
-//Ingresando la data a unidades las tortolas
- 
 $sql = "CALL ingreso('{$UNIDAD}', '{$ESTADO}', '{$VOLUMEN}','{$CAUDAL}', '{$SENAL}','{$VOLTAJE}','{$VOLTAJE}')";
+$result = $model->executeSQL($sql);
 
-if ($conn->query($sql) === TRUE) {
- echo "Registro agregado exitosamente";
-} else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
-}
-
-//Cerrando conexion SQL
-$conn->close();
 ?>

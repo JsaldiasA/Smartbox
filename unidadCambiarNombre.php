@@ -1,9 +1,10 @@
 <?php
-date_default_timezone_set('America/Santiago');
-$servername = "localhost:3306";
-$username = "usuario";
-$password = "eco3spa";
-$dbname = "sirecor";
+$self=$_SERVER['PHP_SELF'];
+$thispath=dirname($_SERVER['PHP_SELF']);
+$sitebasepath=$_SERVER['DOCUMENT_ROOT'];
+require_once $sitebasepath."/Model/model.php";
+
+$model = new Model();
 
 $tag= $_POST['tag'];
 $NuevaUbicacion= $_POST['NuevaUbicacion'];
@@ -11,25 +12,11 @@ $token= $_POST['token'];
 
 if (strcmp($token,'eco3spa')==0)
 {
-	// Create connection
-	$conn = new mysqli($servername, $username, $password, $dbname);
-	// Check connection
-	if ($conn->connect_error) {
- 	 die("Connection failed: " . $conn->connect_error);
-	}
-	 $sql = "UPDATE `unidad` SET `Ubicacion` = '{$NuevaUbicacion}' WHERE `tag` LIKE '{$tag}'";
 
-	$result = $conn->query($sql);
-
-	if ($result->num_rows > 0) {
-    // output data of each row
-	echo '</tbody></table>';
-	}
-	else
-	{echo $result;}
+	$sql = "UPDATE `unidad` SET `Ubicacion` = '{$NuevaUbicacion}' WHERE `tag` LIKE '{$tag}'";
+	$result = $model->executeSQL($sql);
 	
 	echo "Cambio de ubicación hecho correctamente. Nueva ubicación: ".$NuevaUbicacion;
-	$conn->close();
 }
 else
 {

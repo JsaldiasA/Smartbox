@@ -1,9 +1,10 @@
 <?php
-date_default_timezone_set('America/Santiago');
-$servername = "localhost:3306";
-$username = "Sirecor_usuario";
-$password = "7bp0c@81X";
-$dbname = "sirecor";
+$self=$_SERVER['PHP_SELF'];
+$thispath=dirname($_SERVER['PHP_SELF']);
+$sitebasepath=$_SERVER['DOCUMENT_ROOT'];
+require_once $sitebasepath."/Model/model.php";
+
+$model = new Model();
 
 $tag= $_POST['tag'];
 $NuevoNumero= $_POST['NuevoNumero'];
@@ -13,25 +14,11 @@ $token= $_POST['token'];
 
 if (strcmp($token,'eco3spa')==0)
 {
-	// Create connection
-	$conn = new mysqli($servername, $username, $password, $dbname);
-	// Check connection
-	if ($conn->connect_error) {
- 	 die("Connection failed: " . $conn->connect_error);
-	}
-	 $sql = "UPDATE `unidad` SET `numero` = '{$NuevoNumero}' WHERE `tag` LIKE '{$tag}'";
 
-	$result = $conn->query($sql);
-
-	if ($result->num_rows > 0) {
-    // output data of each row
-	echo '</tbody></table>';
-	}
-	else
-	{   echo $result;}
+	$sql = "UPDATE `unidad` SET `numero` = '{$NuevoNumero}' WHERE `tag` LIKE '{$tag}'";
+	$result = $model->executeSQL($sql);
 	
 	echo "Cambio de nombre hecho correctamente Nuevo Numero:".$NuevoNumero;
-	$conn->close();
 	
 }
 else

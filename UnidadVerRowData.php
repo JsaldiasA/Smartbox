@@ -61,7 +61,7 @@
   margin-top: 10px;
 }
 
-.topnav a:hover {;
+.topnav a:hover {
   color: white;
 }
 
