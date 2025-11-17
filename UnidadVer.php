@@ -262,7 +262,7 @@ function FunctionCambiarVolMax(unidad) {
 <div class="row" >
 	<div class="col" >
 		<?php
-			$ultimoRegistro = $Model->UltimoRegistroDiarioById_unidad($unidadDbEntity->get_id());
+			$ultimoRegistro = $unidadDbEntity->get_UltimoRegistro();
 			echo '<h2>Ultimo Registro</h2>';// Header tabla
 			//print row
 			echo '<table class="table" >
