@@ -77,7 +77,8 @@ echo $sql;
 $result = $model->executeSQL($sql);
 
 $sql = "UPDATE sirecor.unidad
-SET    UltimaActualizacion=current_timestamp(), Volumen={$VOLUMEN}, Estado='{$ESTADO}', BatNivel={$VOLTAJE}";
+SET    UltimaActualizacion=current_timestamp(), Volumen={$VOLUMEN}, Estado='{$ESTADO}', BatNivel={$VOLTAJE}
+WHERE id= ".$unidadObj->get_id();
 
 echo $sql; 
 
