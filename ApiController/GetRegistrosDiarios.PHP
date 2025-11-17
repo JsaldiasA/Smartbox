@@ -1,16 +1,12 @@
 <?php
 // Create SQL Connection
 
-$servername = "localhost:3306";
-$username = "Sirecor_usuario";
-$password = "7bp0c@81X";
-$dbname = "sirecor";
+$self=$_SERVER['PHP_SELF'];
+$thispath=dirname($_SERVER['PHP_SELF']);
+$sitebasepath=$_SERVER['DOCUMENT_ROOT'];
+require_once $sitebasepath."/Model/model.php";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
+$Model = new model();
 
 //Tomando datos desde solicitud HTTP GET
 
@@ -19,7 +15,8 @@ if ($conn->connect_error) {
 //Insertando En tabla RowData
 $sql = "SELECT * FROM unidades_lastortolas ul ORDER BY ul.DATETIME DESC;";
 
-$sth = mysqli_query($conn, $sql);
+
+$sth = $Model->executeSQL($sql);
 $rows = array();
 while($r = mysqli_fetch_assoc($sth)) {
     $rows[] = $r;

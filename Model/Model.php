@@ -412,7 +412,7 @@ class Model {
 		$sql = $SQLscript;
 		$result = $conn->query($sql);
 
-		// return $result;
+		return $result;
 	}
 
 }

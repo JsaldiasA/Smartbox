@@ -1,27 +1,20 @@
 <?php
 // Create SQL Connection
 
-$servername = "localhost:3306";
-$username = "Sirecor_usuario";
-$password = "7bp0c@81X";
-$dbname = "sirecor";
+$self=$_SERVER['PHP_SELF'];
+$thispath=dirname($_SERVER['PHP_SELF']);
+$sitebasepath=$_SERVER['DOCUMENT_ROOT'];
+require_once $sitebasepath."/Model/model.php";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
+$model = new Model();
 
 //Insertando En tabla RowData
 $sql = "SELECT * FROM `alertatipo`;";
-
-$sth = mysqli_query($conn, $sql);
+$result = $model->executeSQL($sql);
 $rows = array();
-while($r = mysqli_fetch_assoc($sth)) {
-    $rows[] = $r;
+
+while($row = $result->fetch_assoc()) {
+  $rows[] = $r;
 }
 print json_encode($rows);
-
-//Cerrando conexion SQL
-$conn->close();
 ?>
