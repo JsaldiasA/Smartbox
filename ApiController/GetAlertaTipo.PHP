@@ -14,7 +14,8 @@ $result = $model->executeSQL($sql);
 $rows = array();
 
 while($row = $result->fetch_assoc()) {
-  $rows[] = $r;
+  $rows[] = $row;
 }
 print json_encode($rows);
+
 ?>
