@@ -76,4 +76,12 @@ echo $sql;
 
 $result = $model->executeSQL($sql);
 
+$sql = "UPDATE sirecor.unidad
+SET    UltimaActualizacion=current_timestamp(), Volumen={$VOLUMEN}, Estado='{$ESTADO}', BatNivel={$VOLTAJE}";
+
+echo $sql; 
+
+$result = $model->executeSQL($sql);
+
+
 ?>
