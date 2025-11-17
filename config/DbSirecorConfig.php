@@ -4,7 +4,7 @@ class DbSirecorConfig {
 
   public  $servername = "localhost:3306";
   public  $username = "usuario";
-  public  $password = "7bp0c@81X";
+  public  $password = "eco3spa";
   public  $dbname = "sirecor";	
 
   //function __construct() {  }	
