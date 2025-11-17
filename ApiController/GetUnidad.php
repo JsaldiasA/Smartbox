@@ -64,7 +64,7 @@ echo '<table class="table">
 		echo '<th scope="col">ÚltimaActz</th>
 		<th scope="col">Estado</th>
 		<th scope="col">Batería</th>';
-		// echo !$isEstanque ? '<th scope="col">Caudal</th>' : null;
+		 echo !$isEstanque ? '<th scope="col">Caudal</th>' : null;
 		echo !$isEstanque ? '<th scope="col">Volumen</th>' : null;
 		echo '<th scope="col"></th>
 		</thead>
@@ -74,7 +74,7 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
 {
 		$level = $unidad->get_BatNivel();
 	    $BatNivel = new BatteryLevel($level);
-		// $ultimoRegistro = $model->UltimoRegistroDiarioById_unidad($unidad->get_id());
+		$ultimoRegistro = $unidad->get_UltimoRegistro();
 		
 		//print row
         echo "<tr>";
@@ -85,92 +85,12 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
         echo "<td>".$unidad->DiffBetweenNow_and_UltimaActualizacion()."</td>";
         echo "<td>".$unidad->get_Estado()."</td>";
         echo "<td>".$BatNivel->get_HtmlTableField()."</td>";
-		// echo !$isEstanque ? ($ultimoRegistro == null ? "<td>Sin datos</td>":"<td>".$ultimoRegistro->get_CAUDAL()."</td>"): null;
+		 echo !$isEstanque ? ($ultimoRegistro == null ? "<td>Sin datos</td>":"<td>".$ultimoRegistro->get_CAUDAL()."</td>"): null;
         echo !$isEstanque ? ($IsMilesight ?  "<td>".$unidad->get_VolumenForMilesight()."</td>":"<td>".$unidad->get_Volumen()."</td>" ): null;
     	echo "<td> <a href='unidadver.php?tag=".$unidad->get_Tag()."'>Ver</a></td></tr>";
 }// columnas
     
 	echo '</tbody></table>';
 
- /*
-date_default_timezone_set('America/Santiago');
 
-$FechaActual= date_create(date("Y-m-d H:i:s"));
-
-if ($unidadTipo_Nombre == 'Estanque7600')
-{
-    $isEstanque = true;
-}
-else
-{
-    $isEstanque = false;
-}
-
-if ($result->num_rows > 0) {
-    
-	echo '<table class="table">
-		<thead>
-		<th scope="col">Nombre</th>
-		<th scope="col">IMEI</th>
-		<th scope="col">Ubicación</th>
-		<th scope="col">Número</th>
-		<th scope="col">ÚltimaActz</th>
-		<th scope="col">Estado</th>
-		<th scope="col">Batería</th>';
-
-    if ($isEstanque == false)
-    {
-        echo '<th scope="col">Volumen</th>';
-    }
-    
-    echo '<th scope="col"></th>
-		</thead>
-		<tbody>';
-        // Header tabla
-	
-    // output data of each row 
-	while($row = $result->fetch_assoc()) 
-	{	
-		//CALCULADO DIFF FECHA CON ACTUAL
-		
-		$FechaSQLrow= date_create($row["UltimaActualizacion"]);
-		$UltimaAct= date_diff($FechaActual,$FechaSQLrow);
-		if ($UltimaAct->format("%a")=="0")
-		{	
-			if ($UltimaAct->format("%h")=="0")
-			{
-				$UltimaActROW=$UltimaAct->format("%i Min");
-			}
-			else {$UltimaActROW=$UltimaAct->format("%h Horas");}
-		}
-		else {$UltimaActROW=$UltimaAct->format("%a Dias");}
-		
-		$level = $row["BatNivel"];
-	    $BatNivel = new BatteryLevel($level);
-		
-		//print row
-        echo "<tr> 
-        <td>".$row["Nombre"]."</td>
-        <td>".$row["tag"]."</td>
-        <td>".$row["Ubicacion"]."</td>
-        <td>".$row["numero"]."</td>
-        <td>".$UltimaActROW."</td>
-        <td>".$row["Estado"]."</td>
-        <td>".$BatNivel->get_HtmlTableField()."</td>";
-
-    if ($isEstanque == false)
-    {
-        echo
-		"<td>".$row["Volumen"]."</td>";
-    }
-        echo
-		"<td> <a href='unidadver.php?tag=".$row["tag"]."'>Ver</a></td></tr>";
-	}
-	echo '</tbody></table>';
-} 
-else 
-{
-    echo "0 results";
-}
-*/
 ?>
