@@ -60,12 +60,24 @@ else // si es caja u511 soleniod valve controller
 	}
 }
 
-// SP ingresoMilesight Parametros.
-// $UNIDAD, $ESTADO, $VOLUMEN, $CAUDAL, $SENAL, $VOLTAJE, $VOLTAJE, $NOMBRE,$Temperatura, $Humedad,$EC
+$unidadObj = $model->unidadByTag($NOMBRE);
 
-$sql = "CALL ingresoMilesight('{$UNIDAD}', '{$ESTADO}', '{$VOLUMEN}','{$CAUDAL}', '0','{$BATNIVEL}','{$BATNIVEL}','{$NOMBRE}','{$Temperatura}','{$Humedad}','{$EC}')";
+echo var_dump($unidadObj);
 
-$resultB = $Model->executeSQL($sql);
-echo "unidad: {$UNIDAD}', ESTADO'{$ESTADO}', VOLUMEN'{$VOLUMEN}',CAUDAL'{$CAUDAL}', SENAL '{0}',VOLTAJE'{$BATNIVEL}',BATNIVEL'{$BATNIVEL}',NOMBRE'{$NOMBRE}',Temperatura'{$Temperatura}',Humedad'{$Humedad}',EC'{$EC}')";;
+$sql = "INSERT INTO unidades_lastortolas
+( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
+VALUES( ".$unidadObj->get_id().", '{$ESTADO}' ,{$VOLUMEN},{$CAUDAL},{$SENAL},{$BATNIVEL},current_timestamp())";
+
+echo $sql; 
+
+$result = $model->executeSQL($sql);
+
+$sql = "UPDATE sirecor.unidad
+SET    UltimaActualizacion=current_timestamp(), Volumen={$VOLUMEN}, Estado='{$ESTADO}', BatNivel={$BATNIVEL}
+WHERE id= ".$unidadObj->get_id();
+
+echo $sql; 
+
+$result = $model->executeSQL($sql);
 
 ?>
