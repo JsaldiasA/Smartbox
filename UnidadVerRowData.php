@@ -249,7 +249,7 @@ function FunctionEliminar(  unidad ) {
 date_default_timezone_set('America/Santiago');
 $servername = "localhost:3306";
 $username = "Sirecor_usuario";
-$password = "Helegta1!";
+$password = "7bp0c@81X";
 $dbname = "sirecor";
 
 $dat= $_GET['tag'];
