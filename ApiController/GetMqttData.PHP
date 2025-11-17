@@ -60,24 +60,23 @@ else // si es caja u511 soleniod valve controller
 	}
 }
 
-$unidadObj = $model->unidadByTag($NOMBRE);
 
-echo var_dump($unidadObj);
+echo var_dump($UnidadExistente);
 
 $sql = "INSERT INTO unidades_lastortolas
 ( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
-VALUES( ".$unidadObj->get_id().", '{$ESTADO}' ,{$VOLUMEN},{$CAUDAL},{$SENAL},{$BATNIVEL},current_timestamp())";
+VALUES( ".$UnidadExistente->get_id().", '{$ESTADO}' ,{$VOLUMEN},{$CAUDAL},{$SENAL},{$BATNIVEL},current_timestamp())";
 
 echo $sql; 
 
-$result = $model->executeSQL($sql);
+$result = $Model->executeSQL($sql);
 
 $sql = "UPDATE sirecor.unidad
 SET    UltimaActualizacion=current_timestamp(), Volumen={$VOLUMEN}, Estado='{$ESTADO}', BatNivel={$BATNIVEL}
-WHERE id= ".$unidadObj->get_id();
+WHERE id= ".$UnidadExistente->get_id();
 
 echo $sql; 
 
-$result = $model->executeSQL($sql);
+$result = $Model->executeSQL($sql);
 
 ?>
