@@ -69,7 +69,7 @@ $unidadObj = $model->unidadByTag($UNIDAD);
 
 $sql = "INSERT INTO sirecor.unidades_lastortolas
 (id, unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
-VALUES(0, ".$unidadObj->get_id().", '{$ESTADO}' '{$VOLUMEN}','{$CAUDAL}', '{$SENAL}','{$VOLTAJE}', current_timestamp())";
+VALUES(0, '".$unidadObj->get_id()."', '{$ESTADO}' '{$VOLUMEN}','{$CAUDAL}', '{$SENAL}','{$VOLTAJE}', current_timestamp())";
 
 $result = $model->executeSQL($sql);
 
