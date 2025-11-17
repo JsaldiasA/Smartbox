@@ -66,6 +66,7 @@ if ($VOLTAJE == "NULL") {
 
 $unidadObj = $model->unidadByTag($UNIDAD);
 
+echo var_dump($unidadObj);
 
 $sql = "INSERT INTO sirecor.unidades_lastortolas
 ( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
