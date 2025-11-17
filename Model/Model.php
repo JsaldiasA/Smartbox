@@ -85,7 +85,7 @@ class Model {
 			while($row = $result->fetch_assoc()) 
 				{
 
-					// $UltimoRegistro=$this->UltimoRegistroDiarioById_unidad($row["id"]);
+					 $UltimoRegistro=$this->UltimoRegistroDiarioById_unidad($row["id"]);
 
 					$Unidades[] = new unidadDbEntity(
 					$row["id"],

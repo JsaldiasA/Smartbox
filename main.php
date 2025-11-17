@@ -20,11 +20,11 @@ GetUnidadIndefinida();
 // GetBodega();
 // GetSensorHumedadMilesight();
 // hilo
-var myRefreshAplicaciones = setInterval(GetAplicaciones, 1000);
-var myRefreshEstanque = setInterval(GetEstanques, 1000);
-var myRefreshSirecor = setInterval(GetSirecor, 1000);
-var myRefreshMilesight = setInterval(GetMilesight, 1000);
-var myRefreshUnidadIndefinida = setInterval(GetUnidadIndefinida, 1000);
+var myRefreshAplicaciones = setInterval(GetAplicaciones, 10000);
+var myRefreshEstanque = setInterval(GetEstanques, 10000);
+var myRefreshSirecor = setInterval(GetSirecor, 10000);
+var myRefreshMilesight = setInterval(GetMilesight, 10000);
+var myRefreshUnidadIndefinida = setInterval(GetUnidadIndefinida, 10000);
 // var myRefreshGetBodega = setInterval(GetBodega, 1000);
 // var myRefreshGetSensorHumedadMilesight = setInterval(GetSensorHumedadMilesight, 1000);
 
