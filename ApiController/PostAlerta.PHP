@@ -1,16 +1,12 @@
 <?php
 // Create SQL Connection
 
-$servername = "localhost:3306";
-$username = "Sirecor_usuario";
-$password = "7bp0c@81X";
-$dbname = "sirecor";
+$self=$_SERVER['PHP_SELF'];
+$thispath=dirname($_SERVER['PHP_SELF']);
+$sitebasepath=$_SERVER['DOCUMENT_ROOT'];
+require_once $sitebasepath."/Model/model.php";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
+$Model = new model();
 
 //Tomando datos desde solicitud HTTP GET
 
@@ -18,12 +14,8 @@ $data= $_GET['name'];
 
 //Insertando En tabla RowData
 $sql = "INSERT INTO `rowdata`(`RowData`) VALUES ('{$data}');";
+$Model->executeSQL($sql);
 
-if ($conn->query($sql) === TRUE) {
- echo "ROW agregado exitosamente";
-} else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
-}
 
 //Parseando la data del String que viene desde Sirecor
 
@@ -62,12 +54,8 @@ if ($SENAL == "NULL") {
 //Ingresando la data a unidades las tortolas
 $sql = "CALL ingreso('{$UNIDAD}', '{$ESTADO}', '{$VOLUMEN}','{$CAUDAL}', '{$SENAL}','{$VOLTAJE}')";
 
-if ($conn->query($sql) === TRUE) {
- echo "Registro agregado exitosamente";
-} else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
-}
+$Model->executeSQL($sql);
 
 //Cerrando conexion SQL
-$conn->close();
+
 ?>

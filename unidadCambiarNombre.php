@@ -1,8 +1,8 @@
 <?php
 date_default_timezone_set('America/Santiago');
 $servername = "localhost:3306";
-$username = "Sirecor_usuario";
-$password = "7bp0c@81X";
+$username = "usuario";
+$password = "eco3spa";
 $dbname = "sirecor";
 
 $tag= $_POST['tag'];
