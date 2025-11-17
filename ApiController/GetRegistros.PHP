@@ -8,7 +8,6 @@ require_once $sitebasepath."/Model/model.php";
 
 $model = new Model();
 
-
 //Insertando En tabla RowData
 $sql = "SELECT u.*,o.CAUDAL,o.DATETIME,o.id AS id_registro
 FROM unidades_lastortolas o
