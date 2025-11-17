@@ -65,7 +65,7 @@ echo var_dump($UnidadExistente);
 
 $sql = "INSERT INTO unidades_lastortolas
 ( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
-VALUES( ".$UnidadExistente->get_id().", '{$ESTADO}' ,{$VOLUMEN},{$CAUDAL},{$SENAL},{$BATNIVEL},current_timestamp())";
+VALUES( ".$UnidadExistente->get_id().", '{$ESTADO}' ,{$VOLUMEN},{$CAUDAL},0,{$BATNIVEL},current_timestamp())";
 
 echo $sql; 
 
