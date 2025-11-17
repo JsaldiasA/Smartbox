@@ -22,7 +22,7 @@ class Model {
 	function get_unidades_lastortolas()
 
 		{ 			
-			$sql = "SELECT * FROM `unidades_lastortolas`";
+			$sql = "SELECT * FROM `unidades_lastortolas` ORDER BY `DATETIME` DESC LIMIT 1000";
 			$result = $this->executeSQL($sql);
 			
 			$unidades_lastortolas = [];
@@ -80,12 +80,34 @@ class Model {
 			$result = $this->executeSQL($sql);
 		
 			$Unidades = [];
-			
+			$RegistrosDiarios = [];
+			$RegistrosDiarios = $this->get_unidades_lastortolas();
+
+			//usort($RegistrosDiarios, function($a, $b)
+			//{
+			//	if ($a->get_DATETIME() == $b->get_DATETIME())
+			//		{
+			//			return 0;
+			//		}
+//
+			//	return ($a->get_DATETIME() > $b->get_DATETIME()) ? -1 : 1;
+			//}
+			//);
+
+
 			if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) 
 				{
 
-					 $UltimoRegistro=$this->UltimoRegistroDiarioById_unidad($row["id"]);
+					
+					foreach ($RegistrosDiarios as $r)
+					{
+						if($r->get_unidad_id() == $row["id"] )
+						{
+							$UltimoRegistro = $r;
+							break;
+						}
+					}
 
 					$Unidades[] = new unidadDbEntity(
 					$row["id"],
@@ -103,8 +125,8 @@ class Model {
 					$row["Humedad"],
 					$row["EC"],
 					$row["VolMax"],
-					$row["FactorFlujometro"]);
-					// $UltimoRegistro
+					$row["FactorFlujometro"],
+					$UltimoRegistro);
 					
 					// cuidado con el casing, distinge de mayusculas y minusculas
 				}
