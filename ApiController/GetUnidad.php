@@ -1,5 +1,4 @@
 <?php
-
 require_once 'BatteryLevel.php';
 
 $self=$_SERVER['PHP_SELF'];
@@ -9,7 +8,7 @@ require_once $sitebasepath."/Model/model.php";
 
 $model = new Model();
 
-$unidadTipo_Nombre= $_GET['unidadtipo'] ;
+$unidadTipo_Nombre= $_GET['unidadtipo'];
 
 $unidadestipo =$model->get_unidadtipos();
 
@@ -33,11 +32,10 @@ $isEstanque = ($unidadTipo_Nombre == 'Estanque7600') ? true : false;
 
 		foreach ($Unidades as $unidad)
 		{
-				if($unidad->get_Id_UnidadTipo() ==  $unidadTipoFound_id )
+				if($unidad->get_Id_UnidadTipo() ==  $unidadTipoFound_id)
 				{
 					$UnidadesFiltradasPorTipo [] = $unidad;
 				} 
-
 		}
 
 usort($UnidadesFiltradasPorTipo, function($a, $b) {
@@ -61,8 +59,8 @@ usort($UnidadesFiltradasPorTipo, function($a, $b) {
     return ($a->get_Estado() > $b->get_Estado()) ? -1 : 1;
 });
 
-// Retornar valores como tabla
-echo '<table class="table">
+		// Retornar valores como tabla.
+		echo '<table class="table">
 		<thead>
 		<th scope="col">Serie</th>';
 		echo $IsMilesight ? '<th scope="col">DevEUI</th>' : '<th scope="col">IMEI</th>' ;
@@ -71,7 +69,7 @@ echo '<table class="table">
 		echo '<th scope="col">ÚltimaActz</th>
 		<th scope="col">Estado</th>
 		<th scope="col">Batería</th>';
-		 echo !$isEstanque ? '<th scope="col">Caudal</th>' : null;
+		echo !$isEstanque ? '<th scope="col">Caudal</th>' : null;
 		echo !$isEstanque ? '<th scope="col">Volumen</th>' : null;
 		echo '<th scope="col"></th>
 		</thead>
@@ -83,7 +81,7 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
 	    $BatNivel = new BatteryLevel($level);
 		$ultimoRegistro = $unidad->get_UltimoRegistro();
 		
-		//print row
+		// Print row.
         echo "<tr>";
         echo "<td>".$unidad->get_Serie()."</td>"; 
         echo "<td>". $unidad->get_Tag()."</td>";
@@ -92,12 +90,12 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
         echo "<td>".$unidad->DiffBetweenNow_and_UltimaActualizacion()."</td>";
         echo "<td>".$unidad->get_Estado()."</td>";
         echo "<td>".$BatNivel->get_HtmlTableField()."</td>";
-		 echo !$isEstanque ? ($ultimoRegistro == null ? "<td>Sin datos</td>":"<td>".$ultimoRegistro->get_CAUDAL()."</td>"): null;
+		echo !$isEstanque ? ($ultimoRegistro == null ? "<td>0</td>":"<td>".$ultimoRegistro->get_CAUDAL()."</td>"): null;
         echo !$isEstanque ? ($IsMilesight ?  "<td>".$unidad->get_VolumenForMilesight()."</td>":"<td>".$unidad->get_Volumen()."</td>" ): null;
     	echo "<td> <a href='unidadver.php?tag=".$unidad->get_Tag()."'>Ver</a></td></tr>";
-}// columnas
+}
+		// Columnas.
     
-	echo '</tbody></table>';
-
+		echo '</tbody></table>';
 
 ?>
