@@ -1,6 +1,5 @@
 <?php
 
-
 $self=$_SERVER['PHP_SELF']; 
 $thispath=dirname($_SERVER['PHP_SELF']);
 $sitebasepath=$_SERVER['DOCUMENT_ROOT'];
@@ -8,13 +7,11 @@ $sitebasepath=$_SERVER['DOCUMENT_ROOT'];
 require($sitebasepath.'/vendor/autoload.php');
 require_once $sitebasepath."/Model/model.php";
 
-
 $Model = new model();
 
 $tag= $_POST['tag'];
 $ComandoNombre= $_POST['nombre'];
 $token= $_POST['token'];
-
 
 use \PhpMqtt\Client\MqttClient;
 use \PhpMqtt\Client\ConnectionSettings;
@@ -23,8 +20,8 @@ try {
 $server   = 'i707fd0d.ala.us-east-1.emqxsl.com';
 $port     = 8883;
 $clientId = rand(5, 15);
-$username = 'Milesight_Bridge';
-$password = 'eco3_bridge';
+$username = 'Bridge_Eco3';
+$password = 'Bridge_Pass';
 $clean_session = false;
 
 $connectionSettings  = (new ConnectionSettings)
@@ -52,8 +49,8 @@ $payload = array(
   'confirmed' => true,
   'fport' => 85,
   'data' => $comando
-
 );
+
 $mqtt->publish('downlink/'.$tag, json_encode($payload), 0);
 
 echo "Operación realizada con éxito. tag: ".$tag." nombre:".$ComandoNombre." token:".$token;
