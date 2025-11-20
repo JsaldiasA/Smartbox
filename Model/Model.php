@@ -81,25 +81,11 @@ class Model {
 		
 			$Unidades = [];
 			$RegistrosDiarios = [];
-			$RegistrosDiarios = $this->get_unidades_lastortolas();
-
-			//usort($RegistrosDiarios, function($a, $b)
-			//{
-			//	if ($a->get_DATETIME() == $b->get_DATETIME())
-			//		{
-			//			return 0;
-			//		}
-//
-			//	return ($a->get_DATETIME() > $b->get_DATETIME()) ? -1 : 1;
-			//}
-			//);
-
+			$RegistrosDiarios = $this->get_UltimoRegistroDiarioDeCadaUnidad();
 
 			if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) 
-				{
-
-					
+				{				
 					foreach ($RegistrosDiarios as $r)
 					{
 						if($r->get_unidad_id() == $row["id"] )
