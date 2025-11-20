@@ -395,7 +395,7 @@ function FunctionCambiarVolMax(unidad) {
 		echo ' </div> ';
 
 		echo '<div class="subContainer" >';
-		echo '<button onclick="FunctionEliminar('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Eliminar</button> Eliminar la unidad';
+		echo '<button onclick="FunctionEliminar('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Eliminar</button> Eliminar unidad';
 		echo ' </div> ';
 
 		?>
