@@ -13,7 +13,7 @@ $Model = new model();
 //$data= $_GET['name'];
 
 //Insertando En tabla RowData
-$sql = "SELECT * FROM unidades_lastortolas ul ORDER BY ul.DATETIME DESC LIMIT 1000;";
+$sql = "SELECT * FROM unidades_lastortolas WHERE id in (SELECT max(id) FROM unidades_lastortolas GROUP BY unidad_id);";
 
 
 $sth = $Model->executeSQL($sql);
