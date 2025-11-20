@@ -114,7 +114,11 @@ if ($decoded) {
 
 echo var_dump($decoded)	;
 echo $decoded["body"]["exp"];
+$expTime = $decoded["body"]["exp"];
+if ($$expTime< time()) {
 
+	echo 'token expirado';
+}
 echo '
 <div class="container">
 <br>
