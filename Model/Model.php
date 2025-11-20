@@ -414,6 +414,34 @@ class Model {
 
 		return $result;
 	}
+	
+	function get_UltimoRegistroDiarioDeCadaUnidad()
+	{ 			
+		$sql = "SELECT * FROM unidades_lastortolas WHERE id in (SELECT max(id) FROM unidades_lastortolas GROUP BY unidad_id);";
+		$result = $this->executeSQL($sql);
+		
+		$unidades_lastortolas = [];
+			
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc())
+			{
+				$unidades_lastortolas[] = new unidades_lastortolasDbEntity(
+				$row["id"],
+				$row["unidad_id"],
+				$row["ESTADO"],
+				$row["VOLUMEN"],
+				$row["CAUDAL"],
+				$row["SENAL"],
+				$row["VOLTAJE"],
+				$row["DATETIME"]
+				);
+			// cuidado con el casing, distinge de mayusculas y minusculas
+			}
+		}
+	
+		return $unidades_lastortolas;
+	}
+
 
 }
 
