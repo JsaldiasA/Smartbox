@@ -103,7 +103,8 @@ if (isset($_COOKIE['token'])) {
     $tk = $_COOKIE['token'];
 } else {
     $tk = "";
-}
+} 
+
 $jwtHelper = new JWT();
 $decoded = $jwtHelper->decode($tk);
 
@@ -112,6 +113,7 @@ $decoded = $jwtHelper->decode($tk);
 if ($decoded) {
 
 echo var_dump($decoded)	;
+echo $decoded[1]["exp"];
 
 echo '
 <div class="container">
