@@ -363,17 +363,17 @@ function FunctionCambiarVolMax(unidad) {
 		// PANEL EDITAR:
 
 		echo '<div class="subContainer" >';
-		echo '<button onclick="FunctionCambiarVolMax('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button> Volumen máximo';
+		echo '<button onclick="FunctionCambiarVolMax('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button> Nuevo volumen máximo:';
 		echo '<input type="text" id="VolMax" name="VolMax" class="form-control"> ';// input cambio de numero
 		echo ' </div> ';
 		
 		echo '<div class="subContainer" >';
-		echo '<button onclick="FunctionNuevaUbicacion('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button> Nueva ubicación';
+		echo '<button onclick="FunctionNuevaUbicacion('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button> Nueva ubicación:';
 		echo '<input type="text" id="NuevaUbicacion" name="NuevaUbicacion" class="form-control"> ';// input cambio de ubicacion
 		echo ' </div> ';
 		
 		echo '<div class="subContainer" >';
-		echo '<button onclick="FunctionNuevoNumero('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button> Nuevo número';
+		echo '<button onclick="FunctionNuevoNumero('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button> Nuevo número:';
 		echo '<input type="text" id="NuevoNumero" name="NuevoNumero" class="form-control"> ';// input cambio de numero
 		echo ' </div> ';
 		
@@ -395,7 +395,7 @@ function FunctionCambiarVolMax(unidad) {
 		echo ' </div> ';
 
 		echo '<div class="subContainer" >';
-		echo '<button onclick="FunctionEliminar('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Eliminar</button> Eliminar unidad';
+		echo '<button onclick="FunctionEliminar('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Eliminar</button> Eliminar unidad...';
 		echo ' </div> ';
 
 		?>
