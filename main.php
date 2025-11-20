@@ -112,10 +112,10 @@ $decoded = $jwtHelper->decode($tk);
 
 if ($decoded) {
 
-echo var_dump($decoded)	;
-echo 'exptime: '.$decoded["body"]["exp"];
+//echo var_dump($decoded)	;
+//echo 'exptime: '.$decoded["body"]["exp"];
 $expTime = $decoded["body"]["exp"];
-echo 'time: '.time();
+//echo 'time: '.time();
 if ($expTime< time()) {
 
 	echo 'token expirado';
