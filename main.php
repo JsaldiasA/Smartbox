@@ -107,7 +107,12 @@ if (isset($_COOKIE['token'])) {
 $jwtHelper = new JWT();
 $decoded = $jwtHelper->decode($tk);
 
+
+
 if ($decoded) {
+
+echo var_dump($decoded)	;
+
 echo '
 <div class="container">
 <br>
