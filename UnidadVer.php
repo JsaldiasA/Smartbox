@@ -419,7 +419,7 @@ function FunctionCambiarVolMax(unidad) {
         <?php	
 // TABLA REGISTROS DIARIOS
 	
-	$sql = "SELECT `UL`.`id`,`U`.`tag`,`UL`.`ESTADO`,`UL`.`VOLUMEN`,`UL`.`CAUDAL`,`UL`.`SENAL`,`UL`.`VOLTAJE`,`UL`.`DATETIME` FROM 		`unidades_lastortolas` `UL` INNER JOIN `unidad` `U` ON `U`.`ID` = `UL`.`unidad_id`  WHERE `U`.`unidad_id` = ".$unidadDbEntity->get_id()." ORDER BY `UL`.`id` DESC LIMIT 10000";
+	$sql = "SELECT * FROM `unidades_lastortolas`  WHERE `unidad_id` = ".$unidadDbEntity->get_id()." ORDER BY `id` DESC LIMIT 10000";
 
 $result = $Model->executeSQL($sql);
 
