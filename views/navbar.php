@@ -29,8 +29,11 @@ function myFunction() {
 	padding:0px 0px 20px 0px;
 	width: 100%;
 }
+    .body {
+  background-color: lightgray;
+}	 
   .container {
-  background-color: coral;
+  background-color: white;
 }	 
 </style>
 <style>
