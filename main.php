@@ -98,13 +98,31 @@ function GetSensorHumedadMilesight()
 
 <?php
 
-$tk= $_GET['tk'];
+//$tk= $_GET['tk'];
+if (isset($_COOKIE['token'])) {
+    $tk = $_COOKIE['token'];
+} else {
+    $tk = "";
+} 
+
 $jwtHelper = new JWT();
 $decoded = $jwtHelper->decode($tk);
 
+
+
 if ($decoded) {
-echo '<br>
+
+//echo var_dump($decoded)	;
+//echo 'exptime: '.$decoded["body"]["exp"];
+$expTime = $decoded["body"]["exp"];
+//echo 'time: '.time();
+if ($expTime< time()) {
+
+	echo 'token expirado';
+}
+echo '
 <div class="container">
+<br>
 	<div class="row">
 		<H1>Aplicaciones</H1>
 		<div class="overflow-auto">

@@ -22,7 +22,7 @@ class Model {
 	function get_unidades_lastortolas()
 
 		{ 			
-			$sql = "SELECT * FROM `unidades_lastortolas` ORDER BY `DATETIME` DESC LIMIT 1000";
+			$sql = "SELECT * FROM `unidades_lastortolas` ORDER BY `DATETIME` DESC LIMIT 10000";
 			$result = $this->executeSQL($sql);
 			
 			$unidades_lastortolas = [];
@@ -81,25 +81,11 @@ class Model {
 		
 			$Unidades = [];
 			$RegistrosDiarios = [];
-			$RegistrosDiarios = $this->get_unidades_lastortolas();
-
-			//usort($RegistrosDiarios, function($a, $b)
-			//{
-			//	if ($a->get_DATETIME() == $b->get_DATETIME())
-			//		{
-			//			return 0;
-			//		}
-//
-			//	return ($a->get_DATETIME() > $b->get_DATETIME()) ? -1 : 1;
-			//}
-			//);
-
+			$RegistrosDiarios = $this->get_UltimoRegistroDiarioDeCadaUnidad();
 
 			if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) 
-				{
-
-					
+				{				
 					foreach ($RegistrosDiarios as $r)
 					{
 						if($r->get_unidad_id() == $row["id"] )
@@ -414,6 +400,34 @@ class Model {
 
 		return $result;
 	}
+	
+	function get_UltimoRegistroDiarioDeCadaUnidad()
+	{ 			
+		$sql = "SELECT * FROM unidades_lastortolas WHERE id in (SELECT max(id) FROM unidades_lastortolas GROUP BY unidad_id);";
+		$result = $this->executeSQL($sql);
+		
+		$unidades_lastortolas = [];
+			
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc())
+			{
+				$unidades_lastortolas[] = new unidades_lastortolasDbEntity(
+				$row["id"],
+				$row["unidad_id"],
+				$row["ESTADO"],
+				$row["VOLUMEN"],
+				$row["CAUDAL"],
+				$row["SENAL"],
+				$row["VOLTAJE"],
+				$row["DATETIME"]
+				);
+			// cuidado con el casing, distinge de mayusculas y minusculas
+			}
+		}
+	
+		return $unidades_lastortolas;
+	}
+
 
 }
 
