@@ -360,25 +360,25 @@ function FunctionCambiarVolMax(unidad) {
       <div class="accordion-body">
 		  
 		<?php
-		// PANEL EDITAR
+		// PANEL EDITAR:
 
 		echo '<div class="subContainer" >';
-		echo '<button onclick="FunctionCambiarVolMax('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button> Volumen máximo'; // boton cambio de numero
+		echo '<button onclick="FunctionCambiarVolMax('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button> Volumen máximo';
 		echo '<input type="text" id="VolMax" name="VolMax" class="form-control"> ';// input cambio de numero
 		echo ' </div> ';
 		
 		echo '<div class="subContainer" >';
-		echo '<button onclick="FunctionNuevaUbicacion('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button> Nueva ubicación'; // boton cambio de ubicacion
+		echo '<button onclick="FunctionNuevaUbicacion('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button> Nueva ubicación';
 		echo '<input type="text" id="NuevaUbicacion" name="NuevaUbicacion" class="form-control"> ';// input cambio de ubicacion
 		echo ' </div> ';
 		
 		echo '<div class="subContainer" >';
-		echo '<button onclick="FunctionNuevoNumero('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button> Nuevo número'; // boton cambio de numero
+		echo '<button onclick="FunctionNuevoNumero('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button> Nuevo número';
 		echo '<input type="text" id="NuevoNumero" name="NuevoNumero" class="form-control"> ';// input cambio de numero
 		echo ' </div> ';
 		
 		echo '<div class="subContainer" >';
-		echo '<button onclick="FunctionNuevoTipo('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button>'; // boton cambio de unidad tipo
+		echo '<button onclick="FunctionNuevoTipo('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button>';
 
 		$q = $Model->executeSQL("SELECT `Nombre` FROM `unidadtipo`");
 		echo  '<select name="NuevoTipo" id="NuevoTipo" required>';
@@ -387,18 +387,17 @@ function FunctionCambiarVolMax(unidad) {
 				echo "<option value='$unidadTipo_name'>$unidadTipo_name</option>";
 				}
 		echo "<option value='NULL'>Unidad Indefinida</option>";
-		echo '</select>'; // select TAG con unidad tipo
+		echo '</select>';
 		echo ' </div> ';
 
 		echo '<div class="subContainer" >';
-		echo '<button onclick="FunctionEliminar('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Eliminar</button>'; // boton eliminar
+		echo 'Password <input type="text" id="password" name="password"  class="form-control" > ';
 		echo ' </div> ';
-		
+
 		echo '<div class="subContainer" >';
-		echo 'Password <input type="text" id="password" name="password"  class="form-control" > '; //password para accionar
+		echo '<button onclick="FunctionEliminar('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Eliminar</button>';
 		echo ' </div> ';
-		
-		//echo ' </div> ';
+
 		?>
 	
       </div>
