@@ -30,7 +30,7 @@ function myFunction() {
 	width: 100%;
 }
     body {
-  background-color: lightgray;
+  background-color: bluegray;
 }	 
   .container {
   background-color: white;

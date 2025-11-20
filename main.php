@@ -103,8 +103,9 @@ $jwtHelper = new JWT();
 $decoded = $jwtHelper->decode($tk);
 
 if ($decoded) {
-echo '<br>
+echo '
 <div class="container">
+<br>
 	<div class="row">
 		<H1>Aplicaciones</H1>
 		<div class="overflow-auto">
