@@ -27,7 +27,12 @@ function Login()
 			password: password,
         	},
 
-		    success: function(result){window.location.replace("http://smartbox.eco3.cl/main.php?tk="+result);}
+		    success: function(result){
+				window.localStorage.setItem("token", result);
+				window.location.replace("http://smartbox.eco3.cl/main.php");
+				document.cookie = 'token='+result;
+				//window.location.replace("http://smartbox.eco3.cl/main.php?tk="+result);
+			}
 
 		  });
 	}

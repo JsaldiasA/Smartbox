@@ -98,7 +98,12 @@ function GetSensorHumedadMilesight()
 
 <?php
 
-$tk= $_GET['tk'];
+//$tk= $_GET['tk'];
+if (isset($_COOKIE['token'])) {
+    $tk = $_COOKIE['token'];
+} else {
+    $tk = "";
+}
 $jwtHelper = new JWT();
 $decoded = $jwtHelper->decode($tk);
 
