@@ -21,12 +21,16 @@ function myFunction() {
 </script>
 
 
+
 <style>
 
 	 
 .subContainer {
 	padding:0px 0px 20px 0px;
 	width: 100%;
+}
+  body {
+  background-color: coral;
 }	 
 </style>
 <style>
