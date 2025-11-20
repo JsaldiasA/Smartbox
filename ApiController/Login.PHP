@@ -16,7 +16,14 @@ if (strcmp($email,'info@eco3.cl')==0)
 	if (strcmp($password,'eco3spa')==0)
 	{
 		$jwt = new JWT();
-		$token =  $jwt->encode(['email' => 'email', 'role' => 'admin']);
+		$issuedAt = time(); // Current timestamp
+		$expirationTime = $issuedAt + 100;
+		$token =  $jwt->encode([
+			'email' => 'email',
+			'role' => 'admin',
+			'iat' => $issuedAt, // Issued at
+    		'exp' => $expirationTime // Expiration time
+			]);
 		echo $token;		
 	}
 	else
