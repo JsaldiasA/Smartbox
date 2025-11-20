@@ -379,7 +379,6 @@ function FunctionCambiarVolMax(unidad) {
 		
 		echo '<div class="subContainer" >';
 		echo '<button onclick="FunctionNuevoTipo('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button>'; // boton cambio de unidad tipo
-		echo ' </div> ';
 
 		$q = $Model->executeSQL("SELECT `Nombre` FROM `unidadtipo`");
 		echo  '<select name="NuevoTipo" id="NuevoTipo" required>';
