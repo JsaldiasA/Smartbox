@@ -113,7 +113,7 @@ $decoded = $jwtHelper->decode($tk);
 if ($decoded) {
 
 echo var_dump($decoded)	;
-echo $decoded[1]["exp"];
+echo $decoded["body"]["exp"];
 
 echo '
 <div class="container">
