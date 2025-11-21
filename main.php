@@ -117,8 +117,10 @@ if ($decoded) {
 $expTime = $decoded["body"]["exp"];
 //echo 'time: '.time();
 if ($expTime< time()) {
-
+	echo '<div class="container">';
 	echo 'token expirado';
+	echo '<a href="index.php">log in</a>';
+	echo '</div>';
 }
 else
 {
