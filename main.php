@@ -120,6 +120,8 @@ if ($expTime< time()) {
 
 	echo 'token expirado';
 }
+else
+{
 echo '
 <div class="container">
 <br>
@@ -154,6 +156,7 @@ echo '
 		</div>
 	</div>
 </div>';
+}
 } else {
     echo "Invalid token.";
 }
