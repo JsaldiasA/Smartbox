@@ -120,12 +120,13 @@ if ($expTime< time()) {
 	echo '<div class="container">';
 	echo '<div class="row">';
 	echo '<div class="d-flex justify-content-center">';
-	echo '<p class="h1">token expirado</p>';
+
+	echo '<br><p class="h1">token expirado</p>';
 	echo '</div>';
 	echo '</div>';
 	echo '<div class="row">';
 	echo '<div class="d-flex justify-content-center">';
-	echo '<a href="index.php"><p class="h1">log in</p></a>';
+	echo '<br><a href="index.php"><p class="h1">log in</p></a><br>';
 	echo '</div>';
 	echo '</div>';
 	echo '</div>';
