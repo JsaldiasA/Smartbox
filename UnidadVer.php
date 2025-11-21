@@ -203,10 +203,12 @@ function FunctionCambiarVolMax(unidad) {
 		 	  <thead >
 		  	  	<th scope="col">Nombre</th>
 		  		<th scope="col">'.$tagTitle.'</th>
+				<th scope="col">Ubicacion</th>
 		  	  </thead><tbody>';// Header tabla
 		//print row
         echo "<tr> <td>". $unidadDbEntity->get_Serie().
 		"</td><td>". $unidadDbEntity->get_Tag().
+		"</td><td>". $unidadDbEntity->get_Ubicacion().
 		"</td> </tr>";
 		echo '</tbody></table>';
 
