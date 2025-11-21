@@ -100,7 +100,7 @@ function myFunction() {
   <div><img src="../images/Logocortado.png"  style="margin-left: 0px;width:55px;height:auto;"></div>
   <div><img src="../images/Logo letra.png"  style="margin-left: -5px;margin-right: 15px;margin-top: 5px;width:60px;height:auto;"></div></a>
   <div id="RmyTopnav" class="topnav-right">
-  <a  href="../index.php" >Home</a>
+  <a  href="../main.php" >Home</a>
   <a  href="../UnidadVerRowData.php" >RowData</a>
   <a  href="../OldVersion.php" >OldVersion</a> 	
   <a  href="../Sirecor2.0/views/riego/index.php" >Docs<a> 	
