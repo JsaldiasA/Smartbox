@@ -16,7 +16,7 @@ $checklistDbEntity= $Model->UltimochecklistById_unidad($unidadDbEntity->get_id()
 <!-- SCRIPTS PARA editar panel -->
 <script>
 function FunctionNuevoNumero(unidad) {
-  let text = "¿Esta seguro de cambiar el número de la unidad?";
+  let text = "¿Está seguro de cambiar el número de la unidad?";
   if (confirm(text) == true) {
 	 
 	var URL = "UnidadCambiarNumero.php";
@@ -36,12 +36,12 @@ function FunctionNuevoNumero(unidad) {
 		  });
 
   } else {
-    alert("La operación se ha cancelado");
+    alert("La operación se ha cancelado.");
   }
 }
 
 function FunctionNuevaUbicacion(unidad) {
-  let text = "¿Esta seguro de cambiar la ubicación de la unidad?";
+  let text = "¿Está seguro de cambiar la ubicación de la unidad?";
   if (confirm(text) == true) {
 
 	var URL = "UnidadCambiarNombre.php";
@@ -61,21 +61,19 @@ function FunctionNuevaUbicacion(unidad) {
 		  });
 
   } else {
-    alert("La operación se ha cancelado");
+    alert("La operación se ha cancelado.");
   }
 }
 	
 function FunctionNuevoTipo(unidad) {
-  let text = "¿Esta seguro de cambiar el tipo de unidad?";
+  let text = "¿Está seguro de cambiar el tipo de unidad?";
   if (confirm(text) == true) {
 
 	var URL = "UnidadCambiarTipo.php";
 	var Respuesta;
-
 	var e = document.getElementById("NuevoTipo");
 	var value = e.value;
 	var NuevoTipo = e.options[e.selectedIndex].text;
-
 	var token = document.getElementById("password").value;
 	$.ajax({
             url:URL, //the page containing php script
@@ -90,12 +88,12 @@ function FunctionNuevoTipo(unidad) {
 		  });
 
   } else {
-    alert("La operación se ha cancelado");
+    alert("La operación se ha cancelado.");
   }
 }	
 	
 function FunctionEliminar(unidad) {
-  let text = "¿Esta seguro de eliminar la unidad?";
+  let text = "¿Está seguro de eliminar la unidad?";
   if (confirm(text) == true) {
 
 	var URL = "UnidadEliminar.php";
@@ -109,16 +107,16 @@ function FunctionEliminar(unidad) {
             tag: unidad,
 			token: token,
         	},
-		    success: function(result){alert(result)} 
+		    success: function(result){alert(result)}
 		  });	 
 
   } else {
-    alert("La operación se ha cancelado");
+    alert("La operación se ha cancelado.");
   }
 }
 	
 function FunctionComandosMilesight(ComandoNombre) {
-  let text = "¿Esta seguro de accionar la unidad?";
+  let text = "¿Está seguro de accionar la unidad?";
   if (confirm(text) == true) {
 
 	var URL = "ApiController/Postcomandos_milesight.php";
@@ -137,13 +135,13 @@ function FunctionComandosMilesight(ComandoNombre) {
 		  });
 
   } else {
-    alert("La operación se ha cancelado");
+    alert("La operación se ha cancelado.");
   }
 
 }
 
 function FunctionCambiarVolMax(unidad) {
-  let text = "¿Esta seguro de cambiar volumen maximo de la unidad?";
+  let text = "¿Está seguro de cambiar el volumen máximo de la unidad?";
   if (confirm(text) == true) {
 
 	var URL = "UnidadCambiarVolMax.php";
@@ -163,7 +161,7 @@ function FunctionCambiarVolMax(unidad) {
 		  });
 
   } else {
-    alert("La operación se ha cancelado");
+    alert("La operación se ha cancelado.");
   }
 }
 
