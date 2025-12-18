@@ -151,9 +151,9 @@ else {document.getElementById('VoltajeMCU').className='form-control';}
 	<div class="col border">
 		<table class="table">
 		<tbody>	
-      <tr><td><b>IMEI de la unidad </b></td><td><?php echo $unidadDbEntity->get_tag();?></td><td></td></tr>
-	   <tr><td><b> id_unidad </b></td><td><?php echo $unidadDbEntity->get_id();?></td><td></td></tr>
-<tr><td><b>VoltajeReguladorBat </b></td><td><input type="text" class="form-control" id="VoltajeReguladorBat" placeholder="13.9-14.2 Pb 12.4-12.8 Li" pattern="[0-9]{1,}|[0-9]{1,}[.][0-9]{1,}" title="Solo ingresar numeros" ></td><td>(V)</td></tr>
+      <tr><td><b>IMEI</b></td><td><?php echo $unidadDbEntity->get_tag();?></td><td></td></tr>
+	   <tr><td><b> ID de la unidad </b></td><td><?php echo $unidadDbEntity->get_id();?></td><td></td></tr>
+<tr><td><b>Voltaje del regulador de la batería:</b></td><td><input type="text" class="form-control" id="VoltajeReguladorBat" placeholder="13.9-14.2 Pb 12.4-12.8 Li" pattern="[0-9]{1,}|[0-9]{1,}[.][0-9]{1,}" title="Solo ingresar numeros" ></td><td>(V)</td></tr>
 <tr><td><b>VoltajeReguladorMCU </b></td><td><input type="text" class="form-control" id="VoltajeReguladorMCU" placeholder="5-5.3" pattern="[0-9]{1,}|[0-9]{1,}[.][0-9]{1,}" title="Solo ingresar numeros"></td><td>(V)</td></tr>
 <tr><td><b>SmartBox </b></td><td><input type="checkbox" class="form-check-input" id="SmartBox" ></td><td></td></tr>
 <tr><td><b>SMSenvio </b></td><td><input type="checkbox" class="form-check-input" id="SMSenvio" ></td><td></td></tr>
