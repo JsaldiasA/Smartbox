@@ -362,26 +362,26 @@ function FunctionCambiarVolMax(unidad) {
 		<?php
 		// PANEL EDITAR:
 		echo '<div class="subContainer">';
-		echo 'Password2 <input type="text" id="password" name="password" class="form-control">';
+		echo 'Introduzca la contraseña para editar: <input type="text" id="password" name="password" class="form-control">';
 		echo '</div>';   // Input de contraseña.
 
 		echo '<div class="subContainer">';
-		echo '<button onclick="FunctionNuevaUbicacion('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button> Nueva ubicación:';
+		echo '<button onclick="FunctionNuevaUbicacion('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Editar</button> Nueva ubicación:';
 		echo '<input type="text" id="NuevaUbicacion" name="NuevaUbicacion" class="form-control">';   // Input cambio de ubicación.
 		echo '</div>';
 
 		echo '<div class="subContainer">';
-		echo '<button onclick="FunctionNuevoNumero('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button> Nuevo número:';
+		echo '<button onclick="FunctionNuevoNumero('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Editar</button> Nuevo número:';
 		echo '<input type="text" id="NuevoNumero" name="NuevoNumero" class="form-control">';   // Input cambio de número.
 		echo '</div>';
 
 		echo '<div class="subContainer">';
-		echo '<button onclick="FunctionCambiarVolMax('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button> Nuevo volumen máximo:';
+		echo '<button onclick="FunctionCambiarVolMax('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Editar</button> Nuevo volumen máximo:';
 		echo '<input type="text" id="VolMax" name="VolMax" class="form-control">';   // Input cambio de volumen máximo.
 		echo '</div>';
 		
 		echo '<div class="subContainer">';
-		echo '<button onclick="FunctionNuevoTipo('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Cambiar</button>';
+		echo '<button onclick="FunctionNuevoTipo('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Editar</button>';
 
 		$q = $Model->executeSQL("SELECT `Nombre` FROM `unidadtipo`");
 		echo '<select name="NuevoTipo" id="NuevoTipo" required>';
