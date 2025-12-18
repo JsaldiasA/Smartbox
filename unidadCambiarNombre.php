@@ -12,14 +12,12 @@ $token= $_POST['token'];
 
 if (strcmp($token,'eco3spa')==0)
 {
-
 	$sql = "UPDATE `unidad` SET `Ubicacion` = '{$NuevaUbicacion}' WHERE `tag` LIKE '{$tag}'";
 	$result = $model->executeSQL($sql);
-	
 	echo "Cambio de ubicación hecho correctamente. Nueva ubicación: ".$NuevaUbicacion;
 }
 else
 {
-	echo "Contraseña incorrecta";
+	echo "Contraseña incorrecta.";
 }
 ?>

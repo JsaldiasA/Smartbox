@@ -1,5 +1,4 @@
 <?php
-
 $self=$_SERVER['PHP_SELF'];
 $thispath=dirname($_SERVER['PHP_SELF']);
 $sitebasepath=$_SERVER['DOCUMENT_ROOT'];
@@ -15,12 +14,10 @@ if (strcmp($token,'eco3spa')==0)
 {
 	$sql = "CALL unidadCambiarTipo('{$tag}','{$NuevoTipo}')";
 	$result = $model->executeSQL($sql);
-
-	echo "Cambio de nombre hecho correctamente Nuevo Tipo:".$NuevoTipo.$tag;	
+	echo "Cambio de tipo de unidad hecho correctamente.";
 }
 else
 {
-	echo "password Incorrecta";
+	echo "Contraseña incorrecta.";
 }
-
 ?>

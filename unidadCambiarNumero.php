@@ -10,20 +10,14 @@ $tag= $_POST['tag'];
 $NuevoNumero= $_POST['NuevoNumero'];
 $token= $_POST['token'];
 
-
-
 if (strcmp($token,'eco3spa')==0)
 {
-
 	$sql = "UPDATE `unidad` SET `numero` = '{$NuevoNumero}' WHERE `tag` LIKE '{$tag}'";
 	$result = $model->executeSQL($sql);
-	
-	echo "Cambio de nombre hecho correctamente Nuevo Numero:".$NuevoNumero;
-	
+	echo "Cambio de número hecho correctamente. Nuevo número: ".$NuevoNumero;
 }
 else
 {
-	echo "password Incorrecta";
+	echo "Contraseña incorrecta.";
 }
-
 ?>
