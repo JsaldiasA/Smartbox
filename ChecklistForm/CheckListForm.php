@@ -153,6 +153,31 @@ else {document.getElementById('VoltajeMCU').className='form-control';}
 	<tbody>	
 	<tr><td><b>IMEI:</b></td><td><?php echo $unidadDbEntity->get_tag();?></td><td></td></tr>
 	<tr><td><b>ID de la unidad:</b></td><td><?php echo $unidadDbEntity->get_id();?></td><td></td></tr>
+	<tr><td><b>Tipo de unidad:</b></td><td><?php
+	
+    $q = $conn->query("SELECT * FROM `unidadtipo`");
+    echo  '<select name="unidadtipo" class="form-select" id="unidadtipo" required>';
+    while($rows = $q->fetch_assoc()){
+              $unidadtipo_name= $rows['Nombre'];
+			  $unidadtipo_value= $rows['Id'];
+              echo '<option value="'.$unidadtipo_value.'">'.$unidadtipo_name.'</option>';
+            }
+    echo'</select>';   // Select TAG con unidad tipo.
+	
+	?></td><td></td></tr>
+	<tr><td><b>Motivo del checklist:</b></td><td><?php
+	
+    $q = $conn->query("SELECT * FROM `checklistMotivo`");
+    echo  '<select name="ChecklistMotivo" class="form-select" id="ChecklistMotivo" required>';
+    while($rows = $q->fetch_assoc())
+		{
+        	$checklistmotivo_name= $rows['Nombre'];
+			$checklistmotivo_value= $rows['id'];
+            echo '<option value="'.$checklistmotivo_value.'">'.$checklistmotivo_name.'</option>';
+        }
+    echo'</select>';
+
+	?></td><td></td></tr>
 	<tr><td><b>Voltaje regulador de batería:</b></td><td><input type="text" class="form-control" id="VoltajeReguladorBat" placeholder="13.9-14.2 Pb 12.4-12.8 Li" pattern="[0-9]{1,}|[0-9]{1,}[.][0-9]{1,}" title="Solo ingresar numeros" ></td><td>(V)</td></tr>
 	<tr><td><b>Voltaje regulador de MCU:</b></td><td><input type="text" class="form-control" id="VoltajeReguladorMCU" placeholder="5-5.3" pattern="[0-9]{1,}|[0-9]{1,}[.][0-9]{1,}" title="Solo ingresar numeros"></td><td>(V)</td></tr>
 	<tr><td><b>Voltaje MCU:</b></td><td><input type="text" class="form-control" id="VoltajeMCU" placeholder="3.3-4V" pattern="[0-9]{1,}|[0-9]{1,}[.][0-9]{1,}" title="Solo ingresar numeros"></td><td>(V)</td></tr>
@@ -164,34 +189,9 @@ else {document.getElementById('VoltajeMCU').className='form-control';}
 	<tr><td><b>Sensor nivel bajo:</b></td><td><input type="checkbox" class="form-check-input" id="SensorNivelBajo"></td><td></td></tr>
 	<tr><td><b>Sensor nivel alto:</b></td><td><input type="checkbox" class="form-check-input" id="SensorNivelAlto" ></td><td></td></tr>
 	<tr><td><b>Medidor de batería:</b></td><td><input type="checkbox" class="form-check-input" id="BateriaTest" ></td><td></td></tr>
-	<tr><td><b>Motivo del checklist:</b></td><td>	<?php
-	
-    $q = $conn->query("SELECT * FROM `checklistMotivo`");
-    echo  '<select name="ChecklistMotivo" class="form-select" id="ChecklistMotivo" required>';
-    while($rows = $q->fetch_assoc()){
-              $checklistmotivo_name= $rows['Nombre'];
-			  $checklistmotivo_value= $rows['id'];
-              echo '<option value="'.$checklistmotivo_value.'">'.$checklistmotivo_name.'</option>';
-            }
-    echo'</select>';// select TAG con unidad tipo
-	
-?></td><td></td></tr>
-<tr><td><b>Observaciones:</b></td><td><input type="text" class="form-control" id="Observaciones" placeholder="Si no tiene comentarios, coloque OK."></td><td></td></tr>
-<tr><td><b>Tipo de unidad:</b></td><td><?php
-	
-    $q = $conn->query("SELECT * FROM `unidadtipo`");
-    echo  '<select name="unidadtipo" class="form-select" id="unidadtipo" required>';
-    while($rows = $q->fetch_assoc()){
-              $unidadtipo_name= $rows['Nombre'];
-			  $unidadtipo_value= $rows['Id'];
-              echo '<option value="'.$unidadtipo_value.'">'.$unidadtipo_name.'</option>';
-            }
-    echo'</select>';// select TAG con unidad tipo
-	
-?></td><td></td></tr>
-<tr><td><b>Técnico responsable:</b></td><td><input type="text" class="form-control" id="TecnicoResponsable" placeholder="Nombre"></td><td></td></tr>
-<tr><td><b>Imagen:</b></td><td><div id="NombreDeFoto"></div></td><td></td></tr>
-
+	<tr><td><b>Observaciones:</b></td><td><input type="text" class="form-control" id="Observaciones" placeholder="Si no tiene comentarios, coloque OK."></td><td></td></tr>
+	<tr><td><b>Técnico responsable:</b></td><td><input type="text" class="form-control" id="TecnicoResponsable" placeholder="Nombre"></td><td></td></tr>
+	<tr><td><b>Imagen:</b></td><td><div id="NombreDeFoto"></div></td><td></td></tr>
 			</tbody></table>
 		</div>
 	</div>
