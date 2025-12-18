@@ -199,7 +199,7 @@ function FunctionCambiarVolMax(unidad) {
 		<?php
 		echo '<table class="table">
 		 	  <thead >
-		  	  	<th scope="col">Número de serie</th>
+		  	  	<th scope="col">Serie</th>
 		  		<th scope="col">'.$tagTitle.'</th>
 				<th scope="col">Ubicación</th>
 		  	  </thead><tbody>';// Header tabla
