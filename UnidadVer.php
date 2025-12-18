@@ -381,7 +381,7 @@ function FunctionCambiarVolMax(unidad) {
 		echo '<button onclick="FunctionNuevoTipo('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Editar</button>';
 
 		$q = $Model->executeSQL("SELECT `Nombre` FROM `unidadtipo`");
-		echo '<select name="NuevoTipo" id="NuevoTipo" required>';
+		echo ' <select name="NuevoTipo" id="NuevoTipo" required>';
 		while($rows = $q->fetch_assoc())
 			{
 				$unidadTipo_name= $rows['Nombre'];
