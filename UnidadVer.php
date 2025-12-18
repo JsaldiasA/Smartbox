@@ -190,7 +190,7 @@ function FunctionCambiarVolMax(unidad) {
 		}
 			
 		$tagTitle='IMEI';
-		// si es milesigh el titulo del tag es DEviceEUI si no es el IMEI
+		// Si es Milesight el título del tag es deviceEUI, si no es el IMEI.
 		if( ($unidadDbEntity->get_Id_Unidadtipo() == '4') or ($unidadDbEntity->get_Id_Unidadtipo() == '3') )
 		{
 			$tagTitle='DeviceEUI';
@@ -199,9 +199,9 @@ function FunctionCambiarVolMax(unidad) {
 		<?php
 		echo '<table class="table">
 		 	  <thead >
-		  	  	<th scope="col">Nombre</th>
+		  	  	<th scope="col">Serie</th>
 		  		<th scope="col">'.$tagTitle.'</th>
-				<th scope="col">Ubicacion</th>
+				<th scope="col">Ubicación</th>
 		  	  </thead><tbody>';// Header tabla
 		//print row
         echo "<tr> <td>". $unidadDbEntity->get_Serie().
@@ -210,7 +210,7 @@ function FunctionCambiarVolMax(unidad) {
 		"</td> </tr>";
 		echo '</tbody></table>';
 
-		//solo para sensor humedad milesight
+		// Sólo para sensor de humedad Milesight.
 		if($unidadDbEntity->get_Id_Unidadtipo() == '4')
 		{
 			echo '<table class="table">
@@ -228,7 +228,7 @@ function FunctionCambiarVolMax(unidad) {
 			"</td> <td>". $unidadDbEntity->get_Volumen().
 			"</td></tr>";
 			echo "<tr>  
-			<td>". "<b>Conductividad Electrica(EC)</b>".
+			<td>". "<b>Conductividad eléctrica(EC)</b>".
 			"</td> <td>0". $unidadDbEntity->get_Volumen().// to do EC
 			"</td></tr>";
 			echo '</tbody></table>';
@@ -239,12 +239,12 @@ function FunctionCambiarVolMax(unidad) {
 
 <div class="row" >
 	<div class="col" >
-		<h2>Config</h2>
+		<h2>Configuración:</h2>
 		<?php
 			
 			echo '<table class="table">
 			<thead >
-			<th scope="col">Parametro</th>
+			<th scope="col">Parámetros</th>
 			<th scope="col">Valor</th>	
 			</thead><tbody>';// Header tabla
 			//print row
@@ -263,17 +263,17 @@ function FunctionCambiarVolMax(unidad) {
 	<div class="col" >
 		<?php
 			$ultimoRegistro = $unidadDbEntity->get_UltimoRegistro();
-			echo '<h2>Ultimo Registro</h2>';// Header tabla
+			echo '<h2>Último registro:</h2>';// Header tabla
 			//print row
 			echo '<table class="table" >
 		  <thead >';
-	echo '<th scope="col">Ultimo Registro</th>';
+	echo '<th scope="col">Último registro</th>';
 	echo '<th scope="col"></th>';
 	echo '</thead><tbody>';
-	echo '<tr><td><b>Estado</b></td><td>'.$ultimoRegistro->get_ESTADO().'</td></tr>';
-	echo '<tr><td><b>Volumen</b></td><td>'.$ultimoRegistro->get_VOLUMEN().'</td></tr>';
-	echo '<tr><td><b>Caudal</b></td><td>'.$ultimoRegistro->get_CAUDAL().'</td></tr>';
-	echo '<tr><td><b>Última Actualización</b></td><td>'.$ultimoRegistro->get_DATETIME().'</td></tr>';
+	echo '<tr><td><b>Estado:</b></td><td>'.$ultimoRegistro->get_ESTADO().'</td></tr>';
+	echo '<tr><td><b>Volumen:</b></td><td>'.$ultimoRegistro->get_VOLUMEN().'</td></tr>';
+	echo '<tr><td><b>Caudal:</b></td><td>'.$ultimoRegistro->get_CAUDAL().'</td></tr>';
+	echo '<tr><td><b>Última actualización:</b></td><td>'.$ultimoRegistro->get_DATETIME().'</td></tr>';
 	echo '</tbody></table>';
 		?>	
 	</div>		
@@ -313,7 +313,7 @@ function FunctionCambiarVolMax(unidad) {
 	}
 	else
 	{
-	echo '<tr><td>Esta unidad no tiene checklist</td><td></td></tr>';
+	echo '<tr><td>Esta unidad no tiene checklist.</td><td></td></tr>';
 	}
 			echo '</tbody></table>';
 ?>
