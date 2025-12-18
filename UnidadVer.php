@@ -345,65 +345,12 @@ function FunctionCambiarVolMax(unidad) {
 <div class="accordion" id="accordionExample">
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-        Edición
-      </button>
-    </h2>
-    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-		  
-		<?php
-		// PANEL EDITAR:
-		echo '<div class="subContainer">';
-		echo 'Introduzca la contraseña para editar: <input type="text" id="password" name="password" class="form-control">';
-		echo '</div>';   // Input de contraseña.
-
-		echo '<div class="subContainer">';
-		echo '<button onclick="FunctionNuevaUbicacion('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Editar</button> Nueva ubicación:';
-		echo '<input type="text" id="NuevaUbicacion" name="NuevaUbicacion" class="form-control">';   // Input cambio de ubicación.
-		echo '</div>';
-
-		echo '<div class="subContainer">';
-		echo '<button onclick="FunctionNuevoNumero('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Editar</button> Nuevo número:';
-		echo '<input type="text" id="NuevoNumero" name="NuevoNumero" class="form-control">';   // Input cambio de número.
-		echo '</div>';
-
-		echo '<div class="subContainer">';
-		echo '<button onclick="FunctionCambiarVolMax('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Editar</button> Nuevo volumen máximo:';
-		echo '<input type="text" id="VolMax" name="VolMax" class="form-control">';   // Input cambio de volumen máximo.
-		echo '</div>';
-		
-		echo '<div class="subContainer">';
-		echo '<button onclick="FunctionNuevoTipo('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Editar</button>';
-
-		$q = $Model->executeSQL("SELECT `Nombre` FROM `unidadtipo`");
-		echo ' <select name="NuevoTipo" id="NuevoTipo" required>';
-		while($rows = $q->fetch_assoc())
-			{
-				$unidadTipo_name= $rows['Nombre'];
-				echo "<option value='$unidadTipo_name'>$unidadTipo_name</option>";
-			}
-		echo "<option value='NULL'>Unidad Indefinida</option>";
-		echo '</select>';
-		echo '</div>';
-
-		echo '<div class="subContainer">';
-		echo '<button onclick="FunctionEliminar('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Eliminar</button> Eliminar unidad...';
-		echo '</div>';   // Función para eliminar unidad.
-		?>
-	
-      </div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingTwo">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
         Registros diarios
       </button>
     </h2>
     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-		  
 		<div class="overflow-auto">
         <?php	
 // TABLA REGISTROS DIARIOS
@@ -437,7 +384,7 @@ else
     </div>
   </div>
   <div class="accordion-item">
-    <h2 class="accordion-header" id="headingThree">
+    <h2 class="accordion-header" id="headingTwo">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
         Registros de iniciación
       </button>
@@ -468,9 +415,8 @@ else
       </div>
     </div>
   </div>
-
    <div class="accordion-item">
-    <h2 class="accordion-header" id="headingFour">
+    <h2 class="accordion-header" id="headingThree">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
         Edición
       </button>
@@ -517,12 +463,11 @@ else
 		echo '<button onclick="FunctionEliminar('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Eliminar</button> Eliminar unidad...';
 		echo '</div>';   // Función para eliminar unidad.
 		?>
-	
       </div>
     </div>
   </div>
       <div class="accordion-item">
-    <h2 class="accordion-header" id="headingFive">
+    <h2 class="accordion-header" id="headingFour">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
         Checklist
       </button>
