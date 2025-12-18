@@ -92,7 +92,7 @@ else {document.getElementById('VoltajeMCU').className='form-control';}
 	//var id_unidad= document.getElementById("id_unidad").value;
 	//var Fecha= document.getElementById("Fecha").value;
 	var TecnicoResponsable= document.getElementById("TecnicoResponsable").value;
-	if(TecnicoResponsable == "" ){ return alert("Técnico responsable no puede estar vacío, coloque su nombre");}
+	if(TecnicoResponsable == "" ){ return alert("Técnico responsable no puede estar vacío, coloque su nombre.");}
 	  
 	var URL_foto= document.getElementById("NombreDeFoto").innerHTML;	  
 	 
