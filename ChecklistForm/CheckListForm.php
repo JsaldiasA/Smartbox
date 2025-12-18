@@ -11,7 +11,6 @@ require_once $sitebasepath.'/DbEntities/checklistDbEntity.php';
 require_once $sitebasepath.'/config/DbSirecorConfig.php';
 require_once $sitebasepath."/Model/model.php";
 
-
 ?>
 <?php
 
@@ -36,7 +35,7 @@ $unidadDbEntity=$model->unidadByTag($UnidadTag);
 <script>
 
 	function FunctionNuevoCheckListPost() {
-  let text = "Estas seguro de enviar el CheckList";
+  let text = "¿Está seguro de enviar el CheckList?";
   if (confirm(text) == true) { 
 	  
 	let pattern = /(^\d+\.\d+$)|(^\d+$)/; 
@@ -44,7 +43,7 @@ $unidadDbEntity=$model->unidadByTag($UnidadTag);
 	var Respuesta;
 	  
 	var token = "eco3spa";
-	var noAjustarMsg = " ,vuelva a ajustarlo.SI NO PUEDE AJUSTARLO NO UTILICE ESTA PLACA EN TERRENO, pongase en contacto con la oficina tecnica.";
+	var noAjustarMsg = " ,vuelva a ajustarlo. SI NO PUEDE AJUSTARLO NO UTILICE ESTA PLACA EN TERRENO, póngase en contacto con la oficina técnica.";
 	var IMEI= "<?php echo $unidadDbEntity->get_tag();?>";
 	var id_unidad= "<?php echo $unidadDbEntity->get_id();?>";
 	  	  
@@ -85,7 +84,7 @@ else {document.getElementById('VoltajeMCU').className='form-control';}
 	var id_checklistMotivo = e.options[e.selectedIndex].value;  
 	  
 	var Observaciones= document.getElementById("Observaciones").value;
-	if(Observaciones == "" ){ return alert("Observaciones no puede estar vacio, coloque alguna observacion. si no tiene coloque OK");}  
+	if(Observaciones == "" ){ return alert("Observaciones no puede estar vacío, coloque alguna observación. Si no tiene coloque OK");}  
 	  
 	var f = document.getElementById("unidadtipo");
 	var id_unidadtipo = f.options[f.selectedIndex].value;   
@@ -93,7 +92,7 @@ else {document.getElementById('VoltajeMCU').className='form-control';}
 	//var id_unidad= document.getElementById("id_unidad").value;
 	//var Fecha= document.getElementById("Fecha").value;
 	var TecnicoResponsable= document.getElementById("TecnicoResponsable").value;
-	if(TecnicoResponsable == "" ){ return alert("TecnicoResponsable no puede estar vacio, coloque su nombre");}  
+	if(TecnicoResponsable == "" ){ return alert("Técnico responsable no puede estar vacío, coloque su nombre");}
 	  
 	var URL_foto= document.getElementById("NombreDeFoto").innerHTML;	  
 	 
@@ -130,7 +129,7 @@ else {document.getElementById('VoltajeMCU').className='form-control';}
 
 	window.location.href = "https://smartbox.eco3.cl/";
   	} else {
-    	alert("Has cancelado");
+    	alert("La operación se ha cancelado.");
   	}
 	}
 	
@@ -177,7 +176,7 @@ else {document.getElementById('VoltajeMCU').className='form-control';}
     echo'</select>';// select TAG con unidad tipo
 	
 ?></td><td></td></tr>
-<tr><td><b>Observaciones </b></td><td><input type="text" class="form-control" id="Observaciones" placeholder="Si tiene comentarios, coloque ok"></td><td></td></tr>
+<tr><td><b>Observaciones </b></td><td><input type="text" class="form-control" id="Observaciones" placeholder="Si no tiene comentarios, coloque OK."></td><td></td></tr>
 <tr><td><b>id_unidadtipo </b></td><td><?php
 	
     $q = $conn->query("SELECT * FROM `unidadtipo`");
@@ -221,7 +220,7 @@ else {document.getElementById('VoltajeMCU').className='form-control';}
 		function NumericParameterHasError(Parameter,highLimit,lowLimit) {
 		let pattern = /(^\d+\.\d+$)|(^\d+$)/; 
 
-	var noAjustarMsg = " ,vuelva a ajustarlo.SI NO PUEDE AJUSTARLO NO UTILICE ESTA PLACA EN TERRENO, pongase en contacto con la oficina tecnica.";
+	var noAjustarMsg = " ,vuelva a ajustarlo. SI NO PUEDE AJUSTARLO NO UTILICE ESTA PLACA EN TERRENO, póngase en contacto con la oficina técnica.";
 			  
 
 	switch (true) {
@@ -234,15 +233,15 @@ else {document.getElementById('VoltajeMCU').className='form-control';}
 		return true;
 		break;
 	  case (!pattern.test(Parameter.value)):
-		alert("Error en " +Parameter.id+". Ingrese solo valores numericos, no se aceptan letras o caracteres en este campo. EJ: 1 , 13 , 14.2 , 13.5");
+		alert("Error en " +Parameter.id+". Ingrese solo valores numéricos, no se aceptan letras o caracteres en este campo. Ej: 1 ,13 ,14.2 ,13.5");
 		return true;
 		break;
 	  case (Parameter.value == ""):
-		alert("Error en" +Parameter.id+". este campo no puede estar vacio");
+		alert("Error en" +Parameter.id+". este campo no puede estar vacío");
 		return true;
 		break;
 	  case (Parameter.value == null):
-		alert("Error en" +Parameter.id+". este campo no puede estar vacio");
+		alert("Error en" +Parameter.id+". este campo no puede estar vacío");
 		return true;
 		break;
 			
@@ -252,7 +251,6 @@ else {document.getElementById('VoltajeMCU').className='form-control';}
 	  
 }
 
-	
 	function iOS() {
   return [
     'iPad Simulator',
@@ -373,7 +371,7 @@ else {document.getElementById('VoltajeMCU').className='form-control';}
                     contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
 
                     let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
-                    $estado.innerHTML = "Enviando foto. Por favor, espera...";
+                    $estado.innerHTML = "Enviando foto... Por favor, espere...";
                     fetch("./guardar_foto.php", {
                             method: "POST",
                             body: encodeURIComponent(foto),
@@ -388,7 +386,7 @@ else {document.getElementById('VoltajeMCU').className='form-control';}
                         .then(nombreDeLaFoto => {
                             // nombreDeLaFoto trae el nombre de la imagen que le dio PHP
                             console.log("La foto fue enviada correctamente");
-                            $estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
+                            $estado.innerHTML = `Foto guardada con éxito. Puede verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
 						document.querySelector("#NombreDeFoto").innerHTML = nombreDeLaFoto;
 
                         })

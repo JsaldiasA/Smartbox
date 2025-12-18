@@ -8,11 +8,8 @@ require_once 'views/navbar.php';
 	<!-- //Navigation -->
 <!-- SCRIPTS PARA editar panel -->
 
-	
-	
 <?php
 
-	
 $CheckList_Id= $_GET['CheckList_Id'];
 
 require_once 'DbEntities/unidadDbEntity.php';
@@ -20,7 +17,7 @@ require_once 'DbEntities/checklistDbEntity.php';
 require_once 'config/DbSirecorConfig.php';
 require_once 'Model/model.php';
 
-$Model = new Model();		
+$Model = new Model();
 // Create connection
 
 $sql = "SELECT * FROM `checklist` WHERE `id`= {$CheckList_Id}";
@@ -92,7 +89,7 @@ if( $HasChecklist == true)
 		echo '</div>';
 	
 	}	
-	else {echo '<h1>checklist no encontrado</h1>';}
+	else {echo '<h1>Checklist no encontrado.</h1>';}
 
 ?>
 
