@@ -467,8 +467,7 @@ else
 			$('#TablaIniciacion').dataTable();
 			});
 			</script>
-
-			?>
+			
 		  </div>
       </div>
     </div>
