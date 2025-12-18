@@ -149,22 +149,22 @@ else {document.getElementById('VoltajeMCU').className='form-control';}
 	</div>
 	<div class="row">
 	<div class="col border">
-		<table class="table">
-		<tbody>	
-      <tr><td><b>IMEI</b></td><td><?php echo $unidadDbEntity->get_tag();?></td><td></td></tr>
-	   <tr><td><b> ID de la unidad </b></td><td><?php echo $unidadDbEntity->get_id();?></td><td></td></tr>
-<tr><td><b>Voltaje del regulador de la batería:</b></td><td><input type="text" class="form-control" id="VoltajeReguladorBat" placeholder="13.9-14.2 Pb 12.4-12.8 Li" pattern="[0-9]{1,}|[0-9]{1,}[.][0-9]{1,}" title="Solo ingresar numeros" ></td><td>(V)</td></tr>
-<tr><td><b>VoltajeReguladorMCU </b></td><td><input type="text" class="form-control" id="VoltajeReguladorMCU" placeholder="5-5.3" pattern="[0-9]{1,}|[0-9]{1,}[.][0-9]{1,}" title="Solo ingresar numeros"></td><td>(V)</td></tr>
-<tr><td><b>SmartBox </b></td><td><input type="checkbox" class="form-check-input" id="SmartBox" ></td><td></td></tr>
-<tr><td><b>SMSenvio </b></td><td><input type="checkbox" class="form-check-input" id="SMSenvio" ></td><td></td></tr>
-<tr><td><b>SMSrecibo </b></td><td><input type="checkbox" class="form-check-input" id="SMSrecibo" ></td><td></td></tr>
-<tr><td><b>Flujometro </b></td><td><input type="checkbox" class="form-check-input" id="Flujometro"></td><td></td></tr>
-<tr><td><b>Solenoide </b></td><td><input type="checkbox" class="form-check-input" id="Solenoide"></td><td></td></tr>
-<tr><td><b>SensorNivelBajo </b></td><td><input type="checkbox" class="form-check-input" id="SensorNivelBajo"></td><td></td></tr>
-<tr><td><b>SensorNivelAlto </b></td><td><input type="checkbox" class="form-check-input" id="SensorNivelAlto" ></td><td></td></tr>
-<tr><td><b>VoltajeMCU </b></td><td><input type="text" class="form-control" id="VoltajeMCU" placeholder="3.3-4V" pattern="[0-9]{1,}|[0-9]{1,}[.][0-9]{1,}" title="Solo ingresar numeros"></td><td>(V)</td></tr>
-<tr><td><b>BateriaTest </b></td><td><input type="checkbox" class="form-check-input" id="BateriaTest" ></td><td></td></tr>
-			<tr><td><b>checklist Motivo </b></td><td>	<?php
+	<table class="table">
+	<tbody>	
+	<tr><td><b>IMEI:</b></td><td><?php echo $unidadDbEntity->get_tag();?></td><td></td></tr>
+	<tr><td><b>ID de la unidad:</b></td><td><?php echo $unidadDbEntity->get_id();?></td><td></td></tr>
+	<tr><td><b>Voltaje regulador de batería:</b></td><td><input type="text" class="form-control" id="VoltajeReguladorBat" placeholder="13.9-14.2 Pb 12.4-12.8 Li" pattern="[0-9]{1,}|[0-9]{1,}[.][0-9]{1,}" title="Solo ingresar numeros" ></td><td>(V)</td></tr>
+	<tr><td><b>Voltaje regulador de MCU:</b></td><td><input type="text" class="form-control" id="VoltajeReguladorMCU" placeholder="5-5.3" pattern="[0-9]{1,}|[0-9]{1,}[.][0-9]{1,}" title="Solo ingresar numeros"></td><td>(V)</td></tr>
+	<tr><td><b>Voltaje MCU:</b></td><td><input type="text" class="form-control" id="VoltajeMCU" placeholder="3.3-4V" pattern="[0-9]{1,}|[0-9]{1,}[.][0-9]{1,}" title="Solo ingresar numeros"></td><td>(V)</td></tr>
+	<tr><td><b>SmartBox:</b></td><td><input type="checkbox" class="form-check-input" id="SmartBox" ></td><td></td></tr>
+	<tr><td><b>Envío SMS:</b></td><td><input type="checkbox" class="form-check-input" id="SMSenvio" ></td><td></td></tr>
+	<tr><td><b>Recepción SMS:</b></td><td><input type="checkbox" class="form-check-input" id="SMSrecibo" ></td><td></td></tr>
+	<tr><td><b>Solenoide:</b></td><td><input type="checkbox" class="form-check-input" id="Solenoide"></td><td></td></tr>
+	<tr><td><b>Flujómetro:</b></td><td><input type="checkbox" class="form-check-input" id="Flujometro"></td><td></td></tr>
+	<tr><td><b>Sensor nivel bajo:</b></td><td><input type="checkbox" class="form-check-input" id="SensorNivelBajo"></td><td></td></tr>
+	<tr><td><b>Sensor nivel alto:</b></td><td><input type="checkbox" class="form-check-input" id="SensorNivelAlto" ></td><td></td></tr>
+	<tr><td><b>Medidor de batería:</b></td><td><input type="checkbox" class="form-check-input" id="BateriaTest" ></td><td></td></tr>
+	<tr><td><b>Motivo del checklist:</b></td><td>	<?php
 	
     $q = $conn->query("SELECT * FROM `checklistMotivo`");
     echo  '<select name="ChecklistMotivo" class="form-select" id="ChecklistMotivo" required>';
@@ -176,8 +176,8 @@ else {document.getElementById('VoltajeMCU').className='form-control';}
     echo'</select>';// select TAG con unidad tipo
 	
 ?></td><td></td></tr>
-<tr><td><b>Observaciones </b></td><td><input type="text" class="form-control" id="Observaciones" placeholder="Si no tiene comentarios, coloque OK."></td><td></td></tr>
-<tr><td><b>id_unidadtipo </b></td><td><?php
+<tr><td><b>Observaciones:</b></td><td><input type="text" class="form-control" id="Observaciones" placeholder="Si no tiene comentarios, coloque OK."></td><td></td></tr>
+<tr><td><b>Tipo de unidad:</b></td><td><?php
 	
     $q = $conn->query("SELECT * FROM `unidadtipo`");
     echo  '<select name="unidadtipo" class="form-select" id="unidadtipo" required>';
@@ -189,8 +189,8 @@ else {document.getElementById('VoltajeMCU').className='form-control';}
     echo'</select>';// select TAG con unidad tipo
 	
 ?></td><td></td></tr>
-<tr><td><b>TecnicoResponsable </b></td><td><input type="text" class="form-control" id="TecnicoResponsable" placeholder="Nombre"></td><td></td></tr>
-<tr><td><b>Imagen </b></td><td><div id="NombreDeFoto"></div></td><td></td></tr>
+<tr><td><b>Técnico responsable:</b></td><td><input type="text" class="form-control" id="TecnicoResponsable" placeholder="Nombre"></td><td></td></tr>
+<tr><td><b>Imagen:</b></td><td><div id="NombreDeFoto"></div></td><td></td></tr>
 
 			</tbody></table>
 		</div>
