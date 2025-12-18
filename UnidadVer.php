@@ -199,7 +199,7 @@ function FunctionCambiarVolMax(unidad) {
 		<?php
 		echo '<table class="table">
 		 	  <thead >
-		  	  	<th scope="col">Serie</th>
+		  	  	<th scope="col">Número de serie</th>
 		  		<th scope="col">'.$tagTitle.'</th>
 				<th scope="col">Ubicación</th>
 		  	  </thead><tbody>';// Header tabla
@@ -239,7 +239,7 @@ function FunctionCambiarVolMax(unidad) {
 
 <div class="row" >
 	<div class="col" >
-		<h2>Configuración:</h2>
+		<h2>Configuración.</h2>
 		<?php
 			
 			echo '<table class="table">
@@ -249,9 +249,9 @@ function FunctionCambiarVolMax(unidad) {
 			</thead><tbody>';// Header tabla
 			//print row
 			echo "<tr>  
-			<td>". "<b>Volumen Maximo</b>".
+			<td>". "<b>Volumen máximo:</b>".
 			"</td> <td>". $unidadDbEntity->get_VolMax().
-			" [L]</td></tr>";
+			" (L)</td></tr>";
 			echo '</tbody></table>';
 		
 		?>	
@@ -263,7 +263,7 @@ function FunctionCambiarVolMax(unidad) {
 	<div class="col" >
 		<?php
 			$ultimoRegistro = $unidadDbEntity->get_UltimoRegistro();
-			echo '<h2>Último registro:</h2>';// Header tabla
+			echo '<h2>Último registro.</h2>';// Header tabla
 			//print row
 			echo '<table class="table" >
 		  <thead >';
