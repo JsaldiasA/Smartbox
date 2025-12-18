@@ -299,16 +299,16 @@ function FunctionCambiarVolMax(unidad) {
 	<?php
 	echo '<table class="table" >
 		  <thead >';
-	echo '<th scope="col">Ultimo Checklist</th>';
+	echo '<th scope="col">Último checklist</th>';
 	echo '<th scope="col"></th>';
 	echo '</thead><tbody>';
-	echo '<tr><td> <a href="checklistform/checklistform.php?tag='.$unidadDbEntity->get_Tag().'">Nuevo Check List</a></td><td></td></tr>';
+	echo '<tr><td> <a href="checklistform/checklistform.php?tag='.$unidadDbEntity->get_Tag().'">Nuevo checklist</a></td><td></td></tr>';
 	if(!empty($checklistDbEntity))
 	{	
-	echo '<tr><td><b>id_checklist</b></td><td>'.$checklistDbEntity->get_Id().'</td></tr>';
-	echo '<tr><td><b>Fecha</b></td><td>'.$checklistDbEntity->get_Fecha().'</td></tr>';
-	echo '<tr><td><b>Tecnico</b></td><td>'.$checklistDbEntity->get_TecnicoResponsable().'</td></tr>';
-	echo '<tr><td><b>Observaciones</b></td><td>'.$checklistDbEntity->get_Observaciones().'</td></tr>';
+	echo '<tr><td><b>ID Checklist:</b></td><td>'.$checklistDbEntity->get_Id().'</td></tr>';
+	echo '<tr><td><b>Fecha:</b></td><td>'.$checklistDbEntity->get_Fecha().'</td></tr>';
+	echo '<tr><td><b>Técnico:</b></td><td>'.$checklistDbEntity->get_TecnicoResponsable().'</td></tr>';
+	echo '<tr><td><b>Observaciones:</b></td><td>'.$checklistDbEntity->get_Observaciones().'</td></tr>';
 	echo "<tr><td><b>Revisar</b></td><td><a href='unidadverCheckList.php?CheckList_Id=".$checklistDbEntity->get_Id()."'>Ver</a></td></tr>";
 	}
 	else
@@ -324,8 +324,8 @@ function FunctionCambiarVolMax(unidad) {
 	{	
 		
 		
-		echo 	'<div class="row">';
-		echo 	'<div class="col">';
+		echo '<div class="row">';
+		echo '<div class="col">';
 		echo '<table class="table" > <thead >';
 		echo '<th scope="col">Control</th>';
 		echo '<th scope="col"></th>';
@@ -342,7 +342,6 @@ function FunctionCambiarVolMax(unidad) {
 		echo '</div>';
 		echo '</div>';		
 	}
-	
 	?>
 
 <div class="row">
@@ -505,7 +504,7 @@ $(document).ready(function(){
 });
 </script>";
 } else {
-    echo "Unidad sin checklist";
+    echo "Unidad sin checklist.";
 }
 		  ?>
 	</div>
