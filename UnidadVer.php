@@ -483,8 +483,8 @@ if ($result->num_rows > 0) {
     // output data of each row
 	echo '<script>let table = new DataTable("#TablaChecklist");</script>';
 	echo '<table id="TablaChecklist" class="display""><thead>
-	<th scope="col">Id</th>
-	<th scope="col">TecnicoResponsable</th>
+	<th scope="col">ID</th>
+	<th scope="col">Técnico Responsable</th>
 	<th scope="col">Fecha</th>
 	<th scope="col"></th>
 	
