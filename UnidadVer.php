@@ -239,7 +239,7 @@ function FunctionCambiarVolMax(unidad) {
 
 <div class="row" >
 	<div class="col" >
-		<h2>Configuración.</h2>
+		<h2>Configuración</h2>
 		<?php
 			
 			echo '<table class="table">
@@ -263,11 +263,11 @@ function FunctionCambiarVolMax(unidad) {
 	<div class="col" >
 		<?php
 			$ultimoRegistro = $unidadDbEntity->get_UltimoRegistro();
-			echo '<h2>Último registro.</h2>';// Header tabla
+			echo '<h2>Últimos registros</h2>';// Header tabla
 			//print row
 			echo '<table class="table" >
 		  <thead >';
-	echo '<th scope="col">Último registro</th>';
+	echo '<th scope="col">Últimos registros</th>';
 	echo '<th scope="col"></th>';
 	echo '</thead><tbody>';
 	echo '<tr><td><b>Estado:</b></td><td>'.$ultimoRegistro->get_ESTADO().'</td></tr>';
