@@ -460,7 +460,7 @@ else
 		echo '</div>';
 
 		echo '<div class="subContainer">';
-		echo '<button onclick="FunctionEliminar('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Eliminar</button> Eliminar unidad...';
+		echo '<button onclick="FunctionEliminar('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-danger">Eliminar</button> Eliminar unidad...';
 		echo '</div>';   // Función para eliminar unidad.
 		?>
       </div>
