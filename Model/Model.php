@@ -128,15 +128,19 @@ class Model {
 		$result = $this->executeSQL($sql);
 		
 		$TiposDeUnidades = [];
-			
-		if ($result->num_rows > 0) {
-			while($row = $result->fetch_assoc()) 
+	
+		if ($result->num_rows > 0)
 			{
-				$TiposDeUnidades[] = new unidadtipoDbEntity($row["Id"],$row["Nombre"],$row["Descripcion"],$row["IsMilesight"]);
+				while($row = $result->fetch_assoc())
+					{
+						$TiposDeUnidades[] = new unidadtipoDbEntity(
+						$row["Id"],
+						$row["Nombre"],
+						$row["Descripcion"],
+						$row["IsMilesight"]);
+					}
 			}
-		}
-		return $TiposDeUnidades;
-			 
+		return $TiposDeUnidades;	 
 	}
 	
 	function get_checklists( ) 
