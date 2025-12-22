@@ -271,6 +271,23 @@ class Model {
 			 
 	}
 	
+		
+	function UnidadTipoByNombre( $NombreUnidadTipo ) 
+	{ 			
+		$unidadtipos = $this->get_unidadtipos();
+			
+		foreach ($unidadtipos as $unidadtipo) {
+ 			if($unidadtipo->get_Nombre() == $NombreUnidadTipo )
+			{	
+			return $unidadtipo;
+			}
+		}		
+		return null;
+			 
+	}
+	
+
+
 	function CheckListMotivoById( $Id_ChecklistMotivo ) 
 	{ 			
 		$checklistmotivos = $this->get_checklistmotivos();
