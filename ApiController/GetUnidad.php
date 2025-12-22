@@ -21,13 +21,12 @@ foreach ($unidadestipo as $unidadtipo)
 			$UnidadTipoFound = $unidadtipo;
 		} 
 }
-$UnidadesFiltradasPorTipo = [];
 
+$UnidadesFiltradasPorTipo = [];
 $Unidades = $model->get_unidades();
 $unidadTipoFound_id = is_null($UnidadTipoFound) ? NULL : $UnidadTipoFound->get_id();
 
 $IsMilesight = is_null($UnidadTipoFound) ? true : $UnidadTipoFound->get_IsMilesight();
-
 $isEstanque = ($unidadTipo_Nombre == 'Estanque7600') ? true : false;
 
 		foreach ($Unidades as $unidad)
@@ -38,64 +37,71 @@ $isEstanque = ($unidadTipo_Nombre == 'Estanque7600') ? true : false;
 				} 
 		}
 
-usort($UnidadesFiltradasPorTipo, function($a, $b) {
-    if ($a->get_UltimaActualizacion() == $b->get_UltimaActualizacion()) {
+usort ($UnidadesFiltradasPorTipo, function($a, $b)
+{
+    if ($a->get_UltimaActualizacion() == $b->get_UltimaActualizacion())
+	{
         return 0;
     }
     return ($a->get_UltimaActualizacion() > $b->get_UltimaActualizacion()) ? -1 : 1;
-});
+}
+);
 
-usort($UnidadesFiltradasPorTipo, function($a, $b) {
-    if ($a->get_Volumen() == $b->get_Volumen()) {
+usort ($UnidadesFiltradasPorTipo, function($a, $b)
+{
+    if ($a->get_Volumen() == $b->get_Volumen())
+	{
         return 0;
     }
     return ($a->get_Volumen() > $b->get_Volumen()) ? -1 : 1;
-});
+}
+);
 
-usort($UnidadesFiltradasPorTipo, function($a, $b) {
-    if ($a->get_Estado() == $b->get_Estado()) {
+usort ($UnidadesFiltradasPorTipo, function($a, $b)
+{
+    if ($a->get_Estado() == $b->get_Estado())
+	{
         return 0;
     }
     return ($a->get_Estado() > $b->get_Estado()) ? -1 : 1;
-});
+}
+);
 
-		// Retornar valores como tabla.
-		echo '<table class="table">
-		<thead>
-		<th scope="col">Serie</th>';
-		echo $IsMilesight ? '<th scope="col">DevEUI</th>' : '<th scope="col">IMEI</th>' ;
-		echo '<th scope="col">Ubicación</th>';
-		echo $IsMilesight ? null : '<th scope="col">Número</th>';
-		echo '<th scope="col">ÚltimaActz</th>
-		<th scope="col">Estado</th>
-		<th scope="col">Batería</th>';
-		echo !$isEstanque ? '<th scope="col">Caudal</th>' : null;
-		echo !$isEstanque ? '<th scope="col">Volumen</th>' : null;
-		echo '<th scope="col"></th>
-		</thead>
-		<tbody>';
+	// Retornar valores como tabla.
+	echo '<table class="table">
+	<thead>
+	<th scope="col">Serie</th>';
+	echo $IsMilesight ? '<th scope="col">DevEUI</th>' : '<th scope="col">IMEI</th>';
+	echo '<th scope="col">Ubicación</th>';
+	echo $IsMilesight ? null : '<th scope="col">Número</th>';
+	echo '<th scope="col">ÚltimaActz</th>
+	<th scope="col">Estado</th>
+	<th scope="col">Batería</th>';
+	echo !$isEstanque ? '<th scope="col">Caudal</th>' : null;
+	echo !$isEstanque ? '<th scope="col">Volumen</th>' : null;
+	echo '<th scope="col"></th>
+	</thead>
+	<tbody>';
 
 foreach ($UnidadesFiltradasPorTipo as $unidad)
 {
-		$level = $unidad->get_BatNivel();
-	    $BatNivel = new BatteryLevel($level);
-		$ultimoRegistro = $unidad->get_UltimoRegistro();
+	$level = $unidad->get_BatNivel();
+	$BatNivel = new BatteryLevel($level);
+	$ultimoRegistro = $unidad->get_UltimoRegistro();
 		
-		// Print row.
-        echo "<tr>";
-        echo "<td>".$unidad->get_Serie()."</td>"; 
-        echo "<td>". $unidad->get_Tag()."</td>";
-        echo "<td>".$unidad->get_Ubicacion()."</td>";
-        echo $IsMilesight ? null : "<td>".$unidad->get_Numero()."</td>";
-        echo "<td>".$unidad->DiffBetweenNow_and_UltimaActualizacion()."</td>";
-        echo "<td>".$unidad->get_Estado()."</td>";
-        echo "<td>".$BatNivel->get_HtmlTableField()."</td>";
-		echo !$isEstanque ? ($ultimoRegistro == null ? "<td>0</td>":"<td>".$ultimoRegistro->get_CAUDAL()."</td>"): null;
-        echo !$isEstanque ? ($IsMilesight ?  "<td>".$unidad->get_VolumenForMilesight()."</td>":"<td>".$unidad->get_Volumen()."</td>" ): null;
-    	echo "<td> <a href='unidadver.php?tag=".$unidad->get_Tag()."'>Ver</a></td></tr>";
+	// Print row.
+    echo "<tr>";
+    echo "<td>".$unidad->get_Serie()."</td>"; 
+    echo "<td>". $unidad->get_Tag()."</td>";
+    echo "<td>".$unidad->get_Ubicacion()."</td>";
+    echo $IsMilesight ? null : "<td>".$unidad->get_Numero()."</td>";
+    echo "<td>".$unidad->DiffBetweenNow_and_UltimaActualizacion()."</td>";
+    echo "<td>".$unidad->get_Estado()."</td>";
+    echo "<td>".$BatNivel->get_HtmlTableField()."</td>";
+	echo !$isEstanque ? ($ultimoRegistro == null ? "<td>0</td>":"<td>".$ultimoRegistro->get_CAUDAL()."</td>"): null;
+    echo !$isEstanque ? ($IsMilesight ?  "<td>".$unidad->get_VolumenForMilesight()."</td>":"<td>".$unidad->get_Volumen()."</td>" ): null;
+    echo "<td> <a href='unidadver.php?tag=".$unidad->get_Tag()."'>Ver</a></td></tr>";
 }
-		// Columnas.
-    
-		echo '</tbody></table>';
+	echo '</tbody></table>';
 
 ?>

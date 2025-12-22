@@ -144,7 +144,7 @@ class Model
 		return $Unidades;
 	}
 
-	function unidadByTag($tag_unidad) 
+	function unidadByTag($tag_unidad)
 	{ 	
 		$unidades = $this->get_unidades();
 			
@@ -154,12 +154,12 @@ class Model
 			{	
 				return $unidad;
 			}
-		}		
+		}
 		return null;
 	}
 
 	function get_unidadtipos()
-	{ 			
+	{
 		$sql = "SELECT * FROM `unidadtipo`";
 		$result = $this->executeSQL($sql);
 		$TiposDeUnidades = [];
@@ -183,28 +183,28 @@ class Model
 	function UnidadTipoById($Id_UnidadTipo)
 	{
 		$unidadtipos = $this->get_unidadtipos();
-			
+
 		foreach ($unidadtipos as $unidadtipo)
 		{
  			if ($unidadtipo->get_Id() == $Id_UnidadTipo)
-			{	
+			{
 				return $unidadtipo;
 			}
-		}		
-		return null;	 
+		}
+		return null;
 	}
 
 	function UnidadTipoByNombre($NombreUnidadTipo)
-	{ 			
+	{
 		$unidadtipos = $this->get_unidadtipos();
-			
+
 		foreach ($unidadtipos as $unidadtipo)
 		{
  			if ($unidadtipo->get_Nombre() == $NombreUnidadTipo)
-			{	
+			{
 				return $unidadtipo;
 			}
-		}		
+		}
 		return null;
 	}
 
@@ -261,7 +261,7 @@ class Model
 	}
 
 	function UltimoRegistroDiarioById_unidad($Id_unidad)
-	{ 			
+	{
 		$RegistrosDiarios = $this->get_unidades_lastortolas();
 
 		usort($RegistrosDiarios, function($a, $b)
@@ -271,8 +271,7 @@ class Model
         			return 0;
     			}
     		return ($a->get_DATETIME() > $b->get_DATETIME()) ? -1 : 1;
-		}
-		);
+		});
 
 		foreach ($RegistrosDiarios as $r)
 		{
@@ -284,10 +283,52 @@ class Model
 		// return null;
 	}
 
-	function RegistrosIniciacionByTag($tag) 
+	function get_eventos()
+	{
+		$sql = "SELECT * FROM `eventos` ";
+		$result = $this->executeSQL($sql);
+		$eventos = [];
+
+		if ($result->num_rows > 0)
+		{
+			while($row = $result->fetch_assoc())
+			{
+				$eventos[] = new eventosDbEntity
+				(
+					$row["UNIDAD"],
+					$row["USUARIO1"],
+					$row["USUARIO2"],
+					$row["USUARIO3"],
+					$row["USUARIO4"],
+					$row["ADMIN"],
+					$row["MANTENCION"],
+					$row["INTERNET"],
+					$row["VerCodigo"],
+					$row["LVOLTAJE"],
+					$row["INV"],
+					$row["VOLUMEN MAX"],
+					$row["TIMESTAMP"],
+					$row["TIPO"],
+					$row["TipoBat"]
+			    );
+			}
+		}
+		return $eventos;
+	}
+
+	function RegistrosIniciacionByTag($tag)
 	{
 		$RegistrosIniciacion = $this->get_eventos();
 		$RegistrosIniciacionForThisUnit = [];
+
+		usort($RegistrosIniciacionForThisUnit, function($a, $b)
+		{
+    		if ($a->get_DATETIME() == $b->get_DATETIME())
+				{
+        			return 0;
+    			}
+    		return ($a->get_DATETIME() > $b->get_DATETIME()) ? -1 : 1;
+		});
 
 		foreach ($RegistrosIniciacion as $r)
 		{
@@ -337,7 +378,7 @@ class Model
 	}
 
 	function checklistById_unidad($Id_unidad)
-	{ 			
+	{
 		$checklists = $this->get_checklists();
 		$checklistsOfThisUnit= [];
 
@@ -351,14 +392,14 @@ class Model
 		return $checklistsOfThisUnit;
 	}
 
-	function UltimochecklistById_unidad($Id_unidad) 
-	{ 			
+	function UltimochecklistById_unidad($Id_unidad)
+	{
 		$sql = "SELECT * FROM `checklist` WHERE `id_unidad` = ".$Id_unidad." ORDER BY `Fecha` DESC LIMIT 1";
 		$result = $this->executeSQL($sql);
 
 		if ($result->num_rows > 0)
 		{
-			while($row = $result->fetch_assoc()) 
+			while($row = $result->fetch_assoc())
 			{
 				$Ultimochecklist = new checklistDbEntity
 				(
@@ -388,7 +429,7 @@ class Model
 	}
 
 	function get_checklistmotivos()
-	{ 			
+	{
 		$sql = "SELECT * FROM `checklistmotivo`";
 		$result = $this->executeSQL($sql);
 		$checklistmotivos = [];
@@ -423,7 +464,7 @@ class Model
 	}
 
 	function get_ticket()
-	{ 			
+	{
 		$sql = "SELECT * FROM `ticket`";
 		$result = $this->executeSQL($sql);
 		$ticket = [];
@@ -445,11 +486,11 @@ class Model
 				);
 			}
 		}
-		return $ticket;		 
+		return $ticket;
 	}
 
 	function get_ticket_status()
-	{ 			
+	{
 		$sql = "SELECT * FROM `ticket_status`";
 		$result = $this->executeSQL($sql);
 		$ticket_status = [];
@@ -466,40 +507,7 @@ class Model
 				);
 			}
 		}
-		return $ticket_status;		 
-	}
-
-	function get_eventos()
-	{ 			
-		$sql = "SELECT * FROM `eventos` ";
-		$result = $this->executeSQL($sql);
-		$eventos = [];
-
-		if ($result->num_rows > 0)
-		{
-			while($row = $result->fetch_assoc()) 
-			{
-				$eventos[] = new eventosDbEntity
-				(
-					$row["UNIDAD"],
-					$row["USUARIO1"],
-					$row["USUARIO2"],
-					$row["USUARIO3"],
-					$row["USUARIO4"],
-					$row["ADMIN"],
-					$row["MANTENCION"],
-					$row["INTERNET"],
-					$row["VerCodigo"],
-					$row["LVOLTAJE"],
-					$row["INV"],
-					$row["VOLUMEN MAX"],
-					$row["TIMESTAMP"],
-					$row["TIPO"],
-					$row["TipoBat"]
-			    );
-			}
-		}
-		return $eventos;	 
+		return $ticket_status;
 	}
 }
 
