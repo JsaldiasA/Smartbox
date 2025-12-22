@@ -6,7 +6,8 @@ class ticketDbEntity
   public $Ubicacion;
   public $Descripcion;
   public $Usuario;
-  public $Fecha;
+  public $FechaApertura;
+  public $FechaCierre;
   public $Id_TicketStatus;
 	    
   function __construct
@@ -16,7 +17,8 @@ class ticketDbEntity
     $Ubicacion,
     $Descripcion,
     $Usuario,
-    $Fecha,
+    $FechaApertura,
+    $FechaCierre,
     $Id_TicketStatus
   )
 
@@ -26,7 +28,8 @@ class ticketDbEntity
     $this->Ubicacion = $Ubicacion;
     $this->Descripcion = $Descripcion;
     $this->Usuario = $Usuario;
-    $this->Fecha = $Fecha;
+    $this->FechaApertura = $FechaApertura;
+    $this->FechaCierre = $FechaCierre;
     $this->Id_TicketStatus = $Id_TicketStatus;
   }
 
@@ -35,7 +38,8 @@ class ticketDbEntity
   function get_Ubicacion() {return $this->Ubicacion;}
   function get_Descripcion() {return $this->Descripcion;}
   function get_Usuario() {return $this->Usuario;}
-  function get_Fecha() {return $this->Fecha;}
+  function get_FechaApertura() {return $this->FechaApertura;}
+  function get_FechaCierre() {return $this->FechaCierre;}
   function get_Id_TicketStatus() {return $this->Id_TicketStatus;}
 }
 
