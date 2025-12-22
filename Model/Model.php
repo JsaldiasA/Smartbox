@@ -327,7 +327,7 @@ class Model
 				{
         			return 0;
     			}
-    		return ($a->get_DATETIME() > $b->get_DATETIME()) ? -1 : 1;
+    		return ($a->get_DATETIME() > $b->get_DATETIME()) ? 1 : -1;
 		});
 
 		foreach ($RegistrosIniciacion as $r)
