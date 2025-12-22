@@ -266,11 +266,11 @@ class Model
 
 		usort($RegistrosDiarios, function($a, $b)
 		{
-    		if ($a->get_TIMESTAMP() == $b->get_TIMESTAMP())
+    		if ($a->get_DATETIME() == $b->get_DATETIME())
 				{
         			return 0;
     			}
-    		return ($a->get_TIMESTAMP() > $b->get_TIMESTAMP()) ? 1 : -1;
+    		return ($a->get_DATETIME() > $b->get_DATETIME()) ? -1 : 1;
 		});
 
 		foreach ($RegistrosDiarios as $r)
@@ -332,11 +332,11 @@ class Model
 	
 		usort($RegistrosIniciacionForThisUnit, function($a, $b)
 		{
-    		if ($a->get_DATETIME() == $b->get_DATETIME())
+    		if ($a->get_TIMESTAMP() == $b->get_TIMESTAMP())
 				{
         			return 0;
     			}
-    		return ($a->get_DATETIME() > $b->get_DATETIME()) ? 1 : -1;
+    		return ($a->get_TIMESTAMP() > $b->get_TIMESTAMP()) ? -1 : 1;
 		});
 	}
 
