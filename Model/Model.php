@@ -321,15 +321,6 @@ class Model
 		$RegistrosIniciacion = $this->get_eventos();
 		$RegistrosIniciacionForThisUnit = [];
 
-		usort($RegistrosIniciacionForThisUnit, function($a, $b)
-		{
-    		if ($a->get_DATETIME() == $b->get_DATETIME())
-				{
-        			return 0;
-    			}
-    		return ($a->get_DATETIME() > $b->get_DATETIME()) ? 1 : -1;
-		});
-
 		foreach ($RegistrosIniciacion as $r)
 		{
  			if ($r->get_UNIDAD() == $tag)
@@ -338,6 +329,15 @@ class Model
 			}
 		}
 		return $RegistrosIniciacionForThisUnit;
+	
+		usort($RegistrosIniciacionForThisUnit, function($a, $b)
+		{
+    		if ($a->get_DATETIME() == $b->get_DATETIME())
+				{
+        			return 0;
+    			}
+    		return ($a->get_DATETIME() > $b->get_DATETIME()) ? 1 : -1;
+		});
 	}
 
 	function get_checklists()
