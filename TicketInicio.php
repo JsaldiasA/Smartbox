@@ -6,10 +6,9 @@ require_once 'views/head.php';
 require_once 'views/navbar.php';
 
 echo '<style>body{background-color: #000000; color: #FFFFFF}</style>';
-echo '<div class="container"><style>body{background-color: #000000; color: #FFFFFF}</style>';
-echo '<bg-dark; text-white>';
+echo '<div class="container">';
 echo '<div class="row">';
-echo '<div class="col">';
+echo '<div class="col"><style>body{background-color: #000000; color: #FFFFFF}</style>';
 echo '<br><h1><b>Tickets</b></h1><br>';
 echo '</div>';
 echo '<div class="col">';
