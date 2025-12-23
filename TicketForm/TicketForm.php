@@ -96,7 +96,7 @@ echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;b
 				echo '<b>Ubicación: </b>';
 			echo '</div>';
 			echo '<div class="col">';
-				echo '<input type="text" class="form-control" id="Ubicacion" placeholder="Dispositivo y/o plataforma.">';
+				echo '<input type="text" class="form-control" id="Ubicacion" placeholder="Dispositivo y/o plataforma."><br>';
 			echo '</div>';
 		echo '</div>';
 
@@ -105,7 +105,7 @@ echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;b
 				echo '<b>Descripción: </b>';
 			echo '</div>';
 			echo '<div class="col">';
-				echo '<input type="text" class="form-control" id="Descripcion">';
+				echo '<input type="text" class="form-control" id="Descripcion"><br>';
 			echo '</div>';
 		echo '</div>';
 
@@ -114,7 +114,7 @@ echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;b
 				echo '<b>Usuario: </b>';
 			echo '</div>';
 			echo '<div class="col">';
-				echo '<input type="text" class="form-control" id="Usuario">';
+				echo '<input type="text" class="form-control" id="Usuario"><br>';
 			echo '</div>';
 		echo '</div>';
 	echo '</div>';
