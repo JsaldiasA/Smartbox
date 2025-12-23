@@ -10,67 +10,72 @@ require_once $sitebasepath."/views/head.php";
 require_once $sitebasepath."/views/navbar.php";
 require_once $sitebasepath."/Model/model.php";
 
+echo '<style>body{background-color: #191919; color: #FFFFFF}</style>';
+echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;border-radius: 8px;}</style>';
+
 ?>
 <script>
-
-function FunctionNuevoTicketPost()
-{
-	let text = "¿Está seguro de publicar el ticket?";
-	if (confirm(text) == true)
+	function FunctionNuevoTicketPost()
 		{
-			let pattern = /(^\d+\.\d+$)|(^\d+$)/;
-			var URL = "NuevoTicketPost.php";
-			var Respuesta;
-
-	  		var Ubicacion= document.getElementById("Ubicacion").value;
-			if (Ubicacion == "")
+			let text = "¿Está seguro de enviar el ticket?";
+			if (confirm(text) == true)
 				{
-					return alert ("Debe especificar un dispositivo o plataforma.");
-				}
+					let pattern = /(^\d+\.\d+$)|(^\d+$)/;
+					var URL = "NuevoTicketPost.php";
+					var Respuesta;
 
-			var Descripcion= document.getElementById("Descripcion").value;
-			if (Descripcion == "" )
-				{
-					return alert ("Debe explicar de que se trata el problema.");
-				}
+	  				var Ubicacion= document.getElementById("Ubicacion").value;
+					if (Ubicacion == "")
+						{
+							return alert ("Debe especificar un dispositivo y/o plataforma.");
+						}
 
-			var Usuario= document.getElementById("Usuario").value;
-			if (Usuario == "" )
-				{
-					return alert ("Debe escribir su nombre.");
-				}
+					var Descripcion= document.getElementById("Descripcion").value;
+					if (Descripcion == "" )
+						{
+							return alert ("Debe explicar de que se trata el problema.");
+						}
 
-			$.ajax({
-            url:URL,
-            type:"post",
-			dataType:'text',
-			data:
-				{
-					Nombre: Nombre,
-					Ubicacion: Ubicacion,
-					Descripcion: Descripcion,
-					Usuario: Usuario,
-					FechaApertura: FechaApertura,
-					Id_TicketStatus: Id_TicketStatus,
-        		},
-			success: function(result)
-				{
-					alert (result)
-				}
-			});
-			window.location.href = "https://smartbox.eco3.cl/";
-  		}
-	else
-		{
-    		alert ("La operación se ha cancelado.");
-  		}
-}
+					var Usuario= document.getElementById("Usuario").value;
+					if (Usuario == "" )
+						{
+							return alert ("Debe escribir su nombre.");
+						}
 
+					$.ajax(
+						{
+            				url:URL,
+            				type:"post",
+							dataType:'text',
+							data:
+								{
+									Nombre: Nombre,
+									Ubicacion: Ubicacion,
+									Descripcion: Descripcion,
+									Usuario: Usuario,
+									FechaApertura: FechaApertura,
+									Id_TicketStatus: Id_TicketStatus,
+        						},
+							success: function(result)
+								{
+									alert (result)
+								}
+						}
+					);
+
+					window.location.href = "https://smartbox.eco3.cl/";
+  				}
+			else
+				{
+    				alert ("La operación se ha cancelado.");
+  				}
+		}
 </script>
-	<div class="container">
-		<div class="row">
-			<div class="col">	
-				<br><h1 class="display-2"><b>Nuevo formulario</b><?php echo $UnidadTag;?></h1><br>
+
+<div class="container">
+	<div class="row">
+		<div class="col">	
+			<br><h1 class="display-2"><b>Nuevo formulario</b><?php echo $UnidadTag;?></h1><br>
 			</div>
 		</div>
 	<div class="row">
