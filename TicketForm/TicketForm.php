@@ -14,6 +14,7 @@ echo '<style>body{background-color: #191919; color: #FFFFFF}</style>';
 echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;border-radius: 8px;}</style>';
 
 ?>
+
 <script>
 	function FunctionNuevoTicketPost()
 		{
@@ -73,6 +74,7 @@ echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;b
 </script>
 
 <?php
+
 	echo '<div class="container">';
 		echo '<div class="row">';
 			echo '<div class="col">';
@@ -124,26 +126,5 @@ echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;b
 			echo '</div>';
 		echo '</div>';
 	echo '</div>';
+
 ?>
-
- <div class="container">
-	<div class="row">
-	<div class="col border">
-	<table class="table">
-		<tbody>
-			<tr><td><b>Asunto:</b></td><td><input type="text" class="form-control" id="Nombre" placeholder=""></td><td></td></tr>
-			<tr><td><b>Ubicación:</b></td><td><input type="text" class="form-control" id="Ubicacion" placeholder="Dispositivo y/o plataforma."></td><td></td></tr>
-			<tr><td><b>Descripción:</b></td><td><input type="text" class="form-control" id="Descripcion" placeholder=""></td><td></td></tr>
-			<tr><td><b>Usuario:</b></td><td><input type="text" class="form-control" id="Usuario" placeholder=""></td><td></td></tr>
-		</tbody>
-	</table>
-	</div>
-	</div>
-	<div class="row">
-		<div class="col" >
-			<button type="button" class="btn btn-success" onclick="FunctionNuevoTicketPost()">Enviar ticket</button>
-		</div>
-	</div>
-
-</body>
-</html>
