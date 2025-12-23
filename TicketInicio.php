@@ -8,7 +8,7 @@ require_once 'views/navbar.php';
 echo '<div class="container">';
 echo '<div class="row">';
 echo '<div class="col">';
-echo '<br><br><h1><b>Tickets</b></h1>';
+echo '<br><h1><b>Tickets</b></h1><br>';
 echo '</div>';
 echo '<div class="col">';
 echo '<tr><td><b></b></td></tr>';
