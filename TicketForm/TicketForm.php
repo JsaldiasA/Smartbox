@@ -126,5 +126,4 @@ echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;b
 			echo '</div>';
 		echo '</div>';
 	echo '</div>';
-
 ?>

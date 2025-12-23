@@ -10,27 +10,26 @@ require_once 'DbEntities/ticket_statusDbEntity.php';
 require_once 'Model/model.php';
 
 $Model = new Model();
-
 $sql = "SELECT * FROM `ticket` WHERE `id`= {$ticket_id}";
 $result = $Model->executeSQL($sql);
 
 if ($result->num_rows > 0)
-{
-	while($row = $result->fetch_assoc())
 	{
-		$ticketDbEntity= new ticketDbEntity
-		(
-			$row["Id"],
-			$row["Nombre"],
-			$row["Ubicacion"],
-			$row["Descripcion"],
-			$row["Usuario"],
-			$row["FechaApertura"],
-			$row["FechaCierre"],
-			$row["Id_TicketStatus"]
-		);
+		while($row = $result->fetch_assoc())
+		{
+			$ticketDbEntity= new ticketDbEntity
+				(
+					$row["Id"],
+					$row["Nombre"],
+					$row["Ubicacion"],
+					$row["Descripcion"],
+					$row["Usuario"],
+					$row["FechaApertura"],
+					$row["FechaCierre"],
+					$row["Id_TicketStatus"]
+				);
+		}
 	}
-}
 
 echo '<div class="container">';
 echo '<br><h1><b>Tickets</b></h1>';
@@ -46,5 +45,3 @@ echo '</tbody></table>';
 echo '</div>';
 	
 ?>
-</body>
-</html>
