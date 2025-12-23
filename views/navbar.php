@@ -102,14 +102,13 @@ function myFunction() {
   <div id="RmyTopnav" class="topnav-right">
   <a  href="../main.php" >Home</a>
   <a  href="../UnidadVerRowData.php" >RowData</a>
-  <a  href="../OldVersion.php" >OldVersion</a> 	
-  <a  href="../Sirecor2.0/views/riego/index.php" >Docs<a> 	
+  <a  href="../TicketInicio.php" >Tickets</a>
+  <a  href="../Sirecor2.0/views/riego/index.php" >Docs<a>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
   </a>
-  </div>  
+  </div>
   </div>
   </div>'
-
 
 ?>
