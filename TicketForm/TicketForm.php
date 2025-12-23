@@ -87,7 +87,7 @@ echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;b
 				echo '<b>Asunto: </b>';
 			echo '</div>';
 			echo '<div class="col">';
-				echo '<input type="text" class="form-control" id="Nombre">';
+				echo '<input type="text" class="form-control" id="Nombre"><br>';
 			echo '</div>';
 		echo '</div>';
 
