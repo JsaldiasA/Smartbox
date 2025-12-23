@@ -8,32 +8,10 @@ $sitebasepath=$_SERVER['DOCUMENT_ROOT'];
 
 require_once $sitebasepath."/views/head.php";
 require_once $sitebasepath."/views/navbar.php";
-require_once $sitebasepath.'/config/DbSirecorConfig.php';
-require_once $sitebasepath.'/DbEntities/ticketDbEntity.php';
-require_once $sitebasepath.'/DbEntities/ticket_statusDbEntity.php';
 require_once $sitebasepath."/Model/model.php";
 
 ?>
-<?php
 
-$UnidadTag= $_GET['tag'];
-$model = new Model();
-
-$dbConfig = new DbSirecorConfig();		
-// Create connection
-$conn = new mysqli($dbConfig->get_servername(),$dbConfig->get_username(),$dbConfig->get_password(),$dbConfig->get_dbname());
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-//GETTING DATA FROM THE UNIT	
-$sql = "SELECT * FROM `unidad` WHERE `tag`= '{$UnidadTag}'";
-$result = $conn->query($sql);
-
-$unidadDbEntity=$model->unidadByTag($UnidadTag);
-
-?>	
-	
 <script>
 
 	function FunctionNuevoCheckListPost() {
