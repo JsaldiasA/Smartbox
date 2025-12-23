@@ -345,9 +345,9 @@ function FunctionCambiarVolMax(unidad) {
 				$DisabledCerrar = "disabled";
 			}
 
-		echo '<tr><td><button type="button" onclick="FunctionComandosMilesight('."'Abrir V1'".')" class="btn btn-secondary" '.$DisabledAbrir.' >Abrir</button></td>
-		<td><button type="button" onclick="FunctionComandosMilesight('."'Cerrar V1'".')" class="btn btn-secondary" '.$DisabledCerrar.'  >Cerrar</button></td>
-		<td><button type="button" onclick="FunctionComandosMilesight('."'Reset Count'".')" class="btn btn-warning">Reiniciar Contador</button></td><tr>';
+		echo '<tr><td><button type="button" onclick="FunctionComandosMilesight('."'Abrir V1'".')" class="btn btn-primary" '.$DisabledAbrir.' >Abrir</button></td>
+		<td><button type="button" onclick="FunctionComandosMilesight('."'Cerrar V1'".')" class="btn btn-primary" '.$DisabledCerrar.'  >Cerrar</button></td>
+		<td><button type="button" onclick="FunctionComandosMilesight('."'Reset Count'".')" class="btn btn-primary">Reiniciar Contador</button></td><tr>';
 		echo '</tbody></table>';
 		echo '</div>';
 		echo '</div>';
@@ -445,22 +445,22 @@ else
 		echo '</div>';   // Input de contraseña.
 
 		echo '<div class="subContainer">';
-		echo '<button onclick="FunctionNuevaUbicacion('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Editar</button> Nueva ubicación:';
+		echo '<button onclick="FunctionNuevaUbicacion('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-secondary">Editar</button> Nueva ubicación:';
 		echo '<input type="text" id="NuevaUbicacion" name="NuevaUbicacion" class="form-control">';   // Input cambio de ubicación.
 		echo '</div>';
 
 		echo '<div class="subContainer">';
-		echo '<button onclick="FunctionNuevoNumero('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Editar</button> Nuevo número:';
+		echo '<button onclick="FunctionNuevoNumero('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-secondary">Editar</button> Nuevo número:';
 		echo '<input type="text" id="NuevoNumero" name="NuevoNumero" class="form-control">';   // Input cambio de número.
 		echo '</div>';
 
 		echo '<div class="subContainer">';
-		echo '<button onclick="FunctionCambiarVolMax('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Editar</button> Nuevo volumen máximo:';
+		echo '<button onclick="FunctionCambiarVolMax('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-secondary">Editar</button> Nuevo volumen máximo:';
 		echo '<input type="text" id="VolMax" name="VolMax" class="form-control">';   // Input cambio de volumen máximo.
 		echo '</div>';
 		
 		echo '<div class="subContainer">';
-		echo '<button onclick="FunctionNuevoTipo('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-primary">Editar</button>';
+		echo '<button onclick="FunctionNuevoTipo('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-secondary">Editar</button>';
 
 		$q = $Model->executeSQL("SELECT `Nombre` FROM `unidadtipo`");
 		echo ' <select name="NuevoTipo" id="NuevoTipo" required>';
