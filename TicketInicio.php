@@ -5,19 +5,19 @@
 require_once 'views/head.php';	
 require_once 'views/navbar.php';
 
-'<div class="container text-center">';
-  '<div class="row">';
-    '<div class="col">';
+echo '<div class="container text-center">';
+echo '<div class="row">';
+echo '<div class="col">';
 echo '<br><h1><b>Tickets</b></h1>';
-    '</div>';
-    '<div class="col">';
-echo "<tr><td><b>Columna 2.</b></td></tr>";
-    '</div>';
-    '<div class="col">';
+echo '</div>';
+echo '<div class="col">';
+echo '<tr><td><b>Columna 2.</b></td></tr>';
+echo '</div>';
+echo '<div class="col">';
 echo "<tr><td><b>Columna 3.</b></td></tr>";
-    '</div>';
-  '</div>';
-'</div>';
+echo '</div>';
+echo '</div>';
+echo '</div>';
 
 echo '<div class="container">';
 // echo '<br><h1><b>Tickets</b></h1><br>';
