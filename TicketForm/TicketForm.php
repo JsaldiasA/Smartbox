@@ -77,17 +77,17 @@ function FunctionNuevoTicketPost()
 	<div class="col border">
 	<table class="table">
 		<tbody>
-			<tr><td><b>1:</b></td><td><input type="text" class="form-control" id="Título:" placeholder=""></td><td></td></tr>
-			<tr><td><b>2:</b></td><td><input type="text" class="form-control" id="Ubicación:" placeholder="Dispositivo y/o plataforma."></td><td></td></tr>
-			<tr><td><b>3:</b></td><td><input type="text" class="form-control" id="Descripción:" placeholder=""></td><td></td></tr>
-			<tr><td><b>4:</b></td><td><input type="text" class="form-control" id="Usuario:" placeholder=""></td><td></td></tr>
+			<tr><td><b>Asunto:</b></td><td><input type="text" class="form-control" id="Nombre" placeholder=""></td><td></td></tr>
+			<tr><td><b>Ubicación:</b></td><td><input type="text" class="form-control" id="Ubicacion" placeholder="Dispositivo y/o plataforma."></td><td></td></tr>
+			<tr><td><b>Descripción:</b></td><td><input type="text" class="form-control" id="Descripcion" placeholder=""></td><td></td></tr>
+			<tr><td><b>Usuario:</b></td><td><input type="text" class="form-control" id="Usuario" placeholder=""></td><td></td></tr>
 		</tbody>
 	</table>
 	</div>
 	</div>
 	<div class="row">
 		<div class="col" >
-			<button type="button" class="btn btn-success btn-lg" onclick="FunctionNuevoTicketPost()">Enviar ticket</button>
+			<button type="button" class="btn btn-success" onclick="FunctionNuevoTicketPost()">Enviar ticket</button>
 		</div>
 	</div>
 </body>
