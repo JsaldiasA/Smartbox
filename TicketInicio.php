@@ -7,7 +7,7 @@ require_once 'views/navbar.php';
 
 echo '<style>body{background-color: #222222;}</style>';
 
-echo '<div class="container">';
+echo '<div class="container"><?php echo bg-dark; ?> text-white">';
 echo '<div class="row">';
 echo '<div class="col">';
 echo '<br><h1><b>Tickets</b></h1><br>';
