@@ -107,7 +107,7 @@ echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;b
 				echo '<b>Descripción: </b>';
 			echo '</div>';
 			echo '<div class="col">';
-				echo '<input type="text" class="form-control" style="height: 280px; width: 100%" id="Descripcion" placeholder="Describa la situación."><br>';
+				echo '<input type="text" class="form-control" style="height: 200px; width: 100%" id="Descripcion" placeholder="Describa la situación."><br>';
 			echo '</div>';
 		echo '</div>';
 
@@ -122,7 +122,7 @@ echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;b
 
 		echo '<div class="row">';
 			echo '<div class="col">';
-				echo '<button type="button" class="btn btn-success" onclick="FunctionNuevoTicketPost()">Enviar ticket</button><br>';
+				echo '<button type="button" class="btn btn-success" onclick="FunctionNuevoTicketPost()">Enviar ticket</button><br><br>';
 			echo '</div>';
 		echo '</div>';
 	echo '</div>';
