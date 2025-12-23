@@ -5,12 +5,7 @@
 require_once 'views/head.php';	
 require_once 'views/navbar.php';
 
-echo
-    '<style>
-    body{background-color: #000000; color: #FFFFFF}
-    container{background-color: #000000;}
-    </style>';
-
+echo '<style>body{background-color: #000000; color: #FFFFFF}container{background-color: #000000;}</style>';
 echo '<div class="container">';
 echo '<style>
 echo '<div class="row">';
