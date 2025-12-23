@@ -74,12 +74,14 @@ echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;b
 
 <?php
 	echo '<div class="container">';
-
 		echo '<div class="row">';
 			echo '<div class="col">';
 				echo '<b><h1>Nuevo formulario: <br></h1></b>';
 			echo '</div>';
+		echo '</div>';
+	echo '<br></div>';
 
+	echo '<div class="container">';
 		echo '<div class="row">';
 			echo '<div class="col">';
 				echo '<b>Asunto: </b>';
@@ -87,7 +89,7 @@ echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;b
 			echo '<div class="col">';
 				echo '<input type="text" class="form-control" id="Nombre">';
 			echo '</div>';
-		echo '</div>';
+		echo '<br></div>';
 
 		echo '<div class="row">';
 			echo '<div class="col">';
@@ -115,7 +117,6 @@ echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;b
 				echo '<input type="text" class="form-control" id="Usuario">';
 			echo '</div>';
 		echo '</div>';
-
 	echo '</div>';
 ?>
 
