@@ -1,43 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
+
 require_once 'views/head.php';	
-require_once 'views/navbar.php';	
+require_once 'views/navbar.php';
+require_once 'Model/model.php';	
 	
 $dat= $_GET['tag'];
 $limit= 100;
-require_once 'Model/model.php';
-	
-$Model = new Model();	
+$Model = new Model();
 $unidadDbEntity = $Model->unidadByTag($dat);
 $checklistDbEntity= $Model->UltimochecklistById_unidad($unidadDbEntity->get_id());
 
 ?>	
 <!-- SCRIPTS PARA editar panel -->
 <script>
-function FunctionNuevoNumero(unidad) {
-  let text = "¿Está seguro de cambiar el número de la unidad?";
-  if (confirm(text) == true) {
-	 
-	var URL = "UnidadCambiarNumero.php";
-	var Respuesta;
-	var NuevoNumero =  document.getElementById("NuevoNumero").value;
-	var token = document.getElementById("password").value ;
-	$.ajax({
-            url:URL, //the page containing php script
-            type: "post", //request
-			dataType: 'text',
-			  data: {
-            tag: unidad,
-			NuevoNumero: NuevoNumero,
-			token: token,
-        	},
-		    success: function(result){alert(result)}
-		  });
-  } else {
-    alert("La operación se ha cancelado.");
-  }
-}
+function FunctionNuevoNumero(unidad)
+	{
+  		let text = "¿Está seguro de cambiar el número de la unidad?";
+ 		if (confirm(text) == true)
+			{
+				var URL = "UnidadCambiarNumero.php";
+				var Respuesta;
+				var NuevoNumero = document.getElementById("NuevoNumero").value;
+				var token = document.getElementById("password").value ;
+		
+				$.ajax({
+        			url:URL,
+            		type:"post",
+					dataType:'text',
+					data:
+						{
+            				tag: unidad,
+							NuevoNumero: NuevoNumero,
+							token: token,
+        				},
+					success: function(result)
+						{
+							alert(result)
+						}
+		  		});
+  			}
+		else
+			{
+    			alert("La operación se ha cancelado.");
+  			}
+	}
 
 function FunctionNuevaUbicacion(unidad) {
   let text = "¿Está seguro de cambiar la ubicación de la unidad?";
@@ -318,8 +326,6 @@ function FunctionCambiarVolMax(unidad) {
 	<?php
 	if ($unidadDbEntity->get_Id_Unidadtipo() == '3')
 	{	
-		
-		
 		echo '<div class="row">';
 		echo '<div class="col">';
 		echo '<table class="table" > <thead >';
@@ -329,16 +335,24 @@ function FunctionCambiarVolMax(unidad) {
 		echo '</thead><tbody>';
 		$DisabledAbrir = "";
 		$DisabledCerrar = "";
-		if($unidadDbEntity->get_Estado() == "1"){	$DisabledAbrir = "disabled";}else{$DisabledCerrar = "disabled";}	
-		echo '<tr><td><button type="button" onclick="FunctionComandosMilesight('."'Abrir V1'".')" class="btn btn-primary" '.$DisabledAbrir.' >Abrir</button></td>
-		<td><button type="button" onclick="FunctionComandosMilesight('."'Cerrar V1'".')" class="btn btn-primary" '.$DisabledCerrar.'  >Cerrar</button></td>
-		<td><button type="button" onclick="FunctionComandosMilesight('."'Reset Count'".')" class="btn btn-primary">Reiniciar Contador</button></td><tr>';
 
+		if ($unidadDbEntity->get_Estado() == "1")
+			{	
+				$DisabledAbrir = "disabled";
+			}
+		else
+			{
+				$DisabledCerrar = "disabled";
+			}
+
+		echo '<tr><td><button type="button" onclick="FunctionComandosMilesight('."'Abrir V1'".')" class="btn btn-secondary" '.$DisabledAbrir.' >Abrir</button></td>
+		<td><button type="button" onclick="FunctionComandosMilesight('."'Cerrar V1'".')" class="btn btn-secondary" '.$DisabledCerrar.'  >Cerrar</button></td>
+		<td><button type="button" onclick="FunctionComandosMilesight('."'Reset Count'".')" class="btn btn-warning">Reiniciar Contador</button></td><tr>';
 		echo '</tbody></table>';
 		echo '</div>';
-		echo '</div>';		
+		echo '</div>';
 	}
-	?>
+?>
 
 <div class="row">
 	<div class="col">

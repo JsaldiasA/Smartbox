@@ -87,7 +87,7 @@ function FunctionNuevoTicketPost()
 	</div>
 	<div class="row">
 		<div class="col" >
-			<button type="button" class="btn btn-primary btn-lg" onclick="FunctionNuevoTicketPost()">Enviar ticket</button>
+			<button type="button" class="btn btn-success btn-lg" onclick="FunctionNuevoTicketPost()">Enviar ticket</button>
 		</div>
 	</div>
 </body>

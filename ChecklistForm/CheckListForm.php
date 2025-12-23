@@ -198,12 +198,12 @@ else {document.getElementById('VoltajeMCU').className='form-control';}
 
 				<div class="row">
 				<div class="col" >
-	<button type="button" class="btn btn-primary btn-lg" onclick="FunctionNuevoCheckListPost()">Enviar CheckList</button>
+	<button type="button" class="btn btn-success btn-lg" onclick="FunctionNuevoCheckListPost()">Enviar CheckList</button>
 	</div>
 		
 	<div class="col">
 		<!--<select name="listaDeDispositivos" id="listaDeDispositivos"></select>-->
-		<button id="boton"  class="btn btn-primary btn-lg" >Tomar foto</button>
+		<button id="boton"  class="btn btn-success btn-lg" >Tomar foto</button>
 		<p id="estado"></p>
 	</div>
 	<br>
