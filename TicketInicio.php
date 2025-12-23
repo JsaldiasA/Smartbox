@@ -14,7 +14,7 @@ echo '<div class="col">';
 echo '<tr><td><b>Columna 2.</b></td></tr>';
 echo '</div>';
 echo '<div class="col">';
-echo '<br><br><b>Ingresar nuevo ticket. <b><a href="../TicketForm/TicketForm.php" class="btn btn-primary" role="button"> + </a>';
+echo '<br><br><p class="text-end"><b>Ingresar nuevo ticket. <b><a href="../TicketForm/TicketForm.php" class="btn btn-primary" role="button"> + </a>';
 echo '</div>';
 echo '</div>';
 echo '</div>';
