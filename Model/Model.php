@@ -285,7 +285,7 @@ class Model
 
 	function get_eventos()
 	{
-		$sql = "SELECT * FROM `eventos` ";
+		$sql = "SELECT * FROM eventos e ORDER BY TIMESTAMP DESC";
 		$result = $this->executeSQL($sql);
 		$eventos = [];
 
@@ -329,15 +329,6 @@ class Model
 			}
 		}
 		return $RegistrosIniciacionForThisUnit;
-	
-		usort($RegistrosIniciacionForThisUnit, function($a, $b)
-		{
-    		if ($a->get_TIMESTAMP() == $b->get_TIMESTAMP())
-				{
-        			return 0;
-    			}
-    		return ($a->get_TIMESTAMP() > $b->get_TIMESTAMP()) ? -1 : 1;
-		});
 	}
 
 	function get_checklists()
