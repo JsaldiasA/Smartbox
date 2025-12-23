@@ -6,9 +6,9 @@ require_once 'views/head.php';
 require_once 'views/navbar.php';
 
 echo '<div class="container">';
-echo '<br><h1><b>Tickets</b></h1>';
+echo '<br><h1><b>Tickets</b></h1><br>';
 echo '<div class="subContainer">';
-echo '<button onclick="Function('."'".')" class="btn btn-primary"> + </button> Ingresar ticket.';
+echo '<button onclick="NoFunction()" class="btn btn-primary"> + </button> Ingresar ticket.';
 echo '</div>';
 echo '<table class="table"><tbody>';
 echo "<tr><td><b>Página para visualizar los tickets.</b></td></tr>";
