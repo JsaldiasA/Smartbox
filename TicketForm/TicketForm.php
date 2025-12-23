@@ -73,26 +73,23 @@ echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;b
 </script>
 
 <?php
-
 	echo '<div class="container">';
-	echo '<div class="row">';
-	echo '<div class="col">';
-	echo '<b>Ubicación:</b>';
+		echo '<div class="row">';
+			echo '<div class="col">';
+				echo '<b><h1>Nuevo formulario:</h1></b>';
+			echo '</div>';
+		echo '<div class="row">';
+			echo '<div class="col">';
+				echo '<b>Ubicación:</b>';
+			echo '</div>';
+			echo '<div class="col">';
+				echo '<input type="text" class="form-control" id="Ubicacion" placeholder="Dispositivo y/o plataforma.">';
+			echo '</div>';
+		echo '</div>';
 	echo '</div>';
-	echo '<div class="col">';
-	echo '<input type="text" class="form-control" id="Ubicacion" placeholder="Dispositivo y/o plataforma.">';
-	echo '</div>';
-	echo '</div>';
-	echo '</div>';
-
 ?>
 
 <div class="container">
-	<div class="row">
-		<div class="col">	
-			<br><h1 class="display-2"><b>Nuevo formulario</b><?php echo $UnidadTag;?></h1><br>
-			</div>
-		</div>
 	<div class="row">
 	<div class="col border">
 	<table class="table">
