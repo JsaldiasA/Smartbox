@@ -70,9 +70,6 @@ else {document.getElementById('VoltajeReguladorMCU').className='form-control';}
 	var Solenoide= Number(document.getElementById("Solenoide").checked);
 	var SensorNivelBajo= Number(document.getElementById("SensorNivelBajo").checked);
 	var SensorNivelAlto= Number(document.getElementById("SensorNivelAlto").checked);
-	  
-	
-   
 	var VoltajeMCU= document.getElementById("VoltajeMCU");
 	hasError = NumericParameterHasError(VoltajeMCU,4,3.3) ; 	    
  	  
