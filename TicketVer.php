@@ -17,20 +17,20 @@ $result = $Model->executeSQL($sql);
 if ($result->num_rows > 0)
 	{
 		while($row = $result->fetch_assoc())
-		{
-			$ticketDbEntity = new ticketDbEntity
-				(
-					$row["Id"],
-					$row["Nombre"],
-					$row["Ubicacion"],
-					$row["Descripcion"],
-					$row["Usuario"],
-					$row["FechaInicio"],
-					$row["FechaCierre"],
-					$row["Id_TicketPriority"],
-					$row["Id_TicketStatus"]
-				);
-		}
+			{
+				$ticketDbEntity = new ticketDbEntity
+					(
+						$row["Id"],
+						$row["Nombre"],
+						$row["Ubicacion"],
+						$row["Descripcion"],
+						$row["Usuario"],
+						$row["FechaInicio"],
+						$row["FechaCierre"],
+						$row["Id_TicketPriority"],
+						$row["Id_TicketStatus"]
+					);
+			}
 	}
 
 echo '<div class="container">';

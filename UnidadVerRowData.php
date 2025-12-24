@@ -5,8 +5,6 @@
 require_once 'views/head.php';	
 require_once 'views/navbar.php';
 
-echo '<style>body{background-color: #191919;}</style>';
-
 $servername = "localhost:3306";
 $username = "Sirecor_usuario";
 $password = "7bp0c@81X";

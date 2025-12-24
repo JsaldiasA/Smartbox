@@ -10,8 +10,8 @@ require_once $sitebasepath."/views/head.php";
 require_once $sitebasepath."/views/navbar.php";
 require_once $sitebasepath."/Model/model.php";
 
-echo '<style>body{background-color: #191919; color: #FFFFFF}</style>';
-echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;border-radius: 8px;}</style>';
+echo '<style>body{background-color: #191919; color: #FFFFFF}</style>
+		<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;border-radius: 8px;}</style>';
 
 ?>
 
@@ -60,8 +60,7 @@ echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;b
 								{
 									alert (result)
 								}
-						}
-					);
+						});
 
 					window.location.href = "https://smartbox.eco3.cl/";
   				}
