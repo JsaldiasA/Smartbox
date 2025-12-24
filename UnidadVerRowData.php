@@ -6,7 +6,6 @@ require_once 'views/head.php';
 require_once 'views/navbar.php';
 
 echo '<style>body{background-color: #191919; color: #FFFFFF}</style>';
-echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;border-radius: 8px;}</style>';
 
 $servername = "localhost:3306";
 $username = "Sirecor_usuario";
@@ -27,7 +26,7 @@ if ($conn->connect_error)
 
 if ($result->num_rows > 0)
 	{
-    	echo '<div class="container" style="padding:50px 50px 50px 50px;width:100%;">';
+    	echo '<div class="container" style="background-color: #292929;color: #FFFFFF; padding: 50px 50px 50px 50px; width: 100%;">';
 	
 		while ($row = $result->fetch_assoc())
 			{
