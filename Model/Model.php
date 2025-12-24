@@ -473,11 +473,32 @@ class Model
 					$row["Usuario"],
 					$row["FechaInicio"],
 					$row["FechaCierre"],
+					$row["Id_TicketPriority"],
 					$row["Id_TicketStatus"]
 				);
 			}
 		}
 		return $ticket;
+	}
+
+	function get_ticket_priority()
+	{
+		$sql = "SELECT * FROM `ticket_priority`";
+		$result = $this->executeSQL($sql);
+		$ticket_priority = [];
+
+		if ($result->num_rows > 0)
+		{
+			while($row = $result->fetch_assoc())
+			{
+				$ticket_priority[] = new ticket_priorityDbEntity
+				(
+					$row["Id"],
+					$row["Prioridad"]
+				);
+			}
+		}
+		return $ticket_priority;
 	}
 
 	function get_ticket_status()

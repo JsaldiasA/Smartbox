@@ -12,7 +12,7 @@ class rowdataDbEntity {
   public $InvertirEntrada;
   public $BatNivel;
 	    
-  function __construct($Id,$Nombre,$Tag,$Numero,$UltimaActualizacion,$Volumen,$Estado,$Id_UnidadTipo,$InvertirEntrada,$BatNivel ) {
+  function __construct($Id,$Nombre,$Tag,$Numero,$UltimaActualizacion,$Volumen,$Estado,$Id_UnidadTipo,$InvertirEntrada,$BatNivel) {
 	  		
 	  		$this->Id = $Id;
 	    	$this->Nombre = $Nombre;

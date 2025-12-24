@@ -9,30 +9,21 @@ class ticketDbEntity
     public $Usuario;
     public $FechaInicio;
     public $FechaCierre;
+    public $Id_TicketPriority;
     public $Id_TicketStatus;
-	    
-    function __construct
-      (
-        $Id,
-        $Nombre,
-        $Ubicacion,
-        $Descripcion,
-        $Usuario,
-        $FechaInicio,
-        $FechaCierre,
-        $Id_TicketStatus
-      )
 
-    { 		
-      $this->Id = $Id;
-      $this->Nombre = $Nombre;
-      $this->Ubicacion = $Ubicacion;
-      $this->Descripcion = $Descripcion;
-      $this->Usuario = $Usuario;
-      $this->FechaInicio = $FechaInicio;
-      $this->FechaCierre = $FechaCierre;
-      $this->Id_TicketStatus = $Id_TicketStatus;
-    }
+    function __construct ($Id, $Nombre, $Ubicacion, $Descripcion, $Usuario, $FechaInicio, $FechaCierre, $Id_TicketPriority, $Id_TicketStatus)
+      { 		
+        $this->Id = $Id;
+        $this->Nombre = $Nombre;
+        $this->Ubicacion = $Ubicacion;
+        $this->Descripcion = $Descripcion;
+        $this->Usuario = $Usuario;
+        $this->FechaInicio = $FechaInicio;
+        $this->FechaCierre = $FechaCierre;
+        $this->Id_TicketPriority = $Id_TicketPriority;
+        $this->Id_TicketStatus = $Id_TicketStatus;
+      }
 
     function get_Id() {return $this->Id;}
     function get_Nombre() {return $this->Nombre;}
@@ -41,6 +32,7 @@ class ticketDbEntity
     function get_Usuario() {return $this->Usuario;}
     function get_FechaInicio() {return $this->FechaInicio;}
     function get_FechaCierre() {return $this->FechaCierre;}
+    function get_Id_TicketPriority() {return $this->Id_TicketPriority;}
     function get_Id_TicketStatus() {return $this->Id_TicketStatus;}
   }
 
