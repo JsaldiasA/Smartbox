@@ -14,7 +14,9 @@ $Ubicacion = $_POST['Ubicacion'];
 $Descripcion = $_POST['Descripcion'];
 $Usuario = $_POST['Usuario'];
 
-$sql = "INSERT INTO `ticket` (`Id`, `Nombre`, `Ubicacion`, `Descripcion`, `Usuario`, `FechaInicio`, `FechaCierre`, `Id_TicketPriority`, `Id_TicketStatus`) VALUES ('{$Id}','{$Nombre}','{$Ubicacion}','{$Descripcion}','{$Usuario}','{$FechaInicio}','{$FechaCierre}','{$Id_TicketPriority}','{$Id_TicketStatus}')";
+// $sql = "INSERT INTO `ticket` (`Id`, `Nombre`, `Ubicacion`, `Descripcion`, `Usuario`, `FechaInicio`, `FechaCierre`, `Id_TicketPriority`, `Id_TicketStatus`) VALUES ('{$Id}','{$Nombre}','{$Ubicacion}','{$Descripcion}','{$Usuario}','{$FechaInicio}','{$FechaCierre}','{$Id_TicketPriority}','{$Id_TicketStatus}')";
+$sql = "INSERT INTO `ticket` (`Id`, `Nombre`, `Ubicacion`, `Descripcion`, `Usuario`, `FechaInicio`, `FechaCierre`, `Id_TicketPriority`, `Id_TicketStatus`) VALUES ( '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1')";
+
 $result = $Model->executeSQL($sql);
 	
 echo
