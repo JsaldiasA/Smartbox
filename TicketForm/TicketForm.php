@@ -100,14 +100,14 @@ echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;b
 			echo '</div>';
 		echo '</div>';
 
-		echo '<div class="row">';
-			echo '<div class="col">';
-				echo '<b>Descripción: </b>';
-			echo '</div>';
-			echo '<div class="col">';
-				echo '<input type="text" class="form-control" style="height: 200px; width: 100%" id="Descripcion" placeholder="Describa la situación."><br>';
-			echo '</div>';
-		echo '</div>';
+		echo '<div class="row">
+			<div class="col">
+				<b>Descripción: </b>
+			</div>
+			<div class="col">
+				<input type="text" class="form-control" style="height: 200px; width: 100%" id="Descripcion" placeholder="Describa la situación."><br>
+			</div>
+		</div>';
 
 		echo '<div class="row">';
 			echo '<div class="col">';
