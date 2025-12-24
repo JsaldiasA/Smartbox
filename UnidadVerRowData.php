@@ -77,7 +77,7 @@ if ($result->num_rows > 0)
 	} 
 	else 
 	{
-   		echo "0 results";
+   		echo "00 results";
 	}
 	
 echo '<div class="container" style="padding: 0px 50px 0px 50px;width: 100%;">';
