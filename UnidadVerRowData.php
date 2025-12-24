@@ -5,7 +5,7 @@
 require_once 'views/head.php';	
 require_once 'views/navbar.php';
 
-echo '<style>body{background-color: #191919; color: #FFFFFF}</style>';
+echo '<style>body{background-color: #191919;}</style>';
 
 $servername = "localhost:3306";
 $username = "Sirecor_usuario";
@@ -26,11 +26,11 @@ if ($conn->connect_error)
 
 if ($result->num_rows > 0)
 	{
-    	echo '<div class="container" style="background-color: #292929;color: #FFFFFF; padding: 50px 50px 50px 50px; width: 100%;">';
+    	echo '<div class="container" style="padding: 50px 50px 50px 50px; width: 100%;">';
 	
 		while ($row = $result->fetch_assoc())
 			{
-				echo '<div class="container" style="padding:0px 0px 0px 0px;width:100%;">';
+				echo '<div class="container" style="padding: 0px 0px 0px 0px; width: 100%;">';
 
 				$CabeceraName = $row["Nombre"];
 				$tag = $row["tag"];
@@ -82,7 +82,7 @@ if ($result->num_rows > 0)
    		echo "0 results";
 	}
 	
-echo '<div class="container" style="padding: 0px 50px 0px 50px;width: 100%;">';
+echo '<div class="container" style="padding: 0px 50px 0px 50px; width: 100%;">';
 
 $sql = "SELECT * FROM `rowdata` ORDER BY `id` DESC LIMIT 10";
 $result = $conn->query($sql);
