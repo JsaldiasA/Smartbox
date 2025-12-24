@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang ="en">
 <?php
 
-$self=$_SERVER['PHP_SELF']; 
-$thispath=dirname($_SERVER['PHP_SELF']);
-$sitebasepath=$_SERVER['DOCUMENT_ROOT'];
+$self =$_SERVER['PHP_SELF']; 
+$thispath = dirname($_SERVER['PHP_SELF']);
+$sitebasepath = $_SERVER['DOCUMENT_ROOT'];
 
 require_once $sitebasepath."/views/head.php";
 require_once $sitebasepath."/views/navbar.php";
