@@ -5,6 +5,9 @@
 require_once 'views/head.php';	
 require_once 'views/navbar.php';
 
+echo '<style>body{background-color: #191919; color: #FFFFFF}</style>';
+echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;border-radius: 8px;}</style>';
+
 $servername = "localhost:3306";
 $username = "Sirecor_usuario";
 $password = "7bp0c@81X";
@@ -77,12 +80,12 @@ if ($result->num_rows > 0)
 	} 
 	else 
 	{
-   		echo "00 results";
+   		echo "0 results";
 	}
 	
 echo '<div class="container" style="padding: 0px 50px 0px 50px;width: 100%;">';
 
-$sql = "SELECT * FROM `rowdata` ORDER BY `id` DESC LIMIT 15";
+$sql = "SELECT * FROM `rowdata` ORDER BY `id` DESC LIMIT 10";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0)
@@ -105,7 +108,7 @@ if ($result->num_rows > 0)
 	}
 else
 	{
-    	echo "0x results";
+    	echo "0 results";
 	}
 
 ?>
