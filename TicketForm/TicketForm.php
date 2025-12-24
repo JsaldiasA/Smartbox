@@ -54,8 +54,6 @@ echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;b
 									Ubicacion: Ubicacion,
 									Descripcion: Descripcion,
 									Usuario: Usuario,
-									FechaApertura: FechaApertura,
-									Id_TicketStatus: Id_TicketStatus,
         						},
 							success: function(result)
 								{

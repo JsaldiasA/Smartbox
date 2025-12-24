@@ -4,12 +4,12 @@
 
 require_once 'views/head.php';	
 require_once 'views/navbar.php';
-require_once 'config/DbSirecorConfig.php';
 require_once 'DbEntities/ticketDbEntity.php';
 require_once 'DbEntities/ticket_statusDbEntity.php';
 require_once 'Model/model.php';
 
 $Model = new Model();
+
 $sql = "SELECT * FROM `ticket` WHERE `id`= {$ticket_id}";
 $result = $Model->executeSQL($sql);
 
