@@ -19,508 +19,529 @@ require_once $sitebasepath.'/DbEntities/eventosDbEntity.php';
 class Model
 {
 	function __construct()
-	{
+		{
 
-  	}
+  		}
 
 	function executeSQL($SQLscript)
-	{
-		$dbConfig = new DbSirecorConfig();   // Create connection.
-		$conn = new mysqli($dbConfig->get_servername(),$dbConfig->get_username(),$dbConfig->get_password(),$dbConfig->get_dbname());   // Check connection.
-
-		if ($conn->connect_error)
 		{
-  			die("Connection failed: " . $conn->connect_error);
-		}
+			$dbConfig = new DbSirecorConfig();
+			$conn = new mysqli($dbConfig->get_servername(),$dbConfig->get_username(),$dbConfig->get_password(),$dbConfig->get_dbname());
 
-		$sql = $SQLscript;
-		$result = $conn->query($sql);
-
-		return $result;
-	}
-
-	function get_externalapps_monitor()
-	{
-		$sql = "SELECT * FROM `externalapps_monitor`";
-		$result = $this->executeSQL($sql);
-		$externalapps_monitors = [];
-
-		if ($result->num_rows > 0)
-		{
-			while($row = $result->fetch_assoc())
-			{
-	    		$externalapps_monitors[] = new externalapps_monitorDbEntity
-				(
-					$row["id"],
-					$row["LastUpdate"],
-					$row["AppName"],
-					$row["Description"]
-				);
-			}
-		}
-		return $externalapps_monitors;
-	}
-
-	function get_comandos_milesight()
-	{
-		$sql = "SELECT * FROM `comandos_milesight`";
-		$result = $this->executeSQL($sql);
-		$comandos_milesight = [];
-
-		if ($result->num_rows > 0)
-		{
-			while($row = $result->fetch_assoc())
-			{
-				$comandos_milesight[] = new comandos_milesightDbEntity
-				(
-					$row["Id"],
-					$row["Nombre"],
-					$row["Comando_HEX"],
-					$row["Comando_Base64"],
-					$row["Descripcion"]
-				);
-			}
-		}
-		return $comandos_milesight;
-	}
-
-	function comando_milesightByNombre($Nombre)
-	{
-		$comandos_milesight = $this->get_comandos_milesight();
-
-		foreach ($comandos_milesight as $comando)
-		{
- 			if ($comando->get_Nombre() == $Nombre)
-			{
-				return $comando;
-			}
-		}
-		return null;
-	}
-
-	function get_unidades()
-	{
-		$sql = "SELECT * FROM `unidad`";
-		$result = $this->executeSQL($sql);
-		$Unidades = [];
-		$RegistrosDiarios = [];
-		$RegistrosDiarios = $this->get_UltimoRegistroDiarioDeCadaUnidad();
-
-		if ($result->num_rows > 0)
-		{
-			while($row = $result->fetch_assoc())
-			{
-				foreach ($RegistrosDiarios as $r)
+			if ($conn->connect_error)
 				{
-					if($r->get_unidad_id() == $row["id"] )
-					{
-						$UltimoRegistro = $r;
-						break;
-					}
+  					die("Connection failed: " . $conn->connect_error);
 				}
 
-				$Unidades[] = new unidadDbEntity
-				(
-					$row["id"],
-					$row["Serie"],
-					$row["tag"],
-					$row["Ubicacion"],
-					$row["numero"],
-					$row["UltimaActualizacion"],
-					$row["Volumen"],
-					$row["Estado"],
-					$row["id_unidadTipo"],
-					$row["InvertirEntrada"],
-					$row["BatNivel"],
-					$row["Temperatura"],
-					$row["Humedad"],
-					$row["EC"],
-					$row["VolMax"],
-					$row["FactorFlujometro"],
-					$UltimoRegistro
-				);	
-			}
+			$sql = $SQLscript;
+			$result = $conn->query($sql);
+
+			return $result;
 		}
-		return $Unidades;
-	}
+
+	function get_externalapps_monitor()
+		{
+			$sql = "SELECT * FROM `externalapps_monitor`";
+			$result = $this->executeSQL($sql);
+			$externalapps_monitors = [];
+
+			if ($result->num_rows > 0)
+				{
+					while($row = $result->fetch_assoc())
+						{
+	    					$externalapps_monitors[] = new externalapps_monitorDbEntity
+								(
+									$row["id"],
+									$row["LastUpdate"],
+									$row["AppName"],
+									$row["Description"]
+								);
+						}
+				}
+
+			return $externalapps_monitors;
+		}
+
+	function get_comandos_milesight()
+		{
+			$sql = "SELECT * FROM `comandos_milesight`";
+			$result = $this->executeSQL($sql);
+			$comandos_milesight = [];
+
+			if ($result->num_rows > 0)
+				{
+					while($row = $result->fetch_assoc())
+						{
+							$comandos_milesight[] = new comandos_milesightDbEntity
+								(
+									$row["Id"],
+									$row["Nombre"],
+									$row["Comando_HEX"],
+									$row["Comando_Base64"],
+									$row["Descripcion"]
+								);
+						}
+				}
+
+			return $comandos_milesight;
+		}
+
+	function comando_milesightByNombre($Nombre)
+		{
+			$comandos_milesight = $this->get_comandos_milesight();
+
+			foreach ($comandos_milesight as $comando)
+				{
+ 					if ($comando->get_Nombre() == $Nombre)
+						{
+							return $comando;
+						}
+				}
+
+			return null;
+		}
+
+	function get_unidades()
+		{
+			$sql = "SELECT * FROM `unidad`";
+			$result = $this->executeSQL($sql);
+			$Unidades = [];
+			$RegistrosDiarios = [];
+			$RegistrosDiarios = $this->get_UltimoRegistroDiarioDeCadaUnidad();
+
+			if ($result->num_rows > 0)
+				{
+					while($row = $result->fetch_assoc())
+						{
+							foreach ($RegistrosDiarios as $r)
+								{
+									if($r->get_unidad_id() == $row["id"] )
+										{
+											$UltimoRegistro = $r;
+											break;
+										}
+								}
+
+							$Unidades[] = new unidadDbEntity
+								(
+									$row["id"],
+									$row["Serie"],
+									$row["tag"],
+									$row["Ubicacion"],
+									$row["numero"],
+									$row["UltimaActualizacion"],
+									$row["Volumen"],
+									$row["Estado"],
+									$row["id_unidadTipo"],
+									$row["InvertirEntrada"],
+									$row["BatNivel"],
+									$row["Temperatura"],
+									$row["Humedad"],
+									$row["EC"],
+									$row["VolMax"],
+									$row["FactorFlujometro"],
+									$UltimoRegistro
+								);	
+						}
+				}
+
+			return $Unidades;
+		}
 
 	function unidadByTag($tag_unidad)
-	{ 	
-		$unidades = $this->get_unidades();
+		{ 	
+			$unidades = $this->get_unidades();
 			
-		foreach ($unidades as $unidad)
-		{
- 			if ($unidad->get_tag() == $tag_unidad)
-			{	
-				return $unidad;
-			}
+			foreach ($unidades as $unidad)
+				{
+ 					if ($unidad->get_tag() == $tag_unidad)
+						{	
+							return $unidad;
+						}
+				}
+
+			return null;
 		}
-		return null;
-	}
 
 	function get_unidadtipos()
-	{
-		$sql = "SELECT * FROM `unidadtipo`";
-		$result = $this->executeSQL($sql);
-		$TiposDeUnidades = [];
-
-		if ($result->num_rows > 0)
 		{
-			while($row = $result->fetch_assoc())
-			{
-				$TiposDeUnidades[] = new unidadtipoDbEntity
-				(
-					$row["Id"],
-					$row["Nombre"],
-					$row["Descripcion"],
-					$row["IsMilesight"]
-				);
-			}
+			$sql = "SELECT * FROM `unidadtipo`";
+			$result = $this->executeSQL($sql);
+			$TiposDeUnidades = [];
+
+			if ($result->num_rows > 0)
+				{
+					while($row = $result->fetch_assoc())
+						{
+							$TiposDeUnidades[] = new unidadtipoDbEntity
+								(
+									$row["Id"],
+									$row["Nombre"],
+									$row["Descripcion"],
+									$row["IsMilesight"]
+								);
+						}
+				}
+
+			return $TiposDeUnidades;
 		}
-		return $TiposDeUnidades;
-	}
 
 	function UnidadTipoById($Id_UnidadTipo)
-	{
-		$unidadtipos = $this->get_unidadtipos();
-
-		foreach ($unidadtipos as $unidadtipo)
 		{
- 			if ($unidadtipo->get_Id() == $Id_UnidadTipo)
-			{
-				return $unidadtipo;
-			}
+			$unidadtipos = $this->get_unidadtipos();
+
+			foreach ($unidadtipos as $unidadtipo)
+				{
+ 					if ($unidadtipo->get_Id() == $Id_UnidadTipo)
+						{
+							return $unidadtipo;
+						}
+				}
+
+			return null;
 		}
-		return null;
-	}
 
 	function UnidadTipoByNombre($NombreUnidadTipo)
-	{
-		$unidadtipos = $this->get_unidadtipos();
-
-		foreach ($unidadtipos as $unidadtipo)
 		{
- 			if ($unidadtipo->get_Nombre() == $NombreUnidadTipo)
-			{
-				return $unidadtipo;
-			}
+			$unidadtipos = $this->get_unidadtipos();
+
+			foreach ($unidadtipos as $unidadtipo)
+				{
+ 					if ($unidadtipo->get_Nombre() == $NombreUnidadTipo)
+						{
+							return $unidadtipo;
+						}
+				}
+
+			return null;
 		}
-		return null;
-	}
 
 	function get_unidades_lastortolas()
-	{
-		$sql = "SELECT * FROM `unidades_lastortolas` ORDER BY `DATETIME` DESC LIMIT 10000";
-		$result = $this->executeSQL($sql);
-		$unidades_lastortolas = [];
-
-		if ($result->num_rows > 0)
 		{
-			while($row = $result->fetch_assoc())
-			{
-				$unidades_lastortolas[] = new unidades_lastortolasDbEntity
-				(
-					$row["id"],
-					$row["unidad_id"],
-					$row["ESTADO"],
-					$row["VOLUMEN"],
-					$row["CAUDAL"],
-					$row["SENAL"],
-					$row["VOLTAJE"],
-					$row["DATETIME"],
-				);
-			}
+			$sql = "SELECT * FROM `unidades_lastortolas` ORDER BY `DATETIME` DESC LIMIT 10000";
+			$result = $this->executeSQL($sql);
+			$unidades_lastortolas = [];
+
+			if ($result->num_rows > 0)
+				{
+					while($row = $result->fetch_assoc())
+						{
+							$unidades_lastortolas[] = new unidades_lastortolasDbEntity
+								(
+									$row["id"],
+									$row["unidad_id"],
+									$row["ESTADO"],
+									$row["VOLUMEN"],
+									$row["CAUDAL"],
+									$row["SENAL"],
+									$row["VOLTAJE"],
+									$row["DATETIME"],
+								);
+						}
+				}
+
+			return $unidades_lastortolas;
 		}
-		return $unidades_lastortolas;
-	}
 
 	function get_UltimoRegistroDiarioDeCadaUnidad()
-	{ 			
-		$sql = "SELECT * FROM unidades_lastortolas WHERE id in (SELECT max(id) FROM unidades_lastortolas GROUP BY unidad_id);";
-		$result = $this->executeSQL($sql);
-		$unidades_lastortolas = [];
+		{ 			
+			$sql = "SELECT * FROM unidades_lastortolas WHERE id in (SELECT max(id) FROM unidades_lastortolas GROUP BY unidad_id);";
+			$result = $this->executeSQL($sql);
+			$unidades_lastortolas = [];
 
-		if ($result->num_rows > 0)
-		{
-			while($row = $result->fetch_assoc())
-			{
-				$unidades_lastortolas[] = new unidades_lastortolasDbEntity
-				(
-					$row["id"],
-					$row["unidad_id"],
-					$row["ESTADO"],
-					$row["VOLUMEN"],
-					$row["CAUDAL"],
-					$row["SENAL"],
-					$row["VOLTAJE"],
-					$row["DATETIME"]
-				);
-			}
+			if ($result->num_rows > 0)
+				{
+					while($row = $result->fetch_assoc())
+						{
+							$unidades_lastortolas[] = new unidades_lastortolasDbEntity
+								(
+									$row["id"],
+									$row["unidad_id"],
+									$row["ESTADO"],
+									$row["VOLUMEN"],
+									$row["CAUDAL"],
+									$row["SENAL"],
+									$row["VOLTAJE"],
+									$row["DATETIME"]
+								);
+						}
+				}
+
+			return $unidades_lastortolas;
 		}
-		return $unidades_lastortolas;
-	}
 
 	function UltimoRegistroDiarioById_unidad($Id_unidad)
-	{
-		$RegistrosDiarios = $this->get_unidades_lastortolas();
-
-		usort($RegistrosDiarios, function($a, $b)
 		{
-    		if ($a->get_DATETIME() == $b->get_DATETIME())
+			$RegistrosDiarios = $this->get_unidades_lastortolas();
+
+			usort($RegistrosDiarios, function($a, $b)
 				{
-        			return 0;
-    			}
-    		return ($a->get_DATETIME() > $b->get_DATETIME()) ? -1 : 1;
-		});
+    				if ($a->get_DATETIME() == $b->get_DATETIME())
+						{
+        					return 0;
+    					}
 
-		foreach ($RegistrosDiarios as $r)
-		{
- 			if ($r->get_unidad_id() == $Id_unidad)
-			{
-				return $r;
-			}
+    				return ($a->get_DATETIME() > $b->get_DATETIME()) ? -1 : 1;
+				});
+
+			foreach ($RegistrosDiarios as $r)
+				{
+ 					if ($r->get_unidad_id() == $Id_unidad)
+						{
+							return $r;
+						}
+				}
+
+			// return null;
 		}
-		// return null;
-	}
 
 	function get_eventos()
-	{
-		$sql = "SELECT * FROM eventos e ORDER BY TIMESTAMP DESC";
-		$result = $this->executeSQL($sql);
-		$eventos = [];
-
-		if ($result->num_rows > 0)
 		{
-			while($row = $result->fetch_assoc())
-			{
-				$eventos[] = new eventosDbEntity
-				(
-					$row["UNIDAD"],
-					$row["USUARIO1"],
-					$row["USUARIO2"],
-					$row["USUARIO3"],
-					$row["USUARIO4"],
-					$row["ADMIN"],
-					$row["MANTENCION"],
-					$row["INTERNET"],
-					$row["VerCodigo"],
-					$row["LVOLTAJE"],
-					$row["INV"],
-					$row["VOLUMEN MAX"],
-					$row["TIMESTAMP"],
-					$row["TIPO"],
-					$row["TipoBat"]
-			    );
-			}
+			$sql = "SELECT * FROM eventos e ORDER BY TIMESTAMP DESC";
+			$result = $this->executeSQL($sql);
+			$eventos = [];
+
+			if ($result->num_rows > 0)
+				{
+					while($row = $result->fetch_assoc())
+						{
+							$eventos[] = new eventosDbEntity
+								(
+									$row["UNIDAD"],
+									$row["USUARIO1"],
+									$row["USUARIO2"],
+									$row["USUARIO3"],
+									$row["USUARIO4"],
+									$row["ADMIN"],
+									$row["MANTENCION"],
+									$row["INTERNET"],
+									$row["VerCodigo"],
+									$row["LVOLTAJE"],
+									$row["INV"],
+									$row["VOLUMEN MAX"],
+									$row["TIMESTAMP"],
+									$row["TIPO"],
+									$row["TipoBat"]
+			    				);
+						}
+				}
+
+			return $eventos;
 		}
-		return $eventos;
-	}
 
 	function RegistrosIniciacionByTag($tag)
-	{
-		$RegistrosIniciacion = $this->get_eventos();
-		$RegistrosIniciacionForThisUnit = [];
-
-		foreach ($RegistrosIniciacion as $r)
 		{
- 			if ($r->get_UNIDAD() == $tag)
-			{
-				$RegistrosIniciacionForThisUnit[] = $r;
-			}
+			$RegistrosIniciacion = $this->get_eventos();
+			$RegistrosIniciacionForThisUnit = [];
+
+			foreach ($RegistrosIniciacion as $r)
+				{
+ 					if ($r->get_UNIDAD() == $tag)
+						{
+							$RegistrosIniciacionForThisUnit[] = $r;
+						}
+				}
+
+			return $RegistrosIniciacionForThisUnit;
 		}
-		return $RegistrosIniciacionForThisUnit;
-	}
 
 	function get_checklists()
-	{
-		$sql = "SELECT * FROM `checklist`";
-		$result = $this->executeSQL($sql);
-		$checklists = [];
-
-		if ($result->num_rows > 0)
 		{
-			while($row = $result->fetch_assoc())
-			{
-				$checklists[] = new checklistDbEntity
-				(
-					$row["Id"],
-					$row["VoltajeReguladorBat"],
-					$row["VoltajeReguladorMCU"],
-					$row["SmartBox"],
-					$row["SMSenvio"],
-					$row["SMSrecibo"],
-					$row["Flujometro"],
-					$row["Solenoide"],
-					$row["SensorNivelBajo"],
-					$row["SensorNivelAlto"],
-					$row["VoltajeMCU"],
-					$row["BateriaTest"],
-					$row["id_checklistMotivo"],
-					$row["Observaciones"],
-					$row["id_unidadtipo"],
-					$row["URL_foto"],
-					$row["id_unidad"],
-					$row["Fecha"],
-					$row["TecnicoResponsable"]
-				);
-			}
+			$sql = "SELECT * FROM `checklist`";
+			$result = $this->executeSQL($sql);
+			$checklists = [];
+
+			if ($result->num_rows > 0)
+				{
+					while($row = $result->fetch_assoc())
+						{
+							$checklists[] = new checklistDbEntity
+								(
+									$row["Id"],
+									$row["VoltajeReguladorBat"],
+									$row["VoltajeReguladorMCU"],
+									$row["SmartBox"],
+									$row["SMSenvio"],
+									$row["SMSrecibo"],
+									$row["Flujometro"],
+									$row["Solenoide"],
+									$row["SensorNivelBajo"],
+									$row["SensorNivelAlto"],
+									$row["VoltajeMCU"],
+									$row["BateriaTest"],
+									$row["id_checklistMotivo"],
+									$row["Observaciones"],
+									$row["id_unidadtipo"],
+									$row["URL_foto"],
+									$row["id_unidad"],
+									$row["Fecha"],
+									$row["TecnicoResponsable"]
+								);
+						}
+				}
+
+			return $checklists;
 		}
-		return $checklists;
-	}
 
 	function checklistById_unidad($Id_unidad)
-	{
-		$checklists = $this->get_checklists();
-		$checklistsOfThisUnit= [];
-
-		foreach ($checklists as $checklist)
 		{
- 			if ($checklist->get_id_unidad() == $Id_unidad)
-			{
-				$checklistsOfThisUnit[] = $checklist;
-			}
+			$checklists = $this->get_checklists();
+			$checklistsOfThisUnit= [];
+
+			foreach ($checklists as $checklist)
+				{
+ 					if ($checklist->get_id_unidad() == $Id_unidad)
+						{
+							$checklistsOfThisUnit[] = $checklist;
+						}
+				}
+
+			return $checklistsOfThisUnit;
 		}
-		return $checklistsOfThisUnit;
-	}
 
 	function UltimochecklistById_unidad($Id_unidad)
-	{
-		$sql = "SELECT * FROM `checklist` WHERE `id_unidad` = ".$Id_unidad." ORDER BY `Fecha` DESC LIMIT 1";
-		$result = $this->executeSQL($sql);
-
-		if ($result->num_rows > 0)
 		{
-			while($row = $result->fetch_assoc())
-			{
-				$Ultimochecklist = new checklistDbEntity
-				(
-					$row["Id"],
-					$row["VoltajeReguladorBat"],
-					$row["VoltajeReguladorMCU"],
-					$row["SmartBox"],
-					$row["SMSenvio"],
-					$row["SMSrecibo"],
-					$row["Flujometro"],
-					$row["Solenoide"],
-					$row["SensorNivelBajo"],
-					$row["SensorNivelAlto"],
-					$row["VoltajeMCU"],
-					$row["BateriaTest"],
-					$row["id_checklistMotivo"],
-					$row["Observaciones"],
-					$row["id_unidadtipo"],
-					$row["URL_foto"],
-					$row["id_unidad"],
-					$row["Fecha"],
-					$row["TecnicoResponsable"]
-				);
-			}
+			$sql = "SELECT * FROM `checklist` WHERE `id_unidad` = ".$Id_unidad." ORDER BY `Fecha` DESC LIMIT 1";
+			$result = $this->executeSQL($sql);
+
+			if ($result->num_rows > 0)
+				{
+					while($row = $result->fetch_assoc())
+						{
+							$Ultimochecklist = new checklistDbEntity
+								(
+									$row["Id"],
+									$row["VoltajeReguladorBat"],
+									$row["VoltajeReguladorMCU"],
+									$row["SmartBox"],
+									$row["SMSenvio"],
+									$row["SMSrecibo"],
+									$row["Flujometro"],
+									$row["Solenoide"],
+									$row["SensorNivelBajo"],
+									$row["SensorNivelAlto"],
+									$row["VoltajeMCU"],
+									$row["BateriaTest"],
+									$row["id_checklistMotivo"],
+									$row["Observaciones"],
+									$row["id_unidadtipo"],
+									$row["URL_foto"],
+									$row["id_unidad"],
+									$row["Fecha"],
+									$row["TecnicoResponsable"]
+								);
+						}
+				}
+
+			return $Ultimochecklist;
 		}
-		return $Ultimochecklist;
-	}
 
 	function get_checklistmotivos()
-	{
-		$sql = "SELECT * FROM `checklistmotivo`";
-		$result = $this->executeSQL($sql);
-		$checklistmotivos = [];
-
-		if ($result->num_rows > 0)
 		{
-			while($row = $result->fetch_assoc())
-			{
-				$checklistmotivos[] = new checklistmotivoDbEntity
-				(
-					$row["id"],
-					$row["Nombre"],
-					$row["Descripcion"]
-				);
-			}
+			$sql = "SELECT * FROM `checklistmotivo`";
+			$result = $this->executeSQL($sql);
+			$checklistmotivos = [];
+
+			if ($result->num_rows > 0)
+				{
+					while($row = $result->fetch_assoc())
+						{
+							$checklistmotivos[] = new checklistmotivoDbEntity
+								(
+									$row["id"],
+									$row["Nombre"],
+									$row["Descripcion"]
+								);
+						}
+				}
+
+			return $checklistmotivos;
 		}
-		return $checklistmotivos;
-	}
 
 	function CheckListMotivoById($Id_ChecklistMotivo)
-	{
-		$checklistmotivos = $this->get_checklistmotivos();
-
-		foreach ($checklistmotivos as $checklistmotivo)
 		{
- 			if ($checklistmotivo->get_id() == $Id_ChecklistMotivo)
-			{
-				return $checklistmotivo;
-			}
+			$checklistmotivos = $this->get_checklistmotivos();
+
+			foreach ($checklistmotivos as $checklistmotivo)
+				{
+ 					if ($checklistmotivo->get_id() == $Id_ChecklistMotivo)
+						{
+							return $checklistmotivo;
+						}
+				}
+			return null;
 		}
-		return null;
-	}
 
 	function get_ticket()
-	{
-		$sql = "SELECT * FROM `ticket`";
-		$result = $this->executeSQL($sql);
-		$ticket = [];
-
-		if ($result->num_rows > 0)
 		{
-			while($row = $result->fetch_assoc())
-			{
-				$ticket[] = new ticketDbEntity
-				(
-					$row["Id"],
-					$row["Nombre"],
-					$row["Ubicacion"],
-					$row["Descripcion"],
-					$row["Usuario"],
-					$row["FechaInicio"],
-					$row["FechaCierre"],
-					$row["Id_TicketPriority"],
-					$row["Id_TicketStatus"]
-				);
-			}
+			$sql = "SELECT * FROM `ticket`";
+			$result = $this->executeSQL($sql);
+			$ticket = [];
+
+			if ($result->num_rows > 0)
+				{
+					while($row = $result->fetch_assoc())
+						{
+							$ticket[] = new ticketDbEntity
+								(
+									$row["Id"],
+									$row["Nombre"],
+									$row["Ubicacion"],
+									$row["Descripcion"],
+									$row["Usuario"],
+									$row["FechaInicio"],
+									$row["FechaCierre"],
+									$row["Id_TicketPriority"],
+									$row["Id_TicketStatus"]
+								);
+						}
+				}
+
+			return $ticket;
 		}
-		return $ticket;
-	}
 
 	function get_ticket_priority()
-	{
-		$sql = "SELECT * FROM `ticket_priority`";
-		$result = $this->executeSQL($sql);
-		$ticket_priority = [];
-
-		if ($result->num_rows > 0)
 		{
-			while($row = $result->fetch_assoc())
-			{
-				$ticket_priority[] = new ticket_priorityDbEntity
-				(
-					$row["Id"],
-					$row["Prioridad"]
-				);
-			}
+			$sql = "SELECT * FROM `ticket_priority`";
+			$result = $this->executeSQL($sql);
+			$ticket_priority = [];
+
+			if ($result->num_rows > 0)
+				{
+					while($row = $result->fetch_assoc())
+						{
+							$ticket_priority[] = new ticket_priorityDbEntity
+								(
+									$row["Id"],
+									$row["Prioridad"]
+								);
+						}
+				}
+
+			return $ticket_priority;
 		}
-		return $ticket_priority;
-	}
 
 	function get_ticket_status()
-	{
-		$sql = "SELECT * FROM `ticket_status`";
-		$result = $this->executeSQL($sql);
-		$ticket_status = [];
-
-		if ($result->num_rows > 0)
 		{
-			while($row = $result->fetch_assoc())
-			{
-				$ticket_status[] = new ticket_statusDbEntity
-				(
-					$row["Id"],
-					$row["Estado"],
-					$row["Descripcion"]
-				);
-			}
+			$sql = "SELECT * FROM `ticket_status`";
+			$result = $this->executeSQL($sql);
+			$ticket_status = [];
+
+			if ($result->num_rows > 0)
+				{
+					while($row = $result->fetch_assoc())
+						{
+							$ticket_status[] = new ticket_statusDbEntity
+								(
+									$row["Id"],
+									$row["Estado"],
+									$row["Descripcion"]
+								);
+						}
+				}
+
+			return $ticket_status;
 		}
-		return $ticket_status;
-	}
 }
 
 ?>
