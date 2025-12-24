@@ -16,6 +16,7 @@ echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;b
 ?>
 
 <script>
+
 	function FunctionNuevoTicketPost()
 		{
 			let text = "¿Está seguro de enviar el ticket?";
@@ -69,59 +70,62 @@ echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;b
     				alert ("La operación se ha cancelado.");
   				}
 		}
+
 </script>
 
 <?php
 
-	echo '<div class="container">';
-		echo '<div class="row">';
-			echo '<div class="col">';
-				echo '<b><h1>Nuevo formulario: <br></h1></b>';
-			echo '</div>';
-		echo '</div>';
-	echo '</div>';
-
-	echo '<div class="container">';
-		echo '<div class="row">';
-			echo '<div class="col">';
-				echo '<b>Asunto: </b>';
-			echo '</div>';
-			echo '<div class="col">';
-				echo '<input type="text" class="form-control" id="Nombre"><br>';
-			echo '</div>';
-		echo '</div>';
-
-		echo '<div class="row">';
-			echo '<div class="col">';
-				echo '<b>Ubicación: </b>';
-			echo '</div>';
-			echo '<div class="col">';
-				echo '<input type="text" class="form-control" id="Ubicacion" placeholder="Dispositivo y/o plataforma."><br>';
-			echo '</div>';
-		echo '</div>';
-
-		echo '<div class="row">
-			<div class="col">
-				<b>Descripción: </b>
+	echo
+		'<div class="container">
+			<div class="row">
+				<div class="col">
+					<b><h1>Nuevo formulario: <br></h1></b>
+				</div>
 			</div>
-			<div class="col">
-				<input type="text" class="form-control" style="height: 200px; width: 100%" id="Descripcion" placeholder="Describa la situación."><br>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<b>Asunto: </b>
+				</div>
+				<div class="col">
+					<input type="text" class="form-control" id="Nombre"><br>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col">
+					<b>Ubicación: </b>
+				</div>
+				<div class="col">
+					<input type="text" class="form-control" id="Ubicacion" placeholder="Dispositivo y/o plataforma."><br>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col">
+					<b>Descripción: </b>
+				</div>
+				<div class="col">
+					<input type="text" class="form-control" style="height: 200px; width: 100%" id="Descripcion" placeholder="Describa la situación."><br>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col">
+					<b>Usuario: </b>
+				</div>
+				<div class="col">
+					<input type="text" class="form-control" id="Usuario" placeholder="Escriba su nombre."><br>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col">
+					<button type="button" class="btn btn-success" onclick="FunctionNuevoTicketPost()">Enviar ticket</button>
+				</div>
 			</div>
 		</div>';
 
-		echo '<div class="row">';
-			echo '<div class="col">';
-				echo '<b>Usuario: </b>';
-			echo '</div>';
-			echo '<div class="col">';
-				echo '<input type="text" class="form-control" id="Usuario" placeholder="Escriba su nombre."><br>';
-			echo '</div>';
-		echo '</div>';
-
-		echo '<div class="row">';
-			echo '<div class="col">';
-				echo '<button type="button" class="btn btn-success" onclick="FunctionNuevoTicketPost()">Enviar ticket</button>';
-			echo '</div>';
-		echo '</div>';
-	echo '</div>';
 ?>
