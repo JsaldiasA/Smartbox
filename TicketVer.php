@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang ="en">
 <?php
 
 require_once 'views/head.php';	
@@ -17,14 +17,14 @@ if ($result->num_rows > 0)
 	{
 		while($row = $result->fetch_assoc())
 		{
-			$ticketDbEntity= new ticketDbEntity
+			$ticketDbEntity = new ticketDbEntity
 				(
 					$row["Id"],
 					$row["Nombre"],
 					$row["Ubicacion"],
 					$row["Descripcion"],
 					$row["Usuario"],
-					$row["FechaApertura"],
+					$row["FechaInicio"],
 					$row["FechaCierre"],
 					$row["Id_TicketStatus"]
 				);
@@ -39,7 +39,7 @@ echo "<tr><td><b>Título:</b></td><td>". $ticketDbEntity->get_Nombre(). "</td></
 echo "<tr><td><b>Ubicacion:</b></td><td>". $ticketDbEntity->get_Ubicacion(). "</td></tr>";
 echo "<tr><td><b>Descripcion: </b></td><td>". $ticketDbEntity->get_Descripcion(). "</td></tr>";
 echo "<tr><td><b>Usuario:</b></td><td>". $ticketDbEntity->get_Usuario(). "</td></tr>";
-echo "<tr><td><b>Fecha de ingreso:</b></td><td>". $ticketDbEntity->get_FechaApertura(). "</td></tr>";
+echo "<tr><td><b>Fecha de ingreso:</b></td><td>". $ticketDbEntity->get_FechaInicio(). "</td></tr>";
 echo "<tr><td><b>Estado de la solicitud:</b></td><td>". $ticketDbEntity->get_Id_TicketStatus(). "</td></tr>";
 echo '</tbody></table>';
 echo '</div>';

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang ="en">
+<html lang = "en">
 <?php
 
-$self =$_SERVER['PHP_SELF']; 
+$self = $_SERVER['PHP_SELF']; 
 $thispath = dirname($_SERVER['PHP_SELF']);
 $sitebasepath = $_SERVER['DOCUMENT_ROOT'];
 
@@ -26,19 +26,19 @@ echo '<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;b
 					var URL = "NuevoTicketPost.php";
 					var Respuesta;
 
-	  				var Ubicacion= document.getElementById("Ubicacion").value;
+	  				var Ubicacion = document.getElementById("Ubicacion").value;
 					if (Ubicacion == "")
 						{
 							return alert ("Debe especificar un dispositivo y/o plataforma.");
 						}
 
-					var Descripcion= document.getElementById("Descripcion").value;
+					var Descripcion = document.getElementById("Descripcion").value;
 					if (Descripcion == "" )
 						{
 							return alert ("Debe explicar de que se trata el problema.");
 						}
 
-					var Usuario= document.getElementById("Usuario").value;
+					var Usuario = document.getElementById("Usuario").value;
 					if (Usuario == "" )
 						{
 							return alert ("Debe escribir su nombre.");
