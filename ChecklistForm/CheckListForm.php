@@ -94,7 +94,7 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
 		    success: function(result){alert(result)}    
 		  });
 
-		window.location.href = "https://smartbox.eco3.cl/";
+		//window.location.href = "https://smartbox.eco3.cl/";
 		} else {
 			alert("La operación se ha cancelado.");
 		}

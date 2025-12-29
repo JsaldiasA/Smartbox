@@ -52,7 +52,7 @@ if (strcmp($token,'eco3spa')==0)
 '{$id_checklistMotivo}',
 '{$Observaciones}',
 '{$id_unidadtipo}',
-'https://smartbox.eco3.cl/checklistform/{$URL_foto}',
+'https://smartbox.eco3.cl/checklistform/Fotos/{$URL_foto}',
 '{$id_unidad}',
 current_timestamp(),
 '{$TecnicoResponsable}')";
