@@ -203,6 +203,9 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
 			<input id="sortpicture" type="file" name="sortpic" />
 			<button id="upload" class="btn btn-success btn-lg" onclick="uploadPicture()" >Upload</button>
 		</div>
+		<div class="col" >
+			<button type="button" class="btn btn-success btn-lg" onclick="FunctionNuevoCheckListPost()">Enviar CheckList</button>
+		</div>
 	</div>
 	
 </div>
