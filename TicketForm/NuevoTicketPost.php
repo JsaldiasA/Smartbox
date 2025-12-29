@@ -14,7 +14,7 @@ $Ubicacion = $_POST['Ubicacion'];
 $Descripcion = $_POST['Descripcion'];
 $Usuario = $_POST['Usuario'];
 
-$sql = "INSERT INTO `ticket` (`Id`, `Nombre`, `Ubicacion`, `Descripcion`, `Usuario`, `FechaInicio`, `FechaCierre`, `Id_TicketPriority`, `Id_TicketStatus`) VALUES (NULL,'{$Nombre}','{$Ubicacion}','{$Descripcion}','{$Usuario}',current_timestamp(),NULL,NULL,NULL)";
+$sql = "INSERT INTO `ticket` (`Id`, `Nombre`, `Ubicacion`, `Descripcion`, `Usuario`, `FechaInicio`, `FechaCierre`, `Id_TicketPriority`, `Id_TicketStatus`) VALUES (NULL,'{$Nombre}','{$Ubicacion}','{$Descripcion}','{$Usuario}',current_timestamp(),NULL,1,1)";
 $result = $Model->executeSQL($sql);
 	
 echo
