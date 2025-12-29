@@ -11,9 +11,9 @@ require_once $sitebasepath."/Model/model.php";
 
 $Model = new model();
 
-echo
-    '<style>body{background-color: #191919; color: #FFFFFF}</style>
-        <style>.container{background-color: #292929;color: #FFFFFF; padding: 20px; border-radius: 8px;}</style>';
+//echo
+//    '<style>body{background-color: #191919; color: #FFFFFF}</style>
+//        <style>.container{background-color: #292929;color: #FFFFFF; padding: 20px; border-radius: 8px;}</style>';
 
 ?>
     <div class="container">
