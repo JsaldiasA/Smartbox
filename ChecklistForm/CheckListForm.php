@@ -100,20 +100,7 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
 		}
 	}
 
-	const fileInput = document.getElementById('sortpicture');
 
-	fileInput.addEventListener('change', (event) => {
-		// Get the FileList object
-		const fileList = event.target.files;
-		
-		// Access the first file (if selected)
-	if (fileList.length > 0) {
-			const file = fileList[0];
-			console.log(`File Name: ${file.name}`);
-			console.log(`File Size: ${file.size} bytes`);
-			console.log(`File Type: ${file.type}`);
-	}
-	});
 
 	function uploadPicture() {
 	
@@ -391,6 +378,21 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
                     $video.play();
                 });
             
+
+	const fileInput = document.getElementById('sortpicture');
+
+	fileInput.addEventListener('change', (event) => {
+		// Get the FileList object
+		const fileList = event.target.files;
+		
+		// Access the first file (if selected)
+	if (fileList.length > 0) {
+			const file = fileList[0];
+			console.log(`File Name: ${file.name}`);
+			console.log(`File Size: ${file.size} bytes`);
+			console.log(`File Type: ${file.type}`);
+	}
+	});
 /*	
 const $videob = document.querySelector("#video");
 	
