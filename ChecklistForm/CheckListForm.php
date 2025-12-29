@@ -126,6 +126,8 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
         }
      });
 
+
+	 	document.querySelector("#NombreDeFoto").innerHTML = file_data.name;
 	
 	}
 	
