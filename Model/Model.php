@@ -471,6 +471,20 @@ class Model
 				}
 			return null;
 		}
+	
+	function ticketById($Id_ticket)
+		{
+			$tickets = $this->get_ticket();
+
+			foreach ($tickets as $ticket)
+				{
+ 					if ($ticket->get_id() == $Id_ticket)
+						{
+							return $ticket;
+						}
+				}
+			return null;
+		}		
 
 	function get_ticket()
 		{

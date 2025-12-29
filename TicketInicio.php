@@ -30,13 +30,13 @@ $Model = new model();
         </div>
         <div class="row">
     
-
             <table class="table">
 	        <thead>
 	        <th scope="col">Id</th>
             <th scope="col">Nombre</th>
             <th scope="col">Ubicacion</th>
             <th scope="col">FechaInicio</th>
+            <th scope="col"></th>
 	        </thead>
 	        <tbody>
             <?php  
@@ -49,6 +49,7 @@ $Model = new model();
                 echo "<td>". $ticket->get_Nombre()."</td>";
                 echo "<td>". $ticket->get_Ubicacion()."</td>";
                 echo "<td>". $ticket->get_FechaInicio()."</td>";
+                echo "<td> <a href='Ticketver.php?id_ticket=".$ticket->get_Id()."'>Ver</a></td></tr>";
                 echo "</tr>";
             }
             ?>
