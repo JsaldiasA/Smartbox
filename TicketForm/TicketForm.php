@@ -68,7 +68,7 @@ echo '<style>body{background-color: #191919; color: #FFFFFF}</style>
 								}
 						});
 
-					window.location.href = "https://smartbox.eco3.cl/";
+					//window.location.href = "https://smartbox.eco3.cl/";
   				}
 			else
 				{
