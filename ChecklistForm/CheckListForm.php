@@ -6,9 +6,6 @@ $thispath=dirname($_SERVER['PHP_SELF']);
 $sitebasepath=$_SERVER['DOCUMENT_ROOT'];
 require_once $sitebasepath."/views/head.php";
 require_once $sitebasepath."/views/navbar.php";
-require_once $sitebasepath.'/DbEntities/unidadDbEntity.php';
-require_once $sitebasepath.'/DbEntities/checklistDbEntity.php';
-require_once $sitebasepath.'/config/DbSirecorConfig.php';
 require_once $sitebasepath."/Model/model.php";
 
 ?>
@@ -16,20 +13,7 @@ require_once $sitebasepath."/Model/model.php";
 
 $UnidadTag= $_GET['tag'];
 $model = new Model();
-
-$dbConfig = new DbSirecorConfig();		
-// Create connection
-$conn = new mysqli($dbConfig->get_servername(),$dbConfig->get_username(),$dbConfig->get_password(),$dbConfig->get_dbname());
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-//GETTING DATA FROM THE UNIT	
-$sql = "SELECT * FROM `unidad` WHERE `tag`= '{$UnidadTag}'";
-$result = $conn->query($sql);
-
 $unidadDbEntity=$model->unidadByTag($UnidadTag);
-
 	?>	
 	
 <script>
@@ -41,25 +25,22 @@ $unidadDbEntity=$model->unidadByTag($UnidadTag);
 	let pattern = /(^\d+\.\d+$)|(^\d+$)/; 
 	var URL = "NuevoCheckListPost.php"; 
 	var Respuesta;
-	  
 	var token = "eco3spa";
 	var noAjustarMsg = " ,vuelva a ajustarlo. SI NO PUEDE AJUSTARLO NO UTILICE ESTA PLACA EN TERRENO, póngase en contacto con la oficina técnica.";
 	var IMEI= "<?php echo $unidadDbEntity->get_tag();?>";
 	var id_unidad= "<?php echo $unidadDbEntity->get_id();?>";
 	  	  
 	var VoltajeReguladorBat= document.getElementById("VoltajeReguladorBat");
-	
 	var hasError = NumericParameterHasError(VoltajeReguladorBat,14.2,12.4) ; 
 	  
-if(hasError){document.getElementById('VoltajeReguladorBat').className += ' border border-danger';return;}
-else {document.getElementById('VoltajeReguladorBat').className='form-control';}  
-	  
-	  
+	if(hasError){document.getElementById('VoltajeReguladorBat').className += ' border border-danger';return;}
+	else {document.getElementById('VoltajeReguladorBat').className='form-control';}  
+  
 	var VoltajeReguladorMCU= document.getElementById("VoltajeReguladorMCU");
 	hasError = NumericParameterHasError(VoltajeReguladorMCU,5.3,5) ; 	    
  	  
-if(hasError){document.getElementById('VoltajeReguladorMCU').className += ' border border-danger';return;}
-else {document.getElementById('VoltajeReguladorMCU').className='form-control';}  
+	if(hasError){document.getElementById('VoltajeReguladorMCU').className += ' border border-danger';return;}
+	else {document.getElementById('VoltajeReguladorMCU').className='form-control';}  
 	  
 	var SmartBox= Number(document.getElementById("SmartBox").checked);
 	var SMSenvio= Number(document.getElementById("SMSenvio").checked);
@@ -67,36 +48,23 @@ else {document.getElementById('VoltajeReguladorMCU').className='form-control';}
 	var Flujometro= Number(document.getElementById("Flujometro").checked);
 	var Solenoide= Number(document.getElementById("Solenoide").checked);
 	var SensorNivelBajo= Number(document.getElementById("SensorNivelBajo").checked);
-	var SensorNivelAlto= Number(document.getElementById("SensorNivelAlto").checked);
-	  
-	
-   
+	var SensorNivelAlto= Number(document.getElementById("SensorNivelAlto").checked);   
 	var VoltajeMCU= document.getElementById("VoltajeMCU");
 	hasError = NumericParameterHasError(VoltajeMCU,4,3.3) ; 	    
  	  
-if(hasError){document.getElementById('VoltajeMCU').className += ' border border-danger';return;}
-else {document.getElementById('VoltajeMCU').className='form-control';} 
+	if(hasError){document.getElementById('VoltajeMCU').className += ' border border-danger';return;}
+	else {document.getElementById('VoltajeMCU').className='form-control';} 
 	  
 	var BateriaTest= Number(document.getElementById("BateriaTest").checked);
-	
-	
 	var e = document.getElementById("ChecklistMotivo");
 	var id_checklistMotivo = e.options[e.selectedIndex].value;  
-	  
 	var Observaciones= document.getElementById("Observaciones").value;
-	if(Observaciones == "" ){ return alert("Observaciones no puede estar vacío, coloque alguna observación. Si no tiene coloque OK");}  
-	  
+	if(Observaciones == "" ){ return alert("Observaciones no puede estar vacío, coloque alguna observación. Si no tiene coloque OK");}    
 	var f = document.getElementById("unidadtipo");
 	var id_unidadtipo = f.options[f.selectedIndex].value;   
-	  
-	//var id_unidad= document.getElementById("id_unidad").value;
-	//var Fecha= document.getElementById("Fecha").value;
 	var TecnicoResponsable= document.getElementById("TecnicoResponsable").value;
 	if(TecnicoResponsable == "" ){ return alert("Técnico responsable no puede estar vacío, coloque su nombre.");}
-	  
 	var URL_foto= document.getElementById("NombreDeFoto").innerHTML;	  
-	 
-	
 	  
 	$.ajax({
             url:URL,    //the page containing php script
@@ -121,8 +89,7 @@ else {document.getElementById('VoltajeMCU').className='form-control';}
 			Observaciones: Observaciones,
 			id_unidadtipo: id_unidadtipo,
 			TecnicoResponsable: TecnicoResponsable,
-			URL_foto: URL_foto,	  
-	  
+			URL_foto: URL_foto,	    
         	},
 		    success: function(result){alert(result)}    
 		  });
@@ -135,71 +102,56 @@ else {document.getElementById('VoltajeMCU').className='form-control';}
 	
 </script>
 
-	<!-- //Navigation -->
-<!-- SCRIPTS PARA editar panel -->
-
-
 <div class="container">
 	<div class="row">
-	<div class="col">	
-	<br>
-	<h1 class="display-2"><b>Checklist para </b><?php echo $UnidadTag;?></h1>
-	<br>
-	</div>
+		<div class="col">	
+			<br>
+			<h1 class="display-2"><b>Checklist para </b><?php echo $UnidadTag;?></h1>
+			<br>
+		</div>
 	</div>
 	<div class="row">
-	<div class="col border">
-	<table class="table">
-	<tbody>	
-	<tr><td><b>IMEI:</b></td><td><?php echo $unidadDbEntity->get_tag();?></td><td></td></tr>
-	<tr><td><b>ID de la unidad:</b></td><td><?php echo $unidadDbEntity->get_id();?></td><td></td></tr>
-	<tr><td><b>Tipo de unidad:</b></td><td><?php
-	
-    $q = $conn->query("SELECT * FROM `unidadtipo`");
-    echo  '<select name="unidadtipo" class="form-select" id="unidadtipo" required>';
-    while($rows = $q->fetch_assoc()){
-              $unidadtipo_name= $rows['Nombre'];
-			  $unidadtipo_value= $rows['Id'];
-              echo '<option value="'.$unidadtipo_value.'">'.$unidadtipo_name.'</option>';
-            }
-    echo'</select>';   // Select TAG con unidad tipo.
-	
-	?></td><td></td></tr>
-	<tr><td><b>Motivo del checklist:</b></td><td><?php
-	
-    $q = $conn->query("SELECT * FROM `checklistMotivo`");
-    echo  '<select name="ChecklistMotivo" class="form-select" id="ChecklistMotivo" required>';
-    while($rows = $q->fetch_assoc())
-		{
-        	$checklistmotivo_name= $rows['Nombre'];
-			$checklistmotivo_value= $rows['id'];
-            echo '<option value="'.$checklistmotivo_value.'">'.$checklistmotivo_name.'</option>';
-        }
-    echo'</select>';
-
-	?></td><td></td></tr>
-	<tr><td><b>Voltaje regulador de batería:</b></td><td><input type="text" class="form-control" id="VoltajeReguladorBat" placeholder="13.9-14.2 Pb 12.4-12.8 Li" pattern="[0-9]{1,}|[0-9]{1,}[.][0-9]{1,}" title="Solo ingresar numeros" ></td><td>(V)</td></tr>
-	<tr><td><b>Voltaje regulador de MCU:</b></td><td><input type="text" class="form-control" id="VoltajeReguladorMCU" placeholder="5-5.3" pattern="[0-9]{1,}|[0-9]{1,}[.][0-9]{1,}" title="Solo ingresar numeros"></td><td>(V)</td></tr>
-	<tr><td><b>Voltaje MCU:</b></td><td><input type="text" class="form-control" id="VoltajeMCU" placeholder="3.3-4V" pattern="[0-9]{1,}|[0-9]{1,}[.][0-9]{1,}" title="Solo ingresar numeros"></td><td>(V)</td></tr>
-	<tr><td><b>SmartBox:</b></td><td><input type="checkbox" class="form-check-input" id="SmartBox" ></td><td></td></tr>
-	<tr><td><b>Envío SMS:</b></td><td><input type="checkbox" class="form-check-input" id="SMSenvio" ></td><td></td></tr>
-	<tr><td><b>Recepción SMS:</b></td><td><input type="checkbox" class="form-check-input" id="SMSrecibo" ></td><td></td></tr>
-	<tr><td><b>Solenoide:</b></td><td><input type="checkbox" class="form-check-input" id="Solenoide"></td><td></td></tr>
-	<tr><td><b>Flujómetro:</b></td><td><input type="checkbox" class="form-check-input" id="Flujometro"></td><td></td></tr>
-	<tr><td><b>Sensor nivel bajo:</b></td><td><input type="checkbox" class="form-check-input" id="SensorNivelBajo"></td><td></td></tr>
-	<tr><td><b>Sensor nivel alto:</b></td><td><input type="checkbox" class="form-check-input" id="SensorNivelAlto" ></td><td></td></tr>
-	<tr><td><b>Medidor de batería:</b></td><td><input type="checkbox" class="form-check-input" id="BateriaTest" ></td><td></td></tr>
-	<tr><td><b>Observaciones:</b></td><td><input type="text" class="form-control" id="Observaciones" placeholder="Si no tiene comentarios, coloque OK."></td><td></td></tr>
-	<tr><td><b>Técnico responsable:</b></td><td><input type="text" class="form-control" id="TecnicoResponsable" placeholder="Nombre"></td><td></td></tr>
-	<tr><td><b>Imagen:</b></td><td><div id="NombreDeFoto"></div></td><td></td></tr>
-			</tbody></table>
+		<div class="col border">
+		<table class="table">
+		<tbody>	
+		<tr><td><b>IMEI:</b></td><td><?php echo $unidadDbEntity->get_tag();?></td><td></td></tr>
+		<tr><td><b>ID de la unidad:</b></td><td><?php echo $unidadDbEntity->get_id();?></td><td></td></tr>
+		<tr><td><b>Tipo de unidad:</b></td><td>
+		<select name="unidadtipo" class="form-select" id="unidadtipo" required>	
+			<?php
+				$UnidadesTipos = $Model->get_unidadtipos();
+				foreach($UnidadesTipos as $Ut){ echo '<option value="'.$Ut->get_Id().'">'.$Ut->get_Nombre().'</option>'; }
+			?>		
+    	</select>   </td><td></td></tr>
+		<tr><td><b>Motivo del checklist:</b></td><td>
+		<select name="ChecklistMotivo" class="form-select" id="ChecklistMotivo" required>
+			<?php
+			$checklistmotivos = $Model->get_checklistmotivos();	
+			foreach($checklistmotivos as $Cm){ echo '<option value="'.$Cm->get_Id().'">'.$Cm->get_Nombre().'</option>'; }?>
+    	</select> </td><td></td></tr>
+		<tr><td><b>Voltaje regulador de batería:</b></td><td><input type="text" class="form-control" id="VoltajeReguladorBat" placeholder="13.9-14.2 Pb 12.4-12.8 Li" pattern="[0-9]{1,}|[0-9]{1,}[.][0-9]{1,}" title="Solo ingresar numeros" ></td><td>(V)</td></tr>
+		<tr><td><b>Voltaje regulador de MCU:</b></td><td><input type="text" class="form-control" id="VoltajeReguladorMCU" placeholder="5-5.3" pattern="[0-9]{1,}|[0-9]{1,}[.][0-9]{1,}" title="Solo ingresar numeros"></td><td>(V)</td></tr>
+		<tr><td><b>Voltaje MCU:</b></td><td><input type="text" class="form-control" id="VoltajeMCU" placeholder="3.3-4V" pattern="[0-9]{1,}|[0-9]{1,}[.][0-9]{1,}" title="Solo ingresar numeros"></td><td>(V)</td></tr>
+		<tr><td><b>SmartBox:</b></td><td><input type="checkbox" class="form-check-input" id="SmartBox" ></td><td></td></tr>
+		<tr><td><b>Envío SMS:</b></td><td><input type="checkbox" class="form-check-input" id="SMSenvio" ></td><td></td></tr>
+		<tr><td><b>Recepción SMS:</b></td><td><input type="checkbox" class="form-check-input" id="SMSrecibo" ></td><td></td></tr>
+		<tr><td><b>Solenoide:</b></td><td><input type="checkbox" class="form-check-input" id="Solenoide"></td><td></td></tr>
+		<tr><td><b>Flujómetro:</b></td><td><input type="checkbox" class="form-check-input" id="Flujometro"></td><td></td></tr>
+		<tr><td><b>Sensor nivel bajo:</b></td><td><input type="checkbox" class="form-check-input" id="SensorNivelBajo"></td><td></td></tr>
+		<tr><td><b>Sensor nivel alto:</b></td><td><input type="checkbox" class="form-check-input" id="SensorNivelAlto" ></td><td></td></tr>
+		<tr><td><b>Medidor de batería:</b></td><td><input type="checkbox" class="form-check-input" id="BateriaTest" ></td><td></td></tr>
+		<tr><td><b>Observaciones:</b></td><td><input type="text" class="form-control" id="Observaciones" placeholder="Si no tiene comentarios, coloque OK."></td><td></td></tr>
+		<tr><td><b>Técnico responsable:</b></td><td><input type="text" class="form-control" id="TecnicoResponsable" placeholder="Nombre"></td><td></td></tr>
+		<tr><td><b>Imagen:</b></td><td><div id="NombreDeFoto"></div></td><td></td></tr>
+		</tbody>
+		</table>
 		</div>
 	</div>
 
-				<div class="row">
-				<div class="col" >
-	<button type="button" class="btn btn-success btn-lg" onclick="FunctionNuevoCheckListPost()">Enviar CheckList</button>
-	</div>
+	<div class="row">
+		<div class="col" >
+			<button type="button" class="btn btn-success btn-lg" onclick="FunctionNuevoCheckListPost()">Enviar CheckList</button>
+		</div>
 		
 	<div class="col">
 		<!--<select name="listaDeDispositivos" id="listaDeDispositivos"></select>-->
@@ -207,22 +159,20 @@ else {document.getElementById('VoltajeMCU').className='form-control';}
 		<p id="estado"></p>
 	</div>
 	<br>
-	
-	<div class="col">
-	<video autoplay playsinline ></video>
-	<canvas id="canvas" style="display: none;"></canvas>
+		<div class="col">
+			<video autoplay playsinline ></video>
+			<canvas id="canvas" style="display: none;"></canvas>
+		</div>
 	</div>
+	
 </div>
 </body>
 <!--<script src="script.js"></script>-->
 <script> 
-	
 		function NumericParameterHasError(Parameter,highLimit,lowLimit) {
 		let pattern = /(^\d+\.\d+$)|(^\d+$)/; 
-
 	var noAjustarMsg = " ,vuelva a ajustarlo. SI NO PUEDE AJUSTARLO NO UTILICE ESTA PLACA EN TERRENO, póngase en contacto con la oficina técnica.";
 			  
-
 	switch (true) {
 	  case (Parameter.value < lowLimit):
 		alert(Parameter.id+" no puede ser menor a "+lowLimit+" "+noAjustarMsg);		  
@@ -247,8 +197,7 @@ else {document.getElementById('VoltajeMCU').className='form-control';}
 			
 	  default:
 	    return false;
-	}	 
-	  
+	}	   
 }
 
 	function iOS() {
