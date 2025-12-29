@@ -100,7 +100,7 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
 		}
 	}
 
-	const fileInput = document.getElementById('myFileInput');
+	const fileInput = document.getElementById('sortpicture');
 
 	fileInput.addEventListener('change', (event) => {
 		// Get the FileList object
