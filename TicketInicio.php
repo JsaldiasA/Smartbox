@@ -33,8 +33,10 @@ echo
 
             <table class="table">
 	        <thead>
-	        <th scope="col">Serie</th>
-            <th scope="col"></th>
+	        <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Ubicacion</th>
+            <th scope="col">FechaInicio</th>
 	        </thead>
 	        <tbody>
             <?php  
