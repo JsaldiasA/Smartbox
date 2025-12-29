@@ -101,7 +101,6 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
 	}
 
 
-
 	function uploadPicture() {
 	
 		var URL = "upload.php"; 
@@ -387,7 +386,7 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
 		
 		// Access the first file (if selected)
 	if (fileList.length > 0) {
-			const file = fileList[0];
+			var file = fileList[0];
 			console.log(`File Name: ${file.name}`);
 			console.log(`File Size: ${file.size} bytes`);
 			console.log(`File Type: ${file.type}`);
