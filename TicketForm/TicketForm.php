@@ -26,6 +26,12 @@ echo '<style>body{background-color: #191919; color: #FFFFFF}</style>
 					var URL = "NuevoTicketPost.php";
 					var Respuesta;
 
+					var Nombre = document.getElementById("Nombre").value;
+					if (Nombre == "")
+						{
+							return alert ("Debe especificar un dispositivo y/o plataforma.");
+						}
+
 	  				var Ubicacion = document.getElementById("Ubicacion").value;
 					if (Ubicacion == "")
 						{
