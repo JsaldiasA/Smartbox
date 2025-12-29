@@ -100,12 +100,27 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
 		}
 	}
 
+	const fileInput = document.getElementById('myFileInput');
+
+	fileInput.addEventListener('change', (event) => {
+		// Get the FileList object
+		const fileList = event.target.files;
+		
+		// Access the first file (if selected)
+	if (fileList.length > 0) {
+			const file = fileList[0];
+			console.log(`File Name: ${file.name}`);
+			console.log(`File Size: ${file.size} bytes`);
+			console.log(`File Type: ${file.type}`);
+	}
+	});
 
 	function uploadPicture() {
 	
 		var URL = "upload.php"; 
 		  
-		var file_data = $('#sortpicture').prop('files')[0];   
+		var file_data = file;  
+
     	var form_data = new FormData();                  
     	form_data.append('file', file_data);
    		 alert(form_data);                          
