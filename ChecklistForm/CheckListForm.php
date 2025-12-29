@@ -100,12 +100,16 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
 		}
 	}
 
-	$('#upload').on('click', function() {
-    var file_data = $('#sortpicture').prop('files')[0];   
-    var form_data = new FormData();                  
-    form_data.append('file', file_data);
-    alert(form_data);                             
-    $.ajax({
+
+	function uploadPicture() {
+	
+		var URL = "upload.php"; 
+		  
+		var file_data = $('#sortpicture').prop('files')[0];   
+    	var form_data = new FormData();                  
+    	form_data.append('file', file_data);
+   		 alert(form_data);                          
+		   $.ajax({
         url: 'upload.php', // <-- point to server-side PHP script 
         dataType: 'text',  // <-- what to expect back from the PHP script, if anything
         cache: false,
@@ -117,7 +121,9 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
             alert(php_script_response); // <-- display response from the PHP script, if any
         }
      });
-	});
+
+	
+	}
 	
 
 </script>
@@ -187,7 +193,7 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
 	<div class="row">
 		<div class="col" >
 			<input id="sortpicture" type="file" name="sortpic" />
-			<button id="upload">Upload</button>
+			<button id="upload" onclick="uploadPicture()" >Upload</button>
 		</div>
 	</div>
 	
