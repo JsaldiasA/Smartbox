@@ -101,11 +101,14 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
 	}
 
 
+
 	function uploadPicture() {
 	
 		var URL = "upload.php"; 
-		  
-		var file_data = file;  
+		var inputFiles = document.getElementById("sortpicture");
+		var file_data = inputFiles.files[0];  
+		
+		
 
     	var form_data = new FormData();                  
     	form_data.append('file', file_data);
@@ -377,21 +380,6 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
                     $video.play();
                 });
             
-
-	const fileInput = document.getElementById('sortpicture');
-
-	fileInput.addEventListener('change', (event) => {
-		// Get the FileList object
-		const fileList = event.target.files;
-		
-		// Access the first file (if selected)
-	if (fileList.length > 0) {
-			var file = fileList[0];
-			console.log(`File Name: ${file.name}`);
-			console.log(`File Size: ${file.size} bytes`);
-			console.log(`File Type: ${file.type}`);
-	}
-	});
 /*	
 const $videob = document.querySelector("#video");
 	
