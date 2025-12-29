@@ -12,8 +12,8 @@ require_once $sitebasepath."/Model/model.php";
 <?php
 
 $UnidadTag= $_GET['tag'];
-$model = new Model();
-$unidadDbEntity=$model->unidadByTag($UnidadTag);
+$Model = new Model();
+$unidadDbEntity=$Model->unidadByTag($UnidadTag);
 	?>	
 	
 <script>
