@@ -484,6 +484,20 @@ class Model
 						}
 				}
 			return null;
+		}
+
+	function ticketStatusById($Id_ticketStatus)
+		{
+			$ticketStatuses = $this->get_ticket_status();
+
+			foreach ($ticketStatuses as $ticketstatus)
+				{
+ 					if ($ticketstatus->get_id() == $Id_ticketStatus)
+						{
+							return $ticketstatus;
+						}
+				}
+			return null;
 		}		
 
 	function get_ticket()

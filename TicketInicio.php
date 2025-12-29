@@ -44,11 +44,15 @@ $Model = new model();
 
             foreach( $tickets as $ticket )
             {   
+
+                $ticketstatus = $Model->ticketStatusById( $ticket->get_Id_TicketStatus() );
+
                 echo "<tr>";
-                echo "<td>".$ticket->get_Id()."</td>"; 
-                echo "<td>". $ticket->get_Nombre()."</td>";
-                echo "<td>". $ticket->get_Ubicacion()."</td>";
-                echo "<td>". $ticket->get_FechaInicio()."</td>";
+                echo "<td>". $ticket->get_Id() ."</td>"; 
+                echo "<td>". $ticket->get_Nombre() ."</td>";
+                echo "<td>". $ticket->get_Ubicacion() ."</td>";
+                echo "<td>". $ticket->get_FechaInicio() ."</td>";
+                echo "<td>". $ticketstatus->get_Descripcion() ."</td>";
                 echo "<td> <a href='Ticketver.php?id_ticket=".$ticket->get_Id()."'>Ver</a></td></tr>";
                 echo "</tr>";
             }

@@ -13,7 +13,7 @@ $id_ticket = $_GET['id_ticket'];
 $ticket = $Model->ticketById($id_ticket);
 
 echo '<div class="container">';
-echo '<br><h1><b>Tickets</b></h1>';
+echo '<br><h1><b>Ticket '. $ticket->get_Nombre().' </b></h1>';
 echo '<table class="table"><tbody>';
 echo "<tr><td><b>ID:</b></td><td>". $ticket->get_Id(). "</td></tr>";
 echo "<tr><td><b>Título:</b></td><td>". $ticket->get_Nombre(). "</td></tr>";
