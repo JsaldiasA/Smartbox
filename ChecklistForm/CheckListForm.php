@@ -91,7 +91,9 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
 			TecnicoResponsable: TecnicoResponsable,
 			URL_foto: URL_foto,	    
         	},
-		    success: function(result){alert(result)}    
+		    success: function(result){alert(result);
+			window.location.href = "https://smartbox.eco3.cl/main.php";
+			}    
 		  });
 
 		//window.location.href = "https://smartbox.eco3.cl/";
@@ -179,14 +181,13 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
 		</table>
 		</div>
 	</div>
-
+	<!--
 	<div class="row">
 		<div class="col" >
 			<button type="button" class="btn btn-success btn-lg" onclick="FunctionNuevoCheckListPost()">Enviar CheckList</button>
 		</div>
 		
 	<div class="col">
-		<!--<select name="listaDeDispositivos" id="listaDeDispositivos"></select>-->
 		<button id="boton"  class="btn btn-success btn-lg" >Tomar foto</button>
 		<p id="estado"></p>
 	</div>
@@ -196,10 +197,11 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
 			<canvas id="canvas" style="display: none;"></canvas>
 		</div>
 	</div>
+	-->
 	<div class="row">
 		<div class="col" >
 			<input id="sortpicture" type="file" name="sortpic" />
-			<button id="upload" onclick="uploadPicture()" >Upload</button>
+			<button id="upload" class="btn btn-success btn-lg" onclick="uploadPicture()" >Upload</button>
 		</div>
 	</div>
 	
