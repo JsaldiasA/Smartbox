@@ -10,8 +10,6 @@ require_once $sitebasepath."/helpers/JWT.php";
 class page
   {
 
-
-    
     public $PageHTML;
     public $token;
 	    
