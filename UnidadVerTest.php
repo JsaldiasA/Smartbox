@@ -4,7 +4,6 @@ require_once 'views/page.php';
 
 $Page = new page();
 $Model = $Page->get_Model();
-$HtmlPage;
 $dat= $_GET['tag'];
 $unidadDbEntity = $Model->unidadByTag($dat);
 $checklistDbEntity= $Model->UltimochecklistById_unidad($unidadDbEntity->get_id());
@@ -195,8 +194,7 @@ function FunctionCambiarVolMax(unidad) {
 		{
 			$tagTitle='DeviceEUI';
 		}
-		?>
-		<?php
+
 		$HtmlPage=$HtmlPage. '<table class="table">
 		 	  <thead >
 		  	  	<th scope="col">Serie</th>
@@ -254,13 +252,12 @@ $HtmlPage=$HtmlPage.'
 			" (L)</td></tr>";
 			$HtmlPage=$HtmlPage. '</tbody></table>';
 		
-		?>	
-	</div>		
-</div>
+	$HtmlPage=$HtmlPage.'		
+		</div>		
+		</div>
+		<div class="row" >
+		<div class="col" >';
 
-<div class="row" >
-	<div class="col" >
-		<?php
 			$ultimoRegistro = $unidadDbEntity->get_UltimoRegistro();
 			$HtmlPage=$HtmlPage. '<h2>Últimos registros</h2>';// Header tabla
 			//print row
@@ -280,7 +277,6 @@ $HtmlPage=$HtmlPage.'
 
 <div class="row" >';
 	
-
 	if(!empty($checklistDbEntity))
 	{
 	$HtmlPage=$HtmlPage. '<div class="col-md-auto overflow-auto" >';	
@@ -313,7 +309,7 @@ $HtmlPage=$HtmlPage.'
 	{
 	$HtmlPage=$HtmlPage. '<tr><td>Esta unidad no tiene checklist.</td><td></td></tr>';
 	}
-			$HtmlPage=$HtmlPage. '</tbody></table>';
+	$HtmlPage=$HtmlPage. '</tbody></table>';
 	$HtmlPage=$HtmlPage.'
 	</div>
 	</div>';
@@ -519,3 +515,5 @@ $(document).ready(function(){
 
 $Page->set_PageHTML($HtmlPage);
 $HtmlPage=$HtmlPage. $Page->get_PageHTML();
+
+?>
