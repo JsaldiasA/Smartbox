@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<?php
-require_once 'views/head.php';	
-require_once 'views/navbar.php';	
+<?php	
 require_once 'views/page.php';
-$self=$_SERVER['PHP_SELF']; 
-$thispath=dirname($_SERVER['PHP_SELF']);
-$sitebasepath=$_SERVER['DOCUMENT_ROOT'];
-
-require($sitebasepath.'/vendor/autoload.php');
-require_once $sitebasepath."/helpers/JWT.php";
 ?>	
 <script>
 
@@ -30,7 +20,6 @@ var myRefreshUnidadIndefinida = setInterval(GetUnidadIndefinida, 10000);
 // var myRefreshGetSensorHumedadMilesight = setInterval(GetSensorHumedadMilesight, 1000);
 
 // Funciones
-
 // GetEstanques
 function GetAplicaciones()
 	{
@@ -93,18 +82,9 @@ function GetSensorHumedadMilesight()
 		});
 	}
 */
-
 </script>
-<body>
 
 <?php
-
-//$tk= $_GET['tk'];
-if (isset($_COOKIE['token'])) {
-    $tk = $_COOKIE['token'];
-} else {
-    $tk = "";
-} 
 
 $HtmlPage='
 <div class="container">
@@ -141,13 +121,8 @@ $HtmlPage='
 	</div>
 </div>';
 
-
-
-$Page = new page($HtmlPage,$tk);
-
+$Page = new page();
+$Page->set_PageHTML($HtmlPage);
 echo $Page->get_PageHTML();
 
 ?>
-
-</body>
-</html>

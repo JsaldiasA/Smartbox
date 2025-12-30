@@ -23,10 +23,10 @@ $HtmlPage = $HtmlPage. '<table class="table">
 			  <tbody>';
 
 if ($result->num_rows > 0){
-    	while($row = $result->fetch_assoc()) 
-			{
-				$HtmlPage = $HtmlPage. '<tr"><td>'. $row["Id"] ." </td><td>" . $row["DateTime"] ."</td><td>" . $row["RowData"] ."</td><td>" . $row["IP"] ."</td></tr>";
-			}		
+    while($row = $result->fetch_assoc()) 
+	{
+		$HtmlPage = $HtmlPage. '<tr"><td>'. $row["Id"] ." </td><td>" . $row["DateTime"] ."</td><td>" . $row["RowData"] ."</td><td>" . $row["IP"] ."</td></tr>";
+	}		
 }
 else{
     	$HtmlPage = $HtmlPage. "0 results";
