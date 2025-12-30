@@ -78,11 +78,14 @@ function Login()
             <label class="form-label">Password</label>
             <input type="password" class="form-control" id="password" placeholder="Password">
           </div>
-          <button type="submit" class="btn btn-primary w-100" onclick="Login()">Sign in</button>
+          <button type="button" class="btn btn-primary w-100" onclick="Login()">Sign in</button>
         </form>
+		<br>
+		<br>
       </div>
     </div>
   </div>
 </div>
+
 </body>
 </html>
