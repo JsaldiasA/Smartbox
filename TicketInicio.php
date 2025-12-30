@@ -4,6 +4,7 @@
 
 require_once 'views/head.php';	
 require_once 'views/navbar.php';
+require_once 'views/page.php';
 $self=$_SERVER['PHP_SELF'];
 $thispath=dirname($_SERVER['PHP_SELF']);
 $sitebasepath=$_SERVER['DOCUMENT_ROOT'];
@@ -16,6 +17,19 @@ $Model = new model();
 //        <style>.container{background-color: #292929;color: #FFFFFF; padding: 20px; border-radius: 8px;}</style>';
 
 ?>
+
+<body>
+
+<?php
+
+//$tk= $_GET['tk'];
+if (isset($_COOKIE['token'])) {
+    $tk = $_COOKIE['token'];
+} else {
+    $tk = "";
+} 
+
+    $HtmlPage='
     <div class="container">
         <div class="row">
             <div class="col">
@@ -38,8 +52,8 @@ $Model = new model();
             <th scope="col">FechaInicio</th>
             <th scope="col"></th>
 	        </thead>
-	        <tbody>
-            <?php  
+	        <tbody>';
+
             $tickets = $Model->get_ticket();
 
             foreach( $tickets as $ticket )
@@ -47,17 +61,20 @@ $Model = new model();
 
                 $ticketstatus = $Model->ticketStatusById( $ticket->get_Id_TicketStatus() );
 
-                echo "<tr>";
-                echo "<td>". $ticket->get_Id() ."</td>"; 
-                echo "<td>". $ticket->get_Nombre() ."</td>";
-                echo "<td>". $ticket->get_Ubicacion() ."</td>";
-                echo "<td>". $ticket->get_FechaInicio() ."</td>";
-                echo "<td>". $ticketstatus->get_Descripcion() ."</td>";
-                echo "<td> <a href='Ticketver.php?id_ticket=".$ticket->get_Id()."'>Ver</a></td></tr>";
-                echo "</tr>";
+                $HtmlPage = $HtmlPage. "<tr>";
+                $HtmlPage = $HtmlPage. "<td>". $ticket->get_Id() ."</td>"; 
+                $HtmlPage = $HtmlPage. "<td>". $ticket->get_Nombre() ."</td>";
+                $HtmlPage = $HtmlPage. "<td>". $ticket->get_Ubicacion() ."</td>";
+                $HtmlPage = $HtmlPage. "<td>". $ticket->get_FechaInicio() ."</td>";
+                $HtmlPage = $HtmlPage. "<td>". $ticketstatus->get_Descripcion() ."</td>";
+                $HtmlPage = $HtmlPage. "<td> <a href='Ticketver.php?id_ticket=".$ticket->get_Id()."'>Ver</a></td></tr>";
+                $HtmlPage = $HtmlPage. "</tr>";
             }
-            ?>
-            </tbody></table>
+            $HtmlPage = $HtmlPage.'</tbody></table>
+                                    </div>
+                                    </div>';
 
-        </div>
-    </div>
+        $Page = new page($HtmlPage,$tk);
+
+        echo $Page->get_PageHTML();
+    ?>
