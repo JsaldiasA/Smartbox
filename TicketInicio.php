@@ -1,33 +1,14 @@
-<!DOCTYPE html>
-<html lang ="en">
 <?php
 
-require_once 'views/head.php';	
-require_once 'views/navbar.php';
 require_once 'views/page.php';
-$self=$_SERVER['PHP_SELF'];
-$thispath=dirname($_SERVER['PHP_SELF']);
-$sitebasepath=$_SERVER['DOCUMENT_ROOT'];
-require_once $sitebasepath."/Model/model.php";
 
-$Model = new model();
+$Page = new page();
+$Model = $Page->get_Model();
 
 //echo
 //    '<style>body{background-color: #191919; color: #FFFFFF}</style>
 //        <style>.container{background-color: #292929;color: #FFFFFF; padding: 20px; border-radius: 8px;}</style>';
 
-?>
-
-<body>
-
-<?php
-
-//$tk= $_GET['tk'];
-if (isset($_COOKIE['token'])) {
-    $tk = $_COOKIE['token'];
-} else {
-    $tk = "";
-} 
 
     $HtmlPage='
     <div class="container">
@@ -74,7 +55,9 @@ if (isset($_COOKIE['token'])) {
                                     </div>
                                     </div>';
 
-        $Page = new page($HtmlPage,$tk);
+       
 
-        echo $Page->get_PageHTML();
+$Page->set_PageHTML($HtmlPage);
+echo $Page->get_PageHTML();
+
     ?>
