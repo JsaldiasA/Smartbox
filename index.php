@@ -40,7 +40,7 @@ function Login()
 </script>
 <body>
 <br>
-<div class="container">
+<div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
 	<div class="row">
 		<H1>Login</H1>
 	</div>
