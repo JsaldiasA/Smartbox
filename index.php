@@ -39,7 +39,6 @@ function Login()
 	
 </script>
 <body>
-<br>
 <!-- <div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
 		
 		<div class="col-lg-4">  
