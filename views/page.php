@@ -36,9 +36,11 @@ class page
               </div>
             </div>
             <div class="row">
-              <div class="d-flex justify-content-center">
-                <br><a href="index.php"><p class="h1">log in</p></a><br>
-              </div>
+              <div class="col">
+                <div class="d-flex justify-content-center">
+                  <br><a href="index.php"><p class="h1">log in</p></a><br>
+                </div>
+              <div class="col">  
             </div>
            </div>';
           }
