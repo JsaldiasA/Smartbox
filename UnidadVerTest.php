@@ -514,6 +514,6 @@ $(document).ready(function(){
 </html>';
 
 $Page->set_PageHTML($HtmlPage);
-$HtmlPage=$HtmlPage. $Page->get_PageHTML();
+echo $Page->get_PageHTML();
 
 ?>
