@@ -1,14 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
 <?php
 
-require_once 'views/page.php';
-
-$Page = new page();
-$Model = $Page->get_Model();
+require_once 'views/head.php';	
+require_once 'views/navbar.php';
+require_once 'Model/model.php';	
+	
 $dat= $_GET['tag'];
+$limit= 100;
+$Model = new Model();
 $unidadDbEntity = $Model->unidadByTag($dat);
 $checklistDbEntity= $Model->UltimochecklistById_unidad($unidadDbEntity->get_id());
 
-$HtmlPage='
+?>	
 <!-- SCRIPTS PARA editar panel -->
 <script>
 function FunctionNuevoNumero(unidad)
@@ -24,7 +28,7 @@ function FunctionNuevoNumero(unidad)
 				$.ajax({
         			url:URL,
             		type:"post",
-					dataType:\'text\',
+					dataType:'text',
 					data:
 						{
             				tag: unidad,
@@ -54,7 +58,7 @@ function FunctionNuevaUbicacion(unidad) {
 	$.ajax({
             url:URL, //the page containing php script
             type: "post", //request
-			dataType: \'text\',
+			dataType: 'text',
 			  data: {
             tag: unidad,
 			NuevaUbicacion: NuevaUbicacion,
@@ -81,7 +85,7 @@ function FunctionNuevoTipo(unidad) {
 	$.ajax({
             url:URL, //the page containing php script
             type: "post", //request
-			dataType: \'text\',
+			dataType: 'text',
 			  data: {
             tag: unidad,
 			NuevoTipo: NuevoTipo,
@@ -105,7 +109,7 @@ function FunctionEliminar(unidad) {
 	$.ajax({
             url:URL, //the page containing php script
             type: "post", //request 
-			dataType: \'text\',
+			dataType: 'text',
 			  data: {
             tag: unidad,
 			token: token,
@@ -128,9 +132,9 @@ function FunctionComandosMilesight(ComandoNombre) {
 	$.ajax({
             url:URL, //the page containing php script
             type: "post", //request
-			dataType: \'text\',
+			dataType: 'text',
 			data: {
-            tag: \''.$unidadDbEntity->get_Tag().'\',
+            tag: '<?php echo $unidadDbEntity->get_Tag(); ?>',
 			nombre: ComandoNombre,
 			token: token,
         	},
@@ -153,7 +157,7 @@ function FunctionCambiarVolMax(unidad) {
 	$.ajax({
             url:URL, //the page containing php script
             type: "post", //request
-			dataType: \'text\',
+			dataType: 'text',
 			  data: {
             tag: unidad,
 			NuevoVolMax: NuevoVolMax,
@@ -171,21 +175,23 @@ function FunctionCambiarVolMax(unidad) {
 
 <body>	
 	
+<?php
 
+	//IMPRIMIMOS  cabecera de informacion con los datos de la unidad desde la tabla unidad
+?> 
 <div class="container" >
 <div class="row" >
 	<div class="col" >
-	';
-	
+	<?php
 	$CabeceraName = $unidadDbEntity->get_Serie();
 	 
 		if($CabeceraName == "")
 		{
-			$HtmlPage=$HtmlPage. "<br><h1>&nbsp;<b>Unidad</b> ". $unidadDbEntity->get_Tag()."(sin nombre)</h1>";
+			echo "<br><h1>&nbsp;<b>Unidad</b> ". $unidadDbEntity->get_Tag()."(sin nombre)</h1>";
 		}
 		else
 		{
-			$HtmlPage=$HtmlPage. "<br><h1>&nbsp;<b>Unidad</b> ". $CabeceraName ."</h1>";
+			echo "<br><h1>&nbsp;<b>Unidad</b> ". $CabeceraName ."</h1>";
 		}
 			
 		$tagTitle='IMEI';
@@ -194,135 +200,139 @@ function FunctionCambiarVolMax(unidad) {
 		{
 			$tagTitle='DeviceEUI';
 		}
-
-		$HtmlPage=$HtmlPage. '<table class="table">
+		?>
+		<?php
+		echo '<table class="table">
 		 	  <thead >
 		  	  	<th scope="col">Serie</th>
 		  		<th scope="col">'.$tagTitle.'</th>
 				<th scope="col">Ubicación</th>
 		  	  </thead><tbody>';// Header tabla
 		//print row
-        $HtmlPage=$HtmlPage. "<tr> <td>". $unidadDbEntity->get_Serie().
+        echo "<tr> <td>". $unidadDbEntity->get_Serie().
 		"</td><td>". $unidadDbEntity->get_Tag().
 		"</td><td>". $unidadDbEntity->get_Ubicacion().
 		"</td> </tr>";
-		$HtmlPage=$HtmlPage. '</tbody></table>';
+		echo '</tbody></table>';
 
 		// Sólo para sensor de humedad Milesight.
 		if($unidadDbEntity->get_Id_Unidadtipo() == '4')
 		{
-			$HtmlPage=$HtmlPage. '<table class="table">
+			echo '<table class="table">
 			<thead >
 			<th scope="col">Sensor</th>
 			<th scope="col">Data</th>	
 			</thead><tbody>';// Header tabla
 			//print row
-			$HtmlPage=$HtmlPage. "<tr>  
+			echo "<tr>  
 			<td>". "<b>Temperatura</b>".
 			"</td> <td>". $unidadDbEntity->get_Estado().
 			" °C</td></tr>";
-			$HtmlPage=$HtmlPage. "<tr>  
+			echo "<tr>  
 			<td>". "<b>Humedad</b>".
 			"</td> <td>". $unidadDbEntity->get_Volumen().
 			"</td></tr>";
-			$HtmlPage=$HtmlPage. "<tr>  
+			echo "<tr>  
 			<td>". "<b>Conductividad eléctrica(EC)</b>".
 			"</td> <td>0". $unidadDbEntity->get_Volumen().// to do EC
 			"</td></tr>";
-			$HtmlPage=$HtmlPage. '</tbody></table>';
+			echo '</tbody></table>';
 		}
-$HtmlPage=$HtmlPage.'			
+		?>	
 	</div>
 </div>
 
 <div class="row" >
 	<div class="col" >
-		<h2>Configuración</h2>';
-		
+		<h2>Configuración</h2>
+		<?php
 			
-			$HtmlPage=$HtmlPage. '<table class="table">
+			echo '<table class="table">
 			<thead >
 			<th scope="col">Parámetros</th>
 			<th scope="col">Valor</th>	
 			</thead><tbody>';// Header tabla
 			//print row
-			$HtmlPage=$HtmlPage. "<tr>  
+			echo "<tr>  
 			<td>". "<b>Volumen máximo:</b>".
 			"</td> <td>". $unidadDbEntity->get_VolMax().
 			" (L)</td></tr>";
-			$HtmlPage=$HtmlPage. '</tbody></table>';
+			echo '</tbody></table>';
 		
-	$HtmlPage=$HtmlPage.'		
-		</div>		
-		</div>
-		<div class="row" >
-		<div class="col" >';
-
-			$ultimoRegistro = $unidadDbEntity->get_UltimoRegistro();
-			$HtmlPage=$HtmlPage. '<h2>Últimos registros</h2>';// Header tabla
-			//print row
-			$HtmlPage=$HtmlPage. '<table class="table" >
-		  <thead >';
-	$HtmlPage=$HtmlPage. '<th scope="col">Últimos registros</th>';
-	$HtmlPage=$HtmlPage. '<th scope="col"></th>';
-	$HtmlPage=$HtmlPage. '</thead><tbody>';
-	$HtmlPage=$HtmlPage. '<tr><td><b>Estado:</b></td><td>'.$ultimoRegistro->get_ESTADO().'</td></tr>';
-	$HtmlPage=$HtmlPage. '<tr><td><b>Volumen:</b></td><td>'.$ultimoRegistro->get_VOLUMEN().'</td></tr>';
-	$HtmlPage=$HtmlPage. '<tr><td><b>Caudal:</b></td><td>'.$ultimoRegistro->get_CAUDAL().'</td></tr>';
-	$HtmlPage=$HtmlPage. '<tr><td><b>Última actualización:</b></td><td>'.$ultimoRegistro->get_DATETIME().'</td></tr>';
-	$HtmlPage=$HtmlPage. '</tbody></table>';
-	$HtmlPage=$HtmlPage.'	
+		?>	
 	</div>		
 </div>
 
-<div class="row" >';
-	
+<div class="row" >
+	<div class="col" >
+		<?php
+			$ultimoRegistro = $unidadDbEntity->get_UltimoRegistro();
+			echo '<h2>Últimos registros</h2>';// Header tabla
+			//print row
+			echo '<table class="table" >
+		  <thead >';
+	echo '<th scope="col">Últimos registros</th>';
+	echo '<th scope="col"></th>';
+	echo '</thead><tbody>';
+	echo '<tr><td><b>Estado:</b></td><td>'.$ultimoRegistro->get_ESTADO().'</td></tr>';
+	echo '<tr><td><b>Volumen:</b></td><td>'.$ultimoRegistro->get_VOLUMEN().'</td></tr>';
+	echo '<tr><td><b>Caudal:</b></td><td>'.$ultimoRegistro->get_CAUDAL().'</td></tr>';
+	echo '<tr><td><b>Última actualización:</b></td><td>'.$ultimoRegistro->get_DATETIME().'</td></tr>';
+	echo '</tbody></table>';
+		?>	
+	</div>		
+</div>
+
+<div class="row" >
+	<?php
+
 	if(!empty($checklistDbEntity))
 	{
-	$HtmlPage=$HtmlPage. '<div class="col-md-auto overflow-auto" >';	
-		$HtmlPage=$HtmlPage. '<div 
+	echo '<div class="col-md-auto overflow-auto" >';	
+		echo '<div 
     style="background-image: url('."'".$checklistDbEntity->get_URL_foto()."'".'); 
     width:350px; 
     height:400px; 
     background-position:center; "></div>';
-	//$HtmlPage=$HtmlPage. '<img src="'.$checklistDbEntity->get_URL_foto().'" class="rounded" alt="Responsive image">';
-	$HtmlPage=$HtmlPage. '</div>';//col
+	//echo '<img src="'.$checklistDbEntity->get_URL_foto().'" class="rounded" alt="Responsive image">';
+	echo '</div>';//col
 	}
-    $HtmlPage=$HtmlPage.'
-	<div class="col">';
-
-	$HtmlPage=$HtmlPage. '<table class="table" >
+// CHECKLIST table
+	?>
+	<div class="col">
+	<?php
+	echo '<table class="table" >
 		  <thead >';
-	$HtmlPage=$HtmlPage. '<th scope="col">Último checklist</th>';
-	$HtmlPage=$HtmlPage. '<th scope="col"></th>';
-	$HtmlPage=$HtmlPage. '</thead><tbody>';
-	$HtmlPage=$HtmlPage. '<tr><td> <a href="checklistform/checklistform.php?tag='.$unidadDbEntity->get_Tag().'">Nuevo checklist</a></td><td></td></tr>';
+	echo '<th scope="col">Último checklist</th>';
+	echo '<th scope="col"></th>';
+	echo '</thead><tbody>';
+	echo '<tr><td> <a href="checklistform/checklistform.php?tag='.$unidadDbEntity->get_Tag().'">Nuevo checklist</a></td><td></td></tr>';
 	if(!empty($checklistDbEntity))
 	{	
-	$HtmlPage=$HtmlPage. '<tr><td><b>ID Checklist:</b></td><td>'.$checklistDbEntity->get_Id().'</td></tr>';
-	$HtmlPage=$HtmlPage. '<tr><td><b>Fecha:</b></td><td>'.$checklistDbEntity->get_Fecha().'</td></tr>';
-	$HtmlPage=$HtmlPage. '<tr><td><b>Técnico:</b></td><td>'.$checklistDbEntity->get_TecnicoResponsable().'</td></tr>';
-	$HtmlPage=$HtmlPage. '<tr><td><b>Observaciones:</b></td><td>'.$checklistDbEntity->get_Observaciones().'</td></tr>';
-	$HtmlPage=$HtmlPage. "<tr><td><b>Revisar</b></td><td><a href='unidadverCheckList.php?CheckList_Id=".$checklistDbEntity->get_Id()."'>Ver</a></td></tr>";
+	echo '<tr><td><b>ID Checklist:</b></td><td>'.$checklistDbEntity->get_Id().'</td></tr>';
+	echo '<tr><td><b>Fecha:</b></td><td>'.$checklistDbEntity->get_Fecha().'</td></tr>';
+	echo '<tr><td><b>Técnico:</b></td><td>'.$checklistDbEntity->get_TecnicoResponsable().'</td></tr>';
+	echo '<tr><td><b>Observaciones:</b></td><td>'.$checklistDbEntity->get_Observaciones().'</td></tr>';
+	echo "<tr><td><b>Revisar</b></td><td><a href='unidadverCheckList.php?CheckList_Id=".$checklistDbEntity->get_Id()."'>Ver</a></td></tr>";
 	}
 	else
 	{
-	$HtmlPage=$HtmlPage. '<tr><td>Esta unidad no tiene checklist.</td><td></td></tr>';
+	echo '<tr><td>Esta unidad no tiene checklist.</td><td></td></tr>';
 	}
-	$HtmlPage=$HtmlPage. '</tbody></table>';
-	$HtmlPage=$HtmlPage.'
+			echo '</tbody></table>';
+?>
 	</div>
-	</div>';
-
+	</div>
+	<?php
 	if ($unidadDbEntity->get_Id_Unidadtipo() == '3')
 	{	
-		$HtmlPage=$HtmlPage. '<div class="row">';
-		$HtmlPage=$HtmlPage. '<div class="col">';
-		$HtmlPage=$HtmlPage. '<table class="table" > <thead >';
-		$HtmlPage=$HtmlPage. '<th scope="col">Control</th>';
-		$HtmlPage=$HtmlPage. '<th scope="col"></th>';
-		$HtmlPage=$HtmlPage. '<th scope="col"></th>';
-		$HtmlPage=$HtmlPage. '</thead><tbody>';
+		echo '<div class="row">';
+		echo '<div class="col">';
+		echo '<table class="table" > <thead >';
+		echo '<th scope="col">Control</th>';
+		echo '<th scope="col"></th>';
+		echo '<th scope="col"></th>';
+		echo '</thead><tbody>';
 		$DisabledAbrir = "";
 		$DisabledCerrar = "";
 
@@ -335,15 +345,15 @@ $HtmlPage=$HtmlPage.'
 				$DisabledCerrar = "disabled";
 			}
 
-		$HtmlPage=$HtmlPage. '<tr><td><button type="button" onclick="FunctionComandosMilesight('."'Abrir V1'".')" class="btn btn-primary" '.$DisabledAbrir.' >Abrir</button></td>
+		echo '<tr><td><button type="button" onclick="FunctionComandosMilesight('."'Abrir V1'".')" class="btn btn-primary" '.$DisabledAbrir.' >Abrir</button></td>
 		<td><button type="button" onclick="FunctionComandosMilesight('."'Cerrar V1'".')" class="btn btn-primary" '.$DisabledCerrar.'  >Cerrar</button></td>
 		<td><button type="button" onclick="FunctionComandosMilesight('."'Reset Count'".')" class="btn btn-primary">Reiniciar Contador</button></td><tr>';
-		$HtmlPage=$HtmlPage. '</tbody></table>';
-		$HtmlPage=$HtmlPage. '</div>';
-		$HtmlPage=$HtmlPage. '</div>';
+		echo '</tbody></table>';
+		echo '</div>';
+		echo '</div>';
 	}
+?>
 
-$HtmlPage=$HtmlPage.'
 <div class="row">
 	<div class="col">
 <div class="accordion" id="accordionExample">
@@ -355,8 +365,8 @@ $HtmlPage=$HtmlPage.'
     </h2>
     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-		<div class="overflow-auto">';
-
+		<div class="overflow-auto">
+        <?php	
 // TABLA REGISTROS DIARIOS
 	
 	$sql = "SELECT * FROM `unidades_lastortolas`  WHERE `unidad_id` = ".$unidadDbEntity->get_id()." ORDER BY `id` DESC LIMIT 10000";
@@ -365,24 +375,24 @@ $result = $Model->executeSQL($sql);
 
 if ($result->num_rows > 0) {
     // output data of each row
-	$HtmlPage=$HtmlPage. '<script>let table = new DataTable("#TablaRegistros");</script>';
-	$HtmlPage=$HtmlPage. '<table id="TablaRegistros" class="display"><thead><tr><th scope="col">UNIDAD</th><th scope="col">ESTADO</th><th scope="col">VOLUMEN</th><th scope="col">CAUDAL</th><th scope="col">SENAL</th><th scope="col">BAT</th><th scope="col">FECHA</th></tr></thead><tbody>';
+	echo '<script>let table = new DataTable("#TablaRegistros");</script>';
+	echo '<table id="TablaRegistros" class="display"><thead><tr><th scope="col">UNIDAD</th><th scope="col">ESTADO</th><th scope="col">VOLUMEN</th><th scope="col">CAUDAL</th><th scope="col">SENAL</th><th scope="col">BAT</th><th scope="col">FECHA</th></tr></thead><tbody>';
     while($row = $result->fetch_assoc()) 
 	{
-		$HtmlPage=$HtmlPage. '<tr">  <td>'. $row["tag"]. "</td> <td>". $row["ESTADO"]. "</td><td>" . $row["VOLUMEN"] ."</td> <td>" . $row["CAUDAL"]."</td> 			<td>" . $row["SENAL"] ." </td><td>" . $row["VOLTAJE"] ."%</td><td>" . $row["DATETIME"] ."</td></tr>";
+		echo '<tr">  <td>'. $row["tag"]. "</td> <td>". $row["ESTADO"]. "</td><td>" . $row["VOLUMEN"] ."</td> <td>" . $row["CAUDAL"]."</td> 			<td>" . $row["SENAL"] ." </td><td>" . $row["VOLTAJE"] ."%</td><td>" . $row["DATETIME"] ."</td></tr>";
 	}
 		
-	$HtmlPage=$HtmlPage. '</tbody></table>';
-	$HtmlPage=$HtmlPage. "<script>
+	echo '</tbody></table>';
+	echo "<script>
 $(document).ready(function(){
     $('#TablaRegistros').dataTable();
 });
 </script>";
 }
 else
-{$HtmlPage=$HtmlPage. "0x results";}
+{echo "0x results";}
 
-$HtmlPage=$HtmlPage.'
+?>
 		  </div>
       </div>
     </div>
@@ -399,19 +409,19 @@ $HtmlPage=$HtmlPage.'
 
 			<script>let table = new DataTable("#TablaIniciacion");</script>
 			<table id="TablaIniciacion" class="display"><thead><th scope="col">unidad</th><th scope="col">USUARIO1</th><th scope="col">USUARIO2</th><th scope="col">ADMIN</th><th scope="col">INTERNET</th><th scope="col">Codigo</th><th scope="col">INV</th><th scope="col">VMAX</th><th scope="col">Bat</th><th scope="col">TIMESTAMP</th><th scope="col">TIPO</th><th scope="col">TipoBat</th></thead><tbody> 
-			';
 			
+			<?php
 			// REGISTROS INICIACION
 			$RegistrosIniciacion = $Model->RegistrosIniciacionByTag($unidadDbEntity->get_tag());
 
 			foreach($RegistrosIniciacion  as $r) {
-				$HtmlPage=$HtmlPage. "<tr>  <td>". $r->get_UNIDAD(). "</td> <td>". $r->get_USUARIO1(). "</td><td>" . $r->get_USUARIO2() ."</td> <td>" . $r->get_ADMIN() ."</td><td>" . $r->get_INTERNET() ."</td> <td>". $r->get_VerCodigo() ."</td> <td>". $r->get_INV() ."</td><td>" . $r->get_VOLUMEN_MAX() ."</td><td>" .$r->get_LVOLTAJE() ."</td><td>" . $r->get_TIMESTAMP() ."</td><td>" . $r->get_TIPO() ."</td><td>".$r->get_TipoBat()."</td></tr>" ;	
+				echo "<tr>  <td>". $r->get_UNIDAD(). "</td> <td>". $r->get_USUARIO1(). "</td><td>" . $r->get_USUARIO2() ."</td> <td>" . $r->get_ADMIN() ."</td><td>" . $r->get_INTERNET() ."</td> <td>". $r->get_VerCodigo() ."</td> <td>". $r->get_INV() ."</td><td>" . $r->get_VOLUMEN_MAX() ."</td><td>" .$r->get_LVOLTAJE() ."</td><td>" . $r->get_TIMESTAMP() ."</td><td>" . $r->get_TIPO() ."</td><td>".$r->get_TipoBat()."</td></tr>" ;	
 			}
-			$HtmlPage=$HtmlPage.'
+			?>
 			</tbody></table>
 			<script>
 			$(document).ready(function(){
-			$(\'#TablaIniciacion\').dataTable();
+			$('#TablaIniciacion').dataTable();
 			});
 			</script>
 			
@@ -426,45 +436,47 @@ $HtmlPage=$HtmlPage.'
       </button>
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-      <div class="accordion-body">';
+      <div class="accordion-body">
 		  
-		$HtmlPage=$HtmlPage. '<div class="subContainer">';
-		$HtmlPage=$HtmlPage. 'Introduzca la contraseña para editar: <input type="text" id="password" name="password" class="form-control">';
-		$HtmlPage=$HtmlPage. '</div>';   // Input de contraseña.
+		<?php
+		// PANEL EDITAR:
+		echo '<div class="subContainer">';
+		echo 'Introduzca la contraseña para editar: <input type="text" id="password" name="password" class="form-control">';
+		echo '</div>';   // Input de contraseña.
 
-		$HtmlPage=$HtmlPage. '<div class="subContainer">';
-		$HtmlPage=$HtmlPage. '<button onclick="FunctionNuevaUbicacion('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-secondary">Editar</button> Nueva ubicación:';
-		$HtmlPage=$HtmlPage. '<input type="text" id="NuevaUbicacion" name="NuevaUbicacion" class="form-control">';   // Input cambio de ubicación.
-		$HtmlPage=$HtmlPage. '</div>';
+		echo '<div class="subContainer">';
+		echo '<button onclick="FunctionNuevaUbicacion('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-secondary">Editar</button> Nueva ubicación:';
+		echo '<input type="text" id="NuevaUbicacion" name="NuevaUbicacion" class="form-control">';   // Input cambio de ubicación.
+		echo '</div>';
 
-		$HtmlPage=$HtmlPage. '<div class="subContainer">';
-		$HtmlPage=$HtmlPage. '<button onclick="FunctionNuevoNumero('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-secondary">Editar</button> Nuevo número:';
-		$HtmlPage=$HtmlPage. '<input type="text" id="NuevoNumero" name="NuevoNumero" class="form-control">';   // Input cambio de número.
-		$HtmlPage=$HtmlPage. '</div>';
+		echo '<div class="subContainer">';
+		echo '<button onclick="FunctionNuevoNumero('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-secondary">Editar</button> Nuevo número:';
+		echo '<input type="text" id="NuevoNumero" name="NuevoNumero" class="form-control">';   // Input cambio de número.
+		echo '</div>';
 
-		$HtmlPage=$HtmlPage. '<div class="subContainer">';
-		$HtmlPage=$HtmlPage. '<button onclick="FunctionCambiarVolMax('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-secondary">Editar</button> Nuevo volumen máximo:';
-		$HtmlPage=$HtmlPage. '<input type="text" id="VolMax" name="VolMax" class="form-control">';   // Input cambio de volumen máximo.
-		$HtmlPage=$HtmlPage. '</div>';
+		echo '<div class="subContainer">';
+		echo '<button onclick="FunctionCambiarVolMax('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-secondary">Editar</button> Nuevo volumen máximo:';
+		echo '<input type="text" id="VolMax" name="VolMax" class="form-control">';   // Input cambio de volumen máximo.
+		echo '</div>';
 		
-		$HtmlPage=$HtmlPage. '<div class="subContainer">';
-		$HtmlPage=$HtmlPage. '<button onclick="FunctionNuevoTipo('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-secondary">Editar</button>';
+		echo '<div class="subContainer">';
+		echo '<button onclick="FunctionNuevoTipo('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-secondary">Editar</button>';
 
 		$q = $Model->executeSQL("SELECT `Nombre` FROM `unidadtipo`");
-		$HtmlPage=$HtmlPage. ' <select name="NuevoTipo" id="NuevoTipo" required>';
+		echo ' <select name="NuevoTipo" id="NuevoTipo" required>';
 		while($rows = $q->fetch_assoc())
-		{
-			$unidadTipo_name= $rows['Nombre'];
-			$HtmlPage=$HtmlPage. "<option value='$unidadTipo_name'>$unidadTipo_name</option>";
-		}
-		$HtmlPage=$HtmlPage. "<option value='NULL'>Unidad Indefinida</option>";
-		$HtmlPage=$HtmlPage. '</select>';
-		$HtmlPage=$HtmlPage. '</div>';
+			{
+				$unidadTipo_name= $rows['Nombre'];
+				echo "<option value='$unidadTipo_name'>$unidadTipo_name</option>";
+			}
+		echo "<option value='NULL'>Unidad Indefinida</option>";
+		echo '</select>';
+		echo '</div>';
 
-		$HtmlPage=$HtmlPage. '<div class="subContainer">';
-		$HtmlPage=$HtmlPage. '<button onclick="FunctionEliminar('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-danger">Eliminar</button> Eliminar unidad...';
-		$HtmlPage=$HtmlPage. '</div>';   // Función para eliminar unidad.
-		$HtmlPage=$HtmlPage.'
+		echo '<div class="subContainer">';
+		echo '<button onclick="FunctionEliminar('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-danger">Eliminar</button> Eliminar unidad...';
+		echo '</div>';   // Función para eliminar unidad.
+		?>
       </div>
     </div>
   </div>
@@ -476,14 +488,15 @@ $HtmlPage=$HtmlPage.'
     </h2>
     <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-    <div class="overflow-auto">';   
+    <div class="overflow-auto">   
+	<?php
 		  
- 	$sql = "SELECT * FROM `checklist` WHERE `id_unidad` like '{$unidadDbEntity->get_id()}'";
-	$result = $Model->executeSQL($sql);
-	if ($result->num_rows > 0) {
+ $sql = "SELECT * FROM `checklist` WHERE `id_unidad` like '{$unidadDbEntity->get_id()}'";
+$result = $Model->executeSQL($sql);
+if ($result->num_rows > 0) {
     // output data of each row
-	$HtmlPage=$HtmlPage. '<script>let table = new DataTable("#TablaChecklist");</script>';
-	$HtmlPage=$HtmlPage. '<table id="TablaChecklist" class="display""><thead>
+	echo '<script>let table = new DataTable("#TablaChecklist");</script>';
+	echo '<table id="TablaChecklist" class="display""><thead>
 	<th scope="col">ID</th>
 	<th scope="col">Técnico Responsable</th>
 	<th scope="col">Fecha</th>
@@ -491,17 +504,17 @@ $HtmlPage=$HtmlPage.'
 	
 	</thead><tbody>';
     while($row = $result->fetch_assoc()) {
-           $HtmlPage=$HtmlPage. "</td> <td>". $row["Id"]. "</td><td>" . $row["TecnicoResponsable"] ."</td> <td>". $row["Fecha"]."</td> <td><a href='unidadverCheckList.php?CheckList_Id=". $row["Id"]."'>Ver</a></td></tr>" ;}
-$HtmlPage=$HtmlPage. '</tbody></table>';
-$HtmlPage=$HtmlPage. "<script>
+           echo "</td> <td>". $row["Id"]. "</td><td>" . $row["TecnicoResponsable"] ."</td> <td>". $row["Fecha"]."</td> <td><a href='unidadverCheckList.php?CheckList_Id=". $row["Id"]."'>Ver</a></td></tr>" ;}
+echo '</tbody></table>';
+echo "<script>
 $(document).ready(function(){
     $('#TablaChecklist').dataTable();
 });
 </script>";
 } else {
-    $HtmlPage=$HtmlPage. "Unidad sin checklist.";
+    echo "Unidad sin checklist.";
 }
-	$HtmlPage=$HtmlPage.'
+		  ?>
 	</div>
       </div>
     </div>
@@ -511,9 +524,4 @@ $(document).ready(function(){
 	</div>
 		</div>
 </body>
-</html>';
-
-$Page->set_PageHTML($HtmlPage);
-echo $Page->get_PageHTML();
-
-?>
+</html>
