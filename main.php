@@ -105,10 +105,48 @@ if (isset($_COOKIE['token'])) {
     $tk = "";
 } 
 
-$jwtHelper = new JWT();
+$HtmlPage='
+<div class="container">
+<br>
+	<div class="row">
+		<H1>Aplicaciones</H1>
+		<div class="overflow-auto">
+			<div id="GetAplicacionesResult"></div>
+		</div>
+	</div>
+	<div class="row">
+		<H1>Estanques</H1>
+		<div class="overflow-auto">
+			<div id="GetEstanqueResult"></div>
+		</div>
+	</div>
+	<div class="row">
+		<H1>Sirecor</H1>
+		<div class="overflow-auto">
+			<div id="GetSirecorResult"></div>
+		</div>
+	</div>
+	<div class="row">
+		<H1>Milesight</H1>
+		<div class="overflow-auto">
+			<div id="GetMilesightResult"></div>
+		</div>
+	</div>
+	<div class="row">
+		<h1>Unidad Indefinida</H1>
+		<div class="overflow-auto">
+			<div id="GetUnidadIndefinidaResult"></div>
+		</div>
+	</div>
+</div>';
+
+
+
+$Page = new page($HtmlPage,$tk);
+
+echo $Page->get_PageHTML();
+/*$jwtHelper = new JWT();
 $decoded = $jwtHelper->decode($tk);
-
-
 
 if ($decoded) {
 
@@ -171,6 +209,7 @@ echo '
 } else {
     echo "Invalid token.";
 }
+*/
 
 ?>
 
