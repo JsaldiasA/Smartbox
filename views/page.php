@@ -10,15 +10,17 @@ require_once $sitebasepath."/helpers/JWT.php";
 class page
   {
 
+
+    
     public $PageHTML;
     public $token;
 	    
-    function __construct ($PageHTML, $token,)
+    function __construct ($PageHTML, $token)
       { 		
         $this->PageHTML = $PageHTML;
         $this->token = $token;
       }
-
+ 
     function get_PageHTML()
       { 
         $jwtHelper = new JWT();

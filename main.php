@@ -145,6 +145,8 @@ $HtmlPage='
 $Page = new page($HtmlPage,$tk);
 
 echo $Page->get_PageHTML();
+
+
 /*$jwtHelper = new JWT();
 $decoded = $jwtHelper->decode($tk);
 
