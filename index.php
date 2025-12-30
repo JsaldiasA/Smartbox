@@ -41,11 +41,9 @@ function Login()
 <body>
 <br>
 <div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
-	<div class="row">
-		<H1>Login</H1>
-	</div>
-	<div class="row">
-		<div class="col-lg-4">    	
+		
+		<div class="col-lg-4">  
+			<H1>Login</H1>  	
 			<form>
 			<div class="form-group">
 				<label for="email">Email address</label>
