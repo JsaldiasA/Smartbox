@@ -40,7 +40,7 @@ function Login()
 </script>
 <body>
 <br>
-<div class="container-fluid vh-75 d-flex align-items-center justify-content-center">
+<!-- <div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
 		
 		<div class="col-lg-4">  
 			<H1>Login</H1>  	
@@ -62,6 +62,28 @@ function Login()
 			</form>
 		</div>
 	</div>
+</div>
+-->
+<div class="container-fluid vh-100 d-flex align-items-center justify-content-center bg-light">
+  <!-- Small Container (Width controlled by col-md-4) -->
+  <div class="col-12 col-md-6 col-lg-4">
+    <div class="card shadow p-4 border-0 rounded-4">
+      <div class="card-body">
+        <h3 class="text-center mb-4">Login</h3>
+        <form>
+          <div class="mb-3">
+            <label class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email" placeholder="name@example.com">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password">
+          </div>
+          <button type="submit" class="btn btn-primary w-100" onclick="Login()">Sign in</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 </body>
 </html>
