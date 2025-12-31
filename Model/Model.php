@@ -15,7 +15,7 @@ require_once $sitebasepath.'/DbEntities/checklistmotivoDbEntity.php';
 require_once $sitebasepath.'/DbEntities/ticketDbEntity.php';
 require_once $sitebasepath.'/DbEntities/ticket_statusDbEntity.php';
 require_once $sitebasepath.'/DbEntities/eventosDbEntity.php';
-
+require_once $sitebasepath.'/DbEntities/smstounidadesDbEntity.php';
 class Model
 {
 	function __construct()
@@ -550,26 +550,47 @@ class Model
 		}
 
 	function get_ticket_status()
+	{
+		$sql = "SELECT * FROM `ticket_status`";
+		$result = $this->executeSQL($sql);
+		$ticket_status = [];
+		if ($result->num_rows > 0)
+			{
+				while($row = $result->fetch_assoc())
+					{
+						$ticket_status[] = new ticket_statusDbEntity
+							(
+								$row["Id"],
+								$row["Estado"],
+								$row["Descripcion"]
+							);
+					}
+			}
+		return $ticket_status;
+	}
+
+	function get_SMSToUnidades()
+	{
+		$sql = "SELECT * FROM `smstounidades`";
+		$result = $this->executeSQL($sql);
+		$SMSToUnidades = [];
+		if ($result->num_rows > 0)
 		{
-			$sql = "SELECT * FROM `ticket_status`";
-			$result = $this->executeSQL($sql);
-			$ticket_status = [];
-
-			if ($result->num_rows > 0)
+			while($row = $result->fetch_assoc())
 				{
-					while($row = $result->fetch_assoc())
-						{
-							$ticket_status[] = new ticket_statusDbEntity
-								(
-									$row["Id"],
-									$row["Estado"],
-									$row["Descripcion"]
-								);
-						}
+					$SMSToUnidades[] = new smstounidadesDbEntity
+						(
+							$row["Id"],
+							$row["Id_unidad"],
+							$row["SMS"],
+							$row["Recibido"],
+							$row["CreateTime"],
+							$row["ReceivedTime"]
+						);
 				}
-
-			return $ticket_status;
 		}
+		return $SMSToUnidades;
+	}	
 }
 
 ?>
