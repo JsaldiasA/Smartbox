@@ -98,17 +98,19 @@ function myFunction() {
 <div class="topnav" id="myTopnav">
   <a style="display: flex;justify-content: center;padding: 10px 10px;margin-top: 0px;">
   <div><img src="../images/Logocortado.png"  style="margin-left: 0px;width:55px;height:auto;"></div>
-  <div><img src="../images/Logo letra.png"  style="margin-left: -5px;margin-right: 15px;margin-top: 5px;width:60px;height:auto;"></div></a>
-  <div id="RmyTopnav" class="topnav-right">
-  <a  href="../main.php" >Home</a>
-  <a  href="../UnidadVerRowData.php" >RowData</a>
-  <a  href="../TicketInicio.php" >Tickets</a>
-  <a  href="../Sirecor2.0/views/riego/index.php" >Docs<a>
-  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-    <i class="fa fa-bars"></i>
-  </a>
+    <div><img src="../images/Logo letra.png"  style="margin-left: -5px;margin-right: 15px;margin-top: 5px;width:60px;height:auto;"></div></a>
+      <div id="RmyTopnav" class="topnav-right">
+        <a  href="../main.php" >Home</a>
+        <a  href="../UnidadVerRowData.php" >RowData</a>
+        <a  href="../TicketInicio.php" >Tickets</a>
+        <a  href="../Sirecor2.0/views/riego/index.php" >Docs<a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+      </a>
+      </div>
+    </div>
   </div>
-  </div>
-  </div>'
+</div>
+</head>';
 
 ?>
