@@ -89,6 +89,8 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
 	$BatNivel = new BatteryLevel($level);
 	$ultimoRegistro = $unidad->get_UltimoRegistro();
 		
+	
+
 	// Print row.
     echo "<tr>";
     echo "<td>".$unidad->get_Serie()."</td>"; 
@@ -96,7 +98,7 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
     echo "<td>".$unidad->get_Ubicacion()."</td>";
     echo $IsMilesight ? null : "<td>".$unidad->get_Numero()."</td>";
     echo "<td>".$unidad->DiffBetweenNow_and_UltimaActualizacion()."</td>";
-    echo "<td>".$unidad->get_Estado()."</td>";
+    echo "<td>".$unidad->get_Estado()  ."</td>";
     echo "<td>".$BatNivel->get_HtmlTableField()."</td>";
 	echo !$isEstanque ? ($ultimoRegistro == null ? "<td>0</td>":"<td>".$ultimoRegistro->get_CAUDAL()."</td>"): null;
     echo !$isEstanque ? ($IsMilesight ?  "<td>".$unidad->get_VolumenForMilesight()."</td>":"<td>".$unidad->get_Volumen()."</td>" ): null;

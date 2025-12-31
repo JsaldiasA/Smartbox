@@ -65,7 +65,27 @@ $UltimoRegistro)
   function get_numero() { return $this->numero; }
   function get_UltimaActualizacion() { return $this->UltimaActualizacion; }
   function get_Volumen() { return $this->Volumen; }
-  function get_Estado() { return $this->Estado; }
+  function get_Estado() 
+  { 
+    if($this->InvertirEntrada == 1)
+    {
+      switch ($this->Estado) {
+      case "ALTO":
+        return 'BAJO'; 
+        break;
+      case "NULL":
+        return 'MEDIO'; 
+        break;
+      case "BAJO":
+        return 'ALTO'; 
+        break;
+      default:
+        // Code if no match is found
+        break;
+      }
+    } 
+    return $this->Estado; 
+  }
   function get_id_unidadTipo() { return $this->id_unidadTipo; }
   function get_InvertirEntrada() { return $this->InvertirEntrada; }
   function get_BatNivel() { return $this->BatNivel; }
