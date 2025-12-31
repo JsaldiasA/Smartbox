@@ -104,7 +104,7 @@ $sql = "INSERT INTO unidades_lastortolas
           WHERE id= ".$smstounit->get_id();
           $result = $model->executeSQL($sql);
 
-          echo '#'.$smstounit->get_SMS(); 
+          echo '#'.$smstounit->get_SMS().'$'; 
       }
 
   }
