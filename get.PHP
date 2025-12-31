@@ -71,38 +71,28 @@ if( is_null($unidadObj) )
     (id, Serie, tag, Ubicacion, numero, UltimaActualizacion, Volumen, Estado, id_unidadTipo, InvertirEntrada, BatNivel, Temperatura, Humedad, EC, VolMax, FactorFlujometro)
     VALUES(0, NULL, '{$UNIDAD}', NULL, NULL, current_timestamp(), NULL, '{$ESTADO}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)";
 
-      echo $sql; 
-
       $result = $model->executeSQL($sql);
 
-    $unidadObj = $model->unidadByTag($UNIDAD);
+      $unidadObj = $model->unidadByTag($UNIDAD);
 
 $sql = "INSERT INTO unidades_lastortolas
       ( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
       VALUES( ".$unidadObj->get_id().", '{$ESTADO}' ,{$VOLUMEN},{$CAUDAL},{$SENAL},{$VOLTAJE},current_timestamp())";
-
-      echo $sql; 
 
       $result = $model->executeSQL($sql);
 
   }
   else
   {   
-      echo var_dump($unidadObj);
-
       $sql = "INSERT INTO unidades_lastortolas
       ( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
       VALUES( ".$unidadObj->get_id().", '{$ESTADO}' ,{$VOLUMEN},{$CAUDAL},{$SENAL},{$VOLTAJE},current_timestamp())";
-
-      echo $sql; 
 
       $result = $model->executeSQL($sql);
 
       $sql = "UPDATE sirecor.unidad
       SET    UltimaActualizacion=current_timestamp(), Volumen={$VOLUMEN}, Estado='{$ESTADO}', BatNivel={$VOLTAJE}
       WHERE id= ".$unidadObj->get_id();
-
-      echo $sql; 
 
       $result = $model->executeSQL($sql);
   }
