@@ -100,7 +100,7 @@ $sql = "INSERT INTO unidades_lastortolas
       if( $smstounit !== null)
       {
           $sql = "UPDATE sirecor.smstounidades
-          SET    ReceivedTime=current_timestamp(), Recibido={$VOLUMEN}
+          SET    ReceivedTime=current_timestamp(), Recibido=1
           WHERE id= ".$smstounit->get_id();
           $result = $model->executeSQL($sql);
 
