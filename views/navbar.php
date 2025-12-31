@@ -59,41 +59,7 @@ function myFunction() {
   color: white;
 }
 
-.topnav a.active {
-  background-color: #04AA6D;
-  color: white;
-}
 
-.topnav .icon {
-  display: none;
-}
-
-@media screen and (max-width: 800px) {
-  .topnav a:not(:first-child) {display: none;}
-  .topnav a.icon {
-    float: left;
-    display: block;
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .topnav.responsive {position: relative;}
-  .topnav.responsive .icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  .topnav.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
-	clear: right;
-	
-  }
-	 }
-	 .topnav-right {
-  float: right;
-}
 </style>
 <div class="topnav" id="myTopnav">
   <a style="display: flex;justify-content: center;padding: 10px 10px;margin-top: 0px;">
