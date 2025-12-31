@@ -590,6 +590,19 @@ class Model
 				}
 		}
 		return $SMSToUnidades;
+	}
+	
+	function smstounidadesById_unidadNotRecieved($Id_unidad)
+	{
+		$SMSToUnidades = $this->get_SMSToUnidades();
+		foreach ($SMSToUnidades as $su)
+		{
+			if ( ($su->get_Id_unidad() == $Id_unidad) && ($su->get_Recibido() == 0))
+			{
+				return $su;
+			}
+		}
+		return null;
 	}	
 }
 

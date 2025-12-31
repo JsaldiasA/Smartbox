@@ -95,6 +95,18 @@ $sql = "INSERT INTO unidades_lastortolas
       WHERE id= ".$unidadObj->get_id();
 
       $result = $model->executeSQL($sql);
+
+      $smstounit = $model->smstounidadesById_unidadNotRecieved($unidadObj->get_id());
+      if( $smstounit !== null)
+      {
+          $sql = "UPDATE sirecor.smstounidades
+          SET    ReceivedTime=current_timestamp(), Recibido={$VOLUMEN}
+          WHERE id= ".$smstounit->get_id();
+          $result = $model->executeSQL($sql);
+
+          echo '#'.$smstounit->get_SMS(); 
+      }
+
   }
 
 
