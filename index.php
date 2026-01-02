@@ -42,24 +42,26 @@ function Login()
 
 	<div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
 		<!-- Small Container (Width controlled by col-md-4) -->
-		<div class="col-12 col-md-6 col-lg-4">
-			<div class="shadow-lg p-4 border-0 rounded-5 ratio ratio-1x1">
+		<div class="col-12 col-md-6 col-lg-4 ratio ratio-1x1">
+			<div class="shadow-lg p-4 border-0 rounded-5 ">
 					<div class="m-3">
 						<img src="../images/LogoPrincipal.png" class="img-fluid" >
 					</div>
-					<form>
-						<div class="my-3">
-							<label class="form-label">Email address</label>
-							<input type="email" class="form-control" id="email" placeholder="name@example.com">
-						</div>
-						<div class="mb-4">
-							<label class="form-label">Password</label>
-							<input type="password" class="form-control" id="password" placeholder="Password">
-						</div>
-						<div class="my-3">
-							<button type="button" class="btn shadow btn-primary w-100" onclick="Login()">Sign in</button>
-						</div>
-					</form>
+					<div class="m-3">
+						<form>
+							<div class="my-3">
+								<label class="form-label">Email address</label>
+								<input type="email" class="form-control" id="email" placeholder="name@example.com">
+							</div>
+							<div class="mb-4">
+								<label class="form-label">Password</label>
+								<input type="password" class="form-control" id="password" placeholder="Password">
+							</div>
+							<div class="my-3">
+								<button type="button" class="btn shadow btn-primary w-100" onclick="Login()">Sign in</button>
+							</div>
+						</form>
+					</div>
 			</div>
 		</div>
 	</div>
