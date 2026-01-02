@@ -1,6 +1,6 @@
 <?php
 
-echo
+echo'
 
 <script>
 	
@@ -42,6 +42,10 @@ function myFunction() {
   overflow: hidden;
   background-color: #213A58 ;
   vertical-align: middle;
+}
+
+.navbar {
+  background-color: #213A58 ;
 }
 
 .topnav a {
