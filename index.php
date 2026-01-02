@@ -43,7 +43,7 @@ function Login()
 	<div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
 		<!-- Small Container (Width controlled by col-md-4) -->
 			<div class="card shadow-lg p-4 border-0 rounded-5 " style="width: 36 rem;" >
-					<div class="m-3">
+					<div class="mx-5">
 						<img src="../images/LogoPrincipal.png" class="card-img-top"  >
 					</div>
 					<div class="card-body m-3 ">
