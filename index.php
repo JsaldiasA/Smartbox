@@ -45,9 +45,9 @@ function Login()
   <div class="col-12 col-md-6 col-lg-4">
     <div class="card shadow p-5 m-5 border-0 rounded-4">
       <div class="card-body">
-	 		<img src="../images/LogoPrincipal.png" class=" p-5 m-5 card-img-top" ></div>
+	 		<img src="../images/LogoPrincipal.png" class="card-img-top" ></div>
         <form>
-          <div class="mb-3">
+          <div class="my-3">
             <label class="form-label">Email address</label>
             <input type="email" class="form-control" id="email" placeholder="name@example.com">
           </div>
