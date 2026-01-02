@@ -51,16 +51,14 @@ function Login()
             <label class="form-label">Email address</label>
             <input type="email" class="form-control" id="email" placeholder="name@example.com">
           </div>
-          <div class="mb-5">
+          <div class="mb-4">
             <label class="form-label">Password</label>
             <input type="password" class="form-control" id="password" placeholder="Password">
           </div>
 		  <div class="my-3">
-          <button type="button" class="btn btn-primary w-100" onclick="Login()">Sign in</button>
+          <button type="button" class="btn shadow btn-primary w-100" onclick="Login()">Sign in</button>
 		  </div>
         </form>
-		<br>
-		<br>
       </div>
     </div>
   </div>
