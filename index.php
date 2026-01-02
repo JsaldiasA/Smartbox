@@ -40,7 +40,7 @@ function Login()
 </script>
 <body style="background-color: #213A58;">
 
-<div class="container-fluid vh-100 d-flex align-items-center justify-content-center bg-light">
+<div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
   <!-- Small Container (Width controlled by col-md-4) -->
   <div class="col-12 col-md-6 col-lg-4">
     <div class="card shadow p-5 m-5 border-0 rounded-4">
