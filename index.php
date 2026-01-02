@@ -45,8 +45,10 @@ function Login()
   <div class="col-12 col-md-6 col-lg-4">
     <div class="card shadow p-4 border-0 rounded-4">
       <div class="card-body">
-		<img src="../images/LogoPrincipal.png"  style=""></div>
-        <h3 class="text-center mb-4">Login</h3>
+		<div class="mb-3">
+	 		<img src="../images/LogoPrincipal.png"  style="width:auto;height:auto;"></div>
+         </div>
+		<h3 class="text-center mb-4">Login</h3>
         <form>
           <div class="mb-3">
             <label class="form-label">Email address</label>
