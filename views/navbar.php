@@ -77,6 +77,6 @@ function myFunction() {
     </div>
   </div>
 </div>
-</head>';
+';
 
 ?>
