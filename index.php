@@ -55,7 +55,7 @@ function Login()
             <label class="form-label">Password</label>
             <input type="password" class="form-control" id="password" placeholder="Password">
           </div>
-		  <div class="mb-y">
+		  <div class="my-3">
           <button type="button" class="btn btn-primary w-100" onclick="Login()">Sign in</button>
 		  </div>
         </form>
