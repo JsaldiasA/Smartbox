@@ -38,7 +38,7 @@ function Login()
 	}
 	
 </script>
-<body style="background-color: #213A58">
+<body style="background-color: #213A58;">
 
 <div class="container-fluid vh-100 d-flex align-items-center justify-content-center bg-light">
   <!-- Small Container (Width controlled by col-md-4) -->
