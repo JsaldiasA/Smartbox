@@ -48,7 +48,6 @@ function Login()
 		<div class="mb-3">
 	 		<img src="../images/LogoPrincipal.png"  class="img-fluid"></div>
          </div>
-		<h3 class="text-center mb-4">Login</h3>
         <form>
           <div class="mb-3">
             <label class="form-label">Email address</label>
