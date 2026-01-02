@@ -46,7 +46,7 @@ function Login()
     <div class="card shadow p-5 m-5 border-0 rounded-4">
       <div class="card-body">
 		<div class="mb-3">
-	 		<img src="../images/LogoPrincipal.png"  class="p-5 m-5"></div>
+	 		<img src="../images/LogoPrincipal.png" style="height: 200px; width: auto px;" class="p-5 m-5" ></div>
          </div>
         <form>
           <div class="mb-3">
