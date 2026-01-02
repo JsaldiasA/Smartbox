@@ -41,12 +41,12 @@ function Login()
 <body style="background-color: #213A58;">
 
 	<div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
-	<!-- Small Container (Width controlled by col-md-4) -->
+		<!-- Small Container (Width controlled by col-md-4) -->
 		<div class="col-12 col-md-6 col-lg-4">
 			<div class="card shadow-lg p-4 border-0 rounded-5">
 				<div class="card-body ratio" style="--bs-aspect-ratio: 100%;">
 					<div class="m-3">
-						<img src="../images/LogoPrincipal.png" class="card-img-top" ></div>
+						<img src="../images/LogoPrincipal.png" class="card-img-top" >
 					</div>
 					<form>
 						<div class="my-3">
