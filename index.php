@@ -42,12 +42,11 @@ function Login()
 
 	<div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
 		<!-- Small Container (Width controlled by col-md-4) -->
-		<div class="col-12 col-md-6 col-lg-4 ratio ratio-1x1">
-			<div class="card shadow-lg p-4 border-0 rounded-5 ">
+			<div class="card shadow-lg p-4 border-0 rounded-5 " style="width: 18rem;" >
 					<!--<<div class="m-3">-->
-						<img src="../images/LogoPrincipal.png" class="card-img-top" >
+						<img src="../images/LogoPrincipal.png" class="card-img-top"  >
 					<!--</div>-->
-					<div class="card-body m-3">
+					<div class="card-body m-3 ">
 						<form>
 							<div class="my-3">
 								<label class="form-label">Email address</label>
@@ -63,7 +62,6 @@ function Login()
 						</form>
 					</div>
 			</div>
-		</div>
 	</div>
 
 </body>
