@@ -44,10 +44,10 @@ function Login()
 		<!-- Small Container (Width controlled by col-md-4) -->
 		<div class="col-12 col-md-6 col-lg-4 ratio ratio-1x1">
 			<div class="card shadow-lg p-4 border-0 rounded-5 ">
-					<div class="m-3">
-						<img src="../images/LogoPrincipal.png" style=" max-width: auto; height: 100%;" >
-					</div>
-					<div class="m-3">
+					<!--<<div class="m-3">-->
+						<img src="../images/LogoPrincipal.png" class="card-img-top" >
+					<!--</div>-->
+					<div class="card-body m-3">
 						<form>
 							<div class="my-3">
 								<label class="form-label">Email address</label>
