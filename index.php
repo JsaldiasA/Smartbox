@@ -43,8 +43,8 @@ function Login()
 	<div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
 	<!-- Small Container (Width controlled by col-md-4) -->
 		<div class="col-12 col-md-6 col-lg-4">
-			<div class="card shadow-lg p-4 border-0 rounded-5 ratio ratio-16x9">
-				<div class="card-body">
+			<div class="card shadow-lg p-4 border-0 rounded-5">
+				<div class="card-body ratio" style="--bs-aspect-ratio: 160%;">
 					<div class="m-3">
 						<img src="../images/LogoPrincipal.png" class="card-img-top" ></div>
 					</div>
