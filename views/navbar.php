@@ -40,7 +40,7 @@ function myFunction() {
 	 
 .topnav {
   overflow: hidden;
-  background-color: #17202A ;
+  background-color: #213A58 ;
   vertical-align: middle;
 }
 
@@ -48,11 +48,9 @@ function myFunction() {
   float: left;
   display: block;
   text-align: center;
-  padding: 14px 16px;
   font-size: 17px;
   color:#ABB2B9  ;
   text-shadow: 2px 2px 4px #000000;
-  margin-top: 10px;
 }
 
 .topnav a:hover {;
@@ -62,18 +60,14 @@ function myFunction() {
 
 </style>
 <div class="topnav" id="myTopnav">
-  <a style="display: flex;justify-content: center;padding: 10px 10px;margin-top: 0px;">
-  <div><img src="../images/LogoPrincipal.png"  style="margin-left: 0px;width:55px;height:auto;"></div>
-      <div id="RmyTopnav" class="topnav-right">
-        <a  href="../main.php" >Home</a>
-        <a  href="../UnidadVerRowData.php" >RowData</a>
-        <a  href="../TicketInicio.php" >Tickets</a>
-        <a  href="../Sirecor2.0/views/riego/index.php" >Docs<a>
-        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-        <i class="fa fa-bars"></i>
-      </a>
-      </div>
-    </div>
+  <div>
+    <img src="../images/LogoPrincipal.png"  style="margin-left: 0px;width:55px;height:auto;">
+  </div>
+  <div id="RmyTopnav" class="topnav-right">
+    <a  href="../main.php" >Home</a>
+    <a  href="../UnidadVerRowData.php" >RowData</a>
+    <a  href="../TicketInicio.php" >Tickets</a>
+    <a  href="../Sirecor2.0/views/riego/index.php" >Docs<a>
   </div>
 </div>
 ';
