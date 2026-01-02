@@ -60,14 +60,23 @@ function myFunction() {
 
 </style>
 <div class="topnav" id="myTopnav">
-  <div>
-    <img src="../images/LogoPrincipal.png"  style="margin-left: 0px;width:55px;height:auto;">
-  </div>
-  <div id="RmyTopnav" class="topnav-right">
+  <div class="row">
+    <div class="col">
+      <img src="../images/LogoPrincipal.png"  style="margin-left: 0px;width:100px;height:auto;">
+    </div>
+    <div class="col">
     <a  href="../main.php" >Home</a>
+    </div>
+    <div class="col">
+    </div>
     <a  href="../UnidadVerRowData.php" >RowData</a>
+    </div>
+    <div class="col">
     <a  href="../TicketInicio.php" >Tickets</a>
+    </div>
+    <div class="col">  
     <a  href="../Sirecor2.0/views/riego/index.php" >Docs<a>
+    </div>
   </div>
 </div>
 ';
