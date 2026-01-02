@@ -45,8 +45,8 @@ function myFunction() {
 </style>
 <nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
-  <div class="m-2">
-  <img src="../images/LogoPrincipal.png"  style="margin-left: 0px;width:100px;height:auto;">
+  <div class="m-1">
+  <img src="../images/LogoPrincipal.png"  style="margin-left: 0px;width:80px;height:auto;">
   </div> 
   <a class="navbar-brand" href="#"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
