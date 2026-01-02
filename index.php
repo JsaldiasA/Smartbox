@@ -45,9 +45,8 @@ function Login()
 		<div class="col-12 col-md-6 col-lg-4">
 			<div class="card shadow-lg p-4 border-0 rounded-5">
 				<div class="card-body ratio" style="--bs-aspect-ratio: 100%;">
-					<div class="m-3">
-						<img src="../images/LogoPrincipal.png" class="card-img-top" >
-					</div>
+					<img src="../images/LogoPrincipal.png" class="card-img-top" >
+			
 					<form>
 						<div class="my-3">
 							<label class="form-label">Email address</label>
