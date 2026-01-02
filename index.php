@@ -40,15 +40,15 @@ function Login()
 </script>
 <body style="background-color: #213A58;">
 
-	<div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
+	<div class="container vh-100 d-flex align-items-center justify-content-center">
 		<!-- Small Container (Width controlled by col-md-4) -->
-			<div class="card shadow-lg p-4 border-0 rounded-5 " style="width: 24rem;" >
-					<div class="pb-4 m-5 ">
-						<img src="../images/LogoPrincipal.png" class="card-img-top"  >
+			<div class="card shadow-lg p-4" style="width: 28rem;" >
+					<div class="mx-5 mt-3 ">
+						<img src="../images/LogoPrincipal.png" class=" px-5 pt-3 card-img-top"  >
 					</div>
-					<div class="card-body m-3 ">
+					<div class="card-body m-3">
 						<form>
-							<div class="my-3">
+							<div class="mb-4">
 								<label class="form-label">Email address</label>
 								<input type="email" class="form-control" id="email" placeholder="name@example.com">
 							</div>
@@ -56,7 +56,7 @@ function Login()
 								<label class="form-label">Password</label>
 								<input type="password" class="form-control" id="password" placeholder="Password">
 							</div>
-							<div class="my-3">
+							<div class="">
 								<button type="button" class="btn shadow btn-primary w-100" onclick="Login()">Sign in</button>
 							</div>
 						</form>
