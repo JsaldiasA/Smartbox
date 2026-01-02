@@ -37,30 +37,10 @@ function myFunction() {
 }	 
 </style>
 <style>
-	 
-.topnav {
-  overflow: hidden;
-  background-color: #213A58 ;
-  vertical-align: middle;
-}
-
+	
 .navbar {
   background-color: #213A58 ;
 }
-
-.topnav a {
-  float: left;
-  display: block;
-  text-align: center;
-  font-size: 17px;
-  color:#ABB2B9  ;
-  text-shadow: 2px 2px 4px #000000;
-}
-
-.topnav a:hover {;
-  color: white;
-}
-
 
 </style>
 <nav class="navbar navbar-expand-lg">
@@ -73,13 +53,13 @@ function myFunction() {
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a  href="../main.php" >Home</a>
+          <a class="nav-link" href="../main.php" >Home</a>
         </li>
         <li class="nav-item">
-          <a  href="../UnidadVerRowData.php" >RowData</a>
+          <a class="nav-link" href="../UnidadVerRowData.php" >RowData</a>
         </li>
         <li class="nav-item">
-          <a  href="../TicketInicio.php" >Tickets</a>
+          <a class="nav-link" href="../TicketInicio.php" >Tickets</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
