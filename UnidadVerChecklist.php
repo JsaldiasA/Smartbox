@@ -40,6 +40,7 @@ if ($result->num_rows > 0)
 				$row["SensorNivelBajo"],
 				$row["SensorNivelAlto"],
 				$row["VoltajeMCU"],
+				$row["VoltajeBateria"],
 				$row["BateriaTest"],
 				$row["id_checklistMotivo"],
 				$row["Observaciones"],
@@ -79,6 +80,7 @@ if($HasChecklist == true)
 		echo "<tr><td><b>Flujómetro:</b></td><td>". $checklistDbEntity->get_Flujometro(). "</td></tr>";
 		echo "<tr><td><b>Sensor nivel bajo:</b></td><td>". $checklistDbEntity->get_SensorNivelBajo(). "</td></tr>";
 		echo "<tr><td><b>Sensor nivel alto:</b></td><td>". $checklistDbEntity->get_SensorNivelAlto(). "</td></tr>";
+		echo "<tr><td><b>Voltaje de la batería:</b></td><td>". $checklistDbEntity->get_VoltajeBateria(). "</td></tr>";
 		echo "<tr><td><b>Medidor de batería:</b></td><td>". $checklistDbEntity->get_BateriaTest(). "</td></tr>";
 		echo "<tr><td><b>Observaciones:</b></td><td>". $checklistDbEntity->get_Observaciones(). "</td></tr>";
 		echo "<tr><td><img src='". $checklistDbEntity->get_URL_foto() ."' class='img-fluid' ></td></tr>";
