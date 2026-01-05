@@ -12,6 +12,7 @@ $Solenoide=$_POST['Solenoide'];
 $SensorNivelBajo=$_POST['SensorNivelBajo'];
 $SensorNivelAlto=$_POST['SensorNivelAlto'];
 $VoltajeMCU=$_POST['VoltajeMCU'];
+$VoltajeMCU=$_POST['VoltajeBateria'];
 $BateriaTest=$_POST['BateriaTest'];
 $id_checklistMotivo=$_POST['id_checklistMotivo'];
 $Observaciones=$_POST['Observaciones'];
@@ -24,21 +25,15 @@ $token= $_POST['token'];
 $self=$_SERVER['PHP_SELF']; 
 $thispath=dirname($_SERVER['PHP_SELF']);
 $sitebasepath=$_SERVER['DOCUMENT_ROOT'];
-require_once $sitebasepath.'/DbEntities/unidadDbEntity.php';
-require_once $sitebasepath.'/DbEntities/checklistDbEntity.php';
-require_once $sitebasepath.'/config/DbSirecorConfig.php';	
+
+require_once $sitebasepath.'/Model/Model.php';	
+
+$model = new Model();
 
 if (strcmp($token,'eco3spa')==0)
 {
-	// Create connection	
-	$dbConfig = new DbSirecorConfig();		
-	$conn = new mysqli($dbConfig->get_servername(),$dbConfig->get_username(),$dbConfig->get_password(),$dbConfig->get_dbname());
-	
-	if ($conn->connect_error) {
- 	 die("Connection failed: " . $conn->connect_error);
-	}
-	
- $sql = "INSERT INTO `checklist` (`Id`, `VoltajeReguladorBat`, `VoltajeReguladorMCU`, `SmartBox`, `SMSenvio`, `SMSrecibo`, `Flujometro`, `Solenoide`, `SensorNivelBajo`, `SensorNivelAlto`, `VoltajeMCU`, `BateriaTest`, `id_checklistMotivo`, `Observaciones`, `id_unidadtipo`, `URL_foto`, `id_unidad`, `Fecha`, `TecnicoResponsable`) VALUES ( NULL,'{$VoltajeReguladorBat}',
+
+ $sql = "INSERT INTO `checklist` (`Id`, `VoltajeReguladorBat`, `VoltajeReguladorMCU`, `SmartBox`, `SMSenvio`, `SMSrecibo`, `Flujometro`, `Solenoide`, `SensorNivelBajo`, `SensorNivelAlto`, `VoltajeMCU`, `BateriaTest`, `id_checklistMotivo`, `Observaciones`, `id_unidadtipo`, `URL_foto`, `id_unidad`, `Fecha`, `TecnicoResponsable`,`VoltajeBateria`) VALUES ( NULL,'{$VoltajeReguladorBat}',
 '{$VoltajeReguladorMCU}',
 '{$SmartBox}',
 '{$SMSenvio}',
@@ -55,11 +50,13 @@ if (strcmp($token,'eco3spa')==0)
 'https://smartbox.eco3.cl/checklistform/Fotos/{$URL_foto}',
 '{$id_unidad}',
 current_timestamp(),
-'{$TecnicoResponsable}')";
+'{$TecnicoResponsable}',
+'{$VoltajeBateria}'
+)";
 
 //	 $sql = "INSERT INTO `checklist` ( `VoltajeReguladorBat`, `VoltajeReguladorMCU`, `SmartBox`, `Entel4Parametros`, `SMS`, `MB`, `Internet`, `AlertaCaudal0`, `AlertaVolMax`, `AlertaCAUDALvOFF`, `llamadaAdmin`, `llamadaUsuario1`, `Estado`, `AlertaNivelBajo`, `TecnicoResponsable`, `Observaciones`, `TipoDeDispositivo`, `URL_foto`) VALUES ( '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1')";
 	
-	$result = $conn->query($sql);
+	$result = $model->executeSQL($sql);
 
 	if ($result->num_rows > 0) {
     // output data of each row
@@ -87,7 +84,6 @@ current_timestamp(),
 'id_unidad: '.$id_unidad.
 'Fecha: '.$Fecha.
 'TecnicoResponsable: '.$TecnicoResponsable;
-	$conn->close();
 }
 else
 {

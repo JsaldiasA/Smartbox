@@ -73,7 +73,7 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
 						} 
 			
 					var VoltajeBateria= document.getElementById("VoltajeBateria");
-					hasError = NumericParameterHasError(VoltajeBateria,4.2,3.6);
+					hasError = NumericParameterHasError(VoltajeBateria,12,15);
 
 					var BateriaTest= Number(document.getElementById("BateriaTest").checked);
 					var e = document.getElementById("ChecklistMotivo");
@@ -208,7 +208,7 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
 		<tr><td><b>Flujómetro:</b></td><td><input type="checkbox" class="form-check-input" id="Flujometro"></td><td></td></tr>
 		<tr><td><b>Sensor nivel bajo:</b></td><td><input type="checkbox" class="form-check-input" id="SensorNivelBajo"></td><td></td></tr>
 		<tr><td><b>Sensor nivel alto:</b></td><td><input type="checkbox" class="form-check-input" id="SensorNivelAlto" ></td><td></td></tr>
-		<tr><td><b>Voltaje de la batería:</b></td><td><input type="checkbox" class="form-check-input" id="VoltajeBateria" ></td><td></td></tr>
+		<tr><td><b>Voltaje de la batería:</b></td><td><input type="text" class="form-control" id="VoltajeBateria" placeholder="12-15V" pattern="[0-9]{1,}|[0-9]{1,}[.][0-9]{1,}" title="Solo ingresar numeros" ></td><td>(V)</td></tr>
 		<tr><td><b>Medidor de batería:</b></td><td><input type="checkbox" class="form-check-input" id="BateriaTest" ></td><td></td></tr>
 		<tr><td><b>Observaciones:</b></td><td><input type="text" class="form-control" id="Observaciones" placeholder="Si no tiene comentarios, coloque OK."></td><td></td></tr>
 		<tr><td><b>Técnico responsable:</b></td><td><input type="text" class="form-control" id="TecnicoResponsable" placeholder="Nombre"></td><td></td></tr>
