@@ -50,14 +50,16 @@ class page
                 </div>
               <div class="col">  
             </div>
-          </div>';
+          </div>
+          <script>window.location.href = "https://smartbox.eco3.cl/"</script>'
+          ;
           }
           else
           {
               return $this->PageHTML;
           }
       } else {
-          return  "Invalid token.";
+          return  '<script>window.location.href = "https://smartbox.eco3.cl/"</script>';
       }      
     }
 
