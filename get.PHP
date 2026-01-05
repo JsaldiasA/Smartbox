@@ -1,5 +1,8 @@
+
+<!DOCTYPE html>
 <?php
-// Create SQL Connection
+
+header('Content-Type: text/plain');
 
 $self=$_SERVER['PHP_SELF'];
 $thispath=dirname($_SERVER['PHP_SELF']);
