@@ -1,5 +1,4 @@
 
-<!DOCTYPE html>
 <?php
 
 header('Content-Type: text/plain');
