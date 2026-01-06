@@ -551,8 +551,15 @@ class Model
 		$sql = substr($sql, 0, -2); // removing extra ', '
 		$sql = $sql." ) VALUES ( ";
 		foreach ($obj as $value ) 
-		{
-   			$sql = $sql."'".$value ."', ";
+		{	
+			if($value == 'NULL')
+			{	
+   				$sql = $sql.$value .", ";
+			}
+			else
+			{
+				$sql = $sql."'".$value ."', ";
+			}
 		}
 		$sql = substr($sql, 0, -2); // removing extra ', '
 		$sql = $sql." )";
