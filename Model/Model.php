@@ -520,51 +520,21 @@ class Model
 		}		
 
 	function get_ticket()
-		{
-			$sql = "SELECT * FROM `ticket` ORDER BY id DESC";
-
-			return $this->MYSQLfetchObj($sql, 'ticketDbEntity');
-		}
+	{
+		$sql = "SELECT * FROM `ticket` ORDER BY id DESC";
+		return $this->MYSQLfetchObj($sql, 'ticketDbEntity');
+	}
 
 	function get_ticket_priority()
-		{
-			$sql = "SELECT * FROM `ticket_priority`";
-			$result = $this->executeSQL($sql);
-			$ticket_priority = [];
-
-			if ($result->num_rows > 0)
-				{
-					while($row = $result->fetch_assoc())
-						{
-							$ticket_priority[] = new ticket_priorityDbEntity
-								(
-									$row["Id"],
-									$row["Prioridad"]
-								);
-						}
-				}
-
-			return $ticket_priority;
-		}
+	{
+		$sql = "SELECT * FROM `ticket_priority`";
+		return $this->MYSQLfetchObj($sql, 'ticket_priorityDbEntity');
+	}
 
 	function get_ticket_status()
 	{
 		$sql = "SELECT * FROM `ticket_status`";
-		$result = $this->executeSQL($sql);
-		$ticket_status = [];
-		if ($result->num_rows > 0)
-			{
-				while($row = $result->fetch_assoc())
-					{
-						$ticket_status[] = new ticket_statusDbEntity
-							(
-								$row["Id"],
-								$row["Estado"],
-								$row["Descripcion"]
-							);
-					}
-			}
-		return $ticket_status;
+		return $this->MYSQLfetchObj($sql, 'ticket_statusDbEntity');
 	}
 
 	function get_SMSToUnidades()

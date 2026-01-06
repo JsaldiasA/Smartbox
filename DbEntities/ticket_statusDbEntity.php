@@ -5,13 +5,6 @@ class ticket_statusDbEntity
     public $Id;
     public $Estado;
     public $Descripcion;
-	    
-    function __construct ($Id, $Estado, $Descripcion,)
-      { 		
-        $this->Id = $Id;
-        $this->Estado = $Estado;
-        $this->Descripcion = $Descripcion;
-      }
 
     function get_Id()
       {
