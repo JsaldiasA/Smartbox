@@ -15,7 +15,7 @@ $ticketToDelete= $Model->ticketById($id_ticket);
 $result = $model->delete_ticket($ticketToDelete);
 $rows = array();
 
-echo '<script>window.location.href = "https://smartbox.eco3.cl/"</script>'
+echo '<script>window.location.href = "https://smartbox.eco3.cl/"</script>';d
 
 
 
