@@ -504,28 +504,12 @@ class Model
 
 	function get_ticket()
 		{
-			$sql = "SELECT * FROM `ticket`";
+			$sql = "SELECT * FROM `ticket` LIMIT 1";
 			$result = $this->executeSQL($sql);
 			$ticket = [];
-
-			if ($result->num_rows > 0)
-				{
-					while($row = $result->fetch_assoc())
-						{
-							$ticket[] = new ticketDbEntity
-								(
-									$row["Id"],
-									$row["Nombre"],
-									$row["Ubicacion"],
-									$row["Descripcion"],
-									$row["Usuario"],
-									$row["FechaInicio"],
-									$row["FechaCierre"],
-									$row["Id_TicketPriority"],
-									$row["Id_TicketStatus"]
-								);
-						}
-				}
+			$dbdata = array();
+			
+			$obj = mysqli_fetch_object($result, 'ticketDbEntity');
 
 			return $ticket;
 		}
