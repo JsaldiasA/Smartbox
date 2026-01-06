@@ -557,7 +557,8 @@ class Model
 		$sql = substr($sql, 0, -2); // removing extra ', '
 		$sql = $sql." )";
 
-		$this->executeSQL($sql);
+		//$this->executeSQL($sql);
+		echo $sql;
 
 	}
 

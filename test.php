@@ -5,6 +5,8 @@ $sitebasepath=$_SERVER['DOCUMENT_ROOT'];
 require_once $sitebasepath."/Model/model.php";
 
 $model = new Model();
-echo var_dump($model->get_ticket());
+$ticket =$model->get_ticket()[0];
+
+echo $model->create_ticket($ticket);
 
 ?>
