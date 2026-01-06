@@ -552,7 +552,7 @@ class Model
 		$sql = $sql." ) VALUES ( ";
 		foreach ($obj as $value ) 
 		{
-   			$sql = $sql.$value .", ";
+   			$sql = $sql."'".$value ."', ";
 		}
 		$sql = substr($sql, 0, -2); // removing extra ', '
 		$sql = $sql." )";
