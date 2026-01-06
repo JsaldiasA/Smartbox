@@ -27,7 +27,7 @@ echo '</tbody></table>';
 echo '<divclass="row">';
  echo'<form action="/ApiController/ticket/delete.php" method="POST">
   
-  <input type="hidden" name="id_ticket value="'.$ticket->get_Id().'" />
+  <input type="hidden" name="id_ticket" value="'.$ticket->get_Id().'" />
   
   <button class="btn btn-danger" type="submit">Eliminar</button>
 </form>';
