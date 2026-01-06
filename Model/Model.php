@@ -504,7 +504,7 @@ class Model
 
 	function get_ticket()
 		{
-			$sql = "SELECT * FROM `ticket` LIMIT 1";
+			$sql = "SELECT * FROM `ticket` ";
 			$result = $this->executeSQL($sql);
 			$ticket = [];
 			$dbdata = array();
