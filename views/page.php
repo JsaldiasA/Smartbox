@@ -35,24 +35,9 @@ class page
 
         $expTime = $decoded["body"]["exp"];
     
-        if ($expTime< time()) {
-          return
-          '<div class="container">
-            <div class="row">
-              <div class="d-flex justify-content-center">
-              <br><p class="h1">token expirado</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <div class="d-flex justify-content-center">
-                  <br><a href="index.php"><p class="h1">log in</p></a><br>
-                </div>
-              <div class="col">  
-            </div>
-          </div>
-          <script>window.location.href = "https://smartbox.eco3.cl/"</script>'
-          ;
+        if ($expTime< time()) 
+          {
+            return '<script>window.location.href = "https://smartbox.eco3.cl/"</script>';
           }
           else
           {
