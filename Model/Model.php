@@ -530,10 +530,10 @@ class Model
 		$sql = "UPDATE `ticket` SET ";
 		foreach ($obj as $property_name ) 
 		{
-   			$sql = $sql + $property_name ." = ". $obj->$property_name.", ";
+   			$sql = $sql.$property_name ." = ". $obj->$property_name.", ";
 		}
 		$sql = substr($sql, 0, -2); // removing extra ', '
-		$sql = $sql + " WHERE Id =" + $obj->get_Id();
+		$sql = $sql." WHERE Id =".$obj->get_Id();
 
 		$this->executeSQL($sql);
 	}
@@ -543,16 +543,16 @@ class Model
 		$sql = "INSERT INTO `ticket` ( ";
 		foreach ($obj as $property_name ) 
 		{
-   			$sql = $sql + $property_name .", ";
+   			$sql = $sql.$property_name .", ";
 		}
 		$sql = substr($sql, 0, -2); // removing extra ', '
-		$sql = $sql + " ) VALUES ( ";
+		$sql = $sql." ) VALUES ( ";
 		foreach ($obj as $property_name ) 
 		{
-   			$sql = $sql + $obj->$property_name .", ";
+   			$sql = $sql.$obj->$property_name .", ";
 		}
 		$sql = substr($sql, 0, -2); // removing extra ', '
-		$sql = $sql + " )";
+		$sql = $sql." )";
 
 		$this->executeSQL($sql);
 
