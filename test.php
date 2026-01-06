@@ -5,7 +5,18 @@ $sitebasepath=$_SERVER['DOCUMENT_ROOT'];
 require_once $sitebasepath."/Model/model.php";
 
 $model = new Model();
-$ticket =$model->get_ticket()[0];
+
+$NewTicket = new ticketDbEntity();
+
+$NewTicket->Id = '1';
+$NewTicket->Nombre = 'Nombre' ;
+$NewTicket->Ubicacion = 'Ubicacion' ;
+$NewTicket->Descripcion = 'Descripcion' ;
+$NewTicket->Usuario = 'Usuario' ;
+$NewTicket->FechaInicio = 'current_timestamp()';
+$NewTicket->FechaCierre = 'NULL';
+$NewTicket->Id_TicketPriority = '1';
+$NewTicket->Id_TicketStatus = '1';
 
 echo $model->create_ticket($ticket);
 
