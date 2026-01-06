@@ -525,12 +525,12 @@ class Model
 		return $this->MYSQLfetchObj($sql, 'ticketDbEntity');
 	}
 
-	function create_ticket($obj)
+	function update_ticket($obj)
 	{
 		$sql = "UPDATE `ticket` SET ";
-		foreach ($obj as $property_name => $property_value) 
+		foreach ($obj as $property_name ) 
 		{
-   			$sql = $sql + $property_name ." = ". $obj->property_name.", ";
+   			$sql = $sql + $property_name ." = ". $obj->$property_name.", ";
 		}
 		$sql = substr($sql, 0, -2); // removing extra ', '
 		$sql = $sql + " WHERE Id =" + $obj->get_Id();
@@ -538,10 +538,24 @@ class Model
 		$this->executeSQL($sql);
 	}
 
-		function update_ticket()
+		function create_ticket($obj)
 	{
-		$sql = "SELECT * FROM `ticket` ORDER BY Id DESC";
-		return $this->MYSQLfetchObj($sql, 'ticketDbEntity');
+		$sql = "INSERT INTO `ticket` ( ";
+		foreach ($obj as $property_name ) 
+		{
+   			$sql = $sql + $property_name .", ";
+		}
+		$sql = substr($sql, 0, -2); // removing extra ', '
+		$sql = $sql + " ) VALUES ( ";
+		foreach ($obj as $property_name ) 
+		{
+   			$sql = $sql + $obj->$property_name .", ";
+		}
+		$sql = substr($sql, 0, -2); // removing extra ', '
+		$sql = $sql + " )";
+
+		$this->executeSQL($sql);
+
 	}
 
 	function delete_ticket($obj)
