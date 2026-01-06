@@ -26,12 +26,10 @@ echo "<tr><td><b>Estado de la solicitud:</b></td><td>". $ticket->get_Id_TicketSt
 echo '</tbody></table>';
 echo '<divclass="row">';
  echo'<form action="/ApiController/ticketController.php" method="POST">
-  <!-- This hidden field tells the backend to treat this as a DELETE request -->
-  <input type="hidden" name="_method" value="DELETE" />
   
   <input type="hidden" name="id_ticket value="'.$ticket->get_Id().'" />
   
-  <button type="submit">Eliminar</button>
+  <button class="btn btn-danger" type="submit">Eliminar</button>
 </form>';
 echo '</div>';
 	

@@ -8,13 +8,15 @@ require_once $sitebasepath."/Model/model.php";
 
 $model = new Model();
 
-$Id_ticket= $_DELETE['id_ticket'];
+$Id_ticket= $_POST['id_ticket'];
 
 $ticketToDelete= $Model->ticketById($id_ticket);
 
 $result = $model->delete_ticket($ticketToDelete);
 $rows = array();
 
-echo '<script>window.location.href = "https://smartbox.eco3.cl/"</script>';
+echo '<script>window.location.href = "https://smartbox.eco3.cl/"</script>'
+
+
 
 ?>
