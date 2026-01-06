@@ -18,6 +18,6 @@ $NewTicket->FechaCierre = 'NULL';
 $NewTicket->Id_TicketPriority = '1';
 $NewTicket->Id_TicketStatus = '1';
 
-echo $model->create_ticket($ticket);
+echo $model->create_ticket($NewTicket-);
 
 ?>
