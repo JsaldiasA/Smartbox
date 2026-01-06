@@ -511,7 +511,7 @@ class Model
 			
 			$obj = mysqli_fetch_object($result, 'ticketDbEntity');
 
-			return $ticket;
+			return $obj;
 		}
 
 	function get_ticket_priority()
