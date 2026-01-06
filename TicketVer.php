@@ -24,6 +24,15 @@ echo "<tr><td><b>Fecha de ingreso:</b></td><td>". $ticket->get_FechaInicio(). "<
 echo "<tr><td><b>Prioridad:</b></td><td>". $ticket->get_Id_TicketPriority(). "</td></tr>";
 echo "<tr><td><b>Estado de la solicitud:</b></td><td>". $ticket->get_Id_TicketStatus(). "</td></tr>";
 echo '</tbody></table>';
+echo '<divclass="row">';
+ echo'<form action="/ApiController/TicketController.php" method="POST">
+  <!-- This hidden field tells the backend to treat this as a DELETE request -->
+  <input type="hidden" name="_method" value="DELETE" />
+  
+  <input type="hidden" name="id_ticket value='.$ticket->get_Id().' />
+  
+  <button class="btn btn-danger" type="submit">Eliminar</button>
+</form>';
 echo '</div>';
 	
 ?>

@@ -569,7 +569,7 @@ class Model
 
 	function delete_ticket($obj)
 	{
-		$id_obj= $obj->get_Id();
+		$id_obj= $obj->Id;
 		$sql = "DELETE FROM `ticket` WHERE Id =".$id_obj;
 		$this->executeSQL($sql);
 	}
