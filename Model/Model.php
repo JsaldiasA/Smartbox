@@ -506,12 +506,17 @@ class Model
 		{
 			$sql = "SELECT * FROM `ticket` ";
 			$result = $this->executeSQL($sql);
-			$ticket = [];
-			$dbdata = array();
-			
-			$obj = mysqli_fetch_object($result, 'ticketDbEntity');
 
-			return $obj;
+			$objects = [];
+
+			if ($result->num_rows > 0) 
+			{
+   				while ($obj = mysqli_fetch_object($result, 'ticketDbEntity')) {
+         		$objects[] = $obj;
+    			}
+			}
+
+			return $objects;
 		}
 
 	function get_ticket_priority()
