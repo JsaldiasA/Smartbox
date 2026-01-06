@@ -12,17 +12,18 @@ class ticketDbEntity
     public $Id_TicketPriority;
     public $Id_TicketStatus;
 
-    function __construct ($Id, $Nombre, $Ubicacion, $Descripcion, $Usuario, $FechaInicio, $FechaCierre, $Id_TicketPriority, $Id_TicketStatus)
+    function __construct (//$Id, $Nombre, $Ubicacion, $Descripcion, $Usuario, $FechaInicio, $FechaCierre, $Id_TicketPriority, $Id_TicketStatus)
+      )
       { 		
-        $this->Id = $Id;
-        $this->Nombre = $Nombre;
-        $this->Ubicacion = $Ubicacion;
-        $this->Descripcion = $Descripcion;
-        $this->Usuario = $Usuario;
-        $this->FechaInicio = $FechaInicio;
-        $this->FechaCierre = $FechaCierre;
-        $this->Id_TicketPriority = $Id_TicketPriority;
-        $this->Id_TicketStatus = $Id_TicketStatus;
+       // $this->Id = $Id;
+       // $this->Nombre = $Nombre;
+       // $this->Ubicacion = $Ubicacion;
+       // $this->Descripcion = $Descripcion;
+       // $this->Usuario = $Usuario;
+       // $this->FechaInicio = $FechaInicio;
+       // $this->FechaCierre = $FechaCierre;
+       // $this->Id_TicketPriority = $Id_TicketPriority;
+       // $this->Id_TicketStatus = $Id_TicketStatus;
       }
 
     function get_Id() {return $this->Id;}
