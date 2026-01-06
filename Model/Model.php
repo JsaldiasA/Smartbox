@@ -38,6 +38,23 @@ class Model
 
 			return $result;
 		}
+	
+	function MYSQLfetchObj($SQLscript, $className)
+		{
+
+			$result = $this->executeSQL($SQLscript);
+
+			$objects = [];
+
+			if ($result->num_rows > 0) 
+			{
+   				while ($obj = mysqli_fetch_object($result, $className)) {
+         		$objects[] = $obj;
+    			}
+			}
+
+			return $objects;
+		}	
 
 	function get_externalapps_monitor()
 		{
@@ -504,19 +521,9 @@ class Model
 
 	function get_ticket()
 		{
-			$sql = "SELECT * FROM `ticket` ";
-			$result = $this->executeSQL($sql);
+			$sql = "SELECT * FROM `ticket` ORDER BY id DESC";
 
-			$objects = [];
-
-			if ($result->num_rows > 0) 
-			{
-   				while ($obj = mysqli_fetch_object($result, 'ticketDbEntity')) {
-         		$objects[] = $obj;
-    			}
-			}
-
-			return $objects;
+			return $this->MYSQLfetchObj($sql, 'ticketDbEntity');
 		}
 
 	function get_ticket_priority()
