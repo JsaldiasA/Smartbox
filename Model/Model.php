@@ -540,16 +540,18 @@ class Model
 
 		function create_ticket($obj)
 	{
+		$properties = get_object_vars($obj);
+
 		$sql = "INSERT INTO `ticket` ( ";
-		foreach ($obj as $property_name ) 
+		foreach ($properties as $property_name ) 
 		{
    			$sql = $sql.$property_name .", ";
 		}
 		$sql = substr($sql, 0, -2); // removing extra ', '
 		$sql = $sql." ) VALUES ( ";
-		foreach ($obj as $property_name ) 
+		foreach ($obj as $value ) 
 		{
-   			$sql = $sql.$obj->$property_name .", ";
+   			$sql = $sql.$value .", ";
 		}
 		$sql = substr($sql, 0, -2); // removing extra ', '
 		$sql = $sql." )";
