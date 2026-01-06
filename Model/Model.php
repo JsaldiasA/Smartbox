@@ -518,11 +518,37 @@ class Model
 				}
 			return null;
 		}		
-
+    // CRUD ticket
 	function get_ticket()
 	{
 		$sql = "SELECT * FROM `ticket` ORDER BY id DESC";
 		return $this->MYSQLfetchObj($sql, 'ticketDbEntity');
+	}
+
+	function create_ticket($obj)
+	{
+		$sql = "UPDATE `ticket` SET ";
+		foreach ($obj as $property_name => $property_value) 
+		{
+   			$sql = $sql + $property_name ." = ". $obj->property_name.", ";
+		}
+		$sql = substr($sql, 0, -2); // removing extra ', '
+		$sql = $sql + " WHERE Id =" + $obj->get_Id();
+
+		$this->executeSQL($sql);
+	}
+
+		function update_ticket()
+	{
+		$sql = "SELECT * FROM `ticket` ORDER BY Id DESC";
+		return $this->MYSQLfetchObj($sql, 'ticketDbEntity');
+	}
+
+	function delete_ticket($obj)
+	{
+		$id_obj= $obj->get_Id();
+		$sql = "DELETE FROM `ticket` WHERE Id =".$id_obj;
+		$this->executeSQL($sql);
 	}
 
 	function get_ticket_priority()
