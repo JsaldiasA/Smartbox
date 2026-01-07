@@ -20,7 +20,6 @@ $NewTicket = new ticketDbEntity();
 
 $allKeys = array_keys((array)$NewTicket);
 
-
 foreach ($allKeys as $key ) 
 {
 	echo $key;
