@@ -8,16 +8,24 @@ $model = new Model();
 
 $NewTicket = new ticketDbEntity();
 
-$NewTicket->Id = '1';
-$NewTicket->Nombre = 'Nombre' ;
-$NewTicket->Ubicacion = 'Ubicacion' ;
-$NewTicket->Descripcion = 'Descripcion' ;
-$NewTicket->Usuario = 'Usuario' ;
-$NewTicket->FechaInicio = 'current_timestamp()';
-$NewTicket->FechaCierre = 'NULL';
-$NewTicket->Id_TicketPriority = '1';
-$NewTicket->Id_TicketStatus = '1';
+//$NewTicket->Id = '1';
+//$NewTicket->Nombre = 'Nombre' ;
+//$NewTicket->Ubicacion = 'Ubicacion' ;
+//$NewTicket->Descripcion = 'Descripcion' ;
+//$NewTicket->Usuario = 'Usuario' ;
+//$NewTicket->FechaInicio = 'current_timestamp()';
+//$NewTicket->FechaCierre = 'NULL';
+//$NewTicket->Id_TicketPriority = '1';
+//$NewTicket->Id_TicketStatus = '1';
 
-echo $model->create_ticket($NewTicket);
+$allKeys = array_keys((array)$NewTicket);
+
+
+foreach ($allKeys as $key ) 
+{
+	echo $key;
+}
+
+//echo $model->create_ticket($NewTicket);
 
 ?>
