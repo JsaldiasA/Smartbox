@@ -531,7 +531,15 @@ class Model
 		$allKeys = array_keys((array)$obj);
 		foreach ($allKeys as $key ) 
 		{
-   			$sql = $sql.$key ." = ".$obj->$key.", ";
+   					
+			if($obj->$key == 'NULL')
+			{	
+   				$sql = $sql.$key ." = ".$obj->$key.", ";	
+			}
+			else
+			{
+				$sql = $sql.$key ." = '".$obj->$key."', ";	
+			}
 		}
 		$sql = substr($sql, 0, -2); // removing extra ', '
 		$sql = $sql." WHERE Id =".$obj->Id;
