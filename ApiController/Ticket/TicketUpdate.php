@@ -9,7 +9,7 @@ require_once $sitebasepath."/Model/model.php";
 $model = new Model();
 $UpdateTicket = new ticketDbEntity();
 
-$allKeys = array_keys((array)$NewTicket);
+$allKeys = array_keys((array)$UpdateTicket);
 
 foreach ($allKeys as $key ) 
 {
