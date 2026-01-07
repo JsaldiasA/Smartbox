@@ -23,7 +23,7 @@ $ticket = $Model->ticketById($id_ticket);
 
 <script>
 
-	function FunctionNuevoTicketPost()
+	function FunctionUpdateTicketPost()
 		{
 			let text = "¿Está seguro de enviar el ticket?";
 			if (confirm(text) == true)
