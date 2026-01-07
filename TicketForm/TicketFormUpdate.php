@@ -128,7 +128,7 @@ $ticket = $Model->ticketById($id_ticket);
 					<b>Usuario: </b>
 				</div>
 				<div class="col">
-					<input type="text" class="form-control" id="Usuario" value="'.$ticket->Usuario.'><br>
+					<input type="text" class="form-control" id="Usuario" value="'.$ticket->Usuario.'"><br>
 				</div>
 			</div>
 
