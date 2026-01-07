@@ -10,7 +10,7 @@ $model = new Model();
 
 $Id_ticket= $_POST['id_ticket'];
 
-$ticketToDelete= $Model->ticketById($Id_ticket);
+$ticketToDelete= $model->ticketById($Id_ticket);
 
 $result = $model->delete_ticket($ticketToDelete);
 $rows = array();
