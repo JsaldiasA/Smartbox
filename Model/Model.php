@@ -528,12 +528,13 @@ class Model
 	function update_ticket($obj)
 	{
 		$sql = "UPDATE `ticket` SET ";
-		foreach ($obj as $property_name ) 
+		$allKeys = array_keys((array)$obj);
+		foreach ($allKeys as $key ) 
 		{
-   			$sql = $sql.$property_name ." = ". $obj->$property_name.", ";
+   			$sql = $sql.$key ." = ".$obj->$key.", ";
 		}
 		$sql = substr($sql, 0, -2); // removing extra ', '
-		$sql = $sql." WHERE Id =".$obj->get_Id();
+		$sql = $sql." WHERE Id =".$obj->Id;
 
 		$this->executeSQL($sql);
 	}
