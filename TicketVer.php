@@ -25,7 +25,7 @@ echo "<tr><td><b>Prioridad:</b></td><td>". $ticket->get_Id_TicketPriority(). "</
 echo "<tr><td><b>Estado de la solicitud:</b></td><td>". $ticket->get_Id_TicketStatus(). "</td></tr>";
 echo '</tbody></table>';
 echo '<divclass="row">';
- echo'<form action="/ApiController/ticket/delete.php" method="POST">
+ echo'<form action="/ApiController/ticket/TicketDelete.php" method="POST">
   
   <input type="hidden" name="id_ticket" value="'.$ticket->get_Id().'" />
   
