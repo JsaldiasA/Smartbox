@@ -16,13 +16,9 @@ foreach ($allKeys as $key )
 	$UpdateTicket->$key = $_POST[$key] ;
 }
 
-//$ticketToDelete= $model->ticketById($Id_ticket);
-//$result = $model->delete_ticket($ticketToDelete);
+$model->update_ticket($UpdateTicket);
 
-
-
-echo var_dump($UpdateTicket);
-//echo 'alert(Ticket Eliminado exitosamente)';
-//echo '<script>window.location.href = "https://smartbox.eco3.cl/ticketinicio.php"</script>';
+echo 'alert(Ticket Eliminado exitosamente)';
+echo '<script>window.location.href = "https://smartbox.eco3.cl/ticketinicio.php"</script>';
 
 ?>
