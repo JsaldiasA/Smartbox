@@ -6,8 +6,6 @@ require_once $sitebasepath."/Model/model.php";
 
 $model = new Model();
 
-$NewTicket = new ticketDbEntity();
-
 //$NewTicket->Id = '1';
 //$NewTicket->Nombre = 'Nombre' ;
 //$NewTicket->Ubicacion = 'Ubicacion' ;
@@ -18,13 +16,21 @@ $NewTicket = new ticketDbEntity();
 //$NewTicket->Id_TicketPriority = '1';
 //$NewTicket->Id_TicketStatus = '1';
 
+$NewTicket=$model->get_ticket()[0];
+
 $allKeys = array_keys((array)$NewTicket);
+$NewTicket->Usuario = 'testUpdate' ;
 
-foreach ($allKeys as $key ) 
+ echo'<form action="/ApiController/ticket/TicketUpdate.php" method="POST">';
+ 
+ foreach ($allKeys as $key ) 
 {
-	echo $key;
+	echo' <input type="hidden" name="'.$key.'" value="'.$NewTicket->$key.'" />';
 }
-
+ 
+  
+  echo'<button class="btn btn-danger" type="submit">Update</button>
+</form>';
 //echo $model->create_ticket($NewTicket);
 
 ?>
