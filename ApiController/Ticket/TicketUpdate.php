@@ -25,7 +25,7 @@ echo var_dump($UpdatedTicket);
 
 $model->update_ticket($UpdatedTicket);
 
-echo '<script>alert(Ticket Editado exitosamente);';
-echo 'window.location.href = "https://smartbox.eco3.cl/ticketinicio.php";</script>';
+echo 'Ticket Editado exitosamente';
+echo var_dump($UpdatedTicket);
 
 ?>

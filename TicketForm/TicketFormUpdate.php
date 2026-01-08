@@ -75,7 +75,7 @@ $ticket = $Model->ticketById($id_ticket);
 								}
 						});
 
-					//window.location.href = "https://smartbox.eco3.cl/";
+					window.location.href = "https://smartbox.eco3.cl/ticketinicio.php";
   				}
 			else
 				{
