@@ -16,6 +16,8 @@ foreach ($allKeys as $key )
 	$UpdateTicket->$key = $_POST[$key] ?? "NULL" ;
 }
 
+echo var_dump($UpdateTicket);
+
 $model->update_ticket($UpdateTicket);
 
 echo '<script>alert(Ticket Editado exitosamente);';
