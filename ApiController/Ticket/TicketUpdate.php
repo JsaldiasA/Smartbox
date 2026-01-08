@@ -18,7 +18,7 @@ foreach ($allKeys as $key )
 
 $model->update_ticket($UpdateTicket);
 
-echo 'alert(Ticket Eliminado exitosamente)';
-echo '<script>window.location.href = "https://smartbox.eco3.cl/ticketinicio.php"</script>';
+echo '<script>alert(Ticket Editado exitosamente);';
+echo 'window.location.href = "https://smartbox.eco3.cl/ticketinicio.php";</script>';
 
 ?>
