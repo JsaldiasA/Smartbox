@@ -71,16 +71,15 @@ $ticket = $Model->ticketById($id_ticket);
         						},
 							success: function(result)
 								{
-									alert (result)
+									alert (result);
+									window.location.href = "https://smartbox.eco3.cl/ticketinicio.php";
 								}
 						});
-
-				//	window.location.href = "https://smartbox.eco3.cl/ticketinicio.php";
   				}
 			else
-				{
-    				alert ("La operación se ha cancelado.");
-  				}
+			{
+    			alert ("La operación se ha cancelado.");
+  			}
 		}
 
 </script>
