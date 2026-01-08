@@ -563,7 +563,7 @@ class Model
 		{	
 			if($value == 'NULL'|| $value == '' || $value == null)
 			{	
-   				$sql = "null, ";
+   				$sql = $sql."null, ";
 			}
 			else
 			{
