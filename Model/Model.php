@@ -532,9 +532,9 @@ class Model
 		foreach ($allKeys as $key ) 
 		{
    					
-			if($obj->$key == 'NULL' || $obj->$key == ''  )
+			if($obj->$key == 'NULL' || $obj->$key == '' || $obj->$key == null  )
 			{	
-   				$sql = $sql.$key ." = NULL, ";	
+   				$sql = $sql.$key ." = null, ";	
 			}
 			else
 			{
@@ -561,9 +561,9 @@ class Model
 		$sql = $sql." ) VALUES ( ";
 		foreach ($obj as $value ) 
 		{	
-			if($value == 'NULL'|| $value == '')
+			if($value == 'NULL'|| $value == '' || $value == null)
 			{	
-   				$sql = "NULL, ";
+   				$sql = "null, ";
 			}
 			else
 			{
