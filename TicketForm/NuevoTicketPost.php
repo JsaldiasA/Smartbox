@@ -14,7 +14,7 @@ $FechaActual= date_create(date("Y-m-d H:i:s"));
 
 $NewTicket = new ticketDbEntity();
 
-$NewTicket->Id = '1';
+$NewTicket->Id = '0';
 $NewTicket->Nombre = $_POST['Nombre'];
 $NewTicket->Ubicacion = $_POST['Ubicacion'];
 $NewTicket->Descripcion = $_POST['Descripcion'];
