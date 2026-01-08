@@ -90,7 +90,7 @@ $ticket = $Model->ticketById($id_ticket);
 		'<div class="container">
 			<div class="row">
 				<div class="col">
-					<b><h1>Nuevo formulario: <br></h1></b>
+					<br><h1><b>Editar:'. $ticket->Nombre.' </b></h1>
 				</div>
 			</div>
 		</div>
@@ -134,7 +134,7 @@ $ticket = $Model->ticketById($id_ticket);
 
 			<div class="row">
 				<div class="col">
-					<button type="button" class="btn btn-success" onclick="FunctionUpdateTicketPost()">Enviar ticket</button>
+					<button type="button" class="btn btn-success" onclick="FunctionUpdateTicketPost()">Editar ticket</button>
 				</div>
 			</div>
 		</div>';
