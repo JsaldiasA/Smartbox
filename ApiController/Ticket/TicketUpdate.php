@@ -7,18 +7,23 @@ $sitebasepath=$_SERVER['DOCUMENT_ROOT'];
 require_once $sitebasepath."/Model/model.php";
 
 $model = new Model();
-$UpdateTicket = new ticketDbEntity();
 
-$allKeys = array_keys((array)$UpdateTicket);
+
+$Id_ticket= $_POST['Id'];
+$ticket= $model->ticketById($Id_ticket);
+
+$UpdatedTicket = new ticketDbEntity();
+
+$allKeys = array_keys((array)$UpdatedTicket);
 
 foreach ($allKeys as $key ) 
 {
-	$UpdateTicket->$key = $_POST[$key] ?? "NULL" ;
+	$UpdatedTicket->$key = $_POST[$key] == null? $ticket->$key : $_POST[$key];
 }
 
-echo var_dump($UpdateTicket);
+echo var_dump($UpdatedTicket);
 
-$model->update_ticket($UpdateTicket);
+$model->update_ticket($UpdatedTicket);
 
 echo '<script>alert(Ticket Editado exitosamente);';
 echo 'window.location.href = "https://smartbox.eco3.cl/ticketinicio.php";</script>';

@@ -63,6 +63,7 @@ $ticket = $Model->ticketById($id_ticket);
 							dataType:'text',
 							data:
 								{
+									Id: <?php echo $id_ticket; ?> ,
 									Nombre: Nombre,
 									Ubicacion: Ubicacion,
 									Descripcion: Descripcion,
