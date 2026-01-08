@@ -18,9 +18,10 @@ $allKeys = array_keys((array)$UpdatedTicket);
 
 foreach ($allKeys as $key ) 
 {
-	$UpdatedTicket->$key = $_POST[$key] == null? $ticket->$key : $_POST[$key];
+	$UpdatedTicket->$key = (($_POST[$key] == null)? $ticket->$key : $_POST[$key]);
 }
 
+echo var_dump($ticket);
 echo var_dump($UpdatedTicket);
 
 $model->update_ticket($UpdatedTicket);
