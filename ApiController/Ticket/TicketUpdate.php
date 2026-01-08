@@ -13,7 +13,7 @@ $allKeys = array_keys((array)$UpdateTicket);
 
 foreach ($allKeys as $key ) 
 {
-	$UpdateTicket->$key = $_POST[$key] ?? "" ;
+	$UpdateTicket->$key = $_POST[$key] ?? "NULL" ;
 }
 
 $model->update_ticket($UpdateTicket);
