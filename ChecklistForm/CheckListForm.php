@@ -73,7 +73,7 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
 						} 
 			
 					var VoltajeBateria= document.getElementById("VoltajeBateria");
-					hasError = NumericParameterHasError(VoltajeBateria,12,15);
+					hasError = NumericParameterHasError(VoltajeBateria,15,12);
 
 					var BateriaTest= Number(document.getElementById("BateriaTest").checked);
 					var e = document.getElementById("ChecklistMotivo");
