@@ -594,28 +594,11 @@ class Model
 		$sql = "SELECT * FROM `ticket_status`";
 		return $this->MYSQLfetchObj($sql, 'ticket_statusDbEntity');
 	}
-
+	//CRUD SMSToUnidades
 	function get_SMSToUnidades()
 	{
 		$sql = "SELECT * FROM `smstounidades`";
-		$result = $this->executeSQL($sql);
-		$SMSToUnidades = [];
-		if ($result->num_rows > 0)
-		{
-			while($row = $result->fetch_assoc())
-				{
-					$SMSToUnidades[] = new smstounidadesDbEntity
-						(
-							$row["Id"],
-							$row["Id_unidad"],
-							$row["SMS"],
-							$row["Recibido"],
-							$row["CreateTime"],
-							$row["ReceivedTime"]
-						);
-				}
-		}
-		return $SMSToUnidades;
+		return $this->MYSQLfetchObj($sql, 'smstounidadesDbEntity');
 	}
 	
 	function smstounidadesById_unidadNotRecieved($Id_unidad)
@@ -623,7 +606,7 @@ class Model
 		$SMSToUnidades = $this->get_SMSToUnidades();
 		foreach ($SMSToUnidades as $su)
 		{
-			if ( ($su->get_Id_unidad() == $Id_unidad) && ($su->get_Recibido() == 0))
+			if ( ($su->Id == $Id_unidad) && ($su->Id == 0))
 			{
 				return $su;
 			}
