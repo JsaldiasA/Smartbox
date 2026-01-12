@@ -601,6 +601,64 @@ class Model
 		return $this->MYSQLfetchObj($sql, 'smstounidadesDbEntity');
 	}
 	
+	function update_SMSToUnidades($obj)
+	{
+		$sql = "UPDATE `smstounidades` SET ";
+		$allKeys = array_keys((array)$obj);
+		foreach ($allKeys as $key ) 
+		{
+   					
+			if($obj->$key == 'NULL' || $obj->$key == '' || $obj->$key == null  )
+			{	
+   				$sql = $sql.$key ." = null, ";	
+			}
+			else
+			{
+				$sql = $sql.$key ." = '".$obj->$key."', ";	
+			}
+		}
+		$sql = substr($sql, 0, -2); // removing extra ', '
+		$sql = $sql." WHERE Id =".$obj->Id;
+
+		$this->executeSQL($sql);
+	}
+
+		function create_SMSToUnidades($obj)
+	{
+
+		$allKeys = array_keys((array)$obj);
+
+		$sql = "INSERT INTO `smstounidades` ( ";
+		foreach ($allKeys as $key ) 
+		{
+   			$sql = $sql.$key .", ";
+		}
+		$sql = substr($sql, 0, -2); // removing extra ', '
+		$sql = $sql." ) VALUES ( ";
+		foreach ($obj as $value ) 
+		{	
+			if($value == 'NULL'|| $value == '' || $value == null)
+			{	
+   				$sql = $sql."null, ";
+			}
+			else
+			{
+				$sql = $sql."'".$value ."', ";
+			}
+		}
+		$sql = substr($sql, 0, -2); // removing extra ', '
+		$sql = $sql." )";
+
+		$this->executeSQL($sql);
+	}
+
+	function delete_SMSToUnidades($obj)
+	{
+		$id_obj= $obj->Id;
+		$sql = "DELETE FROM `smstounidades` WHERE Id =".$id_obj;
+		$this->executeSQL($sql);
+	}
+
 	function smstounidadesById_unidadNotRecieved($Id_unidad)
 	{
 		$SMSToUnidades = $this->get_SMSToUnidades();
