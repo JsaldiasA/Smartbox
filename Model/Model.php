@@ -132,7 +132,7 @@ class Model
 						{
 							foreach ($RegistrosDiarios as $r)
 								{
-									if($r->get_unidad_id() == $row["id"] )
+									if($r->unidad_id == $row["id"] )
 										{
 											$UltimoRegistro = $r;
 											break;
@@ -235,56 +235,14 @@ class Model
 
 	function get_unidades_lastortolas()
 		{
-			$sql = "SELECT * FROM `unidades_lastortolas` ORDER BY `DATETIME` DESC LIMIT 10000";
-			$result = $this->executeSQL($sql);
-			$unidades_lastortolas = [];
-
-			if ($result->num_rows > 0)
-				{
-					while($row = $result->fetch_assoc())
-						{
-							$unidades_lastortolas[] = new unidades_lastortolasDbEntity
-								(
-									$row["id"],
-									$row["unidad_id"],
-									$row["ESTADO"],
-									$row["VOLUMEN"],
-									$row["CAUDAL"],
-									$row["SENAL"],
-									$row["VOLTAJE"],
-									$row["DATETIME"],
-								);
-						}
-				}
-
-			return $unidades_lastortolas;
+			$sql = "SELECT * FROM `unidades_lastortolas` ORDER BY `id` DESC LIMIT 10000";
+			return $this->MYSQLfetchObj($sql, 'unidades_lastortolasDbEntity');
 		}
 
 	function get_UltimoRegistroDiarioDeCadaUnidad()
 		{ 			
 			$sql = "SELECT * FROM unidades_lastortolas WHERE id in (SELECT max(id) FROM unidades_lastortolas GROUP BY unidad_id);";
-			$result = $this->executeSQL($sql);
-			$unidades_lastortolas = [];
-
-			if ($result->num_rows > 0)
-				{
-					while($row = $result->fetch_assoc())
-						{
-							$unidades_lastortolas[] = new unidades_lastortolasDbEntity
-								(
-									$row["id"],
-									$row["unidad_id"],
-									$row["ESTADO"],
-									$row["VOLUMEN"],
-									$row["CAUDAL"],
-									$row["SENAL"],
-									$row["VOLTAJE"],
-									$row["DATETIME"]
-								);
-						}
-				}
-
-			return $unidades_lastortolas;
+		    return $this->MYSQLfetchObj($sql, 'unidades_lastortolasDbEntity');
 		}
 
 	function UltimoRegistroDiarioById_unidad($Id_unidad)
@@ -293,17 +251,17 @@ class Model
 
 			usort($RegistrosDiarios, function($a, $b)
 				{
-    				if ($a->get_DATETIME() == $b->get_DATETIME())
+    				if ($a->DATETIME == $b->DATETIME)
 						{
         					return 0;
     					}
 
-    				return ($a->get_DATETIME() > $b->get_DATETIME()) ? -1 : 1;
+    				return ($a->DATETIME > $b->DATETIME) ? -1 : 1;
 				});
 
 			foreach ($RegistrosDiarios as $r)
 				{
- 					if ($r->get_unidad_id() == $Id_unidad)
+ 					if ($r->unidad_id == $Id_unidad)
 						{
 							return $r;
 						}
