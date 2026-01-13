@@ -358,29 +358,25 @@ $HtmlPage=$HtmlPage.'
 		<div class="overflow-auto">';
 
 // TABLA REGISTROS DIARIOS
-	
-	$sql = "SELECT * FROM `unidades_lastortolas`  WHERE `unidad_id` = ".$unidadDbEntity->get_id()." ORDER BY `id` DESC LIMIT 10000";
 
-$result = $Model->executeSQL($sql);
-
-if ($result->num_rows > 0) {
-    // output data of each row
 	$HtmlPage=$HtmlPage. '<script>let table = new DataTable("#TablaRegistros");</script>';
-	$HtmlPage=$HtmlPage. '<table id="TablaRegistros" class="display"><thead><tr><th scope="col">UNIDAD</th><th scope="col">ESTADO</th><th scope="col">VOLUMEN</th><th scope="col">CAUDAL</th><th scope="col">SENAL</th><th scope="col">BAT</th><th scope="col">FECHA</th></tr></thead><tbody>';
-    while($row = $result->fetch_assoc()) 
-	{
-		$HtmlPage=$HtmlPage. '<tr">  <td>'. $row["tag"]. "</td> <td>". $row["ESTADO"]. "</td><td>" . $row["VOLUMEN"] ."</td> <td>" . $row["CAUDAL"]."</td> 			<td>" . $row["SENAL"] ." </td><td>" . $row["VOLTAJE"] ."%</td><td>" . $row["DATETIME"] ."</td></tr>";
-	}
-		
+	$HtmlPage=$HtmlPage. '<table id="TablaRegistros" class="display"><thead><tr><th scope="col">ESTADO</th><th scope="col">VOLUMEN</th><th scope="col">CAUDAL</th><th scope="col">SENAL</th><th scope="col">BAT</th><th scope="col">FECHA</th></tr></thead><tbody>';
+
+$RegistrosDiarios = $Model->UltimoRegistroDiarioById_unidad($unidadDbEntity->id);
+
+foreach ($RegistrosDiarios as $registro) {
+    // output data of each row
+
+		$HtmlPage=$HtmlPage. '<tr>  <td>'. $registro->ESTADO. "</td><td>" . $registro->VOLUMEN ."</td> <td>" . $registro->CAUDAL."</td> <td>" . $registro->SENAL ." </td><td>" . $registro->VOLTAJE ."%</td><td>" . $registro->DATETIME ."</td></tr>";
+
+}
+
 	$HtmlPage=$HtmlPage. '</tbody></table>';
 	$HtmlPage=$HtmlPage. "<script>
 $(document).ready(function(){
     $('#TablaRegistros').dataTable();
 });
 </script>";
-}
-else
-{$HtmlPage=$HtmlPage. "0x results";}
 
 $HtmlPage=$HtmlPage.'
 		  </div>
