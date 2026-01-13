@@ -622,7 +622,7 @@ class Model
 		$SMSToUnidades = $this->get_SMSToUnidades();
 		foreach ($SMSToUnidades as $su)
 		{
-			if ( ($su->Id == $Id_unidad) && ($su->Recibido == 0))
+			if ( ($su->Id_unidad == $Id_unidad) && ($su->Recibido == 0))
 			{
 				return $su;
 			}
