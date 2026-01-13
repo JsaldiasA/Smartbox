@@ -67,7 +67,7 @@ if ($VOLTAJE == "NULL") {
 }
 
 $unidadObj = $model->unidadByTag($UNIDAD);
-if( is_null($unidadObj) ) 
+if( is_null($unidadObj) ) // new unit
 	{
    $sql =  "INSERT INTO sirecor.unidad
     (id, Serie, tag, Ubicacion, numero, UltimaActualizacion, Volumen, Estado, id_unidadTipo, InvertirEntrada, BatNivel, Temperatura, Humedad, EC, VolMax, FactorFlujometro)
@@ -101,6 +101,7 @@ $sql = "INSERT INTO unidades_lastortolas
       $smstounit = $model->smstounidadesById_unidadNotRecieved($unidadObj->get_id());
       if( $smstounit !== null)
       {
+        echo 'test';
           $smstounit->Recibido = 1;
           $result = $model->update_SMSToUnidades($smstounit);
 
