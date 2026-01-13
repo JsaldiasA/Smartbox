@@ -17,6 +17,6 @@ $model = new Model();
 //$NewTicket->Id_TicketStatus = '1';
 
 
-echo $model->get_SMSToUnidades();
+echo var_dump($model->get_SMSToUnidades());
 
 ?>
