@@ -266,10 +266,10 @@ $HtmlPage=$HtmlPage.'
 	$HtmlPage=$HtmlPage. '<th scope="col">Últimos registros</th>';
 	$HtmlPage=$HtmlPage. '<th scope="col"></th>';
 	$HtmlPage=$HtmlPage. '</thead><tbody>';
-	$HtmlPage=$HtmlPage. '<tr><td><b>Estado:</b></td><td>'.$ultimoRegistro->get_ESTADO().'</td></tr>';
-	$HtmlPage=$HtmlPage. '<tr><td><b>Volumen:</b></td><td>'.$ultimoRegistro->get_VOLUMEN().'</td></tr>';
-	$HtmlPage=$HtmlPage. '<tr><td><b>Caudal:</b></td><td>'.$ultimoRegistro->get_CAUDAL().'</td></tr>';
-	$HtmlPage=$HtmlPage. '<tr><td><b>Última actualización:</b></td><td>'.$ultimoRegistro->get_DATETIME().'</td></tr>';
+	$HtmlPage=$HtmlPage. '<tr><td><b>Estado:</b></td><td>'.$ultimoRegistro->ESTADO.'</td></tr>';
+	$HtmlPage=$HtmlPage. '<tr><td><b>Volumen:</b></td><td>'.$ultimoRegistro->VOLUMEN.'</td></tr>';
+	$HtmlPage=$HtmlPage. '<tr><td><b>Caudal:</b></td><td>'.$ultimoRegistro->CAUDAL.'</td></tr>';
+	$HtmlPage=$HtmlPage. '<tr><td><b>Última actualización:</b></td><td>'.$ultimoRegistro->DATETIME.'</td></tr>';
 	$HtmlPage=$HtmlPage. '</tbody></table>';
 	$HtmlPage=$HtmlPage.'	
 	</div>		
