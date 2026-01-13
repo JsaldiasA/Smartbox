@@ -362,7 +362,7 @@ $HtmlPage=$HtmlPage.'
 	$HtmlPage=$HtmlPage. '<script>let table = new DataTable("#TablaRegistros");</script>';
 	$HtmlPage=$HtmlPage. '<table id="TablaRegistros" class="display"><thead><tr><th scope="col">ESTADO</th><th scope="col">VOLUMEN</th><th scope="col">CAUDAL</th><th scope="col">SENAL</th><th scope="col">BAT</th><th scope="col">FECHA</th></tr></thead><tbody>';
 
-$RegistrosDiarios = $Model->UltimoRegistroDiarioById_unidad($unidadDbEntity->id);
+$RegistrosDiarios = $Model->RegistrosDiariosById_unidad($unidadDbEntity->id);
 
 foreach ($RegistrosDiarios as $registro) {
     // output data of each row
