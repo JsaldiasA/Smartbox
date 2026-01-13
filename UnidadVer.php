@@ -172,9 +172,9 @@ function FunctionCambiarVolMax(unidad) {
 <body>	
 	
 
-<div class="container" >
-<div class="row" >
-	<div class="col" >
+<div class="container p-3" >
+<div class="row p-3" >
+	<div class="col p-3 card" >
 	';
 	
 	$CabeceraName = $unidadDbEntity->get_Serie();
@@ -235,8 +235,8 @@ $HtmlPage=$HtmlPage.'
 	</div>
 </div>
 
-<div class="row" >
-	<div class="col" >
+<div class="row p-3" >
+	<div class="col p-3 card" >
 		<h2>Configuración</h2>';
 		
 			
@@ -255,8 +255,8 @@ $HtmlPage=$HtmlPage.'
 	$HtmlPage=$HtmlPage.'		
 		</div>		
 		</div>
-		<div class="row" >
-		<div class="col" >';
+		<div class="row p-3" >
+		<div class="col p-3 card" >';
 
 			$ultimoRegistro = $unidadDbEntity->get_UltimoRegistro();
 			$HtmlPage=$HtmlPage. '<h2>Últimos registros</h2>';// Header tabla
@@ -275,11 +275,11 @@ $HtmlPage=$HtmlPage.'
 	</div>		
 </div>
 
-<div class="row" >';
+<div class="row p-3" >';
 	
 	if(!empty($checklistDbEntity))
 	{
-	$HtmlPage=$HtmlPage. '<div class="col-md-auto overflow-auto" >';	
+	$HtmlPage=$HtmlPage. '<div class="col-md-auto p-3 card overflow-auto" >';	
 		$HtmlPage=$HtmlPage. '<div 
     style="background-image: url('."'".$checklistDbEntity->get_URL_foto()."'".'); 
     width:350px; 
@@ -289,14 +289,13 @@ $HtmlPage=$HtmlPage.'
 	$HtmlPage=$HtmlPage. '</div>';//col
 	}
     $HtmlPage=$HtmlPage.'
-	<div class="col">';
+	<div class="col p-3 ms-3 card ">';
 
 	$HtmlPage=$HtmlPage. '<table class="table" >
 		  <thead >';
 	$HtmlPage=$HtmlPage. '<th scope="col">Último checklist</th>';
-	$HtmlPage=$HtmlPage. '<th scope="col"></th>';
+	$HtmlPage=$HtmlPage. '<th scope="col"><a href="checklistform/checklistform.php?tag='.$unidadDbEntity->get_Tag().'">Nuevo checklist</a></th>';
 	$HtmlPage=$HtmlPage. '</thead><tbody>';
-	$HtmlPage=$HtmlPage. '<tr><td> <a href="checklistform/checklistform.php?tag='.$unidadDbEntity->get_Tag().'">Nuevo checklist</a></td><td></td></tr>';
 	if(!empty($checklistDbEntity))
 	{	
 	$HtmlPage=$HtmlPage. '<tr><td><b>ID Checklist:</b></td><td>'.$checklistDbEntity->get_Id().'</td></tr>';
@@ -316,8 +315,8 @@ $HtmlPage=$HtmlPage.'
 
 	if ($unidadDbEntity->get_Id_Unidadtipo() == '3')
 	{	
-		$HtmlPage=$HtmlPage. '<div class="row">';
-		$HtmlPage=$HtmlPage. '<div class="col">';
+		$HtmlPage=$HtmlPage. '<div class="row p-3">';
+		$HtmlPage=$HtmlPage. '<div class="col p-3 card">';
 		$HtmlPage=$HtmlPage. '<table class="table" > <thead >';
 		$HtmlPage=$HtmlPage. '<th scope="col">Control</th>';
 		$HtmlPage=$HtmlPage. '<th scope="col"></th>';
@@ -344,8 +343,8 @@ $HtmlPage=$HtmlPage.'
 	}
 
 $HtmlPage=$HtmlPage.'
-<div class="row">
-	<div class="col">
+<div class="row p-3">
+	<div class="col p-3 card">
 <div class="accordion" id="accordionExample">
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne">
