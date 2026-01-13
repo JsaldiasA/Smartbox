@@ -88,7 +88,6 @@ function GetSensorHumedadMilesight()
 
 $HtmlPage='
 <div class="container">
-<br>
 	<div class="row p-3">
 		<div class="col p-3 card shadow">
 			<H1>Aplicaciones</H1>

@@ -181,11 +181,11 @@ function FunctionCambiarVolMax(unidad) {
 	 
 		if($CabeceraName == "")
 		{
-			$HtmlPage=$HtmlPage. "<br><h1>&nbsp;<b>Unidad</b> ". $unidadDbEntity->get_Tag()."(sin nombre)</h1>";
+			$HtmlPage=$HtmlPage. "<h1>&nbsp;<b>Unidad</b> ". $unidadDbEntity->get_Tag()."(sin nombre)</h1>";
 		}
 		else
 		{
-			$HtmlPage=$HtmlPage. "<br><h1>&nbsp;<b>Unidad</b> ". $CabeceraName ."</h1>";
+			$HtmlPage=$HtmlPage. "<h1>&nbsp;<b>Unidad</b> ". $CabeceraName ."</h1>";
 		}
 			
 		$tagTitle='IMEI';
