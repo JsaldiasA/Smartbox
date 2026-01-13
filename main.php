@@ -89,34 +89,44 @@ function GetSensorHumedadMilesight()
 $HtmlPage='
 <div class="container">
 <br>
-	<div class="row">
-		<H1>Aplicaciones</H1>
-		<div class="overflow-auto">
-			<div id="GetAplicacionesResult"></div>
+	<div class="row p-3">
+		<div class="col p-3 card shadow">
+			<H1>Aplicaciones</H1>
+			<div class="overflow-auto">
+				<div id="GetAplicacionesResult"></div>
+			</div>
 		</div>
 	</div>
-	<div class="row">
-		<H1>Estanques</H1>
-		<div class="overflow-auto">
-			<div id="GetEstanqueResult"></div>
+	<div class="row p-3">
+		<div class="col p-3 card shadow">
+			<H1>Estanques</H1>
+			<div class="overflow-auto">
+				<div id="GetEstanqueResult"></div>
+			</div>
 		</div>
 	</div>
-	<div class="row">
-		<H1>Sirecor</H1>
-		<div class="overflow-auto">
-			<div id="GetSirecorResult"></div>
+	<div class="row p-3">
+		<div class="col p-3 card shadow">
+			<H1>Sirecor</H1>
+			<div class="overflow-auto">
+				<div id="GetSirecorResult"></div>
+			</div>
 		</div>
 	</div>
-	<div class="row">
-		<H1>Milesight</H1>
-		<div class="overflow-auto">
-			<div id="GetMilesightResult"></div>
+	<div class="row p-3">
+		<div class="col p-3 card shadow">
+			<H1>Milesight</H1>
+			<div class="overflow-auto">
+				<div id="GetMilesightResult"></div>
+			</div>
 		</div>
 	</div>
-	<div class="row">
-		<h1>Unidad Indefinida</H1>
-		<div class="overflow-auto">
-			<div id="GetUnidadIndefinidaResult"></div>
+	<div class="row p-3">
+		<div class="col p-3 card shadow">
+			<h1>Unidad Indefinida</H1>
+			<div class="overflow-auto">
+				<div id="GetUnidadIndefinidaResult"></div>
+			</div>
 		</div>
 	</div>
 </div>';
