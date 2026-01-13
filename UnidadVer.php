@@ -289,7 +289,7 @@ $HtmlPage=$HtmlPage.'
 	$HtmlPage=$HtmlPage. '</div>';//col
 	}
     $HtmlPage=$HtmlPage.'
-	<div class="col p-3 ms-3 card ">';
+	<div class="col p-3 ms-3 card shadow ">';
 
 	$HtmlPage=$HtmlPage. '<table class="table" >
 		  <thead >';
