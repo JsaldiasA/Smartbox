@@ -101,7 +101,7 @@ $sql = "INSERT INTO unidades_lastortolas
       $smstounit = $model->smstounidadesById_unidadNotRecieved($unidadObj->get_id());
       if( $smstounit !== null)
       {
-          $smstounit->Id = 1;
+          $smstounit->Recibido = 1;
           $result = $model->update_SMSToUnidades($smstounit);
 
           echo '#'.$smstounit->SMS.'$'; 
