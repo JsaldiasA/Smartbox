@@ -341,6 +341,57 @@ $HtmlPage=$HtmlPage.'
 		$HtmlPage=$HtmlPage. '</div>';
 		$HtmlPage=$HtmlPage. '</div>';
 	}
+
+		if ($unidadDbEntity->get_Id_Unidadtipo() == '2')
+	{	
+
+
+		$HtmlPage=$HtmlPage. '<div class="row p-3">';
+		$HtmlPage=$HtmlPage. '<div class="col p-3 card shadow">';
+		$HtmlPage=$HtmlPage. '<h2>Enviar SMS</h2>';
+
+		$HtmlPage=$HtmlPage. '<table class="table" > <thead >';
+		$HtmlPage=$HtmlPage. '<th scope="col">Id</th>';
+		$HtmlPage=$HtmlPage. '<th scope="col">SMS</th>';
+		$HtmlPage=$HtmlPage. '<th scope="col">Recibido</th>';
+		$HtmlPage=$HtmlPage. '<th scope="col">Fecha de envio</th>';
+		$HtmlPage=$HtmlPage. '</thead><tbody>';
+		
+		$SMS = $Model->smstounidadesById_unidad($unidadDbEntity->id);
+
+		foreach ($SMS as $s) {
+		$HtmlPage=$HtmlPage. '<tr>  <td>'. $s->Id. "</td><td>" . $s->SMS ."</td> <td>" . $s->Recibido."</td> <td>" . $S->CreateTime ."</td></tr>";
+
+		}
+
+
+		$HtmlPage=$HtmlPage. '</tbody></table>';
+
+
+		$HtmlPage=$HtmlPage. '<table class="table" > <thead >';
+		$HtmlPage=$HtmlPage. '<th scope="col">Controles Basicos</th>';
+		$HtmlPage=$HtmlPage. '<th scope="col"></th>';
+		$HtmlPage=$HtmlPage. '<th scope="col"></th>';
+		$HtmlPage=$HtmlPage. '</thead><tbody>';
+		$DisabledAbrir = "";
+		$DisabledCerrar = "";
+
+		if ($unidadDbEntity->get_Estado() == "ON")
+			{	
+				$DisabledAbrir = "disabled";
+			}
+		else
+			{
+				$DisabledCerrar = "disabled";
+			}
+
+		$HtmlPage=$HtmlPage. '<tr><td><button type="button" onclick="FunctionComandosMilesight('."'Abrir V1'".')" class="btn btn-primary" '.$DisabledAbrir.'  >ABRIR</button></td>
+		<td><button type="button" onclick="FunctionComandosMilesight('."'Cerrar V1'".')" class="btn btn-primary" '.$DisabledCerrar.'  >CERRAR</button></td>
+		<td><button type="button" onclick="FunctionComandosMilesight('."'Reset Count'".')" class="btn btn-primary">RESET</button></td><tr>';
+		$HtmlPage=$HtmlPage. '</tbody></table>';
+		$HtmlPage=$HtmlPage. '</div>';
+		$HtmlPage=$HtmlPage. '</div>';
+	}
 	
 
 $HtmlPage=$HtmlPage.'

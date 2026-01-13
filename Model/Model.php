@@ -565,7 +565,7 @@ class Model
 	//CRUD SMSToUnidades
 	function get_SMSToUnidades()
 	{
-		$sql = "SELECT * FROM `smstounidades`";
+		$sql = "SELECT * FROM `smstounidades` ORDER BY Id DESC";
 		return $this->MYSQLfetchObj($sql, 'smstounidadesDbEntity');
 	}
 	
@@ -638,7 +638,15 @@ class Model
 			}
 		}
 		return null;
-	}	
+	}
+
+	function smstounidadesById_unidad($Id_unidad)
+	{
+		$sql = "SELECT * FROM `smstounidades` WHERE Id_unidad = ".$Id_unidad." ORDER BY Id DESC";
+		return $this->MYSQLfetchObj($sql, 'smstounidadesDbEntity');
+	}
+	
+	
 }
 
 ?>
