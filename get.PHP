@@ -99,6 +99,8 @@ $sql = "INSERT INTO unidades_lastortolas
       $result = $model->executeSQL($sql);
 
       $smstounit = $model->smstounidadesById_unidadNotRecieved($unidadObj->get_id());
+
+     echo  var_dump($smstounit);
       if( $smstounit !== null)
       {
         echo 'test';
