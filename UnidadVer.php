@@ -173,7 +173,7 @@ function FunctionCambiarVolMax(unidad) {
 	
 
 <div class="container p-3" >
-<div class="row p-3" >
+<div class="row p-3 shadow" >
 	<div class="col p-3 card" >
 	';
 	
@@ -235,7 +235,7 @@ $HtmlPage=$HtmlPage.'
 	</div>
 </div>
 
-<div class="row p-3" >
+<div class="row p-3 shadow" >
 	<div class="col p-3 card" >
 		<h2>Configuración</h2>';
 		
@@ -255,7 +255,7 @@ $HtmlPage=$HtmlPage.'
 	$HtmlPage=$HtmlPage.'		
 		</div>		
 		</div>
-		<div class="row p-3" >
+		<div class="row p-3 shadow" >
 		<div class="col p-3 card" >';
 
 			$ultimoRegistro = $unidadDbEntity->get_UltimoRegistro();
@@ -275,7 +275,7 @@ $HtmlPage=$HtmlPage.'
 	</div>		
 </div>
 
-<div class="row p-3" >';
+<div class="row p-3 shadow" >';
 	
 	if(!empty($checklistDbEntity))
 	{
@@ -315,7 +315,36 @@ $HtmlPage=$HtmlPage.'
 
 	if ($unidadDbEntity->get_Id_Unidadtipo() == '3')
 	{	
-		$HtmlPage=$HtmlPage. '<div class="row p-3">';
+		$HtmlPage=$HtmlPage. '<div class="row p-3 shadow">';
+		$HtmlPage=$HtmlPage. '<div class="col p-3 card">';
+		$HtmlPage=$HtmlPage. '<table class="table" > <thead >';
+		$HtmlPage=$HtmlPage. '<th scope="col">Control</th>';
+		$HtmlPage=$HtmlPage. '<th scope="col"></th>';
+		$HtmlPage=$HtmlPage. '<th scope="col"></th>';
+		$HtmlPage=$HtmlPage. '</thead><tbody>';
+		$DisabledAbrir = "";
+		$DisabledCerrar = "";
+
+		if ($unidadDbEntity->get_Estado() == "1")
+			{	
+				$DisabledAbrir = "disabled";
+			}
+		else
+			{
+				$DisabledCerrar = "disabled";
+			}
+
+		$HtmlPage=$HtmlPage. '<tr><td><button type="button" onclick="FunctionComandosMilesight('."'Abrir V1'".')" class="btn btn-primary" '.$DisabledAbrir.' >Abrir</button></td>
+		<td><button type="button" onclick="FunctionComandosMilesight('."'Cerrar V1'".')" class="btn btn-primary" '.$DisabledCerrar.'  >Cerrar</button></td>
+		<td><button type="button" onclick="FunctionComandosMilesight('."'Reset Count'".')" class="btn btn-primary">Reiniciar Contador</button></td><tr>';
+		$HtmlPage=$HtmlPage. '</tbody></table>';
+		$HtmlPage=$HtmlPage. '</div>';
+		$HtmlPage=$HtmlPage. '</div>';
+	}
+
+		if ($unidadDbEntity->get_Id_Unidadtipo() == '3')
+	{	
+		$HtmlPage=$HtmlPage. '<div class="row p-3 shadow">';
 		$HtmlPage=$HtmlPage. '<div class="col p-3 card">';
 		$HtmlPage=$HtmlPage. '<table class="table" > <thead >';
 		$HtmlPage=$HtmlPage. '<th scope="col">Control</th>';
@@ -343,7 +372,7 @@ $HtmlPage=$HtmlPage.'
 	}
 
 $HtmlPage=$HtmlPage.'
-<div class="row p-3">
+<div class="row p-3 shadow">
 	<div class="col p-3 card">
 <div class="accordion" id="accordionExample">
   <div class="accordion-item">
