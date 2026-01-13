@@ -173,8 +173,8 @@ function FunctionCambiarVolMax(unidad) {
 	
 
 <div class="container p-3" >
-<div class="row p-3 shadow" >
-	<div class="col p-3 card" >
+<div class="row p-3" >
+	<div class="col p-3 card shadow" >
 	';
 	
 	$CabeceraName = $unidadDbEntity->get_Serie();
@@ -235,8 +235,8 @@ $HtmlPage=$HtmlPage.'
 	</div>
 </div>
 
-<div class="row p-3 shadow" >
-	<div class="col p-3 card" >
+<div class="row p-3" >
+	<div class="col p-3 card shadow" >
 		<h2>Configuración</h2>';
 		
 			
@@ -255,8 +255,8 @@ $HtmlPage=$HtmlPage.'
 	$HtmlPage=$HtmlPage.'		
 		</div>		
 		</div>
-		<div class="row p-3 shadow" >
-		<div class="col p-3 card" >';
+		<div class="row p-3" >
+		<div class="col p-3 card shadow" >';
 
 			$ultimoRegistro = $unidadDbEntity->get_UltimoRegistro();
 			$HtmlPage=$HtmlPage. '<h2>Últimos registros</h2>';// Header tabla
@@ -275,11 +275,11 @@ $HtmlPage=$HtmlPage.'
 	</div>		
 </div>
 
-<div class="row p-3 shadow" >';
+<div class="row p-3" >';
 	
 	if(!empty($checklistDbEntity))
 	{
-	$HtmlPage=$HtmlPage. '<div class="col-md-auto p-3 card overflow-auto" >';	
+	$HtmlPage=$HtmlPage. '<div class="col-md-auto p-3 card shadow overflow-auto" >';	
 		$HtmlPage=$HtmlPage. '<div 
     style="background-image: url('."'".$checklistDbEntity->get_URL_foto()."'".'); 
     width:350px; 
@@ -315,8 +315,8 @@ $HtmlPage=$HtmlPage.'
 
 	if ($unidadDbEntity->get_Id_Unidadtipo() == '3')
 	{	
-		$HtmlPage=$HtmlPage. '<div class="row p-3 shadow">';
-		$HtmlPage=$HtmlPage. '<div class="col p-3 card">';
+		$HtmlPage=$HtmlPage. '<div class="row p-3">';
+		$HtmlPage=$HtmlPage. '<div class="col p-3 card shadow">';
 		$HtmlPage=$HtmlPage. '<table class="table" > <thead >';
 		$HtmlPage=$HtmlPage. '<th scope="col">Control</th>';
 		$HtmlPage=$HtmlPage. '<th scope="col"></th>';
@@ -341,39 +341,11 @@ $HtmlPage=$HtmlPage.'
 		$HtmlPage=$HtmlPage. '</div>';
 		$HtmlPage=$HtmlPage. '</div>';
 	}
-
-		if ($unidadDbEntity->get_Id_Unidadtipo() == '3')
-	{	
-		$HtmlPage=$HtmlPage. '<div class="row p-3 shadow">';
-		$HtmlPage=$HtmlPage. '<div class="col p-3 card">';
-		$HtmlPage=$HtmlPage. '<table class="table" > <thead >';
-		$HtmlPage=$HtmlPage. '<th scope="col">Control</th>';
-		$HtmlPage=$HtmlPage. '<th scope="col"></th>';
-		$HtmlPage=$HtmlPage. '<th scope="col"></th>';
-		$HtmlPage=$HtmlPage. '</thead><tbody>';
-		$DisabledAbrir = "";
-		$DisabledCerrar = "";
-
-		if ($unidadDbEntity->get_Estado() == "1")
-			{	
-				$DisabledAbrir = "disabled";
-			}
-		else
-			{
-				$DisabledCerrar = "disabled";
-			}
-
-		$HtmlPage=$HtmlPage. '<tr><td><button type="button" onclick="FunctionComandosMilesight('."'Abrir V1'".')" class="btn btn-primary" '.$DisabledAbrir.' >Abrir</button></td>
-		<td><button type="button" onclick="FunctionComandosMilesight('."'Cerrar V1'".')" class="btn btn-primary" '.$DisabledCerrar.'  >Cerrar</button></td>
-		<td><button type="button" onclick="FunctionComandosMilesight('."'Reset Count'".')" class="btn btn-primary">Reiniciar Contador</button></td><tr>';
-		$HtmlPage=$HtmlPage. '</tbody></table>';
-		$HtmlPage=$HtmlPage. '</div>';
-		$HtmlPage=$HtmlPage. '</div>';
-	}
+	
 
 $HtmlPage=$HtmlPage.'
-<div class="row p-3 shadow">
-	<div class="col p-3 card">
+<div class="row p-3">
+	<div class="col p-3 card shadow">
 <div class="accordion" id="accordionExample">
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne">
