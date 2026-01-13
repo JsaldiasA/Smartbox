@@ -273,6 +273,13 @@ class Model
 			// return null;
 		}
 
+	function RegistrosDiariosById_unidad($Id_unidad)
+		{
+			$sql = "SELECT * FROM `unidades_lastortolas` WHERE unidad_id = ".$Id_unidad." ORDER BY `id` DESC LIMIT 10000";
+			return $this->MYSQLfetchObj($sql, 'unidades_lastortolasDbEntity');
+			// return null;
+		}		
+
 	function get_eventos()
 		{
 			$sql = "SELECT * FROM eventos e ORDER BY TIMESTAMP DESC";
