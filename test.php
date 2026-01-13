@@ -16,21 +16,7 @@ $model = new Model();
 //$NewTicket->Id_TicketPriority = '1';
 //$NewTicket->Id_TicketStatus = '1';
 
-$NewTicket=$model->get_ticket()[0];
 
-$allKeys = array_keys((array)$NewTicket);
-$NewTicket->Usuario = 'testUpdate' ;
-
- echo'<form action="/ApiController/ticket/TicketUpdate.php" method="POST">';
- 
- foreach ($allKeys as $key ) 
-{
-	echo' <input type="hidden" name="'.$key.'" value="'.$NewTicket->$key.'" />';
-}
- 
-  
-  echo'<button class="btn btn-danger" type="submit">Update</button>
-</form>';
-//echo $model->create_ticket($NewTicket);
+echo $model->get_SMSToUnidades();
 
 ?>
