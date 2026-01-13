@@ -102,7 +102,7 @@ $sql = "INSERT INTO unidades_lastortolas
 
       if( $smstounit !== null)
       {
-          $smstounit->Recibido = '1';
+          $smstounit->Recibido = true;
           $result = $model->update_SMSToUnidades($smstounit);
 
           echo '#'.$smstounit->SMS.'$'; 

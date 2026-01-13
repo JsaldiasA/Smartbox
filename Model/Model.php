@@ -572,7 +572,7 @@ class Model
 			}
 			else
 			{
-				$sql = $sql.$key ." = ".( is_int($obj->$key) ? $obj->$key : "'".$obj->$key."'" ).", ";	
+				$sql = $sql.$key ." = '".$obj->$key."', ";	
 			}
 		}
 		$sql = substr($sql, 0, -2); // removing extra ', '
