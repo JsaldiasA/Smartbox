@@ -357,7 +357,7 @@ $HtmlPage=$HtmlPage.'
 		$HtmlPage=$HtmlPage. '<th scope="col">Fecha de envio</th>';
 		$HtmlPage=$HtmlPage. '</thead><tbody>';
 		
-		$SMS = $Model->smstounidadesById_unidad($unidadDbEntity->id);
+		$SMS = $Model->smstounidadesBy('Id_unidad',$unidadDbEntity->id);
 
 		foreach ($SMS as $s) {
 		$HtmlPage=$HtmlPage. '<tr>  <td>'. $s->Id. "</td><td>" . $s->SMS ."</td> <td>" . $s->Recibido."</td> <td>" . $s->CreateTime ."</td></tr>";

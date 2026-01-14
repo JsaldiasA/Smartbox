@@ -646,7 +646,18 @@ class Model
 		return $this->MYSQLfetchObj($sql, 'smstounidadesDbEntity');
 	}
 	
-	
+	function smstounidadesBy($key , $value)
+	{
+		$SMSes = $this->get_SMSToUnidades();
+		foreach ($SMSes as $SMS)
+			{
+ 				if ($SMS->$key == $value)
+					{
+						return $SMS;
+					}
+			}
+		return null;
+	}	
 }
 
 ?>
