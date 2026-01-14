@@ -26,6 +26,8 @@ $SMS->Recibido = '0';
 $SMS->Id = '0';
 // SET creationtime
 $SMS->CreateTime = 'NOW()';
+
+$model->create_SMSToUnidades($SMS);
 echo 'alert(SMS creado Correctamente)';
 echo var_dump($SMS);
 
