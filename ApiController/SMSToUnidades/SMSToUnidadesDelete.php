@@ -8,12 +8,11 @@ require_once $sitebasepath."/Model/model.php";
 
 $model = new Model();
 
-$Id_ticket= $_POST['id_ticket'];
-$ticketToDelete= $model->ticketById($Id_ticket);
-$result = $model->delete_ticket($ticketToDelete);
+$Id_SMS= $_POST['Id'];
+$SMSToDelete= $model->smstounidadesWHERE('Id',$Id_SMS);
+$result = $model->delete_SMSToUnidades($SMSToDelete);
 
 
-echo 'alert(Ticket Eliminado exitosamente)';
-echo '<script>window.location.href = "https://smartbox.eco3.cl/ticketinicio.php"</script>';
+echo 'alert(SMS Eliminado exitosamente)';
 
 ?>
