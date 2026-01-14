@@ -376,8 +376,8 @@ $HtmlPage=$HtmlPage.'
 
 
 		$HtmlPage=$HtmlPage. '<tr><td class="align-middle" > Mensaje </td>
-		<td  ><div class="input-group >
-  				<input type="text" class="form-control" placeholder="Escriba el SMS en mayusculas" aria-label="Escriba el SMS en mayusculas" aria-describedby="basic-addon2">
+		<td  ><div class="input-group" >
+  				<input type="text" class="form-control" placeholder="Escriba el SMS en mayusculas" >
   				<div class="input-group-append">
     				<button class="btn btn-outline-secondary" type="button">Enviar</button>
   				</div>
