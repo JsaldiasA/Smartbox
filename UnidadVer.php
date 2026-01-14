@@ -167,6 +167,32 @@ function FunctionCambiarVolMax(unidad) {
   }
 }
 
+function FunctionCreateSMS(SMS) {
+  let text = "¿Está seguro de enviar un SMS?";
+  if (confirm(text) == true) {
+
+	var URL = "Apicontroller/SMSToUnidades/SMSToUnidadesCreate.php";
+	var Respuesta;
+	var NuevoVolMax = document.getElementById("VolMax").value;
+	var token = document.getElementById("password").value;
+	$.ajax({
+            url:URL, //the page containing php script
+            type: "post", //request
+			dataType: \'text\',
+			data: {
+            Id_unidad: \''.$unidadDbEntity->get_id().'\',
+			SMS: SMS,
+			token: token,
+        	},
+		    success: function(result){alert(result)}
+		  });
+
+  } else {
+    alert("La operación se ha cancelado.");
+  }
+}
+
+
 </script>	
 
 <body>	
@@ -357,7 +383,7 @@ $HtmlPage=$HtmlPage.'
 		$HtmlPage=$HtmlPage. '<th scope="col">Fecha de envio</th>';
 		$HtmlPage=$HtmlPage. '</thead><tbody>';
 		
-		$SMS = $Model->smstounidadesBy('Id_unidad',$unidadDbEntity->id);
+		$SMS = $Model->smstounidadesWHERE('Id_unidad',$unidadDbEntity->id);
 
 		foreach ($SMS as $s) {
 		$HtmlPage=$HtmlPage. '<tr>  <td>'. $s->Id. "</td><td>" . $s->SMS ."</td> <td>" . $s->Recibido."</td> <td>" . $s->CreateTime ."</td></tr>";
@@ -377,9 +403,9 @@ $HtmlPage=$HtmlPage.'
 
 		$HtmlPage=$HtmlPage. '<tr><td class="align-middle" > Mensaje </td>
 		<td  ><div class="input-group" >
-  				<input type="text" class="form-control" placeholder="Escriba el SMS en mayusculas" >
+  				<input type="text" class="form-control" placeholder="Escriba el SMS en mayusculas" id="InputSMS" >
   				<div class="input-group-append">
-    				<button class="btn btn-outline-secondary" type="button">Enviar</button>
+    				<button class="btn btn-outline-secondary" type="button" onclick="FunctionCreateSMS(document.getElementById("InputSMS").value)" >Enviar</button>
   				</div>
 			</div>
 		</td><tr>';
@@ -402,9 +428,9 @@ $HtmlPage=$HtmlPage.'
 				$DisabledCerrar = "disabled";
 			}
 
-		$HtmlPage=$HtmlPage. '<tr><td><button type="button" onclick="FunctionComandosMilesight('."'Abrir V1'".')" class="btn btn-primary" '.$DisabledAbrir.'  >ABRIR</button></td>
-		<td><button type="button" onclick="FunctionComandosMilesight('."'Cerrar V1'".')" class="btn btn-primary" '.$DisabledCerrar.'  >CERRAR</button></td>
-		<td><button type="button" onclick="FunctionComandosMilesight('."'Reset Count'".')" class="btn btn-primary">RESET</button></td><tr>';
+		$HtmlPage=$HtmlPage. '<tr><td><button type="button" onclick="FunctionCreateSMS('."'ABRIR'".')" class="btn btn-primary" '.$DisabledAbrir.'  >ABRIR</button></td>
+		<td><button type="button" onclick="FunctionCreateSMS('."'CERRAR'".')" class="btn btn-primary" '.$DisabledCerrar.'  >CERRAR</button></td>
+		<td><button type="button" onclick="FunctionCreateSMS('."'RESET'".')" class="btn btn-primary">RESET</button></td><tr>';
 		$HtmlPage=$HtmlPage. '</tbody></table>';
 		$HtmlPage=$HtmlPage. '</div>';
 		$HtmlPage=$HtmlPage. '</div>';

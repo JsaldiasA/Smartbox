@@ -10,7 +10,7 @@ $model = new Model();
 
 
 $Id_smstounidades= $_POST['Id'];
-$SMStounidades= $model->smstounidadesBy('Id',$Id_smstounidades);
+$SMStounidades= $model->smstounidadesWHERE('Id',$Id_smstounidades)[0];
 
 $UpdatedSMStounidades= new smstounidadesDbEntity();
 

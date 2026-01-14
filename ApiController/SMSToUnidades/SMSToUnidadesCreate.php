@@ -14,11 +14,17 @@ $FechaActual = date_create(date("Y-m-d H:i:s"));
 
 $allKeys = array_keys((array)$SMS);
 
+
+
 foreach ($allKeys as $key ) 
 {
 	$SMS->$key = (($_POST[$key] == null)? 'NULL': $_POST[$key]);
 }
 
+// SET Default Recibido = 0 autoincrement
+$SMS->Recibido = '0';
+// SET Default Id = 0 autoincrement
+$SMS->Id = '0';
 // SET creationtime
 $SMS->CreateTime = $FechaActual;
 echo 'alert(SMS creado Correctamente)';

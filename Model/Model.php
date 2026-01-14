@@ -640,7 +640,7 @@ class Model
 		return null;
 	}
 
-	function smstounidadesBy($key, $value)
+	function smstounidadesWHERE($key, $value)
 	{
 		$sql = "SELECT * FROM `smstounidades` WHERE ".$key." = ".$value." ORDER BY Id DESC";
 		return $this->MYSQLfetchObj($sql, 'smstounidadesDbEntity');
