@@ -640,23 +640,10 @@ class Model
 		return null;
 	}
 
-	function smstounidadesById_unidad($Id_unidad)
+	function smstounidadesBy($key, $value)
 	{
-		$sql = "SELECT * FROM `smstounidades` WHERE Id_unidad = ".$Id_unidad." ORDER BY Id DESC";
+		$sql = "SELECT * FROM `smstounidades` WHERE ".$key." = ".$value." ORDER BY Id DESC";
 		return $this->MYSQLfetchObj($sql, 'smstounidadesDbEntity');
-	}
-	
-	function smstounidadesBy($key , $value)
-	{
-		$SMSes = $this->get_SMSToUnidades();
-		foreach ($SMSes as $SMS)
-			{
- 				if ($SMS->$key == $value)
-					{
-						return $SMS;
-					}
-			}
-		return null;
 	}	
 }
 
