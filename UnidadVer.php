@@ -375,7 +375,7 @@ $HtmlPage=$HtmlPage.'
 		$DisabledCerrar = "";
 
 
-		$HtmlPage=$HtmlPage. '<tr><td> Mensaje </td>
+		$HtmlPage=$HtmlPage. '<tr><td class="align-middle" > Mensaje </td>
 		<td><div class="input-group mb-3">
   				<input type="text" class="form-control" placeholder="Escriba el SMS en mayusculas" aria-label="Escriba el SMS en mayusculas" aria-describedby="basic-addon2">
   				<div class="input-group-append">
