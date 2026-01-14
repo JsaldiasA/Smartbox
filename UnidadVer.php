@@ -367,6 +367,23 @@ $HtmlPage=$HtmlPage.'
 
 		$HtmlPage=$HtmlPage. '</tbody></table>';
 
+		$HtmlPage=$HtmlPage. '<table class="table" > <thead >';
+		$HtmlPage=$HtmlPage. '<th scope="col">SMS</th>';
+		$HtmlPage=$HtmlPage. '<th scope="col"></th>';
+		$HtmlPage=$HtmlPage. '</thead><tbody>';
+		$DisabledAbrir = "";
+		$DisabledCerrar = "";
+
+
+		$HtmlPage=$HtmlPage. '<tr><td> Mensaje </td>
+		<td><div class="input-group mb-3">
+  				<input type="text" class="form-control" placeholder="Escriba el SMS en mayusculas" aria-label="Escriba el SMS en mayusculas" aria-describedby="basic-addon2">
+  				<div class="input-group-append">
+    				<button class="btn btn-outline-secondary" type="button">Enviar</button>
+  				</div>
+			</div>
+		</td><tr>';
+		$HtmlPage=$HtmlPage. '</tbody></table>';
 
 		$HtmlPage=$HtmlPage. '<table class="table" > <thead >';
 		$HtmlPage=$HtmlPage. '<th scope="col">Controles Basicos</th>';
