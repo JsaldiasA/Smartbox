@@ -175,13 +175,15 @@ function FunctionCreateSMS(SMS) {
 	var Respuesta;
 	var NuevoVolMax = document.getElementById("VolMax").value;
 	var token = document.getElementById("password").value;
+
+	var SMStoCreate = SMS == "InputSMS" ? document.getElementById("InputSMS").value : SMS;
 	$.ajax({
             url:URL, //the page containing php script
             type: "post", //request
 			dataType: \'text\',
 			data: {
             Id_unidad: \''.$unidadDbEntity->get_id().'\',
-			SMS: SMS,
+			SMS: SMStoCreate,
 			token: token,
         	},
 		    success: function(result){alert(result)}
@@ -405,7 +407,7 @@ $HtmlPage=$HtmlPage.'
 		<td  ><div class="input-group" >
   				<input type="text" class="form-control" placeholder="Escriba el SMS en mayusculas" id="InputSMS" >
   				<div class="input-group-append">
-    				<button class="btn btn-outline-secondary" type="button" onclick="FunctionCreateSMS(\'<script>document.getElementById("InputSMS").value</script>\')" >Enviar</button>
+    				<button class="btn btn-outline-secondary" type="button" onclick="FunctionCreateSMS("InputSMS")" >Enviar</button>
   				</div>
 			</div>
 		</td><tr>';
