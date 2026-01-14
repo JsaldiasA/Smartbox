@@ -25,7 +25,8 @@ $SMS->Recibido = '0';
 // SET Default Id = 0 autoincrement
 $SMS->Id = '0';
 // SET creationtime
-$SMS->CreateTime = 'NOW()';
+date_default_timezone_set('America/Santiago');
+$SMS->CreateTime = date("Y-m-d H:i:s");
 
 $model->create_SMSToUnidades($SMS);
 echo 'alert(SMS creado Correctamente)';
