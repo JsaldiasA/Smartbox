@@ -9,8 +9,7 @@ require_once $sitebasepath."/Model/model.php";
 $model = new Model();
 $SMS = new smstounidadesDbEntity();
 
-date_default_timezone_set('America/Santiago');
-$FechaActual = date_create(date("Y-m-d H:i:s"));
+
 
 $allKeys = array_keys((array)$SMS);
 
@@ -26,7 +25,7 @@ $SMS->Recibido = '0';
 // SET Default Id = 0 autoincrement
 $SMS->Id = '0';
 // SET creationtime
-$SMS->CreateTime = $FechaActual;
+$SMS->CreateTime = 'NOW()';
 echo 'alert(SMS creado Correctamente)';
 echo var_dump($SMS);
 
