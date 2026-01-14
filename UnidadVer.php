@@ -405,7 +405,7 @@ $HtmlPage=$HtmlPage.'
 		<td  ><div class="input-group" >
   				<input type="text" class="form-control" placeholder="Escriba el SMS en mayusculas" id="InputSMS" >
   				<div class="input-group-append">
-    				<button class="btn btn-outline-secondary" type="button" onclick="FunctionCreateSMS(document.getElementById("InputSMS").value)" >Enviar</button>
+    				<button class="btn btn-outline-secondary" type="button" onclick="FunctionCreateSMS(\'<script>document.getElementById("InputSMS").value</script>\')" >Enviar</button>
   				</div>
 			</div>
 		</td><tr>';
