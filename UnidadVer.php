@@ -402,6 +402,7 @@ $HtmlPage=$HtmlPage.'
 		$HtmlPage=$HtmlPage. '<div class="col p-3 card shadow">';
 		$HtmlPage=$HtmlPage. '<h2>Enviar SMS</h2>';
 
+		$HtmlPage=$HtmlPage.'<div class="overflow-auto">';
 		$HtmlPage=$HtmlPage. '<table class="table" > <thead >';
 		$HtmlPage=$HtmlPage. '<th scope="col">Id</th>';
 		$HtmlPage=$HtmlPage. '<th scope="col">SMS</th>';
@@ -419,7 +420,7 @@ $HtmlPage=$HtmlPage.'
 
 
 		foreach ($SMS as $s) {
-		$HtmlPage=$HtmlPage. '<tr>  <td>'. $s->Id. "</td><td>" . $s->SMS ."</td> <td>" . $s->Recibido."</td> <td>" . $s->CreateTime ."</td><td><button type=\"button\" class=\"btn btn-outline-danger\" onclick=\"FunctionDeleteSMS(\"".$s->Id."\")\" >".$deleteIcon."</button></td></tr>";
+		$HtmlPage=$HtmlPage. '<tr>  <td>'. $s->Id. "</td><td>" . $s->SMS ."</td> <td>" . $s->Recibido."</td> <td>" . $s->CreateTime ."</td><td><button type=\"button\" class=\"btn btn-outline-danger\" onclick=\"FunctionDeleteSMS(\'".$s->Id."\')\" >".$deleteIcon."</button></td></tr>";
 		
 		if ($counter >= 5) {
         break; // Terminate the loop after the limit is reached
@@ -435,6 +436,7 @@ $HtmlPage=$HtmlPage.'
 		$HtmlPage=$HtmlPage. '<th scope="col">SMS</th>';
 		$HtmlPage=$HtmlPage. '<th scope="col"></th>';
 		$HtmlPage=$HtmlPage. '</thead><tbody>';
+		$HtmlPage=$HtmlPage. '</div>';
 		$DisabledAbrir = "";
 		$DisabledCerrar = "";
 
