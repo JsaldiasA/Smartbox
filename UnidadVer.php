@@ -204,7 +204,7 @@ function FunctionCreateSMS(SMS) {
 			SMS: SMStoCreate,
 			token: token,
         	},
-		    success: function(result){alert(result);window.location.reload();}
+		    success: function(result){alert(result);}
 		  });
 
   } else {
