@@ -349,17 +349,12 @@ $HtmlPage=$HtmlPage.'
 	
 	if(!empty($checklistDbEntity))
 	{
-	$HtmlPage=$HtmlPage. '<div class="col-md-auto p-3 card shadow overflow-auto" >';	
-		$HtmlPage=$HtmlPage. '<div 
-    style="background-image: url('."'".$checklistDbEntity->get_URL_foto()."'".'); 
-    width:350px; 
-    height:400px; 
-    background-position:center; "></div>';
-	//$HtmlPage=$HtmlPage. '<img src="'.$checklistDbEntity->get_URL_foto().'" class="rounded" alt="Responsive image">';
+	$HtmlPage=$HtmlPage. '<div class="col-3 m-3 p-3 card shadow " style=" min-width: 380px;">';	
+		$HtmlPage=$HtmlPage. '<img class="img-thumbnail" src='."'".$checklistDbEntity->get_URL_foto()."'".' ">';
 	$HtmlPage=$HtmlPage. '</div>';//col
 	}
     $HtmlPage=$HtmlPage.'
-	<div class="col p-3 ms-3 card shadow ">';
+	<div class="col p-3 m-3 card shadow ">';
 
 	$HtmlPage=$HtmlPage. '<table class="table" >
 		  <thead >';
