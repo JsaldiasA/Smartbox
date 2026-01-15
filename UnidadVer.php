@@ -11,7 +11,7 @@ $checklistDbEntity= $Model->UltimochecklistById_unidad($unidadDbEntity->get_id()
 $HtmlPage='
 <!-- SCRIPTS PARA editar panel -->
 <script>
-
+GetSMSTable();
 var myRefreshAplicaciones = setInterval(GetSMSTable, 1000);
 function GetSMSTable()
 	{
@@ -228,7 +228,7 @@ function FunctionDeleteSMS(Id_SMSToUnidades) {
             Id: Id_SMSToUnidades,
 			token: token,
         	},
-		    success: function(result){alert(result);window.location.reload();}
+		    success: function(result){alert(result);}
 		  });
 
   } else {
@@ -451,17 +451,8 @@ $HtmlPage=$HtmlPage.'
 		$DisabledAbrir = "";
 		$DisabledCerrar = "";
 
-		if ($unidadDbEntity->get_Estado() == "ON")
-			{	
-				$DisabledAbrir = "disabled";
-			}
-		else
-			{
-				$DisabledCerrar = "disabled";
-			}
-
-		$HtmlPage=$HtmlPage. '<tr><td><button type="button" onclick="FunctionCreateSMS('."'ABRIR'".')" class="btn btn-primary" '.$DisabledAbrir.'  >ABRIR</button></td>
-		<td><button type="button" onclick="FunctionCreateSMS('."'CERRAR'".')" class="btn btn-primary" '.$DisabledCerrar.'  >CERRAR</button></td>
+		$HtmlPage=$HtmlPage. '<tr><td><button type="button" onclick="FunctionCreateSMS('."'ABRIR'".')" class="btn btn-primary" >ABRIR</button></td>
+		<td><button type="button" onclick="FunctionCreateSMS('."'CERRAR'".')" class="btn btn-primary" >CERRAR</button></td>
 		<td><button type="button" onclick="FunctionCreateSMS('."'RESET'".')" class="btn btn-primary">RESET</button></td><tr>';
 		$HtmlPage=$HtmlPage. '</tbody></table>';
 		$HtmlPage=$HtmlPage. '</div>';
