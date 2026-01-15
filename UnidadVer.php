@@ -420,7 +420,7 @@ $HtmlPage=$HtmlPage.'
 
 
 		foreach ($SMS as $s) {
-		$HtmlPage=$HtmlPage. '<tr>  <td>'. $s->Id. "</td><td>" . $s->SMS ."</td> <td>" . $s->Recibido."</td> <td>" . $s->CreateTime ."</td><td><button type=\"button\" class=\"btn btn-outline-danger\" onclick=\"FunctionDeleteSMS(\'".$s->Id."\')\" >".$deleteIcon."</button></td></tr>";
+		$HtmlPage=$HtmlPage. '<tr>  <td>'. $s->Id. "</td><td>" . $s->SMS ."</td> <td>" . $s->Recibido."</td> <td>" . $s->CreateTime ."</td><td><button type=\"button\" class=\"btn btn-outline-danger\" onclick=\"FunctionDeleteSMS('".$s->Id."')\" >".$deleteIcon."</button></td></tr>";
 		
 		if ($counter >= 5) {
         break; // Terminate the loop after the limit is reached
