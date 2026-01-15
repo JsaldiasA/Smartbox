@@ -30,13 +30,13 @@ $model = new Model();
   <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686"/>
 </svg>';
 
-        $HtmlPage=$HtmlPage. '<table class="table" > <thead >';
-		$HtmlPage=$HtmlPage. '<th scope="col">Id</th>';
-		$HtmlPage=$HtmlPage. '<th scope="col">SMS</th>';
-        $HtmlPage=$HtmlPage. '<th scope="col">Recibido</th>';
-        $HtmlPage=$HtmlPage. '<th scope="col">CreateTime</th>';
-        $HtmlPage=$HtmlPage. '<th scope="col"></th>';
-		$HtmlPage=$HtmlPage. '</thead><tbody>';
+        $return=$return. '<table class="table" > <thead >';
+		$return=$return. '<th scope="col">Id</th>';
+		$return=$return. '<th scope="col">SMS</th>';
+        $return=$return. '<th scope="col">Recibido</th>';
+        $return=$return. '<th scope="col">CreateTime</th>';
+        $return=$return. '<th scope="col"></th>';
+		$return=$return. '</thead><tbody>';
 
 		foreach ($SMS as $s) {
 		$return=$return. '<tr>  <td>'. $s->Id. "</td><td>" . $s->SMS ."</td> <td>" . ( ($s->Recibido == '0') ? $LoadingIcon : $ReceivedIcon)  ."</td> <td>" . $s->CreateTime ."</td><td><button type=\"button\" class=\"btn btn-outline-danger\" onclick=\"FunctionDeleteSMS('".$s->Id."')\" >".$deleteIcon."</button></td></tr>";
