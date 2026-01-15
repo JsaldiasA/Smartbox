@@ -421,7 +421,7 @@ $HtmlPage=$HtmlPage.'
 		$HtmlPage=$HtmlPage. '<h2>Enviar SMS</h2>';
 
 		$HtmlPage=$HtmlPage.'<div class="overflow-auto">';
-		$HtmlPage=$HtmlPage.'<div id="SMSTable" ></div>';
+		$HtmlPage=$HtmlPage.'<div id="SMSTable" ></div>'; // sms table from post javascript 
 		$HtmlPage=$HtmlPage. '</div>';
 
 		$HtmlPage=$HtmlPage. '<table class="table" > <thead >';
