@@ -9,7 +9,7 @@ require_once $sitebasepath."/Model/model.php";
 $model = new Model();
 
 $Id_SMS= $_POST['Id'];
-$SMSToDelete= $model->smstounidadesWHERE('Id',$Id_SMS);
+$SMSToDelete= $model->smstounidadesWHERE('Id',$Id_SMS)[0];
 $result = $model->delete_SMSToUnidades($SMSToDelete);
 
 
