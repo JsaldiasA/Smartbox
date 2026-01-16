@@ -89,13 +89,9 @@ $HtmlPage=$HtmlPage.'
 			" (L)</td></tr>";
 			$HtmlPage=$HtmlPage. '</tbody></table>';*/// configuraciopn cuadro 
 		$ultimoRegistro = $unidadDbEntity->get_UltimoRegistro();
-			$HtmlPage=$HtmlPage. '<h2>Últimos registros</h2>';// Header tabla
-			//print row
+
 			$HtmlPage=$HtmlPage. '<table class="table" >
-		  <thead >';
-	$HtmlPage=$HtmlPage. '<th scope="col">Últimos registros</th>';
-	$HtmlPage=$HtmlPage. '<th scope="col"></th>';
-	$HtmlPage=$HtmlPage. '</thead><tbody>';
+		  <tbody>';
 	$HtmlPage=$HtmlPage. '<tr><td><b>Estado:</b></td><td>'.$ultimoRegistro->ESTADO.'</td></tr>';
 	$HtmlPage=$HtmlPage. '<tr><td><b>Volumen:</b></td><td>'.$ultimoRegistro->VOLUMEN.'</td></tr>';
 	$HtmlPage=$HtmlPage. '<tr><td><b>Caudal:</b></td><td>'.$ultimoRegistro->CAUDAL.'</td></tr>';
@@ -109,9 +105,7 @@ $HtmlPage=$HtmlPage.'
 	$HtmlPage=$HtmlPage. '</thead><tbody>';
 	if(!empty($checklistDbEntity))
 	{	
-	$HtmlPage=$HtmlPage. '<tr><td><b>ID Checklist:</b></td><td>'.$checklistDbEntity->get_Id().'</td></tr>';
 	$HtmlPage=$HtmlPage. '<tr><td><b>Fecha:</b></td><td>'.$checklistDbEntity->get_Fecha().'</td></tr>';
-	$HtmlPage=$HtmlPage. '<tr><td><b>Técnico:</b></td><td>'.$checklistDbEntity->get_TecnicoResponsable().'</td></tr>';
 	$HtmlPage=$HtmlPage. '<tr><td><b>Observaciones:</b></td><td>'.$checklistDbEntity->get_Observaciones().'</td></tr>';
 	$HtmlPage=$HtmlPage. "<tr><td><b>Revisar</b></td><td><a href='unidadverCheckList.php?CheckList_Id=".$checklistDbEntity->get_Id()."'>Ver</a></td></tr>";
 	}
