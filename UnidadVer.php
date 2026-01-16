@@ -123,10 +123,26 @@ $HtmlPage=$HtmlPage.'
 	</div>'; // row & col end	
 
 
+
+	
+
+$HtmlPage=$HtmlPage.'
+<div class="row p-3">
+<div class="col p-3 card shadow">';
+
+$HtmlPage=$HtmlPage.'<div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingZero">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        COntrol
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+		<div class="overflow-auto">';
+
 	if ($unidadDbEntity->get_Id_Unidadtipo() == '3')
 	{	
-		$HtmlPage=$HtmlPage. '<div class="row p-3">';
-		$HtmlPage=$HtmlPage. '<div class="col p-3 card shadow">';
 		$HtmlPage=$HtmlPage. '<table class="table" > <thead >';
 		$HtmlPage=$HtmlPage. '<th scope="col">Control</th>';
 		$HtmlPage=$HtmlPage. '<th scope="col"></th>';
@@ -148,17 +164,11 @@ $HtmlPage=$HtmlPage.'
 		<td><button type="button" onclick="FunctionComandosMilesight('."'Cerrar V1'".')" class="btn btn-primary" '.$DisabledCerrar.'  >Cerrar</button></td>
 		<td><button type="button" onclick="FunctionComandosMilesight('."'Reset Count'".')" class="btn btn-primary">Reiniciar Contador</button></td><tr>';
 		$HtmlPage=$HtmlPage. '</tbody></table>';
-		$HtmlPage=$HtmlPage. '</div>';
-		$HtmlPage=$HtmlPage. '</div>';
 	}
 
 		if ($unidadDbEntity->get_Id_Unidadtipo() == '2')
 	{	
 
-
-		$HtmlPage=$HtmlPage. '<div class="row p-3">';
-		$HtmlPage=$HtmlPage. '<div class="col p-3 card shadow">';
-		$HtmlPage=$HtmlPage. '<h2>Enviar SMS</h2>';
 
 		$HtmlPage=$HtmlPage.'<div class="overflow-auto">';
 		$HtmlPage=$HtmlPage.'<div id="SMSTable" ></div>'; // sms table from post javascript 
@@ -184,22 +194,18 @@ $HtmlPage=$HtmlPage.'
 		$HtmlPage=$HtmlPage. '<th scope="col"></th>';
 		$HtmlPage=$HtmlPage. '<th scope="col"></th>';
 		$HtmlPage=$HtmlPage. '</thead><tbody>';
-		$DisabledAbrir = "";
-		$DisabledCerrar = "";
 
 		$HtmlPage=$HtmlPage. '<tr><td><button type="button" onclick="FunctionCreateSMS('."'ABRIR'".')" class="btn btn-primary" >ABRIR</button></td>
 			<td><button type="button" onclick="FunctionCreateSMS('."'CERRAR'".')" class="btn btn-primary" >CERRAR</button></td>
 			<td><button type="button" onclick="FunctionCreateSMS('."'RESET'".')" class="btn btn-primary" >RESET</button></td><tr>';
 		$HtmlPage=$HtmlPage. '</tbody></table>';
-		$HtmlPage=$HtmlPage. '</div>';
-		$HtmlPage=$HtmlPage. '</div>';
 	}
-	
+$HtmlPage=$HtmlPage.'		  </div>
+      </div>
+    </div>
+  </div>';
 
-$HtmlPage=$HtmlPage.'
-<div class="row p-3">
-	<div class="col p-3 card shadow">
-<div class="accordion" id="accordionExample">
+$HtmlPage=$HtmlPage.'<div class="accordion" id="accordionExample">
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -224,18 +230,19 @@ foreach ($RegistrosDiarios as $registro) {
 
 }
 
-	$HtmlPage=$HtmlPage. '</tbody></table>';
-	$HtmlPage=$HtmlPage. "<script>
-$(document).ready(function(){
-    $('#TablaRegistros').dataTable();
-});
-</script>";
+		$HtmlPage=$HtmlPage. '</tbody></table>';
+		$HtmlPage=$HtmlPage. "<script>
+		$(document).ready(function(){
+    	$('#TablaRegistros').dataTable();
+		});
+		</script>";
 
 $HtmlPage=$HtmlPage.'
 		  </div>
       </div>
     </div>
-  </div>
+  </div>';
+  $HtmlPage=$HtmlPage.'
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingTwo">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
