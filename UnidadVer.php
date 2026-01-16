@@ -8,7 +8,7 @@ $dat= $_GET['tag'];
 $unidadDbEntity = $Model->unidadByTag($dat);
 $checklistDbEntity= $Model->UltimochecklistById_unidad($unidadDbEntity->get_id());
 
-$HtmlPage='<script src="/views/scripts/UnidadVer.js"> ';
+$HtmlPage='<script src="/views/scripts/UnidadVer.js"></script>';
 
 $HtmlPage=$HtmlPage.'<body>	
 	
