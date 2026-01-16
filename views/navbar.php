@@ -16,11 +16,6 @@ echo'
   background-color: white;
 }	 
 
-.custom-wrapper {
-  min-width: 480px; 
-  margin: 0 auto; 
-}
-
 </style>
 <style>
 	

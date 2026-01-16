@@ -349,7 +349,7 @@ $HtmlPage=$HtmlPage.'
 	
 	if(!empty($checklistDbEntity))
 	{
-	$HtmlPage=$HtmlPage. '<div class="col-3 m-3 p-3 card shadow " style=" min-width: 380px;">';	
+	$HtmlPage=$HtmlPage. '<div class="col-3 m-3 p-3 card shadow " style=" min-width: 320px;">';	
 		$HtmlPage=$HtmlPage. '<img class="img-thumbnail" src='."'".$checklistDbEntity->get_URL_foto()."'".' ">';
 	$HtmlPage=$HtmlPage. '</div>';//col
 	}
