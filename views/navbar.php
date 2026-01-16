@@ -31,8 +31,7 @@ function myFunction() {
 }
     body {
   background-color: #eeeeeeff;
-    min-width: 450px; /* Or whatever minimum width you need */
-
+    min-width: 450px; 
 }	 
   .container {
   background-color: white;
