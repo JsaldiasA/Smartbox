@@ -77,7 +77,7 @@ $HtmlPage=$HtmlPage.'
 	}
     $HtmlPage=$HtmlPage.'
 	<div class="col p-3 m-3 card shadow ">';
-			$HtmlPage=$HtmlPage. '<table class="table">
+	/*		$HtmlPage=$HtmlPage. '<table class="table">
 			<thead >
 			<th scope="col">Parámetros</th>
 			<th scope="col">Valor</th>	
@@ -87,15 +87,8 @@ $HtmlPage=$HtmlPage.'
 			<td>". "<b>Volumen máximo:</b>".
 			"</td> <td>". $unidadDbEntity->get_VolMax().
 			" (L)</td></tr>";
-			$HtmlPage=$HtmlPage. '</tbody></table>';
-		
-	$HtmlPage=$HtmlPage.'		
-		</div>		
-		</div>
-		<div class="row p-3" >
-		<div class="col p-3 card shadow" >';
-
-			$ultimoRegistro = $unidadDbEntity->get_UltimoRegistro();
+			$HtmlPage=$HtmlPage. '</tbody></table>';*/// configuraciopn cuadro 
+		$ultimoRegistro = $unidadDbEntity->get_UltimoRegistro();
 			$HtmlPage=$HtmlPage. '<h2>Últimos registros</h2>';// Header tabla
 			//print row
 			$HtmlPage=$HtmlPage. '<table class="table" >
@@ -127,6 +120,17 @@ $HtmlPage=$HtmlPage.'
 	$HtmlPage=$HtmlPage. '<tr><td>Esta unidad no tiene checklist.</td><td></td></tr>';
 	}
 	$HtmlPage=$HtmlPage. '</tbody></table>';
+
+
+	$HtmlPage=$HtmlPage.'			
+	</div>
+	</div>'; // row & col end
+	
+	$HtmlPage=$HtmlPage.'		
+		<div class="row p-3" >
+		<div class="col p-3 card shadow" >';
+
+		
 	$HtmlPage=$HtmlPage.'
 	</div>
 	</div>'; // row & col end
