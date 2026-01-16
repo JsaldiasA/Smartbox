@@ -2,26 +2,6 @@
 
 echo'
 
-<script>
-	
-function myFunction() {
-  var x = document.getElementById("RmyTopnav");
-  if (x.className === "topnav-right") {
-    x.className = "topnav";
-  } else {
-    x.className = "topnav-right";
-  }
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
-  }
-}
-</script>
-
-
-
 <style>
 
 	 
