@@ -9,8 +9,8 @@ $unidadDbEntity = $Model->unidadByTag($dat);
 $checklistDbEntity= $Model->UltimochecklistById_unidad($unidadDbEntity->get_id());
 
 $HtmlPage='<script>var id_unidad ='.$unidadDbEntity->get_id().';</script>';
-$HtmlPage='<script>var tag_unidad ='.$unidadDbEntity->get_tag().';</script>';
-$HtmlPage='<script src="/views/scripts/UnidadVer.js"></script>';
+$HtmlPage=$HtmlPage.'<script>var tag_unidad ='.$unidadDbEntity->get_tag().';</script>';
+$HtmlPage=$HtmlPage.'<script src="/views/scripts/UnidadVer.js"></script>';
 
 $HtmlPage=$HtmlPage.'<body>	
 	
