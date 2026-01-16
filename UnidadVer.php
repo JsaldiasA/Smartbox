@@ -19,28 +19,16 @@ $HtmlPage=$HtmlPage.'<body>
 	
 	$CabeceraName = $unidadDbEntity->get_Serie();
 	 
-		if($CabeceraName == "")
-		{
-			$HtmlPage=$HtmlPage. "<h1>&nbsp;<b>Unidad</b> ".($CabeceraName == "") ? $unidadDbEntity->get_Tag()."(sin nombre)</h1>" : $CabeceraName ."</h1>";
-		}
-		else
-		{
-			$HtmlPage=$HtmlPage. "<h1>&nbsp;<b>Unidad</b> ". $CabeceraName ."</h1>";
-		}
+	$HtmlPage=$HtmlPage. "<h1>&nbsp;<b>Unidad</b> ".(($CabeceraName == "") ? $unidadDbEntity->get_Tag()."(sin nombre)</h1>" : $CabeceraName ."</h1>");
 			
-		$tagTitle='IMEI';
-		// Si es Milesight el título del tag es deviceEUI, si no es el IMEI.
-		if( ($unidadDbEntity->get_Id_Unidadtipo() == '4') or ($unidadDbEntity->get_Id_Unidadtipo() == '3') )
-		{
-			$tagTitle='DeviceEUI';
-		}
+	$tagTitle=(( ($unidadDbEntity->get_Id_Unidadtipo() == '4') or ($unidadDbEntity->get_Id_Unidadtipo() == '3') )? 'DeviceEUI' : 'IMEI' );
 
-		$HtmlPage=$HtmlPage. '<table class="table">
-		 	  <thead >
-		  	  	<th scope="col">Serie</th>
-		  		<th scope="col">'.$tagTitle.'</th>
-				<th scope="col">Ubicación</th>
-		  	  </thead><tbody>';// Header tabla
+	$HtmlPage=$HtmlPage. '<table class="table">
+	 	  <thead >
+	  	  	<th scope="col">Serie</th>
+	  		<th scope="col">'.$tagTitle.'</th>
+			<th scope="col">Ubicación</th>
+	  	  </thead><tbody>';// Header tabla
 		//print row
         $HtmlPage=$HtmlPage. "<tr> <td>". $unidadDbEntity->get_Serie().
 		"</td><td>". $unidadDbEntity->get_Tag().
@@ -71,15 +59,24 @@ $HtmlPage=$HtmlPage.'<body>
 			"</td></tr>";
 			$HtmlPage=$HtmlPage. '</tbody></table>';
 		}
+		
 $HtmlPage=$HtmlPage.'			
 	</div>
-</div>
+</div>'; // row & col end
 
-<div class="row p-3" >
-	<div class="col p-3 card shadow" >
-		<h2>Configuración</h2>';
 		
 			
+	$HtmlPage=$HtmlPage.'	
+<div class="row" >';
+	
+	if(!empty($checklistDbEntity))
+	{
+	$HtmlPage=$HtmlPage. '<div class="col-3 m-3 p-3 card shadow " style=" min-width: 320px;">';	
+		$HtmlPage=$HtmlPage. '<img class="img-thumbnail" src='."'".$checklistDbEntity->get_URL_foto()."'".' ">';
+	$HtmlPage=$HtmlPage. '</div>';//col
+	}
+    $HtmlPage=$HtmlPage.'
+	<div class="col p-3 m-3 card shadow ">';
 			$HtmlPage=$HtmlPage. '<table class="table">
 			<thead >
 			<th scope="col">Parámetros</th>
@@ -111,20 +108,6 @@ $HtmlPage=$HtmlPage.'
 	$HtmlPage=$HtmlPage. '<tr><td><b>Caudal:</b></td><td>'.$ultimoRegistro->CAUDAL.'</td></tr>';
 	$HtmlPage=$HtmlPage. '<tr><td><b>Última actualización:</b></td><td>'.$ultimoRegistro->DATETIME.'</td></tr>';
 	$HtmlPage=$HtmlPage. '</tbody></table>';
-	$HtmlPage=$HtmlPage.'	
-	</div>		
-</div>
-
-<div class="row p-3" >';
-	
-	if(!empty($checklistDbEntity))
-	{
-	$HtmlPage=$HtmlPage. '<div class="col-3 m-3 p-3 card shadow " style=" min-width: 320px;">';	
-		$HtmlPage=$HtmlPage. '<img class="img-thumbnail" src='."'".$checklistDbEntity->get_URL_foto()."'".' ">';
-	$HtmlPage=$HtmlPage. '</div>';//col
-	}
-    $HtmlPage=$HtmlPage.'
-	<div class="col p-3 m-3 card shadow ">';
 
 	$HtmlPage=$HtmlPage. '<table class="table" >
 		  <thead >';
@@ -146,7 +129,7 @@ $HtmlPage=$HtmlPage.'
 	$HtmlPage=$HtmlPage. '</tbody></table>';
 	$HtmlPage=$HtmlPage.'
 	</div>
-	</div>';
+	</div>'; // row & col end
 
 	if ($unidadDbEntity->get_Id_Unidadtipo() == '3')
 	{	
