@@ -11,11 +11,16 @@ echo'
 }
     body {
   background-color: #eeeeeeff;
-    min-width: 450px; 
 }	 
   .container {
   background-color: white;
 }	 
+
+.custom-wrapper {
+  min-width: 480px; 
+  margin: 0 auto; 
+}
+
 </style>
 <style>
 	
