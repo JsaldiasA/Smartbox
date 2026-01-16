@@ -8,6 +8,8 @@ $dat= $_GET['tag'];
 $unidadDbEntity = $Model->unidadByTag($dat);
 $checklistDbEntity= $Model->UltimochecklistById_unidad($unidadDbEntity->get_id());
 
+$HtmlPage='<script>var id_unidad ='.$unidadDbEntity->get_id().';</script>';
+$HtmlPage='<script>var tag_unidad ='.$unidadDbEntity->get_tag().';</script>';
 $HtmlPage='<script src="/views/scripts/UnidadVer.js"></script>';
 
 $HtmlPage=$HtmlPage.'<body>	
@@ -118,16 +120,8 @@ $HtmlPage=$HtmlPage.'
 
 	$HtmlPage=$HtmlPage.'			
 	</div>
-	</div>'; // row & col end
-	
-	$HtmlPage=$HtmlPage.'		
-		<div class="row p-3" >
-		<div class="col p-3 card shadow" >';
+	</div>'; // row & col end	
 
-		
-	$HtmlPage=$HtmlPage.'
-	</div>
-	</div>'; // row & col end
 
 	if ($unidadDbEntity->get_Id_Unidadtipo() == '3')
 	{	
@@ -174,11 +168,7 @@ $HtmlPage=$HtmlPage.'
 		$HtmlPage=$HtmlPage. '<th scope="col">SMS</th>';
 		$HtmlPage=$HtmlPage. '<th scope="col"></th>';
 		$HtmlPage=$HtmlPage. '</thead><tbody>';
-	
-		$DisabledAbrir = "";
-		$DisabledCerrar = "";
-
-
+	 
 		$HtmlPage=$HtmlPage. '<tr><td class="align-middle" > Mensaje </td>
 		<td  ><div class="input-group" >
   				<input type="text" class="form-control" placeholder="Escriba el SMS en mayusculas" id="InputSMS" >

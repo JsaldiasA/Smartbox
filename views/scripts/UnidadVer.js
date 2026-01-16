@@ -10,7 +10,7 @@ function GetSMSTable()
 			dataType:'text',
 			data:
 				{
-            		Id_unidad: "'.$unidadDbEntity->get_id().'",
+            		Id_unidad: id_unidad,
         		},
 			
 		    success: function(result){document.getElementById("SMSTable").innerHTML= result;}
@@ -136,7 +136,7 @@ function FunctionComandosMilesight(ComandoNombre) {
             type: "post", //request
 			dataType: 'text',
 			data: {
-            tag: '.$unidadDbEntity->get_Tag().',
+            tag: tag_unidad,
 			nombre: ComandoNombre,
 			token: token,
         	},
@@ -188,7 +188,7 @@ function FunctionCreateSMS(SMS) {
             type: "post", //request
 			dataType: 'text',
 			data: {
-            Id_unidad: '.$unidadDbEntity->get_id().',
+            Id_unidad: id_unidad,
 			SMS: SMStoCreate,
 			token: token,
         	},
