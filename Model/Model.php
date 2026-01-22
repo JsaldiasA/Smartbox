@@ -332,7 +332,7 @@ class Model
 
 	function get_checklists()
 		{
-			$sql = "SELECT * FROM `checklist` ORDER BY id DESC";
+			$sql = "SELECT * FROM `checklist` ORDER BY Id DESC";
 			return $this->MYSQLfetchObj($sql, 'checklistDbEntity');
 		}
 
