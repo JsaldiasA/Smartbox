@@ -144,6 +144,7 @@
         }
      });
 
+	 	document.querySelector("#NombreDeFoto").innerHTML = file_data.name;
 	
 	}
 	
