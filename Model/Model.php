@@ -355,7 +355,7 @@ class Model
 	function UltimochecklistById_unidad($Id_unidad)
 		{
 			$sql = "SELECT * FROM `checklist` WHERE `id_unidad` = ".$Id_unidad." ORDER BY `Fecha` DESC LIMIT 1";
-			return $this->MYSQLfetchObj($sql, 'checklistDbEntity');
+			return $this->MYSQLfetchObj($sql, 'checklistDbEntity')[0];
 		}
 
 	function get_checklistmotivos()
