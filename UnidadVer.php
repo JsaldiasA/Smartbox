@@ -74,7 +74,7 @@ $HtmlPage=$HtmlPage.'
 	if(!empty($checklistDbEntity))
 	{
 	$HtmlPage=$HtmlPage. '<div class="col-3 m-3 p-3 card shadow " style=" min-width: 320px;">';	
-		$HtmlPage=$HtmlPage. '<img class="img-thumbnail" src='."'".$checklistDbEntity->get_URL_foto()."'".' ">';
+		$HtmlPage=$HtmlPage. '<img class="img-thumbnail" src='."'".$checklistDbEntity->URL_foto."'".' ">';
 	$HtmlPage=$HtmlPage. '</div>';//col
 	}
     $HtmlPage=$HtmlPage.'
@@ -107,9 +107,9 @@ $HtmlPage=$HtmlPage.'
 	$HtmlPage=$HtmlPage. '</thead><tbody>';
 	if(!empty($checklistDbEntity))
 	{	
-	$HtmlPage=$HtmlPage. '<tr><td><b>Fecha:</b></td><td>'.$checklistDbEntity->get_Fecha().'</td></tr>';
-	$HtmlPage=$HtmlPage. '<tr><td><b>Observaciones:</b></td><td>'.$checklistDbEntity->get_Observaciones().'</td></tr>';
-	$HtmlPage=$HtmlPage. "<tr><td><b>Revisar</b></td><td><a href='unidadverCheckList.php?CheckList_Id=".$checklistDbEntity->get_Id()."'>Ver</a></td></tr>";
+	$HtmlPage=$HtmlPage. '<tr><td><b>Fecha:</b></td><td>'.$checklistDbEntity->Fecha.'</td></tr>';
+	$HtmlPage=$HtmlPage. '<tr><td><b>Observaciones:</b></td><td>'.$checklistDbEntity->Observaciones.'</td></tr>';
+	$HtmlPage=$HtmlPage. "<tr><td><b>Revisar</b></td><td><a href='unidadverCheckList.php?CheckList_Id=".$checklistDbEntity->Id."'>Ver</a></td></tr>";
 	}
 	else
 	{
