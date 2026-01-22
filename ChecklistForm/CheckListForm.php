@@ -19,7 +19,7 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
 		 var Id_unidad = "<?php echo $unidadDbEntity->get_id();?>";
 		 var Tag_unidad= "<?php echo $unidadDbEntity->get_tag();?>";
 </script>
-<script src="/scripts/CheckListForm.js"></script>
+<script src="/CheckListForm/scripts/CheckListForm.js"></script>
 
 <div class="container">
 	<div class="row">
