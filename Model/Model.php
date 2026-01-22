@@ -355,39 +355,7 @@ class Model
 	function UltimochecklistById_unidad($Id_unidad)
 		{
 			$sql = "SELECT * FROM `checklist` WHERE `id_unidad` = ".$Id_unidad." ORDER BY `Fecha` DESC LIMIT 1";
-			$result = $this->executeSQL($sql);
-
-			if ($result->num_rows > 0)
-				{
-					while($row = $result->fetch_assoc())
-						{
-							$Ultimochecklist = new checklistDbEntity
-								(
-									$row["Id"],
-									$row["VoltajeReguladorBat"],
-									$row["VoltajeReguladorMCU"],
-									$row["SmartBox"],
-									$row["SMSenvio"],
-									$row["SMSrecibo"],
-									$row["Flujometro"],
-									$row["Solenoide"],
-									$row["SensorNivelBajo"],
-									$row["SensorNivelAlto"],
-									$row["VoltajeBateria"],
-									$row["VoltajeMCU"],
-									$row["BateriaTest"],
-									$row["id_checklistMotivo"],
-									$row["Observaciones"],
-									$row["id_unidadtipo"],
-									$row["URL_foto"],
-									$row["id_unidad"],
-									$row["Fecha"],
-									$row["TecnicoResponsable"]
-								);
-						}
-				}
-
-			return $Ultimochecklist;
+			return $this->MYSQLfetchObj($sql, 'checklistDbEntity');
 		}
 
 	function get_checklistmotivos()
