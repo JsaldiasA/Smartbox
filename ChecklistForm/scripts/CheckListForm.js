@@ -10,8 +10,8 @@
 					var Respuesta;
 					var token = "eco3spa";
 					var noAjustarMsg = " ,vuelva a ajustarlo. SI NO PUEDE AJUSTARLO NO UTILICE ESTA PLACA EN TERRENO, póngase en contacto con la oficina técnica.";
-					var IMEI= "<?php echo $unidadDbEntity->get_tag();?>";
-					var id_unidad= "<?php echo $unidadDbEntity->get_id();?>";
+					var IMEI= Tag_unidad;
+					var id_unidad= Id_unidad;
 					var VoltajeReguladorBat= document.getElementById("VoltajeReguladorBat");
 					var hasError = NumericParameterHasError(VoltajeReguladorBat,14.2,12.4) ; 
 			
