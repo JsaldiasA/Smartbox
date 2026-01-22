@@ -332,41 +332,8 @@ class Model
 
 	function get_checklists()
 		{
-			$sql = "SELECT * FROM `checklist`";
-			$result = $this->executeSQL($sql);
-			$checklists = [];
-
-			if ($result->num_rows > 0)
-				{
-					while($row = $result->fetch_assoc())
-						{
-							$checklists[] = new checklistDbEntity
-								(
-									$row["Id"],
-									$row["VoltajeReguladorBat"],
-									$row["VoltajeReguladorMCU"],
-									$row["SmartBox"],
-									$row["SMSenvio"],
-									$row["SMSrecibo"],
-									$row["Flujometro"],
-									$row["Solenoide"],
-									$row["SensorNivelBajo"],
-									$row["SensorNivelAlto"],
-									$row["VoltajeBateria"],
-									$row["VoltajeMCU"],
-									$row["BateriaTest"],
-									$row["id_checklistMotivo"],
-									$row["Observaciones"],
-									$row["id_unidadtipo"],
-									$row["URL_foto"],
-									$row["id_unidad"],
-									$row["Fecha"],
-									$row["TecnicoResponsable"]
-								);
-						}
-				}
-
-			return $checklists;
+			$sql = "SELECT * FROM `checklist` ORDER BY id DESC";
+			return $this->MYSQLfetchObj($sql, 'checklistDbEntity');
 		}
 
 	function checklistById_unidad($Id_unidad)
