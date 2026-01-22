@@ -335,6 +335,12 @@ class Model
 			$sql = "SELECT * FROM `checklist` ORDER BY Id DESC";
 			return $this->MYSQLfetchObj($sql, 'checklistDbEntity');
 		}
+	
+		function checklistsWHERE($key, $value)
+	{
+		$sql = "SELECT * FROM `checklist` WHERE ".$key." = ".$value." ORDER BY Id DESC";
+		return $this->MYSQLfetchObj($sql, 'checklistDbEntity');
+	}	
 
 	function checklistById_unidad($Id_unidad)
 		{

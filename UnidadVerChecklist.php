@@ -20,43 +20,11 @@ require_once 'Model/model.php';
 $Model = new Model();
 // Create connection
 
-$sql = "SELECT * FROM `checklist` WHERE `id`= {$CheckList_Id}";
-$result = $Model->executeSQL($sql);
+
 $HasChecklist = true;	
-	
-if ($result->num_rows > 0)
-	{
-		while($row = $result->fetch_assoc()) 
-			{
-				$checklistDbEntity= new checklistDbEntity(
-				$row["Id"],
-				$row["VoltajeReguladorBat"],
-				$row["VoltajeReguladorMCU"],
-				$row["SmartBox"],
-				$row["SMSenvio"],
-				$row["SMSrecibo"],
-				$row["Flujometro"],
-				$row["Solenoide"],
-				$row["SensorNivelBajo"],
-				$row["SensorNivelAlto"],
-				$row["VoltajeMCU"],
-				$row["VoltajeBateria"],
-				$row["BateriaTest"],
-				$row["id_checklistMotivo"],
-				$row["Observaciones"],
-				$row["id_unidadtipo"],
-				$row["URL_foto"],
-				$row["id_unidad"],
-				$row["Fecha"],
-				$row["TecnicoResponsable"]												 );
-				//cuidado con el casing, distinge de mayusculas y minusculas
-			}
-	} 
-else 
-	{
-		$HasChecklist = false;
-	}
-	
+
+$checklistDbEntity= $Model->checklistsWHERE('Id',$CheckList_Id)[0];
+
 if($HasChecklist == true)
 	{   
 		//IMPRIMIMOS  cabecera de informacion con los datos de la unidad desde la tabla unidad
