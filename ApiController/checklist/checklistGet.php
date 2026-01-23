@@ -38,6 +38,7 @@ foreach ($unidades as $uni )
 
         $return=$return. '<table class="table" > <thead >';
 		$return=$return. '<th scope="col">Id</th>';
+		$return=$return. '<th scope="col">Ubicacion</th>';
         $return=$return. '<th scope="col">Fecha</th>';
 		$return=$return. '<th scope="col">Solenoide</th>';
         $return=$return. '<th scope="col">Flujometro</th>';
@@ -46,7 +47,19 @@ foreach ($unidades as $uni )
 		$return=$return. '</thead><tbody>';
 
 		foreach ($LatestChecklists as $Row) {
-		$return=$return. '<tr>  <td>'. $Row->Id. "</td><td>" . $Row->Fecha ."</td> <td>" . ( ($Row->Solenoide == '1') ? $trueIcon : $falseIcon )  ."</td> <td>" . ( ($Row->Flujometro == '1') ? $trueIcon : $falseIcon )."</td> <td>" . ( ($Row->agua == '1') ? $trueIcon : $falseIcon ) ."</td> <td>" . ( ($Row->ConduitChoco == '1') ? $trueIcon : $falseIcon ) ."</td></tr>";
+
+		$ubicacion = '';
+		
+		foreach ($unidades as $uni )
+		{
+			if($Row->id_unidad == $uni->id)
+			{
+				$ubicacion =  $uni->Ubicacion;
+				break;
+			}	
+		}
+
+		$return=$return. '<tr>  <td>'. $Row->Id. "</td><td>" . $ubicacion . "</td><td>" . $Row->Fecha ."</td> <td>" . ( ($Row->Solenoide == '1') ? $trueIcon : $falseIcon )  ."</td> <td>" . ( ($Row->Flujometro == '1') ? $trueIcon : $falseIcon )."</td> <td>" . ( ($Row->agua == '1') ? $trueIcon : $falseIcon ) ."</td> <td>" . ( ($Row->ConduitChoco == '1') ? $trueIcon : $falseIcon ) ."</td></tr>";
 
 		}
 
