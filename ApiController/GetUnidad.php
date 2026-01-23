@@ -88,8 +88,6 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
 	$level = $unidad->get_BatNivel();
 	$BatNivel = new BatteryLevel($level);
 	$ultimoRegistro = $unidad->get_UltimoRegistro();
-		
-	
 
 	// Print row.
     echo "<tr>";
