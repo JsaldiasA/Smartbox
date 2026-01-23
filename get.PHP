@@ -98,12 +98,20 @@ $sql = "INSERT INTO unidades_lastortolas
 
       $result = $model->executeSQL($sql);
 
-      $smstounit = $model->smstounidadesById_unidadNotRecieved($unidadObj->get_id());
+      $SMSToUnidades = $model->MYSQLSelectWHERE('smstounidades','Id_unidad',$unidadObj->get_id());
+      
+      foreach ($SMSToUnidades as $su)
+      {
+        if ($su->Recibido == '0')
+        {
+          $smstounit = $su;
+        }
+      } 
 
       if( $smstounit !== null)
       {
           $smstounit->Recibido = '1';
-          $result = $model->update_SMSToUnidades($smstounit);
+          $result = $model->MYSQLUpdate('smstounidades',$smstounit);
 
           echo '#'.$smstounit->SMS.'$'; 
       }
