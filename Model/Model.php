@@ -64,7 +64,7 @@ class Model
 	function MYSQLSelect($TableName)
 		{
 
-			$sql = "SELECT * FROM `.$TableName.` ORDER BY Id DESC";
+			$sql = "SELECT * FROM `".$TableName."` ORDER BY Id DESC";
 			return $this->MYSQLfetchObj($sql, $TableName.'DbEntity');
 		}
 
