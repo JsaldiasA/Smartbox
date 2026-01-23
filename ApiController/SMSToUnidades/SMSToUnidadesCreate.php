@@ -9,11 +9,7 @@ require_once $sitebasepath."/Model/model.php";
 $model = new Model();
 $SMS = new smstounidadesDbEntity();
 
-
-
 $allKeys = array_keys((array)$SMS);
-
-
 
 foreach ($allKeys as $key ) 
 {
@@ -28,7 +24,7 @@ $SMS->Id = '0';
 date_default_timezone_set('America/Santiago');
 $SMS->CreateTime = date("Y-m-d H:i:s");
 
-$model->create_SMSToUnidades($SMS);
+$model->MYSQLInsertInto('smstounidades',$SMS);
 echo 'alert(SMS creado Correctamente)';
 echo var_dump($SMS);
 

@@ -126,10 +126,10 @@ class Model
 		$this->executeSQL($sql);
 		}
 	
-	function MYSQLDelete($obj)
+	function MYSQLDelete($TableName, $obj)
 		{
 			$id_obj= $obj->Id;
-			$sql = "DELETE FROM `smstounidades` WHERE Id =".$id_obj;
+			$sql = "DELETE FROM `".$TableName."` WHERE Id =".$id_obj;
 			$this->executeSQL($sql);
 		}
 

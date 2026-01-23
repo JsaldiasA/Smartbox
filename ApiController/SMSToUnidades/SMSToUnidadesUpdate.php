@@ -10,7 +10,7 @@ $model = new Model();
 
 
 $Id_smstounidades= $_POST['Id'];
-$SMStounidades= $model->smstounidadesWHERE('Id',$Id_smstounidades)[0];
+$SMStounidades= $model->MYSQLSelectWHERE('smstounidades','Id',$Id_SMS)[0];
 
 $UpdatedSMStounidades= new smstounidadesDbEntity();
 
@@ -24,7 +24,7 @@ foreach ($allKeys as $key )
 echo var_dump($SMStounidades);
 echo var_dump($UpdatedSMStounidades);
 
-$model->update_SMSToUnidades($UpdatedSMStounidades);
+$model->MYSQLUpdate('smstounidades',$UpdatedSMStounidades);
 
 echo 'SMSToUnidades Editado exitosamente';
 echo var_dump($UpdatedSMStounidades);
