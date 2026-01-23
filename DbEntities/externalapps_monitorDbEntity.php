@@ -1,23 +1,13 @@
 <?php
 class externalapps_monitorDbEntity {
 
-public $id;
+public $Id;
 public $LastUpdate;
 public $AppName;
 public $Description;
 
 	
-  function __construct($id,
-$LastUpdate,
-$AppName,
-$Description)
-  {
-	$this->id = $id;
-	$this->LastUpdate = $LastUpdate;
-	$this->AppName = $AppName;
-	$this->Description = $Description;
-  }
-	function get_id() { return $this->id; }
+	function get_id() { return $this->Id; }
 	function get_LastUpdate() { return $this->LastUpdate; }
 	function get_AppName() { return $this->AppName; }
 	function get_Description() { return $this->Description; }
