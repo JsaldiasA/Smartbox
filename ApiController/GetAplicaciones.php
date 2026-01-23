@@ -9,7 +9,7 @@ $model = new Model();
 
 
 
-$externalapps =$model->get_externalapps_monitor();
+$externalapps =$model->MYSQLSelect('externalapps_monitorDbEntity');
 
 
 

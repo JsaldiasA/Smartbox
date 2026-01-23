@@ -2,6 +2,8 @@
 
 
 /// NOTE: no usar datatype BIT en la base de datos, usar BOOL.
+// NOTE 2: todas las columnas Id debe ser con I mayuscula y d minuscula.
+// Note 3: Las clases Dbentities deben tener el mismo nombre que la tabla + 'DbEntity'  OJO con las manyusculas y minusculas
 
 $self = $_SERVER['PHP_SELF']; 
 $thispath = dirname($_SERVER['PHP_SELF']);
@@ -58,6 +60,72 @@ class Model
 
 			return $objects;
 		}	
+
+	function MYSQLSelect($TableName)
+		{
+
+			$sql = "SELECT * FROM `.$TableName.` ORDER BY Id DESC";
+			return $this->MYSQLfetchObj($sql, $TableName.'DbEntity');
+		}
+
+	function MYSQLUpdate($TableName, $obj)
+		{
+
+			$sql = "UPDATE `".$TableName."` SET ";
+			$allKeys = array_keys((array)$obj);
+			foreach ($allKeys as $key ) 
+			{
+			
+				if($obj->$key == 'NULL' || $obj->$key == '' || $obj->$key == null  )
+				{	
+   					$sql = $sql.$key ." = null, ";	
+				}
+				else
+				{
+					$sql = $sql.$key ." = '".$obj->$key."', ";	
+				}
+			}
+			$sql = substr($sql, 0, -2); // removing extra ', '
+			$sql = $sql." WHERE Id =".$obj->Id;
+
+			$this->executeSQL($sql);
+		}	
+
+	function MYSQLInsertInto($TableName, $obj)
+		{
+
+		$allKeys = array_keys((array)$obj);
+
+		$sql = "INSERT INTO `".$TableName."` ( ";
+		foreach ($allKeys as $key ) 
+		{
+   			$sql = $sql.$key .", ";
+		}
+		$sql = substr($sql, 0, -2); // removing extra ', '
+		$sql = $sql." ) VALUES ( ";
+		foreach ($obj as $value ) 
+		{	
+			if($value == 'NULL'|| $value == '' || $value == null)
+			{	
+   				$sql = $sql."null, ";
+			}
+			else
+			{
+				$sql = $sql."'".$value ."', ";
+			}
+		}
+		$sql = substr($sql, 0, -2); // removing extra ', '
+		$sql = $sql." )";
+
+		$this->executeSQL($sql);
+		}
+	
+	function MYSQLDelete($obj)
+		{
+			$id_obj= $obj->Id;
+			$sql = "DELETE FROM `smstounidades` WHERE Id =".$id_obj;
+			$this->executeSQL($sql);
+		}
 
 	function get_externalapps_monitor()
 		{
@@ -329,7 +397,7 @@ class Model
 
 			return $RegistrosIniciacionForThisUnit;
 		}
-
+// CRUD ticket
 	function get_checklists()
 		{
 			$sql = "SELECT * FROM `checklist` ORDER BY Id DESC";
@@ -341,6 +409,11 @@ class Model
 		$sql = "SELECT * FROM `checklist` WHERE ".$key." = ".$value." ORDER BY Id DESC";
 		return $this->MYSQLfetchObj($sql, 'checklistDbEntity');
 	}	
+
+
+
+
+
 
 	function checklistById_unidad($Id_unidad)
 		{
