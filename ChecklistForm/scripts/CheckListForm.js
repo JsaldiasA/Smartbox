@@ -59,6 +59,10 @@
 					hasError = NumericParameterHasError(VoltajeBateria,15,12);
 
 					var BateriaTest= Number(document.getElementById("BateriaTest").checked);
+					var Toolbox      = Number(document.getElementById("Toolbox").checked);		
+					var ConduitChoco = Number(document.getElementById("ConduitChoco").checked);
+					var agua         = Number(document.getElementById("agua").checked);
+
 					var e = document.getElementById("ChecklistMotivo");
 					var id_checklistMotivo = e.options[e.selectedIndex].value;  
 					var Observaciones= document.getElementById("Observaciones").value;
@@ -99,6 +103,9 @@
 									VoltajeMCU: VoltajeMCU.value,
 									VoltajeBateria: VoltajeBateria.value,
 									BateriaTest: BateriaTest,
+									Toolbox:      Toolbox,        
+									ConduitChoco: ConduitChoco,
+									agua:        agua,   
 									id_checklistMotivo: id_checklistMotivo,
 									Observaciones: Observaciones,
 									id_unidadtipo: id_unidadtipo,

@@ -60,6 +60,9 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
 			<tr><td><b>Sensor nivel alto:</b></td><td><input type="checkbox" class="form-check-input" id="SensorNivelAlto" ></td><td></td></tr>
 			<tr><td><b>Voltaje de la batería:</b></td><td><input type="text" class="form-control" id="VoltajeBateria" placeholder="12-15V" pattern="[0-9]{1,}|[0-9]{1,}[.][0-9]{1,}" title="Solo ingresar numeros" ></td><td>(V)</td></tr>
 			<tr><td><b>Medidor de batería:</b></td><td><input type="checkbox" class="form-check-input" id="BateriaTest" ></td><td></td></tr>
+			<tr><td><b>Toolbox:</b></td><td><input type="checkbox" class="form-check-input" id="Toolbox" ></td><td></td></tr>
+			<tr><td><b>Conduit y Choco:</b></td><td><input type="checkbox" class="form-check-input" id="ConduitChoco" ></td><td></td></tr>
+			<tr><td><b>Probado con agua:</b></td><td><input type="checkbox" class="form-check-input" id="agua" ></td><td></td></tr>
 			<tr><td><b>Observaciones:</b></td><td><input type="text" class="form-control" id="Observaciones" placeholder="Si no tiene comentarios, col m-3 p-3oque OK."></td><td></td></tr>
 			<tr><td><b>Técnico responsable:</b></td><td><input type="text" class="form-control" id="TecnicoResponsable" placeholder="Nombre"></td><td></td></tr>
 			<tr><td><b>Imagen:</b></td><td><div id="NombreDeFoto"></div></td><td></td></tr>

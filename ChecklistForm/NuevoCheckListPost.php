@@ -14,26 +14,29 @@ $SensorNivelAlto=$_POST['SensorNivelAlto'];
 $VoltajeMCU=$_POST['VoltajeMCU'];
 $VoltajeBateria=$_POST['VoltajeBateria'];
 $BateriaTest=$_POST['BateriaTest'];
+$Toolbox      = $_POST['Toolbox'];      
+$ConduitChoco = $_POST['ConduitChoco'];
+$agua         = $_POST['agua   '];
 $id_checklistMotivo=$_POST['id_checklistMotivo'];
 $Observaciones=$_POST['Observaciones'];
 $id_unidadtipo=$_POST['id_unidadtipo'];
 $TecnicoResponsable=$_POST['TecnicoResponsable'];
 $URL_foto= $_POST['URL_foto'];
 $token= $_POST['token'];
-
-
 $self=$_SERVER['PHP_SELF']; 
 $thispath=dirname($_SERVER['PHP_SELF']);
 $sitebasepath=$_SERVER['DOCUMENT_ROOT'];
 
 require_once $sitebasepath.'/Model/Model.php';	
 
+
+
 $model = new Model();
 
 if (strcmp($token,'eco3spa')==0)
 {
 
- $sql = "INSERT INTO `checklist` (`Id`, `VoltajeReguladorBat`, `VoltajeReguladorMCU`, `SmartBox`, `SMSenvio`, `SMSrecibo`, `Flujometro`, `Solenoide`, `SensorNivelBajo`, `SensorNivelAlto`, `VoltajeMCU`, `BateriaTest`, `id_checklistMotivo`, `Observaciones`, `id_unidadtipo`, `URL_foto`, `id_unidad`, `Fecha`, `TecnicoResponsable`,`VoltajeBateria`) VALUES ( NULL,'{$VoltajeReguladorBat}',
+ $sql = "INSERT INTO `checklist` (`Id`, `VoltajeReguladorBat`, `VoltajeReguladorMCU`, `SmartBox`, `SMSenvio`, `SMSrecibo`, `Flujometro`, `Solenoide`, `SensorNivelBajo`, `SensorNivelAlto`, `VoltajeMCU`, `BateriaTest`, `id_checklistMotivo`, `Observaciones`, `id_unidadtipo`, `URL_foto`, `id_unidad`, `Fecha`, `TecnicoResponsable`,`VoltajeBateria`,`Toolbox`,`ConduitChoco`,`agua`) VALUES ( NULL,'{$VoltajeReguladorBat}',
 '{$VoltajeReguladorMCU}',
 '{$SmartBox}',
 '{$SMSenvio}',
@@ -51,7 +54,10 @@ if (strcmp($token,'eco3spa')==0)
 '{$id_unidad}',
 current_timestamp(),
 '{$TecnicoResponsable}',
-'{$VoltajeBateria}'
+'{$VoltajeBateria}',
+'{$Toolbox}',
+'{$ConduitChoco}',
+'{$agua}'
 )";
 
 //	 $sql = "INSERT INTO `checklist` ( `VoltajeReguladorBat`, `VoltajeReguladorMCU`, `SmartBox`, `Entel4Parametros`, `SMS`, `MB`, `Internet`, `AlertaCaudal0`, `AlertaVolMax`, `AlertaCAUDALvOFF`, `llamadaAdmin`, `llamadaUsuario1`, `Estado`, `AlertaNivelBajo`, `TecnicoResponsable`, `Observaciones`, `TipoDeDispositivo`, `URL_foto`) VALUES ( '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1')";
