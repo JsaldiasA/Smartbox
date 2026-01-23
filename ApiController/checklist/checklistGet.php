@@ -8,8 +8,22 @@ require_once $sitebasepath."/Model/model.php";
 
 $model = new Model();
 
+$unidades = $model->get_unidades();
+$checklists = $model->MYSQLSelect('checklist');
 
-	$TableRows = $model->MYSQLSelect('checklist');
+$LatestChecklists = [];
+
+foreach ($unidades as $uni )
+{
+	foreach($checklists as $ck)
+	{
+		if($ck->id_unidad == $uni->id)
+		{
+			$LatestChecklists[] = $ck;
+			break;
+		}	
+	}
+}
 
         $return='';
 		$counter=0;
@@ -31,13 +45,8 @@ $model = new Model();
 		$return=$return. '<th scope="col">Conduit y Choco</th>';
 		$return=$return. '</thead><tbody>';
 
-		foreach ($TableRows as $Row) {
+		foreach ($LatestChecklists as $Row) {
 		$return=$return. '<tr>  <td>'. $Row->Id. "</td><td>" . $Row->Fecha ."</td> <td>" . ( ($Row->Solenoide == '1') ? $trueIcon : $falseIcon )  ."</td> <td>" . ( ($Row->Flujometro == '1') ? $trueIcon : $falseIcon )."</td> <td>" . ( ($Row->agua == '1') ? $trueIcon : $falseIcon ) ."</td> <td>" . ( ($Row->ConduitChoco == '1') ? $trueIcon : $falseIcon ) ."</td></tr>";
-		
-		if ($counter >= 5) {
-        break; // Terminate the loop after the limit is reached
-    	}
-   		 $counter++;
 
 		}
 
