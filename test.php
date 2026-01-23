@@ -17,6 +17,6 @@ $model = new Model();
 //$NewTicket->Id_TicketStatus = '1';
 
 
-echo var_dump($model->smstounidadesById_unidadNotRecieved(406));
+//echo var_dump($model->smstounidadesById_unidadNotRecieved(406));
 
 ?>

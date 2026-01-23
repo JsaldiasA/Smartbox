@@ -45,7 +45,7 @@ $unidadDbEntity=$Model->unidadByTag($UnidadTag);
 			<tr><td><b>Motivo del checklist:</b></td><td>
 			<select name="ChecklistMotivo" class="form-select" id="ChecklistMotivo" required>
 				<?php
-				$checklistmotivos = $Model->get_checklistmotivos();	
+				$checklistmotivos = $Model->MYSQLSelect('checklistmotivo');	
 				foreach($checklistmotivos as $Cm){ echo '<option value="'.$Cm->get_Id().'">'.$Cm->get_Nombre().'</option>'; }?>
 			</select> </td><td></td></tr>
 			<tr><td><b>Voltaje regulador de batería:</b></td><td><input type="text" class="form-control" id="VoltajeReguladorBat" placeholder="13.9-14.2 Pb 12.4-12.8 Li" pattern="[0-9]{1,}|[0-9]{1,}[.][0-9]{1,}" title="Solo ingresar numeros" ></td><td>(V)</td></tr>

@@ -380,12 +380,7 @@ class Model
 
 			return $RegistrosIniciacionForThisUnit;
 		}
-// CRUD ticket
-	function get_checklists()
-		{
-			$sql = "SELECT * FROM `checklist` ORDER BY Id DESC";
-			return $this->MYSQLfetchObj($sql, 'checklistDbEntity');
-		}
+
 	
 		function checklistsWHERE($key, $value)
 	{
@@ -393,68 +388,13 @@ class Model
 		return $this->MYSQLfetchObj($sql, 'checklistDbEntity');
 	}	
 
-
-
-
-
-
-	function checklistById_unidad($Id_unidad)
-		{
-			$checklists = $this->get_checklists();
-			$checklistsOfThisUnit= [];
-
-			foreach ($checklists as $checklist)
-				{
- 					if ($checklist->get_id_unidad() == $Id_unidad)
-						{
-							$checklistsOfThisUnit[] = $checklist;
-						}
-				}
-
-			return $checklistsOfThisUnit;
-		}
-
 	function UltimochecklistById_unidad($Id_unidad)
 		{
 			$sql = "SELECT * FROM `checklist` WHERE `id_unidad` = ".$Id_unidad." ORDER BY `Fecha` DESC LIMIT 1";
 			return $this->MYSQLfetchObj($sql, 'checklistDbEntity')[0];
 		}
 
-	function get_checklistmotivos()
-		{
-			$sql = "SELECT * FROM `checklistmotivo`";
-			$result = $this->executeSQL($sql);
-			$checklistmotivos = [];
 
-			if ($result->num_rows > 0)
-				{
-					while($row = $result->fetch_assoc())
-						{
-							$checklistmotivos[] = new checklistmotivoDbEntity
-								(
-									$row["id"],
-									$row["Nombre"],
-									$row["Descripcion"]
-								);
-						}
-				}
-
-			return $checklistmotivos;
-		}
-
-	function CheckListMotivoById($Id_ChecklistMotivo)
-		{
-			$checklistmotivos = $this->get_checklistmotivos();
-
-			foreach ($checklistmotivos as $checklistmotivo)
-				{
- 					if ($checklistmotivo->get_id() == $Id_ChecklistMotivo)
-						{
-							return $checklistmotivo;
-						}
-				}
-			return null;
-		}
 	
 	function ticketById($Id_ticket)
 		{
@@ -548,100 +488,11 @@ class Model
 		$this->executeSQL($sql);
 	}
 
-	function get_ticket_priority()
-	{
-		$sql = "SELECT * FROM `ticket_priority`";
-		return $this->MYSQLfetchObj($sql, 'ticket_priorityDbEntity');
-	}
-
 	function get_ticket_status()
 	{
 		$sql = "SELECT * FROM `ticket_status`";
 		return $this->MYSQLfetchObj($sql, 'ticket_statusDbEntity');
 	}
-	//CRUD SMSToUnidades
-	function get_SMSToUnidades()
-	{
-		$sql = "SELECT * FROM `smstounidades` ORDER BY Id DESC";
-		return $this->MYSQLfetchObj($sql, 'smstounidadesDbEntity');
-	}
-	
-	function update_SMSToUnidades($obj)
-	{
-		$sql = "UPDATE `smstounidades` SET ";
-		$allKeys = array_keys((array)$obj);
-		foreach ($allKeys as $key ) 
-		{
-   					
-			if($obj->$key == 'NULL' || $obj->$key == '' || $obj->$key == null  )
-			{	
-   				$sql = $sql.$key ." = null, ";	
-			}
-			else
-			{
-				$sql = $sql.$key ." = '".$obj->$key."', ";	
-			}
-		}
-		$sql = substr($sql, 0, -2); // removing extra ', '
-		$sql = $sql." WHERE Id =".$obj->Id;
-
-		$this->executeSQL($sql);
-	}
-
-		function create_SMSToUnidades($obj)
-	{
-
-		$allKeys = array_keys((array)$obj);
-
-		$sql = "INSERT INTO `smstounidades` ( ";
-		foreach ($allKeys as $key ) 
-		{
-   			$sql = $sql.$key .", ";
-		}
-		$sql = substr($sql, 0, -2); // removing extra ', '
-		$sql = $sql." ) VALUES ( ";
-		foreach ($obj as $value ) 
-		{	
-			if($value == 'NULL'|| $value == '' || $value == null)
-			{	
-   				$sql = $sql."null, ";
-			}
-			else
-			{
-				$sql = $sql."'".$value ."', ";
-			}
-		}
-		$sql = substr($sql, 0, -2); // removing extra ', '
-		$sql = $sql." )";
-
-		$this->executeSQL($sql);
-	}
-
-	function delete_SMSToUnidades($obj)
-	{
-		$id_obj= $obj->Id;
-		$sql = "DELETE FROM `smstounidades` WHERE Id =".$id_obj;
-		$this->executeSQL($sql);
-	}
-
-	function smstounidadesById_unidadNotRecieved($Id_unidad)
-	{
-		$SMSToUnidades = $this->get_SMSToUnidades();
-		foreach ($SMSToUnidades as $su)
-		{
-			if ( ($su->Id_unidad == $Id_unidad) && ($su->Recibido == 0))
-			{
-				return $su;
-			}
-		}
-		return null;
-	}
-
-	function smstounidadesWHERE($key, $value)
-	{
-		$sql = "SELECT * FROM `smstounidades` WHERE ".$key." = ".$value." ORDER BY Id DESC";
-		return $this->MYSQLfetchObj($sql, 'smstounidadesDbEntity');
-	}	
 }
 
 ?>

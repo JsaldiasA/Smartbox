@@ -11,7 +11,7 @@ $CheckList_Id= $_GET['CheckList_Id'];
 $Model = new Model() ;
 // Create connection
 
-$checklistDbEntity= $Model->checklistsWHERE('Id',$CheckList_Id)[0];
+$checklistDbEntity= $Model->MYSQLSelectWHERE('checklist','Id',$CheckList_Id)[0];
 
 		//IMPRIMIMOS  cabecera de informacion con los datos de la unidad desde la tabla unidad
 		$HtmlPage= '<div class="container">';// container cabecera de informacion	
@@ -22,8 +22,8 @@ $checklistDbEntity= $Model->checklistsWHERE('Id',$CheckList_Id)[0];
 		$HtmlPage=$HtmlPage. "<tr><td><b>ID:</b></td><td>". $checklistDbEntity-> Id . "</td></tr>";
 		$HtmlPage=$HtmlPage. "<tr><td><b>Técnico responsable:</b></td><td>". $checklistDbEntity-> TecnicoResponsable . "</td></tr>";
 
-		$checklistMotivo = $Model->CheckListMotivoById($checklistDbEntity-> id_checklistMotivo );
-		
+		$checklistMotivo = $Model->MYSQLSelectWHERE('checklistmotivo','Id',$checklistDbEntity-> id_checklistMotivo)[0] ;
+
 		$HtmlPage=$HtmlPage. "<tr><td><b>Motivo del checklist:</b></td><td>". $checklistMotivo-> Nombre . "</td></tr>";
 		$HtmlPage=$HtmlPage. "<tr><td><b>Tipo de unidad: </b></td><td>". $checklistDbEntity-> id_unidadtipo . "</td></tr>";
 		$HtmlPage=$HtmlPage. "<tr><td><b>Voltaje regulador de batería:</b></td><td>". $checklistDbEntity-> VoltajeReguladorBat . "</td></tr>";
