@@ -67,6 +67,12 @@ class Model
 			$sql = "SELECT * FROM `".$TableName."` ORDER BY Id DESC";
 			return $this->MYSQLfetchObj($sql, $TableName.'DbEntity');
 		}
+	
+	function MYSQLSelectWHERE($TableName ,$key , $value)
+		{
+			$sql = "SELECT * FROM `".$TableName."` WHERE ".$key." = ".$value." ORDER BY Id DESC";
+			return $this->MYSQLfetchObj($sql, $TableName.'DbEntity');
+		}		
 
 	function MYSQLUpdate($TableName, $obj)
 		{
@@ -125,29 +131,6 @@ class Model
 			$id_obj= $obj->Id;
 			$sql = "DELETE FROM `smstounidades` WHERE Id =".$id_obj;
 			$this->executeSQL($sql);
-		}
-
-	function get_externalapps_monitor()
-		{
-			$sql = "SELECT * FROM `externalapps_monitor`";
-			$result = $this->executeSQL($sql);
-			$externalapps_monitors = [];
-
-			if ($result->num_rows > 0)
-				{
-					while($row = $result->fetch_assoc())
-						{
-	    					$externalapps_monitors[] = new externalapps_monitorDbEntity
-								(
-									$row["id"],
-									$row["LastUpdate"],
-									$row["AppName"],
-									$row["Description"]
-								);
-						}
-				}
-
-			return $externalapps_monitors;
 		}
 
 	function get_comandos_milesight()
