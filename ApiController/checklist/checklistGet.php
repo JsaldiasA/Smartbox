@@ -39,6 +39,7 @@ $checklists = $model->MYSQLSelect('checklist');
 if(isset($_POST['Zona'])) 
 {
 	$zonaName = $_POST['Zona'];
+	echo $zonaName;
 	$Zona =  $model->MYSQLSelectWHERE('zona','Name',$zonaName)[0];
 
 	if($Zona !== NULL)
