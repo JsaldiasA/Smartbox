@@ -14,6 +14,8 @@ $Model = $Page->get_Model();
             <div class="col">
                 <br><h1><b>checklist</b></h1><br>
             </div>
+         </div>
+        <div class="row">
             <div class="col">
                 <div id="mainChecklist"></div>
             </div>
