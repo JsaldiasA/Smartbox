@@ -59,7 +59,14 @@ foreach ($unidades as $uni )
 			}	
 		}
 
-		$return=$return. '<tr>  <td>'. $Row->Id. "</td><td>" . $ubicacion . "</td><td>" . $Row->Fecha ."</td> <td>" . ( ($Row->Solenoide == '1') ? $trueIcon : $falseIcon )  ."</td> <td>" . ( ($Row->Flujometro == '1') ? $trueIcon : $falseIcon )."</td> <td>" . ( ($Row->agua == '1') ? $trueIcon : $falseIcon ) ."</td> <td>" . ( ($Row->ConduitChoco == '1') ? $trueIcon : $falseIcon ) ."</td></tr>";
+		$BadChecklist=false;
+
+		if($Row->Solenoide == '0' || $Row->Flujometro == '0' || $Row->agua == '0'|| $Row->ConduitChoco == '0' )
+		{
+			$BadChecklist=true;
+		}
+
+		$return=$return. '<tr  class="'.($BadChecklist == true ? 'bg-danger text-white' : '').'">  <td>'. $Row->Id. "</td><td>" . $ubicacion . "</td><td>" . $Row->Fecha ."</td> <td>" . ( ($Row->Solenoide == '1') ? $trueIcon : $falseIcon )  ."</td> <td>" . ( ($Row->Flujometro == '1') ? $trueIcon : $falseIcon )."</td> <td>" . ( ($Row->agua == '1') ? $trueIcon : $falseIcon ) ."</td> <td>" . ( ($Row->ConduitChoco == '1') ? $trueIcon : $falseIcon ) ."</td></tr>";
 
 		}
 

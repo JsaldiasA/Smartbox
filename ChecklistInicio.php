@@ -11,12 +11,12 @@ $Model = $Page->get_Model();
 
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col m-3 p-3">
                 <br><h1><b>checklist</b></h1><br>
             </div>
          </div>
         <div class="row">
-            <div class="col">
+            <div class="col m-3 p-3">
                 <div id="mainChecklist"></div>
             </div>
         </div>
