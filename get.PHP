@@ -100,7 +100,7 @@ $sql = "INSERT INTO unidades_lastortolas
 
       $SMSToUnidades = $model->MYSQLSelectWHERE('smstounidades','Id_unidad',$unidadObj->get_id());
       
-      $smstounit;
+      $smstounit = NULL;
 
       foreach ($SMSToUnidades as $su)
       {
