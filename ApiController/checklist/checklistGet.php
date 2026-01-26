@@ -61,7 +61,7 @@ foreach ($unidades as $uni )
 
 		$BadChecklist=false;
 
-		if( ($Row->Solenoide == '0') or ($Row->Flujometro == '0') or ($Row->agua == '0') or ($Row->ConduitChoco == '0') )
+		if( ($Row->Solenoide != '1') or ($Row->Flujometro != '1') or ($Row->agua != '1') or ($Row->ConduitChoco != '1') )
 		{
 			$BadChecklist=true;
 		}
