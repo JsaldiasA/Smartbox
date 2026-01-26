@@ -35,11 +35,22 @@ $model = new Model();
 
 $unidades = $model->get_unidades();
 $checklists = $model->MYSQLSelect('checklist');
-$zonaName = isset($_POST['Zona']) ? $_POST['Zona'] : NULL;
 
-$Zona =  ( $zonaName !== NULL)  ? ($model->MYSQLSelectWHERE('zona','Name',$zonaName)[0]) : (NULL);
+if(isset($_POST['Zona'])) 
+{
+	$zonaName = $_POST['Zona'];
+	$Zona =  $model->MYSQLSelectWHERE('zona','Name',$zonaName)[0];
 
-$cuarteles = ($Zona !== NULL) ? $model->MYSQLSelectWHERE('cuarteles','Id_zona',$Zona->Id) : $model->MYSQLSelect('cuarteles') ;
+	if($Zona !== NULL)
+	{
+		 $cuarteles =  $model->MYSQLSelectWHERE('cuarteles','Id_zona',$Zona->Id);
+	}
+ 
+}  
+else
+{
+	$cuarteles = $model->MYSQLSelect('cuarteles');
+}
 
 $Unidad;
 $LatestChecklist;
