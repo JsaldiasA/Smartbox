@@ -6,6 +6,10 @@ $thispath=dirname($_SERVER['PHP_SELF']);
 $sitebasepath=$_SERVER['DOCUMENT_ROOT'];
 require_once $sitebasepath."/Model/model.php";
 
+
+$ZonaName= $_POST['Zona'];
+
+
 // html table header adn icons
 			$return='';
 
@@ -34,10 +38,15 @@ $model = new Model();
 
 $unidades = $model->get_unidades();
 $checklists = $model->MYSQLSelect('checklist');
-$cuarteles = $model->MYSQLSelect('cuarteles');
+
+$Zona =  ($ZonaName !== NULL)  ? $model->MYSQLSelectWHERE('zona','Name',$ZonaName)[0] : NULL;
+
+$cuarteles = ($Zona !== NULL) ? $model->MYSQLSelectWHERE('zona','Id_zona',$Zona->Id) : $model->MYSQLSelect('zona') ;
 
 $Unidad;
 $LatestChecklist;
+
+
 
 foreach ($cuarteles as $cuartel)
 {
