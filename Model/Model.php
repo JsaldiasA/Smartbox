@@ -10,17 +10,6 @@ $thispath = dirname($_SERVER['PHP_SELF']);
 $sitebasepath = $_SERVER['DOCUMENT_ROOT'];
 
 require_once $sitebasepath.'/config/DbSirecorConfig.php';
-require_once $sitebasepath.'/DbEntities/externalapps_monitorDbEntity.php';
-require_once $sitebasepath.'/DbEntities/comandos_milesightDbEntity.php';
-require_once $sitebasepath.'/DbEntities/unidadDbEntity.php';
-require_once $sitebasepath.'/DbEntities/unidadtipoDbEntity.php';
-require_once $sitebasepath.'/DbEntities/unidades_lastortolasDbEntity.php';
-require_once $sitebasepath.'/DbEntities/checklistDbEntity.php';
-require_once $sitebasepath.'/DbEntities/checklistmotivoDbEntity.php';
-require_once $sitebasepath.'/DbEntities/ticketDbEntity.php';
-require_once $sitebasepath.'/DbEntities/ticket_statusDbEntity.php';
-require_once $sitebasepath.'/DbEntities/eventosDbEntity.php';
-require_once $sitebasepath.'/DbEntities/smstounidadesDbEntity.php';
 
 foreach (glob($sitebasepath."/DbEntities/*.php") as $filename)
 {

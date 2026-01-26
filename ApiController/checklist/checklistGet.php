@@ -71,11 +71,11 @@ foreach ($cuarteles as $cuartel)
 				$BadChecklist=true;
 			}
 
-			$return=$return. '<tr  class="'.($BadChecklist == true ? 'bg-danger text-white' : '').'">  <td>'. $LatestChecklist->Id. "</td><td>" . $ubicacion . "</td><td>" . $LatestChecklist->Fecha ."</td> <td>" . ( ($LatestChecklist->Solenoide == '1') ? $trueIcon : $falseIcon )  ."</td> <td>" . ( ($LatestChecklist->Flujometro == '1') ? $trueIcon : $falseIcon )."</td> <td>" . ( ($LatestChecklist->agua == '1') ? $trueIcon : $falseIcon ) ."</td> <td>" . ( ($LatestChecklist->ConduitChoco == '1') ? $trueIcon : $falseIcon ) ."</td></tr>";
+			$return=$return. '<tr  class="'.($BadChecklist == true ? 'bg-danger text-white' : '').'">  <td>'. $LatestChecklist->Id. "</td><td>" . $cuartel->Name . "</td><td>" . $LatestChecklist->Fecha ."</td> <td>" . ( ($LatestChecklist->Solenoide == '1') ? $trueIcon : $falseIcon )  ."</td> <td>" . ( ($LatestChecklist->Flujometro == '1') ? $trueIcon : $falseIcon )."</td> <td>" . ( ($LatestChecklist->agua == '1') ? $trueIcon : $falseIcon ) ."</td> <td>" . ( ($LatestChecklist->ConduitChoco == '1') ? $trueIcon : $falseIcon ) ."</td></tr>";
 		}
 		else
 		{
-			$return=$return. '<tr  class="bg-danger text-white">  <td>'. 'sin checklist'. "</td><td>" . $ubicacion . "</td><td>" . ''."</td> <td>" . '' ."</td> <td>" . ''."</td> <td>" . '' ."</td> <td>" . '' ."</td></tr>";
+			$return=$return. '<tr  class="bg-danger text-white">  <td>'. 'sin checklist'. "</td><td>" . $cuartel->Name . "</td><td>" . ''."</td> <td>" . '' ."</td> <td>" . ''."</td> <td>" . '' ."</td> <td>" . '' ."</td></tr>";
 		}
 	}
 }
