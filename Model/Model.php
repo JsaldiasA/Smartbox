@@ -21,6 +21,12 @@ require_once $sitebasepath.'/DbEntities/ticketDbEntity.php';
 require_once $sitebasepath.'/DbEntities/ticket_statusDbEntity.php';
 require_once $sitebasepath.'/DbEntities/eventosDbEntity.php';
 require_once $sitebasepath.'/DbEntities/smstounidadesDbEntity.php';
+
+foreach (glob($sitebasepath."'/DbEntities/*.php") as $filename)
+{
+    require_once $filename;
+}
+
 class Model
 {
 	function __construct()
