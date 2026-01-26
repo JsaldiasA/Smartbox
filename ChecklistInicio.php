@@ -11,7 +11,7 @@ $Model = $Page->get_Model();
 
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col m-1">
                  <h1><b>checklist</b></h1> 
             </div>
          </div>
