@@ -65,7 +65,7 @@ class Model
 	
 	function MYSQLSelectWHERE($TableName ,$key , $value)
 		{
-			$sql = "SELECT * FROM `".$TableName."` WHERE ".$key." = ".$value." ORDER BY Id DESC";
+			$sql = "SELECT * FROM `".$TableName."` WHERE ".$key." = '".$value."' ORDER BY Id DESC";
 			return $this->MYSQLfetchObj($sql, $TableName.'DbEntity');
 		}		
 
