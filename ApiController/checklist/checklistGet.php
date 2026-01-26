@@ -36,6 +36,7 @@ $model = new Model();
 $unidades = $model->get_unidades();
 $checklists = $model->MYSQLSelect('checklist');
 $zonaName = isset($_POST['Zona']) ? $_POST['Zona'] : NULL;
+
 $Zona =  ( $zonaName !== NULL)  ? ($model->MYSQLSelectWHERE('zona','Name',$zonaName)[0]) : (NULL);
 
 $cuarteles = ($Zona !== NULL) ? $model->MYSQLSelectWHERE('cuarteles','Id_zona',$Zona->Id) : $model->MYSQLSelect('cuarteles') ;
