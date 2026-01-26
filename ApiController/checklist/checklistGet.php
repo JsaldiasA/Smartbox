@@ -38,7 +38,7 @@ $checklists = $model->MYSQLSelect('checklist');
 
 $Zona =  ($_POST['Zona'] !== NULL)  ? $model->MYSQLSelectWHERE('zona','Name',$ZonaName)[0] : NULL;
 
-$cuarteles = ($Zona !== NULL) ? $model->MYSQLSelectWHERE('zona','Id_zona',$Zona->Id) : $model->MYSQLSelect('zona') ;
+$cuarteles = ($Zona !== NULL) ? $model->MYSQLSelectWHERE('cuarteles','Id_zona',$Zona->Id) : $model->MYSQLSelect('cuarteles') ;
 
 $Unidad;
 $LatestChecklist;
