@@ -22,7 +22,7 @@ require_once $sitebasepath.'/DbEntities/ticket_statusDbEntity.php';
 require_once $sitebasepath.'/DbEntities/eventosDbEntity.php';
 require_once $sitebasepath.'/DbEntities/smstounidadesDbEntity.php';
 
-foreach (glob($sitebasepath."'/DbEntities/*.php") as $filename)
+foreach (glob($sitebasepath."/DbEntities/*.php") as $filename)
 {
     require_once $filename;
 }
