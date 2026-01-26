@@ -15,7 +15,7 @@ $Model = $Page->get_Model();
                 <br><h1><b>checklist</b></h1><br>
             </div>
             <div class="col">
-                <div id="mainChecklist"><div>
+                <div id="mainChecklist"></div>
             </div>
         </div>
     </div>';
