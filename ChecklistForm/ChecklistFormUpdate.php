@@ -20,6 +20,7 @@ $unidadDbEntity = $Model->MYSQLSelectWHERE('unidad','Id',$checklist->id_unidad)[
 
 
 
+
 <div class="container">
 	<div class="row">
 		<div class="col m-3 p-3">	
@@ -51,6 +52,7 @@ $unidadDbEntity = $Model->MYSQLSelectWHERE('unidad','Id',$checklist->id_unidad)[
 		</div>	
 </div>
 </body>
+<script> document.getElementById("Observaciones").value = <?php echo '\''.$checklist->Observaciones.'\'';?>; </script>
 <script src="/CheckListForm/scripts/CheckListForm.js"></script>
 </html>
 
