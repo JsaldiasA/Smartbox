@@ -92,6 +92,8 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
 	$level = $unidad->get_BatNivel();
 	$BatNivel = new BatteryLevel($level);
 
+	$ultimoRegistro;
+	
 	foreach ($RegistrosDiarios as $r)
 		{
 			if($r->unidad_id == $unidad->Id )
