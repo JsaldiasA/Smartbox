@@ -70,7 +70,7 @@ $unidadObj = $model->unidadByTag($UNIDAD);
 if( is_null($unidadObj) ) // new unit
 	{
    $sql =  "INSERT INTO sirecor.unidad
-    (id, Serie, tag, Ubicacion, numero, UltimaActualizacion, Volumen, Estado, id_unidadTipo, InvertirEntrada, BatNivel, Temperatura, Humedad, EC, VolMax, FactorFlujometro)
+    (Id, Serie, tag, Ubicacion, numero, UltimaActualizacion, Volumen, Estado, id_unidadTipo, InvertirEntrada, BatNivel, Temperatura, Humedad, EC, VolMax, FactorFlujometro)
     VALUES(0, NULL, '{$UNIDAD}', NULL, NULL, current_timestamp(), NULL, '{$ESTADO}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)";
 
       $result = $model->executeSQL($sql);
@@ -94,7 +94,7 @@ $sql = "INSERT INTO unidades_lastortolas
 
       $sql = "UPDATE sirecor.unidad
       SET    UltimaActualizacion=current_timestamp(), Volumen={$VOLUMEN}, Estado='{$ESTADO}', BatNivel={$VOLTAJE}
-      WHERE id= ".$unidadObj->get_id();
+      WHERE Id= ".$unidadObj->get_id();
 
       $result = $model->executeSQL($sql);
 
