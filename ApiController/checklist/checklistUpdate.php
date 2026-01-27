@@ -9,24 +9,24 @@ require_once $sitebasepath."/Model/model.php";
 $model = new Model();
 
 
-$Id_smstounidades= $_POST['Id'];
-$SMStounidades= $model->MYSQLSelectWHERE('smstounidades','Id',$Id_SMS)[0];
+$Id_checklist= $_POST['Id_checklist'];
+$checklist= $model->MYSQLSelectWHERE('checklist','Id',$Id_checklist)[0];
 
-$UpdatedSMStounidades= new smstounidadesDbEntity();
+$Updatedchecklist= new checklistDbEntity();
 
-$allKeys = array_keys((array)$UpdatedSMStounidades);
+$allKeys = array_keys((array)$Updatedchecklist);
 
 foreach ($allKeys as $key ) 
 {
-	$UpdatedSMStounidades->$key = (($_POST[$key] == null)? $SMStounidades->$key : $_POST[$key]);
+	$Updatedchecklist->$key = (($_POST[$key] == null)? $checklist->$key : $_POST[$key]);
 }
 
-echo var_dump($SMStounidades);
-echo var_dump($UpdatedSMStounidades);
+echo var_dump($checklist);
+echo var_dump($Updatedchecklist);
 
-$model->MYSQLUpdate('smstounidades',$UpdatedSMStounidades);
+$model->MYSQLUpdate('smstounidades',$Updatedchecklist);
 
-echo 'SMSToUnidades Editado exitosamente';
-echo var_dump($UpdatedSMStounidades);
+echo 'checklist Editado exitosamente';
+echo var_dump($Updatedchecklist);
 
 ?>

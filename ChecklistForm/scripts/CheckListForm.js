@@ -186,39 +186,27 @@
 	}	   
 }
 
-function FunctionUpdateTicketPost( Id_checklist ) 
+function FunctionUpdateChecklistPost( Id_checklist ) 
 		{
 			let text = "¿Está seguro de enviar el ticket?";
 			if (confirm(text) == true)
 				{
 					let pattern = /(^\d+\.\d+$)|(^\d+$)/;
-					var URL = "/ApiController/ticket/TicketUpdate.php";
+					var URL = "/ApiController/checklist/checklistUpdate.php";
 					var Respuesta;
 
-					var Nombre = document.getElementById("Nombre").value;
-					if (Nombre == "")
-						{
-							return alert ("Debe especificar un dispositivo y/o plataforma.");
-						}
+					var Smartbox      = Number(document.getElementById("Smartbox").checked);	
+					var Solenoide 	= Number(document.getElementById("Solenoide").checked);
+					var Flujometro         = Number(document.getElementById("Flujometro").checked);	
+					var ConduitChoco = Number(document.getElementById("ConduitChoco").checked);
+					var agua         = Number(document.getElementById("agua").checked);
 
-	  				var Ubicacion = document.getElementById("Ubicacion").value;
-					if (Ubicacion == "")
+					var Observaciones= document.getElementById("Observaciones").value;
+					if(Observaciones == "" )
 						{
-							return alert ("Debe especificar un dispositivo y/o plataforma.");
+							return alert("Observaciones no puede estar vacío, coloque alguna observación. Si no tiene coloque OK");
 						}
-
-					var Descripcion = document.getElementById("Descripcion").value;
-					if (Descripcion == "" )
-						{
-							return alert ("Debe explicar de que se trata el problema.");
-						}
-
-					var Usuario = document.getElementById("Usuario").value;
-					if (Usuario == "" )
-						{
-							return alert ("Debe escribir su nombre.");
-						}
-
+				
 					$.ajax(
 						{
             				url:URL,
@@ -226,11 +214,14 @@ function FunctionUpdateTicketPost( Id_checklist )
 							dataType:'text',
 							data:
 								{
-									Id: Id_checklist ,
+									Id_checklist:Id_checklist,
+									Solenoide 	: Solenoide,
+									ConduitChoco: ConduitChoco,
+									Flujometro : Flujometro,
+									Smartbox: Smartbox ,
+									agua: agua,       
 									Nombre: Nombre,
-									Ubicacion: Ubicacion,
-									Descripcion: Descripcion,
-									Usuario: Usuario,
+									Observaciones: Observaciones,
         						},
 							success: function(result)
 								{
