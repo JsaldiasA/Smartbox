@@ -92,8 +92,9 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
 	$level = $unidad->get_BatNivel();
 	$BatNivel = new BatteryLevel($level);
 
-	$ultimoRegistro;
-	
+	$ultimoRegistro = new unidades_lastortolasDbEntity();
+	$ultimoRegistro->id = 0; // no unidad
+
 	foreach ($RegistrosDiarios as $r)
 		{
 			if($r->unidad_id == $unidad->Id )
@@ -112,7 +113,7 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
     echo "<td>".$unidad->DiffBetweenNow_and_UltimaActualizacion()."</td>";
     echo "<td>".$unidad->get_Estado()  ."</td>";
     echo "<td>".$BatNivel->get_HtmlTableField()."</td>";
-	echo !$isEstanque ? ($ultimoRegistro == null ? "<td>0</td>":"<td>".$ultimoRegistro->CAUDAL."</td>"): null;
+	echo !$isEstanque ? ($ultimoRegistro->id == 0 ? "<td>0</td>":"<td>".$ultimoRegistro->CAUDAL."</td>"): null;
     echo !$isEstanque ? ($IsMilesight ?  "<td>".$unidad->get_VolumenForMilesight()."</td>":"<td>".$unidad->get_Volumen()."</td>" ): null;
     echo "<td> <a href='unidadver.php?tag=".$unidad->get_Tag()."'>Ver</a></td></tr>";
 }
