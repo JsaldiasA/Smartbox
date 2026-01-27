@@ -20,12 +20,12 @@ $unidadDbEntity = $Model->MYSQLSelectWHERE('unidad','Id',$checklist->id_unidad)[
 
 <script src="/CheckListForm/scripts/CheckListForm.js"></script>
 <script>
-document.getElementById("SmartBox").checked = <?php echo "'".$checklist->SmartBox."'";?> ;
-document.getElementById("Solenoide").checked = <?php echo 	"'".$checklist->Solenoide."'";?>;
-document.getElementById("Flujometro").checked = <?php echo 	"'".$checklist->Flujometro."'";?>;
-document.getElementById("ConduitChoco").checked = ;<?php echo "'".$checklist->ConduitChoco."'";?>
-document.getElementById("agua").checked = <?php echo "'".$checklist->agua."'";?>;
-document.getElementById("Observaciones").value =  <?php echo "'".$checklist->Observacione."'";?>;
+document.getElementById("SmartBox").checked =       <?php echo "'".$checklist->SmartBox."'";?> 		;
+document.getElementById("Solenoide").checked =      <?php echo 	"'".$checklist->Solenoide."'";?>	;
+document.getElementById("Flujometro").checked =     <?php echo 	"'".$checklist->Flujometro."'";?>	;
+document.getElementById("ConduitChoco").checked =   <?php echo "'".$checklist->ConduitChoco."'";?>	;
+document.getElementById("agua").checked = 			<?php echo "'".$checklist->agua."'";?>			;
+document.getElementById("Observaciones").value =    <?php echo "'".$checklist->Observaciones."'";?> ;
 </script>
 <div class="container">
 	<div class="row">
