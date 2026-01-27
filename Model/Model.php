@@ -169,49 +169,7 @@ class Model
 
 	function get_unidades()
 		{
-			$sql = "SELECT * FROM `unidad`";
-			$result = $this->executeSQL($sql);
-			$Unidades = [];
-			$RegistrosDiarios = [];
-			$RegistrosDiarios = $this->get_UltimoRegistroDiarioDeCadaUnidad();
-
-			if ($result->num_rows > 0)
-				{
-					while($row = $result->fetch_assoc())
-						{
-							foreach ($RegistrosDiarios as $r)
-								{
-									if($r->unidad_id == $row["id"] )
-										{
-											$UltimoRegistro = $r;
-											break;
-										}
-								}
-
-							$Unidades[] = new unidadDbEntity
-								(
-									$row["id"],
-									$row["Serie"],
-									$row["tag"],
-									$row["Ubicacion"],
-									$row["numero"],
-									$row["UltimaActualizacion"],
-									$row["Volumen"],
-									$row["Estado"],
-									$row["id_unidadTipo"],
-									$row["InvertirEntrada"],
-									$row["BatNivel"],
-									$row["Temperatura"],
-									$row["Humedad"],
-									$row["EC"],
-									$row["VolMax"],
-									$row["FactorFlujometro"],
-									$UltimoRegistro
-								);	
-						}
-				}
-
-			return $Unidades;
+			return $this->MYSQLSelect('unidad');		
 		}
 
 	function unidadByTag($tag_unidad)
