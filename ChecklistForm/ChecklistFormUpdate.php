@@ -10,9 +10,6 @@ require_once $sitebasepath."/views/head.php";
 require_once $sitebasepath."/views/navbar.php";
 require_once $sitebasepath."/Model/model.php";
 
-echo '<style>body{background-color: #191919; color: #FFFFFF}</style>
-		<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;border-radius: 8px;}</style>';
-
 $Model = new Model();
 
 $Id_checklist = $_GET['Id_checklist'];
@@ -23,12 +20,12 @@ $unidadDbEntity = $Model->MYSQLSelectWHERE('unidad','Id',$checklist->id_unidad)[
 
 <script src="/CheckListForm/scripts/CheckListForm.js"></script>
 <script>
-document.getElementById("SmartBox").checked = <?php echo $checklist->SmartBox;?> ;
-document.getElementById("Solenoide").checked = <?php echo $checklist->Solenoide;?>;
-document.getElementById("Flujometro").checked = <?php echo $checklist->Flujometro;?>;
-document.getElementById("ConduitChoco").checked = ;<?php echo $checklist->ConduitChoco;?>
-document.getElementById("agua").checked = <?php echo $checklist->agua;?>;
-document.getElementById("Observaciones").value =  <?php echo $checklist->Observaciones;?>;
+document.getElementById("SmartBox").checked = <?php echo "'".$checklist->SmartBox."'";?> ;
+document.getElementById("Solenoide").checked = <?php echo 	"'".$checklist->Solenoide."'";?>;
+document.getElementById("Flujometro").checked = <?php echo 	"'".$checklist->Flujometro."'";?>;
+document.getElementById("ConduitChoco").checked = ;<?php echo "'".$checklist->ConduitChoco."'";?>
+document.getElementById("agua").checked = <?php echo "'".$checklist->agua."'";?>;
+document.getElementById("Observaciones").value =  <?php echo "'".$checklist->Observacione."'";?>;
 </script>
 <div class="container">
 	<div class="row">
