@@ -25,7 +25,6 @@ document.getElementById("Solenoide").checked =      <?php echo 	"'".$checklist->
 document.getElementById("Flujometro").checked =     <?php echo 	"'".$checklist->Flujometro."'";?>	;
 document.getElementById("ConduitChoco").checked =   <?php echo "'".$checklist->ConduitChoco."'";?>	;
 document.getElementById("agua").checked = 			<?php echo "'".$checklist->agua."'";?>			;
-document.getElementById("Observaciones").value =    <?php echo "'".$checklist->Observaciones."'";?> ;
 </script>
 <div class="container">
 	<div class="row">
@@ -46,7 +45,7 @@ document.getElementById("Observaciones").value =    <?php echo "'".$checklist->O
 			<tr><td><b>Flujómetro:</b></td><td><input type="checkbox" class="form-check-input" id="Flujometro"></td><td></td></tr>
 			<tr><td><b>Conduit y Choco:</b></td><td><input type="checkbox" class="form-check-input" id="ConduitChoco" ></td><td></td></tr>
 			<tr><td><b>Probado con agua:</b></td><td><input type="checkbox" class="form-check-input" id="agua" ></td><td></td></tr>
-			<tr><td><b>Observaciones:</b></td><td><input type="text" class="form-control" id="Observaciones" placeholder="Si no tiene comentarios, col m-3 p-3oque OK."></td><td></td></tr>
+			<tr><td><b>Observaciones:</b></td><td><input type="text" class="form-control" id="Observaciones" placeholder="Si no tiene comentarios, col m-3 p-3oque OK." value = <?php echo "'".$checklist->Observaciones."'";?>></td><td></td></tr>
 			</tbody>
 			</table>
 		</div>
