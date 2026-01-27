@@ -66,7 +66,7 @@ if ($VOLTAJE == "NULL") {
   $VOLTAJE="0";
 }
 
-$unidadObj = $model->unidadByTag($UNIDAD);
+$unidadObj = $model->MYSQLSelectWHERE('unidad','tag',$UNIDAD);
 if( is_null($unidadObj) ) // new unit
 	{
    $sql =  "INSERT INTO sirecor.unidad
