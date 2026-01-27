@@ -66,7 +66,7 @@ if ($VOLTAJE == "NULL") {
   $VOLTAJE="0";
 }
 
-$unidadObj = $model->MYSQLSelectWHERE('unidad','tag',$UNIDAD);
+$unidadObj = $model->MYSQLSelectWHERE('unidad','tag',$UNIDAD)[0];
 if( is_null($unidadObj) ) // new unit
 	{
    $sql =  "INSERT INTO sirecor.unidad
@@ -75,7 +75,7 @@ if( is_null($unidadObj) ) // new unit
 
       $result = $model->executeSQL($sql);
 
-      $unidadObj = $model->unidadByTag($UNIDAD);
+      $unidadObj = $model->MYSQLSelectWHERE('unidad','tag',$UNIDAD)[0];
 
 $sql = "INSERT INTO unidades_lastortolas
       ( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
@@ -94,7 +94,7 @@ $sql = "INSERT INTO unidades_lastortolas
 
       $sql = "UPDATE sirecor.unidad
       SET    UltimaActualizacion=current_timestamp(), Volumen={$VOLUMEN}, Estado='{$ESTADO}', BatNivel={$VOLTAJE}
-      WHERE Id= ".$unidadObj->get_id();
+      WHERE Id = ".$unidadObj->get_id();
 
       $result = $model->executeSQL($sql);
 
