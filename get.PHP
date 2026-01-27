@@ -110,7 +110,7 @@ $sql = "INSERT INTO unidades_lastortolas
         }
       } 
 
-      if( $smstounit !== null)
+      if( $smstounit != null)
       {
           $smstounit->Recibido = '1';
           $result = $model->MYSQLUpdate('smstounidades',$smstounit);

@@ -90,7 +90,17 @@ $HtmlPage=$HtmlPage.'
 			"</td> <td>". $unidadDbEntity->get_VolMax().
 			" (L)</td></tr>";
 			$HtmlPage=$HtmlPage. '</tbody></table>';*/// configuraciopn cuadro 
-		$ultimoRegistro = $unidadDbEntity->get_UltimoRegistro();
+
+		$RegistrosDiarios = [];
+		$RegistrosDiarios = $model->get_UltimoRegistroDiarioDeCadaUnidad();
+		foreach ($RegistrosDiarios as $r)
+		{
+			if($r->unidad_id == $unidadDbEntity->Id )
+				{
+					$ultimoRegistro = $r;
+					break;
+				}
+		}	
 
 			$HtmlPage=$HtmlPage. '<table class="table" >
 		  <tbody>';
@@ -221,7 +231,7 @@ $HtmlPage=$HtmlPage.'<div class="accordion" id="accordionExample">
 	$HtmlPage=$HtmlPage. '<script>let table = new DataTable("#TablaRegistros");</script>';
 	$HtmlPage=$HtmlPage. '<table id="TablaRegistros" class="display"><thead><tr><th scope="col">ESTADO</th><th scope="col">VOLUMEN</th><th scope="col">CAUDAL</th><th scope="col">SENAL</th><th scope="col">BAT</th><th scope="col">FECHA</th></tr></thead><tbody>';
 
-$RegistrosDiarios = $Model->RegistrosDiariosById_unidad($unidadDbEntity->id);
+$RegistrosDiarios = $Model->RegistrosDiariosById_unidad($unidadDbEntity->Id);
 
 foreach ($RegistrosDiarios as $registro) {
     // output data of each row

@@ -186,3 +186,61 @@
 	}	   
 }
 
+function FunctionUpdateTicketPost( Id_checklist ) 
+		{
+			let text = "¿Está seguro de enviar el ticket?";
+			if (confirm(text) == true)
+				{
+					let pattern = /(^\d+\.\d+$)|(^\d+$)/;
+					var URL = "/ApiController/ticket/TicketUpdate.php";
+					var Respuesta;
+
+					var Nombre = document.getElementById("Nombre").value;
+					if (Nombre == "")
+						{
+							return alert ("Debe especificar un dispositivo y/o plataforma.");
+						}
+
+	  				var Ubicacion = document.getElementById("Ubicacion").value;
+					if (Ubicacion == "")
+						{
+							return alert ("Debe especificar un dispositivo y/o plataforma.");
+						}
+
+					var Descripcion = document.getElementById("Descripcion").value;
+					if (Descripcion == "" )
+						{
+							return alert ("Debe explicar de que se trata el problema.");
+						}
+
+					var Usuario = document.getElementById("Usuario").value;
+					if (Usuario == "" )
+						{
+							return alert ("Debe escribir su nombre.");
+						}
+
+					$.ajax(
+						{
+            				url:URL,
+            				type:"post",
+							dataType:'text',
+							data:
+								{
+									Id: Id_checklist ,
+									Nombre: Nombre,
+									Ubicacion: Ubicacion,
+									Descripcion: Descripcion,
+									Usuario: Usuario,
+        						},
+							success: function(result)
+								{
+									alert (result);
+									window.location.href = "https://smartbox.eco3.cl/Checklistinicio.php";
+								}
+						});
+  				}
+			else
+			{
+    			alert ("La operación se ha cancelado.");
+  			}
+		}

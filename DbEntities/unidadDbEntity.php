@@ -1,7 +1,7 @@
 <?php
 class unidadDbEntity {
 	
-public $id;
+public $Id;
 public $Serie;
 public $tag;
 public $Ubicacion;
@@ -17,48 +17,9 @@ public $Humedad;
 public $EC;
 public $VolMax;
 public $FactorFlujometro;
- public $UltimoRegistro;
 	    
-function __construct($id,
-$Serie,
-$tag,
-$Ubicacion,
-$numero,
-$UltimaActualizacion,
-$Volumen,
-$Estado,
-$id_unidadTipo,
-$InvertirEntrada,
-$BatNivel,
-$Temperatura,
-$Humedad,
-$EC,
-$VolMax,
-$FactorFlujometro,
-$UltimoRegistro)
 
-
-{ 		
-  $this->id = $id;
-  $this->Serie = $Serie;
-  $this->tag = $tag;
-  $this->Ubicacion = $Ubicacion;
-  $this->numero = $numero;
-  $this->UltimaActualizacion = $UltimaActualizacion;
-  $this->Volumen = $Volumen;
-  $this->Estado = $Estado;
-  $this->id_unidadTipo = $id_unidadTipo;
-  $this->InvertirEntrada = $InvertirEntrada;
-  $this->BatNivel = $BatNivel;
-  $this->Temperatura = $Temperatura;
-  $this->Humedad = $Humedad;
-  $this->EC = $EC;
-  $this->VolMax = $VolMax;
-  $this->FactorFlujometro = $FactorFlujometro;
-  $this->UltimoRegistro = $UltimoRegistro;
-}
-
-  function get_id() { return $this->id; }
+  function get_id() { return $this->Id; }
   function get_Serie() { return $this->Serie; }
   function get_tag() { return $this->tag; }
   function get_Ubicacion() { return $this->Ubicacion; }
@@ -94,7 +55,6 @@ $UltimoRegistro)
   function get_EC() { return $this->EC; }
   function get_VolMax() { return $this->VolMax; }
   function get_FactorFlujometro() { return $this->FactorFlujometro; }
-  function get_UltimoRegistro() { return $this->UltimoRegistro; }
   function get_VolumenForMilesight( )
   {
     $factor = floatval($this->FactorFlujometro);

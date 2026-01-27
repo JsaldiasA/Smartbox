@@ -83,11 +83,23 @@ usort ($UnidadesFiltradasPorTipo, function($a, $b)
 	</thead>
 	<tbody>';
 
+	$RegistrosDiarios = [];
+	$RegistrosDiarios = $model->get_UltimoRegistroDiarioDeCadaUnidad();
+
+
 foreach ($UnidadesFiltradasPorTipo as $unidad)
 {
 	$level = $unidad->get_BatNivel();
 	$BatNivel = new BatteryLevel($level);
-	$ultimoRegistro = $unidad->get_UltimoRegistro();
+
+	foreach ($RegistrosDiarios as $r)
+		{
+			if($r->unidad_id == $unidad->Id )
+				{
+					$ultimoRegistro = $r;
+					break;
+				}
+		}
 
 	// Print row.
     echo "<tr>";
