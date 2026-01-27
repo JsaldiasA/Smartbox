@@ -92,7 +92,8 @@ $HtmlPage=$HtmlPage.'
 			$HtmlPage=$HtmlPage. '</tbody></table>';*/// configuraciopn cuadro 
 
 		$RegistrosDiarios = [];
-		$RegistrosDiarios = $model->get_UltimoRegistroDiarioDeCadaUnidad();
+		$RegistrosDiarios = $Model->get_UltimoRegistroDiarioDeCadaUnidad();
+
 		foreach ($RegistrosDiarios as $r)
 		{
 			if($r->unidad_id == $unidadDbEntity->Id )
