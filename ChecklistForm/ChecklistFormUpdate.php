@@ -19,13 +19,7 @@ $unidadDbEntity = $Model->MYSQLSelectWHERE('unidad','Id',$checklist->id_unidad)[
 ?>
 
 
-<script>
-document.getElementById("SmartBox").checked =       <?php echo "'".$checklist->SmartBox."'";?> 		;
-document.getElementById("Solenoide").checked =      <?php echo 	"'".$checklist->Solenoide."'";?>	;
-document.getElementById("Flujometro").checked =     <?php echo 	"'".$checklist->Flujometro."'";?>	;
-document.getElementById("ConduitChoco").checked =   <?php echo "'".$checklist->ConduitChoco."'";?>	;
-document.getElementById("agua").checked = 			<?php echo "'".$checklist->agua."'";?>			;
-</script>
+
 <div class="container">
 	<div class="row">
 		<div class="col m-3 p-3">	
