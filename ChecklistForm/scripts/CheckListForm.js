@@ -220,7 +220,6 @@ function FunctionUpdateChecklistPost( Id_checklist )
 									Flujometro : Flujometro,
 									Smartbox: Smartbox ,
 									agua: agua,       
-									Nombre: Nombre,
 									Observaciones: Observaciones,
         						},
 							success: function(result)
