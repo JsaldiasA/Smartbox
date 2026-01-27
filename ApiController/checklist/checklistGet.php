@@ -64,7 +64,7 @@ foreach ($cuarteles as $cuartel)
 	{
 		foreach ($unidades as $uni ) // geting the unit of the cuartel
 		{
-				if($cuartel->Id_unidad == $uni->id)
+				if($cuartel->Id_unidad == $uni->Id)
 				{
 					$Unidad = $uni;
 					break;
@@ -74,7 +74,7 @@ foreach ($cuarteles as $cuartel)
 
 		foreach($checklists as $ck) // getting the checklist
 		{
-			if($ck->id_unidad == $Unidad->id)
+			if($ck->id_unidad == $Unidad->Id)
 			{
 				$LatestChecklist= $ck;
 				break;
