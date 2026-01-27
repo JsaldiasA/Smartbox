@@ -18,7 +18,7 @@ $checklist = $Model->MYSQLSelectWHERE('Checklist', 'Id', $Id_checklist)[0];
 $unidadDbEntity = $Model->MYSQLSelectWHERE('unidad','Id',$checklist->id_unidad)[0];
 ?>
 
-<script src="/CheckListForm/scripts/CheckListForm.js"></script>
+
 <script>
 document.getElementById("SmartBox").checked =       <?php echo "'".$checklist->SmartBox."'";?> 		;
 document.getElementById("Solenoide").checked =      <?php echo 	"'".$checklist->Solenoide."'";?>	;
@@ -52,12 +52,12 @@ document.getElementById("agua").checked = 			<?php echo "'".$checklist->agua."'"
 	</div>
 	<div class="row">
 			<div class="col">
-				<button type="button" class="btn btn-success" onclick="FunctionUpdateChecklistPost( <?php echo '\''.$checklist->Id.'\'';?>)">Enviar ticket</button>
+				<button type="button" class="btn btn-success" onclick="FunctionUpdateChecklistPost( <?php echo '\''.$checklist->Id.'\'';?> <script>)">Enviar ticket</button>
 			</div>
 		</div>	
 </div>
 </body>
-
+<script src="/CheckListForm/scripts/CheckListForm.js"></script>
 </html>
 
 ?>

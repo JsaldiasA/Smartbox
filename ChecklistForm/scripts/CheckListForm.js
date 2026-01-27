@@ -188,7 +188,7 @@
 
 function FunctionUpdateChecklistPost( Id_checklist ) 
 		{
-			let text = "¿Está seguro de enviar el ticket?";
+			let text = "¿Está seguro de editar el checklist?";
 			if (confirm(text) == true)
 				{
 					let pattern = /(^\d+\.\d+$)|(^\d+$)/;
