@@ -195,7 +195,7 @@ function FunctionUpdateChecklistPost( Id_checklist )
 					var URL = "/ApiController/checklist/checklistUpdate.php";
 					var Respuesta;
 
-					var Smartbox      = Number(document.getElementById("Smartbox").checked);	
+					var Smartbox      = Number(document.getElementById("SmartBox").checked);	
 					var Solenoide 	= Number(document.getElementById("Solenoide").checked);
 					var Flujometro         = Number(document.getElementById("Flujometro").checked);	
 					var ConduitChoco = Number(document.getElementById("ConduitChoco").checked);
