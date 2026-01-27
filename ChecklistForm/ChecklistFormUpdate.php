@@ -49,7 +49,12 @@ document.getElementById("agua").checked = 			<?php echo "'".$checklist->agua."'"
 			</tbody>
 			</table>
 		</div>
-	</div>	
+	</div>
+	<div class="row">
+			<div class="col">
+				<button type="button" class="btn btn-success" onclick="FunctionUpdateChecklistPost( <?php echo '\''.$checklist->Id.'\'';?>)">Enviar ticket</button>
+			</div>
+		</div>	
 </div>
 </body>
 
