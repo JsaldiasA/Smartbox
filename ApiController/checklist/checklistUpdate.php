@@ -24,7 +24,7 @@ foreach ($allKeys as $key )
 echo var_dump($checklist);
 echo var_dump($Updatedchecklist);
 
-$model->MYSQLUpdate('smstounidades',$Updatedchecklist);
+$model->MYSQLUpdate('checklist',$Updatedchecklist);
 
 echo 'checklist Editado exitosamente';
 echo var_dump($Updatedchecklist);
