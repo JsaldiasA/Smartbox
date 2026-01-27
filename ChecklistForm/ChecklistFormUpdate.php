@@ -39,7 +39,7 @@ document.getElementById("agua").checked = 			<?php echo "'".$checklist->agua."'"
 			<table class="table">
 			<tbody>	
 			<tr><td><b>IMEI:</b></td><td><?php echo $unidadDbEntity->get_tag();?></td><td></td></tr>
-			<tr><td><b>ID de la unidad:</b></td><td><?php echo $unidadDbEntity->get_id();?></td><td></td></tr>
+			<tr><td><b>Ubicacion:</b></td><td><?php echo $unidadDbEntity->get_Ubicacion();?></td><td></td></tr>
 			<tr><td><b>SmartBox:</b></td><td><input type="checkbox" class="form-check-input" id="SmartBox" ></td><td></td></tr>
 			<tr><td><b>Solenoide:</b></td><td><input type="checkbox" class="form-check-input" id="Solenoide"></td><td></td></tr>
 			<tr><td><b>Flujómetro:</b></td><td><input type="checkbox" class="form-check-input" id="Flujometro"></td><td></td></tr>
