@@ -92,9 +92,10 @@ Riego Foestacion A   -Control remoto ---> como usuario abrir -> -Fabricar dispos
 <h2> Procedimeintos de SIMPLES terreno    </h2>
 
 <p style="white-space: pre-line;">Son procedimeinto que realizan una funcion especifica.
-Los procedimientos simple no incluye otros procedimietos.
+Los procedimientos simple no incluye otros procedimietos.</p>
 
 <h3>Procedimiento  Sirecor Crear checklist (PTS2)   </h3>
+<p style="white-space: pre-line;">
 herramientas: smarphone.
 
 1) entrar pagina de smartbox www.smartbox.eco3.cl
