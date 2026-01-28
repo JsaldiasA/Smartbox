@@ -16,56 +16,56 @@ $Model = $Page->get_Model();
 <div class="container p-3" >
 <div class="row m-3 p-3" >
 
-<h1>Procedimeintos</h1>
-<h2>Metodologia de trabajo</h2>
+<h1>Procedimientos.</h1>
+<h2>Metodología de trabajo.</h2>
 
-<p style="white-space: pre-line;">El equipo de Desarrollo eco3 utiliza Metodologias agiles para realizar proyectos.
+<p style="white-space: pre-line;">El equipo de Desarrollo de ECO3 utiliza Metodologías ágiles para realizar proyectos.
 Se utiliza el Scrum como marco de trabajo. Los proyectos son a corto plazo (1 semana)
-y estan relacionados a Investigacion o mejoras a proyectos existentes.
+y estan relacionados a Investigación o mejoras a proyectos existentes.
 
-Con los sprint de scrum abarcamos todo lo nuevo, pero cuando las cosas fallan utilizamos
-tickets para revisar los problemas que vayan a pareciendo en los proyectos existentes.</p>
+Con los Sprint de Scrum abarcamos todo lo nuevo, pero cuando las cosas fallan utilizamos
+tickets para revisar los problemas que vayan apareciendo en los proyectos existentes.</p>
 
 <h2>Sprints</h2>
 
-<p style="white-space: pre-line;">Los sprints son cilcos cortos de trabajo que culminan en un producto entregable funcional.
-Los sprints estan asociados a una historia de usuario, que es una funcionalidad que el
-cliente ( gerencia ECO3 ) va a disponer luego de terminar el sprint.
+<p style="white-space: pre-line;">Los Sprints son ciclos cortos de trabajo que culminan en la entrega de un producto funcional.
+Los Sprints estan asociados a una historia de usuario, que es una funcionalidad que el
+cliente ( Gerencia de ECO3 ) va a disponer luego de terminar el Sprint.
 
-EL SPRINT NO ES UNA LISTA DE TAREAS. Las tereas son creadas en funcion de la historia de usuario.
+EL SPRINT NO ES UNA LISTA DE TAREAS. Las tareas son creadas en función de la historia de usuario.
 
 Una historia de usuario es una descripción breve, simple y no técnica de una funcionalidad,
 escrita desde la perspectiva del usuario final (cliente o usuario) para expresar una necesidad y el valor que aporta.
 
-EJEMPLO: "Como usuario quiero ver la presion en los cuarteles A, B, C"
+EJEMPLO: "Como usuario quiero ver la presión en los cuarteles A, B, y C"
 
-Las Tareas, son todo lo necesario para que la funcionalidad sea posible.
- EJEMPLO:"1) instalar sensores de presion en los cuarteles A, B, C".
-        "2) crear una platafor de visualicacion de presion".
+Las tareas, son todo lo necesario para que la funcionalidad sea posible.
+ EJEMPLO:"1) Instalar sensores de presión en los cuarteles A, B, y C".
+        "2) Crear una plataforma de visualización de la presión".
 
 Las tareas de terreno, muchas estan estandarizadas. Mas adelante se muestran los procedimientos para
-tereas que estan estandarizadas. Asi todas las tareas estan relacionados a un procedimiento que determina
-como hacer la tarea.
+tareas que estan estandarizadas. Así, todas las tareas estan relacionadas a un procedimiento que determina
+como realizarlas.
 
-EJEMPLO:"1) instalar sensores de presion en los cuarteles A, B, C. (P123)"
-        "P123 procedimiento para instalacion de sensiores de presion.
+EJEMPLO:"1) Instalar sensores de presión en los cuarteles A, B, y C. (P123)"
+        "P123 procedimiento para instalacion de sensores de presión.
             Herramientas necesarias....
             Tiempo estimado....
 
-            1) abrir la linea desde ...
-            2) conectar los cable...
-            3) instalar programa..
-            4) testar desde.."
+            1) Abrir la línea desde ...
+            2) Conectar los cables...
+            3) Instalar programa..
+            4) Testar desde...
 
 Si hay tareas que no tienen un procedimiento y es repetitiva o ya se a ha hecho antes, es necesario crear un procedimiento
 para que la tarea este estandarizada.
 
-Ejemplo "(sin procedimiento) Tarea: Ajustar paner solar para que tenga orientacion norte y tenga un angulo de 60
+Ejemplo "(sin procedimiento) Tarea: Ajustar paner solar para que tenga orientación norte y tenga un angulo de 60 grados.
         Luego de hacer la tarea, crear un procedimiento para estandarizar (p124 creado)
-        otra tarea de otro sprint Tarea: Ajustar paner solar para que tenga orientacion norte y tenga un angulo de 60, usar procedimeinto (p124)."
+        otra tarea de otro Sprint, Tarea: Ajustar paner solar para que tenga orientación norte y tenga un angulo de 60 grados, usar procedimeinto (p124)."
 
 
-Todas las tareas estan en funcion una historia, todas las historias estan en funcion de un product Backlog
+Todas las tareas estan en función una historia, todas las historias estan en función de un product Backlog
 todos los backlogs estan en funcion de un Objetivo.
 
 Ejemplo:
@@ -73,14 +73,14 @@ Ejemplo:
 Proyecto Iot Minera X,
 
 [     Cliente        ]
-[         gerencia ECO3                                         ]
+[         Gerencia ECO3                                         ]
                                         [               Equipo Desarrollo                      ]
                                         [                   ciclo SCRUM                             ]
-(Objetivo)           ( Product Backlog ) ( Historia de usuario )    ( Tareas )   ( Procedimeintos ).
+(Objetivo)           ( Product Backlog ) ( Historia de usuario )    ( Tareas )   ( Procedimientos ).
 
-Riego Foestacion A   -Control remoto ---> como usuario abrir -> -Fabricar dispositivos --> (P123)
+Riego Forestacion A   -Control remoto ---> como usuario abrir -> -Fabricar dispositivos --> (P123)
                                           remotamente.         - Instalar dispositivos --> (P124)
-                                                              -plataforma crear alerta --> sin procedimeinto
+                                                              -plataforma crear alerta --> sin procedimiento
                      -riego nocturno
 
                      -ecoData
@@ -89,52 +89,51 @@ Riego Foestacion A   -Control remoto ---> como usuario abrir -> -Fabricar dispos
 </p>
 
 
-<h2> Procedimeintos de SIMPLES terreno    </h2>
+<h2> Procedimientos SIMPLES de terreno    </h2>
 
-<p style="white-space: pre-line;">Son procedimeinto que realizan una funcion especifica.
-Los procedimientos simple no incluye otros procedimietos.</p>
+<p style="white-space: pre-line;">Son procedimientos que realizan una función específica.
+Los procedimientos simples no incluyen otros procedimientos.</p>
 
 <h3>Procedimiento  Sirecor Crear checklist (PTS2)   </h3>
 <p style="white-space: pre-line;">
-herramientas: smarphone.
+herramientas: Smartphone.
 
-1) entrar pagina de smartbox www.smartbox.eco3.cl
+1) Entrar en la página de smartbox: www.smartbox.eco3.cl
 
-2) Iniciar sesion, en la pagina pricipal elegir la unidad la ultima columa hay una vinculo con la palabra VER, a la cual se hara el checklist.
-Si la unidad es sirecor y es nueva, hay que conectarla y ver en unidades indefinidas, buscar por el IMEI de la placa. Luego hacer click en el
-viculo ver. SI es milesight nueva debe hablar con el equipo de desarrollo para que la agrege. si es milesight buscala en la tabla milesight.
-(agregar foto del vinculo)
+2) Iniciar sesión, en la pagina principal elegir la unidad, en la última columna hay un vínculo con la palabra "Ver", a la cual se hara el checklist.
+Si la unidad es Sirecor y es nueva, hay que conectarla y ver en unidades indefinidas, buscar por el IMEI de la placa. Luego hacer click en el
+vínculo "Ver". Si es Milesight nueva debe hablar con el equipo de desarrollo para que la agrege. Si es Milesight búscala en la tabla Milesight.
+(agregar foto del vínculo)
 
-3) una ves dentro de la unidad hacer click en el viculo nuevo checklist.
+3) Una vez dentro de la unidad hacer click en el vínculo nuevo checklist.
 (agregar foto)
 
-4)Ahora hay que completar el checklist con la informacion de terreno. Los valores esperados estan en los campos( agregar foto)
-NO UTILICES CARACTERES NO NUMERICOS COMO LETRAS O SIGNOS. solo tienes que agregar el valor del voltaje con punto . si tiene decimal.
+4) Ahora hay que completar el checklist con la información de terreno. Los valores esperados están en los campos (agregar foto)
+NO UTILICES CARACTERES NO NÚMERICOS COMO LETRAS O SIGNOS. Sólo tienes que agregar el valor del voltaje con punto "." si tiene decimales.
 (agregar foto)
 
-5) checkea todas las funciones que fueron testeadas.
+5) Checkea todas las funciones que fueron testeadas.
 (agregar foto)
 
-6) agrega tu nombre y un comentario, si tienes algunas observacion del punto algo que no se pudo medir o extrano agregalo todo es necesario.
-si no tiene observaciones coloca OK, no puedes dejar el campo vacio.
+6) Agrega tu nombre y un comentario, si tienes algunas observaciones del punto, algo que no se pudo medir o extraño, agrégalo, todo es necesario.
+Si no tiene observaciones coloca OK, no puedes dejar el campo vacío.
 (agregar foto)
 
-7) has click para buscar la foto del checklist, la foto debe ojala aparecer toda la estructura la valvula y la solenoide, que se vean los chochos y el counduit
+7) Has click para buscar la foto del checklist, la foto debe ojalá aparecer toda la estructura de la válvula y la solenoide, que se vean los chochos y el conduit.
 (agregar foto)
 
-8) has click en upload para subir la foto. debe aparecer el nombre de la foto en el campo URL_foto.
+8) Has click en upload para subir la foto. Debe aparecer el nombre de la foto en el campo URL_foto.
 (agregar foto)
 
-9)Ahora dar subir enviar checklist. si no tienes errores en los campos dar OK, sino corrigelos. esperar unos segundo debe aperecer un mensaje con los datos enviados.
-v
+9) Ahora dar subir enviar checklist. Si no tienes errores en los campos dar OK, sino corrígelos. Espera unos segundos debe aperecer un mensaje con los datos enviados.
 
-10) revisa en smartbox que el checklist se haya creado correctamente. abre el vinculo VER en la paguina de inicio y aseguratge que se haya subido el checklist.
+10) Revisa en smartbox que el checklist se haya creado correctamente. Abre el vínculo "Ver" en la página de inicio y asegúrate que se haya subido el checklist.
 (agregar foto)
 
-11) si tienes problemas contanta con el equipo de desarrollo, guarta toda la informacion, envia la foto con los datos por el grupo de IOT de teams para que sea agregado mas tarde.
+11) Si tienes problemas contacta con el equipo de desarrollo, guarda toda la información, envía la foto con los datos por el grupo de IOT de Teams para que sea agregado mas tarde.
 
 </p>
-<h3>Procedimiento  Sirecor mantecion panel (PTS3)  </h3>
+<h3>Procedimiento  Sirecor mantención panel (PTS3)  </h3>
 <p style="white-space: pre-line;">
 herramientas:
 - pano para limpiar panel.
@@ -146,9 +145,9 @@ herramientas:
 - llave inglesa para apretar tuerca.
 -tester
 
-1) limpar panel con el liquido, tiene que quedar reluciente.
+1) limpiar panel con el liquido, tiene que quedar reluciente.
 
-2) con aplicacion de blujula, apuntar el panel al norte. ajustar a -30 grados.
+2) con aplicacion de brújula, apuntar el panel al norte. ajustar a -30 grados.
 (foto)
 
 3) desmontar los cable del panel y medir voltaje a circuito abierto. a todo sol debe medir 19v al menos. mover el cable para descartar malas conexiones.
