@@ -21,9 +21,9 @@ $Model = $Page->get_Model();
 
 <p>El equipo de Desarrollo eco3 utiliza Metodologias agiles para realizar proyectos.
 Se utiliza el Scrum como marco de trabajo. Los proyectos son a corto plazo (1 semana)
-y estan relacionados a Investigacion o mejoras a proyectos existentes.
+y estan relacionados a Investigacion o mejoras a proyectos existentes.</p>
 
-Con los sprint de scrum abarcamos todo lo nuevo, pero cuando las cosas fallan utilizamos
+<p>Con los sprint de scrum abarcamos todo lo nuevo, pero cuando las cosas fallan utilizamos
 tickets para revisar los problemas que vayan a pareciendo en los proyectos existentes.</p>
 
 <h2>Sprints</h2>
