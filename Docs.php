@@ -19,16 +19,16 @@ $Model = $Page->get_Model();
 <h1>Procedimeintos</h1>
 <h2>Metodologia de trabajo</h2>
 
-<p>El equipo de Desarrollo eco3 utiliza Metodologias agiles para realizar proyectos.
+<p style="white-space: pre-line;">El equipo de Desarrollo eco3 utiliza Metodologias agiles para realizar proyectos.
 Se utiliza el Scrum como marco de trabajo. Los proyectos son a corto plazo (1 semana)
-y estan relacionados a Investigacion o mejoras a proyectos existentes.</p>
+y estan relacionados a Investigacion o mejoras a proyectos existentes.
 
-<p>Con los sprint de scrum abarcamos todo lo nuevo, pero cuando las cosas fallan utilizamos
+Con los sprint de scrum abarcamos todo lo nuevo, pero cuando las cosas fallan utilizamos
 tickets para revisar los problemas que vayan a pareciendo en los proyectos existentes.</p>
 
 <h2>Sprints</h2>
 
-<p>Los sprints son cilcos cortos de trabajo que culminan en un producto entregable funcional.
+<p style="white-space: pre-line;">Los sprints son cilcos cortos de trabajo que culminan en un producto entregable funcional.
 Los sprints estan asociados a una historia de usuario, que es una funcionalidad que el
 cliente ( gerencia ECO3 ) va a disponer luego de terminar el sprint.
 
@@ -40,8 +40,7 @@ escrita desde la perspectiva del usuario final (cliente o usuario) para expresar
 EJEMPLO: "Como usuario quiero ver la presion en los cuarteles A, B, C"
 
 Las Tareas, son todo lo necesario para que la funcionalidad sea posible.
-
-EJEMPLO:"1) instalar sensores de presion en los cuarteles A, B, C".
+ EJEMPLO:"1) instalar sensores de presion en los cuarteles A, B, C".
         "2) crear una platafor de visualicacion de presion".
 
 Las tareas de terreno, muchas estan estandarizadas. Mas adelante se muestran los procedimientos para
@@ -92,7 +91,7 @@ Riego Foestacion A   -Control remoto ---> como usuario abrir -> -Fabricar dispos
 
 <h2> Procedimeintos de SIMPLES terreno    </h2>
 
-<p>Son procedimeinto que realizan una funcion especifica.
+<p style="white-space: pre-line;">Son procedimeinto que realizan una funcion especifica.
 Los procedimientos simple no incluye otros procedimietos.
 
 <h3>Procedimiento  Sirecor Crear checklist (PTS2)   </h3>
@@ -135,7 +134,7 @@ v
 
 </p>
 <h3>Procedimiento  Sirecor mantecion panel (PTS3)  </h3>
-<p>
+<p style="white-space: pre-line;">
 herramientas:
 - pano para limpiar panel.
 - liquido limpieza panel.
@@ -158,7 +157,7 @@ herramientas:
 
 </p>
 <h3>Procedimiento limpieza valvula solenoide (PTS4)</h3>
-<p>
+<p style="white-space: pre-line;">
 Herramientas
 
 - llave para tuerca.
@@ -178,7 +177,7 @@ Herramientas
 5) si no se puede probar con agua programar fecha de test o hacer un ticket.
 </p>
 <h3>Procedimiento limpieza flujometro (PTS5)</h3>
-<p>
+<p style="white-space: pre-line;">
 
 Herramientas
 
@@ -194,7 +193,7 @@ Herramientas
 3) Montar el flujometro.
 </p>
 <h3>Procedimiento Instalacion Flujometro (PTS6)</h3>
-<p>
+<p style="white-space: pre-line;">
 Herramientas
 
 - llave de cadena.
@@ -236,7 +235,7 @@ Si no marca flujo pongase en contacto con ayuda tecnica.
 
 </p>
 <h3>Procedimiento ajustar reguladores voltaje sirecor (PTS7)</h3>
-<p>
+<p style="white-space: pre-line;">
 El regulador de la izquierda corresponde a la tensión de la carga de la batería BAT, para una batería de gel es necesario 13.9V a 14.2V, y un pack de 3 litio en serie 12,4 a 12,8 V. El regulador de la derecha alimenta el Microcontrolador y el módulo GSM MCU. Si estamos utilizando el módulo GSM SIM7600 (Actual) es necesario una tensión de 5v A 5.3V. En caso de que estemos utilizando el módulo GSM rojo SIM800 (descontinuado) la tensión necesaria es de 3.2v-3.5v.
 
 
@@ -256,7 +255,7 @@ agregar fotos
 
 </p>
 <h3>Procedimiento Instalacion caja autoEnegizacion milesight (PTS8) </h3>
-<p>
+<p style="white-space: pre-line;">
 Herramientas
 
 - llave apriente caja a emt.
@@ -277,7 +276,7 @@ Herramientas
 
 </p>
 <h3>Procedimiento configuracion milesight (PTS9)</h3>
-<p>
+<p style="white-space: pre-line;">
 Herramientas
 
 -smarphone con app de milesight tool box.
@@ -287,12 +286,12 @@ TODO, agregar todo el proceso que no me lo se. usar manual q dejo la paola
 
 </p>
 <h3>Procedimiento Instalacion flotadores (PTS10) </h3>
-<p>
+<p style="white-space: pre-line;">
 TODO, mas adelante lo hago
 </p>
 
 <h2> Procedimeintos de terreno PT </h2>
-<p>
+<p style="white-space: pre-line;">
 Son los procedimientos que se ejecutan en terreno. estos procedimientos contienen uno mas procedimietos
 simples.
 
@@ -300,7 +299,7 @@ EJEMPLO: "Proced mantencion sirecor: -> incluye (PST1 mantecion panel) (PST2 Cre
 
 </p>
 <h3>Procedimiento instalacion Sirecor (PT1) </h3>
-<p>
+<p style="white-space: pre-line;">
 Herramientas
 
 - llave apriente caja a emt.
@@ -340,11 +339,11 @@ lo es responsabilidad de quien instala el punto.
 
 </p>
 <h3>Procedimiento instalacion Sirecor Estanque (PT2) </h3>
-<p>
+<p style="white-space: pre-line;">
 TODO
 </p>
 <h3>Procedimiento instalacion Milesight autoEnegizado (PT3) </h3>
-<p>
+<p style="white-space: pre-line;">
 Herramientas
 
 - llave apriente caja a emt.
@@ -382,7 +381,7 @@ lo es responsabilidad de quien instala el punto.
 
 </p>
 <h3>Procedimiento instalacion Milesight con Caja de energizacion (PT4) </h3>
-<p>
+<p style="white-space: pre-line;">
 Herramientas
 
 - llave apriente caja a emt.
@@ -420,7 +419,7 @@ Herramientas
 lo es responsabilidad de quien instala el punto.
 </p>
 <h3>Procedimeinto revision flujometro Milesight autoEnegizado (PT5)</h3>
-<p>
+<p style="white-space: pre-line;">
 Herramientas
 
 - llave apriente caja a emt.
@@ -450,7 +449,7 @@ el fusible, si no tiene corte el cable y instale caja de energizacion PST8.
 4) haga cehcklist PST3 agrage observacion si instalo la caja de energizacion.
 </p>
 <h3>Procedimeinto revision flujometro Milesight con Caja de energizacion  (PT6)</h3>
-<p>
+<p style="white-space: pre-line;">
 Herramientas
 
 - llave apriente caja a emt.
@@ -481,7 +480,7 @@ Herramientas
 <h3>Procedimeinto revision Sirecor Estanque sensores de nivel (PT8) </h3>
 
 <h3>Procedimeinto cambio de programa sirecor (PT9) </h3>
-<p>
+<p style="white-space: pre-line;">
 Herramientas
 
 - llave apriente caja a emt.
