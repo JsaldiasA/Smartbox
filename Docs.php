@@ -11,7 +11,11 @@ $Model = $Page->get_Model();
 
 
     $HtmlPage='
-    
+ <body>	
+	
+<div class="container p-3" >
+<div class="row m-3 p-3" >
+
 <h1>Procedimeintos</h1>
 <h2>Metodologia de trabajo</h2>
 
@@ -22,7 +26,7 @@ y estan relacionados a Investigacion o mejoras a proyectos existentes.
 Con los sprint de scrum abarcamos todo lo nuevo, pero cuando las cosas fallan utilizamos
 tickets para revisar los problemas que vayan a pareciendo en los proyectos existentes.</p>
 
-<h3>Sprints<h3>
+<h2>Sprints</h2>
 
 <p>Los sprints son cilcos cortos de trabajo que culminan en un producto entregable funcional.
 Los sprints estan asociados a una historia de usuario, que es una funcionalidad que el
@@ -506,6 +510,10 @@ Herramientas
 <h3>Procedimeinto mantencion Milesight autoEnegizado (PT13) </h3>
 
 <h3>Procedimeinto mantencion Milesight con Caja de energizacion (PT14) </h3>
+
+</div>
+</div>
+</body>
 ';
 
        
