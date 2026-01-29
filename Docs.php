@@ -16,8 +16,8 @@ $Model = $Page->get_Model();
 <div class="container p-3" >
 <div class="row m-3 p-3" >
 
-<p class="h1 m-3"> class="display-1">Procedimientos.</p>
-<p class="h2 m-3"> class="display-2">Metodología de trabajo.</p>
+<p class="h1 m-3">Procedimientos.</p>
+<p class="h2 m-3">Metodología de trabajo.</p>
 
 <p style="white-space: pre-line;">El equipo de Desarrollo de ECO3 utiliza Metodologías ágiles para realizar proyectos.
 Se utiliza el Scrum como marco de trabajo. Los proyectos son a corto plazo (1 semana)
@@ -26,7 +26,7 @@ y estan relacionados a Investigación o mejoras a proyectos existentes.
 Con los Sprint de Scrum abarcamos todo lo nuevo, pero cuando las cosas fallan utilizamos
 tickets para revisar los problemas que vayan apareciendo en los proyectos existentes.</p>
 
-<p class="h2 m-3"> class="display-2">Sprints</p>
+<p class="h2 m-3">Sprints</p>
 
 <p style="white-space: pre-line;">Los Sprints son ciclos cortos de trabajo que culminan en la entrega de un producto funcional.
 Los Sprints estan asociados a una historia de usuario, que es una funcionalidad que el
@@ -89,12 +89,12 @@ Riego Forestacion A   -Control remoto ---> como usuario abrir -> -Fabricar dispo
 </p>
 
 
-<p class="h2 m-3"> class="display-2"> Procedimientos SIMPLES de terreno    </p>
+<p class="h2 m-3"> Procedimientos SIMPLES de terreno    </p>
 
 <p style="white-space: pre-line;">Son procedimientos que realizan una función específica.
 Los procedimientos simples no incluyen otros procedimientos.</p>
 
-<p class="h3 m-3"> class="display-3">Procedimiento  Sirecor Crear checklist (PTS2)   </p>
+<p class="h3 m-3">Procedimiento  Sirecor Crear checklist (PTS2)   </p>
 <p style="white-space: pre-line;">
 herramientas: Smartphone.
 
@@ -133,7 +133,7 @@ Si no tiene observaciones coloca OK, no puedes dejar el campo vacío.
 11) Si tienes problemas contacta con el equipo de desarrollo, guarda toda la información, envía la foto con los datos por el grupo de IOT de Teams para que sea agregado mas tarde.
 
 </p>
-<p class="h3 m-3"> class="display-3">Procedimiento  Sirecor mantención panel (PTS3)  </p>
+<p class="h3 m-3">Procedimiento  Sirecor mantención panel (PTS3)  </p>
 <p style="white-space: pre-line;">
 herramientas:
 - pano para limpiar panel.
@@ -156,7 +156,7 @@ herramientas:
 4) si los terminales estan oxidadoes o no tiene terminales, cambiar terminales.
 
 </p>
-<p class="h3 m-3"> class="display-3">Procedimiento limpieza valvula solenoide (PTS4)</p>
+<p class="h3 m-3">Procedimiento limpieza valvula solenoide (PTS4)</p>
 <p style="white-space: pre-line;">
 Herramientas
 
@@ -176,7 +176,7 @@ Herramientas
 4) avisar a RFV para que revise el trabajo ya que ellos son los responsbles.
 5) si no se puede probar con agua programar fecha de test o hacer un ticket.
 </p>
-<p class="h3 m-3"> class="display-3">Procedimiento limpieza flujometro (PTS5)</p>
+<p class="h3 m-3">Procedimiento limpieza flujometro (PTS5)</p>
 <p style="white-space: pre-line;">
 
 Herramientas
@@ -192,7 +192,7 @@ Herramientas
 2) limpiar impuresas.
 3) Montar el flujometro.
 </p>
-<p class="h3 m-3"> class="display-3">Procedimiento Instalacion Flujometro (PTS6)</p>
+<p class="h3 m-3">Procedimiento Instalacion Flujometro (PTS6)</p>
 <p style="white-space: pre-line;">
 Herramientas
 
@@ -234,7 +234,7 @@ Si no marca flujo pongase en contacto con ayuda tecnica.
 (foto del trabajo terminado)
 
 </p>
-<p class="h3 m-3"> class="display-3">Procedimiento ajustar reguladores voltaje sirecor (PTS7)</p>
+<p class="h3 m-3">Procedimiento ajustar reguladores voltaje sirecor (PTS7)</p>
 <p style="white-space: pre-line;">
 El regulador de la izquierda corresponde a la tensión de la carga de la batería BAT, para una batería de gel es necesario 13.9V a 14.2V, y un pack de 3 litio en serie 12,4 a 12,8 V. El regulador de la derecha alimenta el Microcontrolador y el módulo GSM MCU. Si estamos utilizando el módulo GSM SIM7600 (Actual) es necesario una tensión de 5v A 5.3V. En caso de que estemos utilizando el módulo GSM rojo SIM800 (descontinuado) la tensión necesaria es de 3.2v-3.5v.
 
@@ -254,7 +254,7 @@ Ahora para regular el regulador MCU debemos desconectar el panel, luego conectar
 agregar fotos
 
 </p>
-<p class="h3 m-3"> class="display-3">Procedimiento Instalacion caja autoEnegizacion milesight (PTS8) </p>
+<p class="h3 m-3">Procedimiento Instalacion caja autoEnegizacion milesight (PTS8) </p>
 <p style="white-space: pre-line;">
 Herramientas
 
@@ -275,7 +275,7 @@ Herramientas
 ( agregar foto)
 
 </p>
-<p class="h3 m-3"> class="display-3">Procedimiento configuracion milesight (PTS9)</p>
+<p class="h3 m-3">Procedimiento configuracion milesight (PTS9)</p>
 <p style="white-space: pre-line;">
 Herramientas
 
@@ -285,12 +285,12 @@ TODO, agregar todo el proceso que no me lo se. usar manual q dejo la paola
 
 
 </p>
-<p class="h3 m-3"> class="display-3">Procedimiento Instalacion flotadores (PTS10) </p>
+<p class="h3 m-3">Procedimiento Instalacion flotadores (PTS10) </p>
 <p style="white-space: pre-line;">
 TODO, mas adelante lo hago
 </p>
 
-<p class="h2 m-3"> class="display-2"> Procedimeintos de terreno PT </p>
+<p class="h2 m-3"> Procedimeintos de terreno PT </p>
 <p style="white-space: pre-line;">
 Son los procedimientos que se ejecutan en terreno. estos procedimientos contienen uno mas procedimietos
 simples.
@@ -298,7 +298,7 @@ simples.
 EJEMPLO: "Proced mantencion sirecor: -> incluye (PST1 mantecion panel) (PST2 Crear checklist) (PST3 limpieza valvula solenoide) (PST4 limpieza flujometro) (PST5 testes pilas litio)"
 
 </p>
-<p class="h3 m-3"> class="display-3">Procedimiento instalacion Sirecor (PT1) </p>
+<p class="h3 m-3">Procedimiento instalacion Sirecor (PT1) </p>
 <p style="white-space: pre-line;">
 Herramientas
 
@@ -338,11 +338,11 @@ Herramientas
 lo es responsabilidad de quien instala el punto.
 
 </p>
-<p class="h3 m-3"> class="display-3">Procedimiento instalacion Sirecor Estanque (PT2) </p>
+<p class="h3 m-3">Procedimiento instalacion Sirecor Estanque (PT2) </p>
 <p style="white-space: pre-line;">
 TODO
 </p>
-<p class="h3 m-3"> class="display-3">Procedimiento instalacion Milesight autoEnegizado (PT3) </p>
+<p class="h3 m-3">Procedimiento instalacion Milesight autoEnegizado (PT3) </p>
 <p style="white-space: pre-line;">
 Herramientas
 
@@ -380,7 +380,7 @@ Herramientas
 lo es responsabilidad de quien instala el punto.
 
 </p>
-<p class="h3 m-3"> class="display-3">Procedimiento instalacion Milesight con Caja de energizacion (PT4) </p>
+<p class="h3 m-3">Procedimiento instalacion Milesight con Caja de energizacion (PT4) </p>
 <p style="white-space: pre-line;">
 Herramientas
 
@@ -418,7 +418,7 @@ Herramientas
 9) haga checklist, si no tiene conexion saque foto y grade la informacion para agregarlo cuando tenga senal. NO LO MANDE por wasap a no ser que tenga problemas con la plataforma, el checklist
 lo es responsabilidad de quien instala el punto.
 </p>
-<p class="h3 m-3"> class="display-3">Procedimeinto revision flujometro Milesight autoEnegizado (PT5)</p>
+<p class="h3 m-3">Procedimeinto revision flujometro Milesight autoEnegizado (PT5)</p>
 <p style="white-space: pre-line;">
 Herramientas
 
@@ -448,7 +448,7 @@ el fusible, si no tiene corte el cable y instale caja de energizacion PST8.
 
 4) haga cehcklist PST3 agrage observacion si instalo la caja de energizacion.
 </p>
-<p class="h3 m-3"> class="display-3">Procedimeinto revision flujometro Milesight con Caja de energizacion  (PT6)</p>
+<p class="h3 m-3">Procedimeinto revision flujometro Milesight con Caja de energizacion  (PT6)</p>
 <p style="white-space: pre-line;">
 Herramientas
 
@@ -475,11 +475,11 @@ Herramientas
 
 4) haga cehcklist PST3 .
 </p>
-<p class="h3 m-3"> class="display-3">Procedimeinto revision Sirecor (P7)</p>
+<p class="h3 m-3">Procedimeinto revision Sirecor (P7)</p>
 
-<p class="h3 m-3"> class="display-3">Procedimeinto revision Sirecor Estanque sensores de nivel (PT8) </p>
+<p class="h3 m-3">Procedimeinto revision Sirecor Estanque sensores de nivel (PT8) </p>
 
-<p class="h3 m-3"> class="display-3">Procedimeinto cambio de programa sirecor (PT9) </p>
+<p class="h3 m-3">Procedimeinto cambio de programa sirecor (PT9) </p>
 <p style="white-space: pre-line;">
 Herramientas
 
@@ -502,13 +502,13 @@ Herramientas
 3) revise los votajes para hacer checklist PST3.
 
 </p>
-<p class="h3 m-3"> class="display-3">Procedimeinto mantencion sirecor (PT11) </p>
+<p class="h3 m-3">Procedimeinto mantencion sirecor (PT11) </p>
 
-<p class="h3 m-3"> class="display-3">Procedimeinto mantencion sirecor Estanque (PT12) </p>
+<p class="h3 m-3">Procedimeinto mantencion sirecor Estanque (PT12) </p>
 
-<p class="h3 m-3"> class="display-3">Procedimeinto mantencion Milesight autoEnegizado (PT13) </p>
+<p class="h3 m-3">Procedimeinto mantencion Milesight autoEnegizado (PT13) </p>
 
-<p class="h3 m-3"> class="display-3">Procedimeinto mantencion Milesight con Caja de energizacion (PT14) </p>
+<p class="h3 m-3">Procedimeinto mantencion Milesight con Caja de energizacion (PT14) </p>
 
 </div>
 </div>
