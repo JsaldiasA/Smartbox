@@ -11,9 +11,9 @@ $Model = $Page->get_Model();
 
 
     $HtmlPage='
- <body>	
+ <body class="d-flex justify-content-center">	
 	
-<div class="container p-3" >
+<div class="container p-3" style="max-width: 800px;">
  <div class="row" > <div class="col m-3" >
  
  <p class="h1 m-3">Procedimientos.</p>
