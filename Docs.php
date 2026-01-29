@@ -184,9 +184,6 @@ herramientas:
 
 </p>
 
-</div>
-</div>
-
 
 </div> </div> 
 <div class="row" > 
@@ -291,7 +288,7 @@ El regulador de la izquierda corresponde a la tensión de la carga de la baterí
 <div class="col" >
 
 <div class="card" style="width: 18rem;">
-  <img src="../images/imagenesDocs/pst7imagen1.png" class="card-img-top" >
+  <img src="/images/imagenesDocs/pts7imagen1.png" class="card-img-top" >
   <div class="card-body">
     <p class="card-text">imagen 2.5.1</p>
   </div>
@@ -311,7 +308,7 @@ Con Panel solar de 12V ( tiene que estar al sol, midiendo al menos 17 V a circui
 <div class="col" >
 
 <div class="card" style="width: 18rem;">
-  <img src="../images/imagenesDocs/pst7imagen2.png" class="card-img-top" >
+  <img src="/images/imagenesDocs/pts7imagen2.png" class="card-img-top" >
   <div class="card-body">
     <p class="card-text">imagen 2.5.1</p>
   </div>
@@ -331,7 +328,7 @@ Conectamos el tester para medir tensión en los pin3 (+) y pin4(-) de la bornera
 <div class="col" >
 
 <div class="card" style="width: 18rem;">
-  <img src="../images/imagenesDocs/pst7imagen3.png" class="card-img-top" >
+  <img src="/images/imagenesDocs/pts7imagen3.png" class="card-img-top" >
   <div class="card-body">
     <p class="card-text">imagen 2.5.1</p>
   </div>
@@ -341,7 +338,7 @@ Conectamos el tester para medir tensión en los pin3 (+) y pin4(-) de la bornera
 <div class="col" >
 
 <div class="card" style="width: 18rem;">
-  <img src="../images/imagenesDocs/pst7imagen4.png" class="card-img-top" >
+  <img src="/images/imagenesDocs/pts7imagen4.png" class="card-img-top" >
   <div class="card-body">
     <p class="card-text">imagen 2.5.1</p>
   </div>
@@ -360,7 +357,7 @@ Ahora para regular el regulador MCU debemos desconectar el panel, luego conectar
 <div class="col" >
 
 <div class="card" style="width: 18rem;">
-  <img src="../images/imagenesDocs/pst7imagen5.png" class="card-img-top" >
+  <img src="/images/imagenesDocs/pts7imagen5.png" class="card-img-top" >
   <div class="card-body">
     <p class="card-text">imagen 2.5.1</p>
   </div>
