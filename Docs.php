@@ -285,7 +285,7 @@ El regulador de la izquierda corresponde a la tensión de la carga de la baterí
 </div> </div> 
 
 <div class="row" > 
-<div class="col m-3" >
+<div class="col m-3 d-flex justify-content-center" >
 
 <div class="card" style="width: 18rem;">
   <img src="/images/imagenesDocs/pts7imagen1.png" class="card-img-top" >
@@ -305,7 +305,7 @@ Con Panel solar de 12V ( tiene que estar al sol, midiendo al menos 17 V a circui
 </div> </div> 
 
 <div class="row" > 
-<div class="col m-3" >
+<div class="col m-3 d-flex justify-content-center" >
 
 <div class="card" style="width: 18rem;">
   <img src="/images/imagenesDocs/pts7imagen2.png" class="card-img-top" >
@@ -325,7 +325,7 @@ Conectamos el tester para medir tensión en los pin3 (+) y pin4(-) de la bornera
 </div> </div> 
 
 <div class="row" > 
-<div class="col m-3" >
+<div class="col m-3 d-flex justify-content-center" >
 
     <div class="card" style="width: 18rem;">
         <img src="/images/imagenesDocs/pts7imagen3.png" class="card-img-top" >
@@ -334,7 +334,7 @@ Conectamos el tester para medir tensión en los pin3 (+) y pin4(-) de la bornera
         </div>
     </div>
 </div>
-<div class="col m-3" >
+<div class="col m-3 d-flex justify-content-center" >
 
     <div class="card" style="width: 18rem;">
     <img src="/images/imagenesDocs/pts7imagen4.png" class="card-img-top" >
@@ -345,7 +345,6 @@ Conectamos el tester para medir tensión en los pin3 (+) y pin4(-) de la bornera
  </div> 
 
 <div class="row" > 
-<div class="col m-3" >
 
 Para ajustar el regulador de carga del microcontrolador MCU:
 Ahora para regular el regulador MCU debemos desconectar el panel, luego conectar la batería para después, conectar el tester en la bornera de abajo en los pines 3(-) y 4(+). Con la ayuda de un destornillador regulamos la tensión del regulador a 5V aprox. (PARA SIM7600 ACTUAL), (3,3v para el SIM800 DESCOUNTINUADO).
@@ -353,7 +352,7 @@ Ahora para regular el regulador MCU debemos desconectar el panel, luego conectar
 </div> </div> 
 
 <div class="row" > 
-<div class="col m-3" >
+<div class="col m-3 d-flex justify-content-center" >
 
 <div class="card" style="width: 18rem;">
   <img src="/images/imagenesDocs/pts7imagen5.png" class="card-img-top" >
