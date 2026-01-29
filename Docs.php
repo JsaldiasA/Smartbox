@@ -12,7 +12,7 @@ $Model = $Page->get_Model();
 
     $HtmlPage='
  <body >	
-<div class="container p-3 d-flex justify-content-center" style="max-width: 800px;">
+<div class="container p-3 " style="max-width: 800px;">
  <div class="row" > 
  <div class="col m-3" >
  
