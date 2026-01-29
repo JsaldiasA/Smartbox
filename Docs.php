@@ -400,6 +400,8 @@ Herramientas
             </div>
         </div>
     </div>
+</div>
+<div class="row" > 
     <div class="col m-3 d-flex justify-content-center" >
 
         <div class="card" >
