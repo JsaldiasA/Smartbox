@@ -239,7 +239,7 @@ Herramientas
 - llave de cadena.
 - llave apriente.
 - pano , cepillo para limpar.
-- Flujometro de repuesto (con conectaro si es para milesight).
+- Flujometro de repuesto (con conector si es para milesight).
 - cordon 3x075.
 - tester.
 - Destornillador petillero.
@@ -325,27 +325,29 @@ Conectamos el tester para medir tensión en los pin3 (+) y pin4(-) de la bornera
 </div> </div> 
 
 <div class="row" > 
-<div class="col m-3 d-flex justify-content-center" >
+    <div class="col m-3 d-flex justify-content-center" >
 
-    <div class="card" style="width: 18rem;">
-        <img src="/images/imagenesDocs/pts7imagen3.png" class="card-img-top" >
-        <div class="card-body">
-            <p class="card-text">imagen 2.5.1</p>
+        <div class="card" >
+            <img src="/images/imagenesDocs/pts7imagen3.png" class="card-img-top" >
+            <div class="card-body">
+                <p class="card-text">imagen 2.5.1</p>
+            </div>
         </div>
     </div>
-</div>
-<div class="col m-3 d-flex justify-content-center" >
+    <div class="col m-3 d-flex justify-content-center" >
 
-    <div class="card" style="width: 18rem;">
-    <img src="/images/imagenesDocs/pts7imagen4.png" class="card-img-top" >
-        <div class="card-body">
-            <p class="card-text">imagen 2.5.1</p>
+        <div class="card" >
+        <img src="/images/imagenesDocs/pts7imagen4.png" class="card-img-top" >
+            <div class="card-body">
+                <p class="card-text">imagen 2.5.1</p>
+            </div>
         </div>
-    </div>
- </div> 
+
+    </div> 
+</div> 
 
 <div class="row" > 
-
+<div class="col m-3" >
 Para ajustar el regulador de carga del microcontrolador MCU:
 Ahora para regular el regulador MCU debemos desconectar el panel, luego conectar la batería para después, conectar el tester en la bornera de abajo en los pines 3(-) y 4(+). Con la ayuda de un destornillador regulamos la tensión del regulador a 5V aprox. (PARA SIM7600 ACTUAL), (3,3v para el SIM800 DESCOUNTINUADO).
 
@@ -367,7 +369,7 @@ Ahora para regular el regulador MCU debemos desconectar el panel, luego conectar
 <div class="row" > 
 <div class="col m-3" >
 
-<p class="h3 m-3">2.6 Procedimiento Instalacion caja autoEnegizacion milesight (PTS8) </p>
+<p class="h3 m-3">2.6 Procedimiento Instalacion caja Enegizacion Milesight (PTS8) </p>
 <p class="m-3" style="white-space: pre-line;">
 Herramientas
 
@@ -385,10 +387,33 @@ Herramientas
 1) instalar la caja de energizacion a EMT.
 
 2) conectar segun diagrama.
-( agregar foto)
+
+</div> </div> 
+
+<div class="row" > 
+    <div class="col m-3 d-flex justify-content-center" >
+
+        <div class="card" >
+            <img src="/images/imagenesDocs/pt4imagen1.png" class="card-img-top" >
+            <div class="card-body">
+                <p class="card-text">imagen 2.5.1</p>
+            </div>
+        </div>
+    </div>
+    <div class="col m-3 d-flex justify-content-center" >
+
+        <div class="card" >
+        <img src="/images/imagenesDocs/pt4imagen2.png" class="card-img-top" >
+            <div class="card-body">
+                <p class="card-text">imagen 2.5.1</p>
+            </div>
+        </div>
+
+    </div> 
+</div> 
 
 </p>
-</div> </div> 
+
 <div class="row" > 
 <div class="col m-3" >
 
