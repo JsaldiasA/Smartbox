@@ -14,14 +14,14 @@ $Model = $Page->get_Model();
  <body>	
 	
 <div class="container p-3" >
- <div class="row" > <div class="col" >
+ <div class="row" > <div class="col m-3" >
  
  <p class="h1 m-3">Procedimientos.</p>
 
 </div> </div> 
 
 <div class="row" > 
-<div class="col" >
+<div class="col m-3" >
 
 <p class="h2 m-3">1 Metodología de trabajo.</p>
 
@@ -36,7 +36,7 @@ tickets para revisar los problemas que vayan apareciendo en los proyectos existe
 
 </div> </div> 
 <div class="row" >
- <div class="col" >
+ <div class="col m-3" >
  
  <p class="h2 m-3">1.1 Sprints</p>
 
@@ -104,7 +104,7 @@ Riego Forestacion A   -Control remoto ---> como usuario abrir -> -Fabricar dispo
 
 </div> </div> 
 <div class="row" > 
-<div class="col" >
+<div class="col m-3" >
 
 <p class="h2 m-3">2 Procedimientos SIMPLES de terreno    </p>
 
@@ -114,7 +114,7 @@ Riego Forestacion A   -Control remoto ---> como usuario abrir -> -Fabricar dispo
 
 </div> </div> 
 <div class="row" > 
-<div class="col" >
+<div class="col m-3" >
 
 <p class="h3 m-3">2.1 Procedimiento  Sirecor Crear checklist (PTS2)   </p>
 
@@ -158,7 +158,7 @@ Si no tiene observaciones coloca OK, no puedes dejar el campo vacío.
 </p>
 </div> </div> 
 <div class="row" > 
-<div class="col" >
+<div class="col m-3" >
 
 <p class="h3 m-3">2.2Procedimiento  Sirecor mantención panel (PTS3)  </p>
 <p class="m-3" style="white-space: pre-line;">
@@ -187,7 +187,7 @@ herramientas:
 
 </div> </div> 
 <div class="row" > 
-<div class="col" >
+<div class="col m-3" >
 
 <p class="h3 m-3">2.3 Procedimiento limpieza valvula solenoide (PTS4)</p>
 <p class="m-3" style="white-space: pre-line;">
@@ -211,7 +211,7 @@ Herramientas
 </p>
 </div> </div> 
 <div class="row" > 
-<div class="col" >
+<div class="col m-3" >
 
 <p class="h3 m-3">Procedimiento limpieza flujometro (PTS5)</p>
 <p class="m-3" style="white-space: pre-line;">
@@ -230,7 +230,7 @@ Herramientas
 </p>
 </div> </div> 
 <div class="row" >
- <div class="col" >
+ <div class="col m-3" >
  
  <p class="h3 m-3">2.4 Procedimiento Instalacion Flujometro (PTS6)</p>
 <p class="m-3" style="white-space: pre-line;">
@@ -276,7 +276,7 @@ Si no marca flujo pongase en contacto con ayuda tecnica.
 </p>
 </div> </div> 
 <div class="row" > 
-<div class="col" >
+<div class="col m-3" >
 
 <p class="h3 m-3">2.5 Procedimiento ajustar reguladores voltaje sirecor (PTS7)</p>
 <p class="m-3" style="white-space: pre-line;">
@@ -285,7 +285,7 @@ El regulador de la izquierda corresponde a la tensión de la carga de la baterí
 </div> </div> 
 
 <div class="row" > 
-<div class="col" >
+<div class="col m-3" >
 
 <div class="card" style="width: 18rem;">
   <img src="/images/imagenesDocs/pts7imagen1.png" class="card-img-top" >
@@ -297,7 +297,7 @@ El regulador de la izquierda corresponde a la tensión de la carga de la baterí
 </div> </div> 
 
 <div class="row" > 
-<div class="col" >
+<div class="col m-3" >
 
 Para ajustar el regulador de carga de bateria BAT:
 Con Panel solar de 12V ( tiene que estar al sol, midiendo al menos 17 V a circuito abierto ) 10 W a 20 W , conectamos a los primeros pines para regular la tensión de los reguladores (de izquierda a derecha positivo en primero (pin1) y negativo el segundo (pin2)). Cada regulador tiene un TRIM como se ve en la figura, y con un destornillador de cruz pequeño podemos variar el voltaje del regulador. Si no disponemos del panel solar, podemos utilizar una fuente de tensión regulable configurada a las tensiones deseadas según el tipo de batería y limitado a 700 mA ( solo para área técnica para testear en oficina).
@@ -305,7 +305,7 @@ Con Panel solar de 12V ( tiene que estar al sol, midiendo al menos 17 V a circui
 </div> </div> 
 
 <div class="row" > 
-<div class="col" >
+<div class="col m-3" >
 
 <div class="card" style="width: 18rem;">
   <img src="/images/imagenesDocs/pts7imagen2.png" class="card-img-top" >
@@ -318,35 +318,34 @@ Con Panel solar de 12V ( tiene que estar al sol, midiendo al menos 17 V a circui
 
 
 <div class="row" > 
-<div class="col" >
+<div class="col m-3" >
 
 Conectamos el tester para medir tensión en los pin3 (+) y pin4(-) de la bornera de arriba.La batería tiene que estar desconectada. Regulamos la tensión según la batería. 13.9V a 14.2V para Batería GEL plomo, 12.4V a 12,8V para PACK 3 litio.
 
 </div> </div> 
 
 <div class="row" > 
-<div class="col" >
+<div class="col m-3" >
 
-<div class="card" style="width: 18rem;">
-  <img src="/images/imagenesDocs/pts7imagen3.png" class="card-img-top" >
-  <div class="card-body">
-    <p class="card-text">imagen 2.5.1</p>
-  </div>
-
+    <div class="card" style="width: 18rem;">
+        <img src="/images/imagenesDocs/pts7imagen3.png" class="card-img-top" >
+        <div class="card-body">
+            <p class="card-text">imagen 2.5.1</p>
+        </div>
+    </div>
 </div>
+<div class="col m-3" >
 
-<div class="col" >
-
-<div class="card" style="width: 18rem;">
-  <img src="/images/imagenesDocs/pts7imagen4.png" class="card-img-top" >
-  <div class="card-body">
-    <p class="card-text">imagen 2.5.1</p>
-  </div>
-
-</div> </div> 
+    <div class="card" style="width: 18rem;">
+    <img src="/images/imagenesDocs/pts7imagen4.png" class="card-img-top" >
+        <div class="card-body">
+            <p class="card-text">imagen 2.5.1</p>
+        </div>
+    </div>
+ </div> 
 
 <div class="row" > 
-<div class="col" >
+<div class="col m-3" >
 
 Para ajustar el regulador de carga del microcontrolador MCU:
 Ahora para regular el regulador MCU debemos desconectar el panel, luego conectar la batería para después, conectar el tester en la bornera de abajo en los pines 3(-) y 4(+). Con la ayuda de un destornillador regulamos la tensión del regulador a 5V aprox. (PARA SIM7600 ACTUAL), (3,3v para el SIM800 DESCOUNTINUADO).
@@ -354,7 +353,7 @@ Ahora para regular el regulador MCU debemos desconectar el panel, luego conectar
 </div> </div> 
 
 <div class="row" > 
-<div class="col" >
+<div class="col m-3" >
 
 <div class="card" style="width: 18rem;">
   <img src="/images/imagenesDocs/pts7imagen5.png" class="card-img-top" >
@@ -367,7 +366,7 @@ Ahora para regular el regulador MCU debemos desconectar el panel, luego conectar
 </p>
 
 <div class="row" > 
-<div class="col" >
+<div class="col m-3" >
 
 <p class="h3 m-3">2.6 Procedimiento Instalacion caja autoEnegizacion milesight (PTS8) </p>
 <p class="m-3" style="white-space: pre-line;">
@@ -392,7 +391,7 @@ Herramientas
 </p>
 </div> </div> 
 <div class="row" > 
-<div class="col" >
+<div class="col m-3" >
 
 <p class="h3 m-3">Procedimiento configuracion milesight (PTS9)</p>
 <p class="m-3" style="white-space: pre-line;">
@@ -406,7 +405,7 @@ TODO, agregar todo el proceso que no me lo se. usar manual q dejo la paola
 </p>
 </div> </div>
  <div class="row" >
-  <div class="col" >
+  <div class="col m-3" >
 
   <p class="h3 m-3">2.7 Procedimiento Instalacion flotadores (PTS10) </p>
 <p class="m-3" style="white-space: pre-line;">
@@ -415,7 +414,7 @@ TODO, mas adelante lo hago
 
 </div> </div> 
 <div class="row" > 
-<div class="col" >
+<div class="col m-3" >
 
 <p class="h2 m-3">3 Procedimeintos de terreno PT </p>
 <p class="m-3" style="white-space: pre-line;">
@@ -427,7 +426,7 @@ EJEMPLO: "Proced mantencion sirecor: -> incluye (PST1 mantecion panel) (PST2 Cre
 </p>
 </div> </div>
  <div class="row" > 
- <div class="col" >
+ <div class="col m-3" >
  
  <p class="h3 m-3">3.1 Procedimiento instalacion Sirecor (PT1) </p>
 <p class="m-3" style="white-space: pre-line;">
@@ -471,7 +470,7 @@ lo es responsabilidad de quien instala el punto.
 </p>
 </div> </div>
  <div class="row" >
-  <div class="col" >
+  <div class="col m-3" >
   
   <p class="h3 m-3">Procedimiento instalacion Sirecor Estanque (PT2) </p>
 <p class="m-3" style="white-space: pre-line;">
@@ -479,7 +478,7 @@ TODO
 </p>
 </div> </div>
  <div class="row" > 
- <div class="col" >
+ <div class="col m-3" >
  
  <p class="h3 m-3">3.2 Procedimiento instalacion Milesight autoEnegizado (PT3) </p>
 <p class="m-3" style="white-space: pre-line;">
@@ -521,7 +520,7 @@ lo es responsabilidad de quien instala el punto.
 </p>
 </div> </div>
  <div class="row" > 
- <div class="col" >
+ <div class="col m-3" >
  
  <p class="h3 m-3">Procedimiento instalacion Milesight con Caja de energizacion (PT4) </p>
 <p class="m-3" style="white-space: pre-line;">
@@ -563,7 +562,7 @@ lo es responsabilidad de quien instala el punto.
 </p>
 </div> </div> 
 <div class="row" >
- <div class="col" >
+ <div class="col m-3" >
  
  <p class="h3 m-3">Procedimeinto revision flujometro Milesight autoEnegizado (PT5)</p>
 <p class="m-3" style="white-space: pre-line;">
@@ -597,7 +596,7 @@ el fusible, si no tiene corte el cable y instale caja de energizacion PST8.
 </p>
 </div> </div> 
 <div class="row" >
- <div class="col" >
+ <div class="col m-3" >
  
  <p class="h3 m-3">3.3 Procedimeinto revision flujometro Milesight con Caja de energizacion  (PT6)</p>
 <p class="m-3" style="white-space: pre-line;">
@@ -628,14 +627,14 @@ Herramientas
 </p>
 </div> </div> 
 <div class="row" >
- <div class="col" >
+ <div class="col m-3" >
  
  <p class="h3 m-3">3.4 Procedimeinto revision Sirecor (P7)</p>
 
 </div> </div> 
 
 <div class="row" > 
-<div class="col" >
+<div class="col m-3" >
 
 <p class="h3 m-3">3.5 Procedimeinto revision Sirecor Estanque sensores de nivel (PT8) </p>
 
@@ -643,7 +642,7 @@ Herramientas
 </div> </div> 
 
 <div class="row" >
- <div class="col" >
+ <div class="col m-3" >
 
  <p class="h3 m-3">3.6 Procedimeinto cambio de programa sirecor (PT9) </p>
 <p class="m-3" style="white-space: pre-line;">
@@ -670,25 +669,25 @@ Herramientas
 </p>
 </div> </div>
  <div class="row" >
-  <div class="col" >
+  <div class="col m-3" >
 
   <p class="h3 m-3">3.7 Procedimeinto mantencion sirecor (PT11) </p>
 </div> </div>
 
  <div class="row" >
-  <div class="col" >
+  <div class="col m-3" >
 
   <p class="h3 m-3">3.8 Procedimeinto mantencion sirecor Estanque (PT12) </p>
 </div> </div>
 
  <div class="row" >
-  <div class="col" >
+  <div class="col m-3" >
 
   <p class="h3 m-3">3.9 Procedimeinto mantencion Milesight autoEnegizado (PT13) </p>
 </div> </div>
 
  <div class="row" >
-  <div class="col" >
+  <div class="col m-3" >
 
   <p class="h3 m-3">3.10 Procedimeinto mantencion Milesight con Caja de energizacion (PT14) </p>
 
