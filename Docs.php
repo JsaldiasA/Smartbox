@@ -18,8 +18,8 @@ $Model = $Page->get_Model();
  
 <p class="h1 m-3">Procedimientos.</p>
 
-<ul class="list-unstyled">
-  <li>Index:
+<ul class="list-unstyled m-3">
+  <li>Procedimientos de terreno:
     <ul>
         <li><a href="#PT1">PT1 Procedimiento instalacion Sirecor <a/></li>
         <li><a href="#PT2">PT2 Procedimiento instalacion Sirecor Estanque <a/></li>
