@@ -136,46 +136,92 @@ Riego Forestacion A   -Control remoto ---> como usuario abrir -> -Fabricar dispo
 <div class="row" > 
 <div class="col m-3" >
 
-<p class="h3 m-3" id="PTS2" > 2.1 Procedimiento  Sirecor Crear checklist (PTS2)   </p>
+    <p class="h3 m-3" id="PTS2" > 2.1 Procedimiento  Sirecor Crear checklist (PTS2)   </p>
 
-<p class="m-3" style="white-space: pre-line;">
-herramientas: Smartphone.
+    <p class="m-3" style="white-space: pre-line;">
+    herramientas: Smartphone.
+    
+    2) En la pagina principal elegir la unidad, hacer click en la última columna "Ver". Si la unidad es Sirecor y es nueva, hay que conectarla y ver en unidades indefinidas, buscar por el IMEI de la placa. Luego hacer click en el
+    vínculo "Ver". Si es Milesight nueva debe hablar con el equipo de desarrollo para que la agrege. Si es Milesight búscala en la tabla Milesight.
 
-1) Entrar en la página de smartbox: www.smartbox.eco3.cl
+    <div class="row m-3 d-flex justify-content-center" > 
+        <div class="card" style="width: 18rem;">
+            <img src="/images/imagenesDocs/Pts2imagen1.jpg" class="card-img-top" >
+            <div class="card-body">
+                <p class="card-text">imagen 2.5.1</p>
+            </div>
+        </div>
+    </div>
 
-2) Iniciar sesión, en la pagina principal elegir la unidad, en la última columna hay un vínculo con la palabra "Ver", a la cual se hara el checklist.
-Si la unidad es Sirecor y es nueva, hay que conectarla y ver en unidades indefinidas, buscar por el IMEI de la placa. Luego hacer click en el
-vínculo "Ver". Si es Milesight nueva debe hablar con el equipo de desarrollo para que la agrege. Si es Milesight búscala en la tabla Milesight.
-(agregar foto del vínculo)
 
-3) Una vez dentro de la unidad hacer click en el vínculo nuevo checklist.
-(agregar foto)
+    3) Una vez dentro de la unidad hacer click en el vínculo nuevo checklist.
+    <div class="row m-3 d-flex justify-content-center" > 
+        <div class="card" style="width: 18rem;">
+            <img src="/images/imagenesDocs/Pts2imagen2.jpg" class="card-img-top" >
+            <div class="card-body">
+                <p class="card-text">imagen 2.5.1</p>
+            </div>
+        </div>
+    </div>
 
-4) Ahora hay que completar el checklist con la información de terreno. Los valores esperados están en los campos (agregar foto)
-NO UTILICES CARACTERES NO NÚMERICOS COMO LETRAS O SIGNOS. Sólo tienes que agregar el valor del voltaje con punto "." si tiene decimales.
-(agregar foto)
+    4) Ahora hay que completar el checklist con la información de terreno. Los valores esperados están en los campos (agregar foto)
+    NO UTILICES CARACTERES NO NÚMERICOS COMO LETRAS O SIGNOS. Sólo tienes que agregar el valor del voltaje con punto "." si tiene decimales.
+    <div class="row m-3 d-flex justify-content-center" > 
+        <div class="card" style="width: 18rem;">
+            <img src="/images/imagenesDocs/Pts2imagen3.jpg" class="card-img-top" >
+            <div class="card-body">
+                <p class="card-text">imagen 2.5.1</p>
+            </div>
+        </div>
+    </div>
 
-5) Checkea todas las funciones que fueron testeadas.
-(agregar foto)
+    5) Checkea todas las funciones que fueron testeadas.
+    <div class="row m-3 d-flex justify-content-center" > 
+        <div class="card" style="width: 18rem;">
+            <img src="/images/imagenesDocs/Pts2imagen4.jpg" class="card-img-top" >
+            <div class="card-body">
+                <p class="card-text">imagen 2.5.1</p>
+            </div>
+        </div>
+    </div>
 
-6) Agrega tu nombre y un comentario, si tienes algunas observaciones del punto, algo que no se pudo medir o extraño, agrégalo, todo es necesario.
-Si no tiene observaciones coloca OK, no puedes dejar el campo vacío.
-(agregar foto)
+    6) Agrega tu nombre y un comentario, si tienes algunas observaciones del punto, algo que no se pudo medir o extraño, agrégalo, todo es necesario.
+    Si no tiene observaciones coloca OK, no puedes dejar el campo vacío.
+        <div class="row m-3 d-flex justify-content-center" > 
+        <div class="card" style="width: 18rem;">
+            <img src="/images/imagenesDocs/Pts2imagen5.jpg" class="card-img-top" >
+            <div class="card-body">
+                <p class="card-text">imagen 2.5.1</p>
+            </div>
+        </div>
+    </div>
 
-7) Has click para buscar la foto del checklist, la foto debe ojalá aparecer toda la estructura de la válvula y la solenoide, que se vean los chochos y el conduit.
-(agregar foto)
+    7) Has click para buscar la foto del checklist, la foto debe aparecer toda la estructura de la válvula y la solenoide, que se vean los chochos y el conduit.
+       Has click en upload para subir la foto. Debe aparecer el nombre de la foto en el campo URL_foto.
+    <div class="row m-3 d-flex justify-content-center" > 
+        <div class="card" style="width: 18rem;">
+            <img src="/images/imagenesDocs/Pts2imagen6.jpg" class="card-img-top" >
+            <div class="card-body">
+                <p class="card-text">imagen 2.5.1</p>
+            </div>
+        </div>
+    </div>
 
-8) Has click en upload para subir la foto. Debe aparecer el nombre de la foto en el campo URL_foto.
-(agregar foto)
+    9) Ahora dar subir enviar checklist. Si no tienes errores en los campos dar OK, sino corrígelos. Espera unos segundos debe aperecer un mensaje con los datos enviados.
 
-9) Ahora dar subir enviar checklist. Si no tienes errores en los campos dar OK, sino corrígelos. Espera unos segundos debe aperecer un mensaje con los datos enviados.
+    10) Revisa en smartbox que el checklist se haya creado correctamente. Abre el vínculo "Ver" en la página de inicio y asegúrate que se haya subido el checklist.
+    <div class="row m-3 d-flex justify-content-center" > 
+        <div class="card" style="width: 18rem;">
+            <img src="/images/imagenesDocs/Pts2imagen7.jpg" class="card-img-top" >
+            <div class="card-body">
+                <p class="card-text">imagen 2.5.1</p>
+            </div>
+        </div>
+    </div>
 
-10) Revisa en smartbox que el checklist se haya creado correctamente. Abre el vínculo "Ver" en la página de inicio y asegúrate que se haya subido el checklist.
-(agregar foto)
+    11) Si tienes problemas contacta con el equipo de desarrollo, guarda toda la información, envía la foto con los datos por el grupo de IOT de Teams para que sea agregado mas tarde.
 
-11) Si tienes problemas contacta con el equipo de desarrollo, guarda toda la información, envía la foto con los datos por el grupo de IOT de Teams para que sea agregado mas tarde.
-
-</p>
+    </p>
 </div> </div> 
 <div class="row" > 
 <div class="col m-3" >
