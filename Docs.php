@@ -132,7 +132,7 @@ Riego Forestacion A   -Control remoto ---> como usuario abrir -> -Fabricar dispo
 <div class="row" > 
 <div class="col m-3" >
 
-<p class="h2 m-3">2 Procedimientos SIMPLES de terreno    </p>
+<p class="h2 m-3">2 Procedimientos de terreno  Simple  </p>
 
 <p class="m-3" style="white-space: pre-line;">Son procedimientos que realizan una función específica.Los procedimientos simples no incluyen otros procedimientos.</p>
 
@@ -395,7 +395,7 @@ Ahora para regular el regulador MCU debemos desconectar el panel, luego conectar
 <div class="row" > 
 <div class="col m-3" >
 
-<p class="h3 m-3" id="PTS8>2.6 Procedimiento Instalacion caja Enegizacion Milesight (PTS8) </p>
+<p class="h3 m-3" id="PTS8" >2.6 Procedimiento Instalacion caja Enegizacion Milesight (PTS8) </p>
 <p class="m-3" style="white-space: pre-line;">
 Herramientas
 
@@ -512,16 +512,16 @@ Herramientas
 
 1) coloque la caja en el EMT.
 
-0) Hacer mantencion panel solar <a href="#PST3"> PST3 <a/>.
+0) Hacer mantencion panel solar <a href="#PTS3">PTS3<a/>.
 
 2) Abra la caja estanca y desconecte la bateria.
 
-3) Mida el voltajes necesarios para hacer el checklist <a href="#PST1"> PTS1 <a/>, Ajuste los voltajes si es necesario <a href="#PST7"> PTS7 <a/>
+3) Mida el voltajes necesarios para hacer el checklist <a href="#PTS2">PTS2<a/>, Ajuste los voltajes si es necesario <a href="#PTS7">PTS7<a/>
 
 4) Instales SIM card, panel solar, bateria y solenoide (todo con ferrulles).
 (foto)
 
-5) instale flujometro vea <a href="#PST6"> PST6 <a/>.
+5) instale flujometro vea <a href="#PTS6">PTS6<a/>.
 
 (foto de todo instalado).
 
@@ -529,8 +529,7 @@ Herramientas
 
 7) Instalar chocos y conduit.
 
-8) Haga checklist <a href="#PST1"> PTS1 <a/>, si no tiene conexion saque foto y gruarde la informacion para agregarlo cuando tenga senal. NO LO MANDE por wasap a no ser que tenga problemas con la plataforma, el checklist
-lo es responsabilidad de quien instala el punto .
+8) Haga checklist <a href="#PTS2">PTS2<a/>, si no tiene conexion saque foto y gruarde la informacion para agregarlo cuando tenga senal. NO LO MANDE por wasap a no ser que tenga problemas con la plataforma, el checklist lo es responsabilidad de quien instala el punto .
 
 </p>
 </div> </div>
