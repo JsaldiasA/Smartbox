@@ -397,6 +397,7 @@ Ahora para regular el regulador MCU debemos desconectar el panel, luego conectar
 
 <p class="h3 m-3" id="PTS8" >2.6 Procedimiento Instalacion caja Enegizacion Milesight (PTS8) </p>
 <p class="m-3" style="white-space: pre-line;">
+
 Herramientas
 
 - llave apriente caja a emt.
@@ -416,11 +417,7 @@ Herramientas
 
 Test 1: Colocar el paner solar al sol o luz intensa. Esta medición comprueba que el voltaje del panel solar no supere los límites del circuito. Si mide menos de 8V a todo sol esta bien. Revisar que se prenda el led chraging.
 
- 
-
 Test 2: Revisar el voltaje de la bateria. Debe estar entre 3.2 y 4.2, si esta completamente cargada osea charged led encendido debe ser aprox 4.2. esperar a que la bateria se carge y que se prenda el led Charged, el voltaje medido debe ser aprox 4.2 V. Si no hay sol suficiente desconectar panel, y conectar el USB para cargar mediante USB. Durante la carga el voltaje debe ir subiendo.
-
- 
 
 Test 3: El voltaje a la salida del regulandor verde ( entre pin  Vo + y el pin GND - ) debe ser aprox 3,3V independiente si la bateria esta cargada o no.  SI es posible probar con una bateria con poca carga y una completamente cargada que el voltaje siempre sea 3.3V.
 
@@ -446,7 +443,7 @@ Test 3: El voltaje a la salida del regulandor verde ( entre pin  Vo + y el pin G
     <div class="col m-3 d-flex justify-content-center" >
 
         <div class="card" >
-            <img src="/images/imagenesDocs/Pts8imagen2.png" class="card-img-top" >
+            <img src="/images/imagenesDocs/Pts8imagen2.jpg" class="card-img-top" >
             <div class="card-body">
                 <p class="card-text">imagen 2.5.1</p>
             </div>
@@ -497,7 +494,8 @@ EJEMPLO: "Proced mantencion sirecor: -> incluye (PST1 mantecion panel) (PST2 Cre
  
  <p class="h3 m-3" id="PT1" >3.1 Procedimiento instalacion Sirecor (PT1) </p>
  <p class="m-3" style="white-space: pre-line;">
-Herramientas
+
+Herramientas:
 
 - llave apriente caja a emt.
 - tester.
