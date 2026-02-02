@@ -18,6 +18,8 @@ $Model = $Page->get_Model();
  
  <p class="h1 m-3">Procedimientos.</p>
 
+ <a href="#PTS2">PTS2 Crear Checklist<a/>
+
 </div> </div> 
 
 <div class="row" > 
@@ -116,7 +118,7 @@ Riego Forestacion A   -Control remoto ---> como usuario abrir -> -Fabricar dispo
 <div class="row" > 
 <div class="col m-3" >
 
-<p class="h3 m-3">2.1 Procedimiento  Sirecor Crear checklist (PTS2)   </p>
+<p class="h3 m-3" id="PTS2" > 2.1 Procedimiento  Sirecor Crear checklist (PTS2)   </p>
 
 <p class="m-3" style="white-space: pre-line;">
 herramientas: Smartphone.
