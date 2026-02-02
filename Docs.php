@@ -38,12 +38,6 @@ $Model = $Page->get_Model();
   </li>
 </ul>
 
-
-
-
-
-
-
 </div> </div> 
 
 <div class="row" > 
