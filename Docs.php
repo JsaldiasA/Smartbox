@@ -420,25 +420,14 @@ Test 3: El voltaje a la salida del regulandor verde ( entre pin  Vo + y el pin G
     <div class="col m-3 d-flex justify-content-center" >
 
         <div class="card" >
-            <img src="/images/imagenesDocs/pt4imagen1.png" class="card-img-top" >
+            <img src="/images/imagenesDocs/Pts8imagen2.png" class="card-img-top" >
             <div class="card-body">
                 <p class="card-text">imagen 2.5.1</p>
             </div>
         </div>
     </div>
 </div>
-<div class="row" > 
-    <div class="col m-3 d-flex justify-content-center" >
 
-        <div class="card" >
-        <img src="/images/imagenesDocs/pt4imagen2.png" class="card-img-top" >
-            <div class="card-body">
-                <p class="card-text">imagen 2.5.1</p>
-            </div>
-        </div>
-
-    </div> 
-</div> 
 
 </p>
 
