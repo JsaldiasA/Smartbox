@@ -19,7 +19,7 @@ $Model = $Page->get_Model();
 <p class="h1 m-3">Procedimientos.</p>
 
 <ul class="list-unstyled m-3">
-  <li class="m-1">Procedimientos de terreno:
+  <li class="m-3">Procedimientos de terreno:
     <ul>
         <li class="m-1" ><a href="#PT1">PT1 Procedimiento instalacion Sirecor <a/></li>
         <li class="m-1" ><a href="#PT2">PT2 Procedimiento instalacion Sirecor Estanque <a/></li>
@@ -32,11 +32,10 @@ $Model = $Page->get_Model();
         <li class="m-1" ><a href="#PT9">PT9 Procedimeinto cambio de programa sirecor <a/></li>
         <li class="m-1" ><a href="#PT10">PT10 Procedimeinto mantencion sirecor <a/></li>
         <li class="m-1" ><a href="#PT11">PT11 Procedimeinto mantencion sirecor Estanque <a/></li>
-        <li class="m-1" ><a href="#PT12">PT12 Procedimeinto mantencion Milesight autoEnegizado (PT13)  <a/></li>
+        <li class="m-1" ><a href="#PT12">PT12 Procedimeinto mantencion Milesight autoEnegizado <a/></li>
         <li class="m-1" ><a href="#PT13">PT13 Procedimeinto mantencion Milesight con Caja de energizacion   <a/></li>
     </ul>
   </li>
-
 </ul>
 
 
@@ -497,43 +496,41 @@ EJEMPLO: "Proced mantencion sirecor: -> incluye (PST1 mantecion panel) (PST2 Cre
  <div class="col m-3" >
  
  <p class="h3 m-3" id="PT1" >3.1 Procedimiento instalacion Sirecor (PT1) </p>
-<p class="m-3" style="white-space: pre-line;">
+ <p class="m-3" style="white-space: pre-line;">
 Herramientas
 
 - llave apriente caja a emt.
 - tester.
-- Destornillador petillero.
+- Destornillador perillero.
 - terminal ferrulle.
 - aprieta terminal ferrulle.
-- cinta aislante
-- Bornera
+- cinta aislante.
+- Bornera.
 - llave de cadena.
 - llave apriente.
 
 
 1) coloque la caja en el EMT.
 
-0) haga mantencion al panel si es necesario vea PST3.
+0) Hacer mantencion panel solar <a href="#PST3"> PST3 <a/>.
 
-2) abra la caja estanca y desconecte la bateria.
+2) Abra la caja estanca y desconecte la bateria.
 
-3) mida el voltajes necesarios para hcer el checklist.
+3) Mida el voltajes necesarios para hacer el checklist <a href="#PST1"> PTS1 <a/>, Ajuste los voltajes si es necesario <a href="#PST7"> PTS7 <a/>
 
-4) regule los voltajes veta PTS7.
-
-5) instales SIM card, panel bateria, con ferrulles
+4) Instales SIM card, panel solar, bateria y solenoide (todo con ferrulles).
 (foto)
 
-6) instale flujometro vea PST6.
-
-7) instale solenoide con ferrules.
+5) instale flujometro vea <a href="#PST6"> PST6 <a/>.
 
 (foto de todo instalado).
 
-8) verifique apertura y cierre.
+6) verifique apertura, cierre y lectura de flujometro.
 
-9) haga checklist, si no tiene conexion saque foto y grade la informacion para agregarlo cuando tenga senal. NO LO MANDE por wasap a no ser que tenga problemas con la plataforma, el checklist
-lo es responsabilidad de quien instala el punto.
+7) Instalar chocos y conduit.
+
+8) Haga checklist <a href="#PST1"> PTS1 <a/>, si no tiene conexion saque foto y gruarde la informacion para agregarlo cuando tenga senal. NO LO MANDE por wasap a no ser que tenga problemas con la plataforma, el checklist
+lo es responsabilidad de quien instala el punto .
 
 </p>
 </div> </div>
@@ -757,7 +754,7 @@ Herramientas
  <div class="row" >
   <div class="col m-3" >
 
-  <p class="h3 m-3" id="PT13" >3.10 Procedimeinto mantencion Milesight con Caja de energizacion </p>
+  <p class="h3 m-3" id="PT13" >3.10 Procedimeinto mantencion Milesight con Caja de energizacion (PT13)</p>
 
 </div>
 </div>
