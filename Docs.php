@@ -386,9 +386,35 @@ Herramientas
 
 1) instalar la caja de energizacion a EMT.
 
+2) Si Probar la caja de energizacion podemos hacer los siguentes tests.
+
+Test 1: Colocar el paner solar al sol o luz intensa. Esta medición comprueba que el voltaje del panel solar no supere los límites del circuito. Si mide menos de 8V a todo sol esta bien. Revisar que se prenda el led chraging.
+
+ 
+
+Test 2: Revisar el voltaje de la bateria. Debe estar entre 3.2 y 4.2, si esta completamente cargada osea charged led encendido debe ser aprox 4.2. esperar a que la bateria se carge y que se prenda el led Charged, el voltaje medido debe ser aprox 4.2 V. Si no hay sol suficiente desconectar panel, y conectar el USB para cargar mediante USB. Durante la carga el voltaje debe ir subiendo.
+
+ 
+
+Test 3: El voltaje a la salida del regulandor verde ( entre pin  Vo + y el pin GND - ) debe ser aprox 3,3V independiente si la bateria esta cargada o no.  SI es posible probar con una bateria con poca carga y una completamente cargada que el voltaje siempre sea 3.3V.
+
+ </div> </div> 
+
+ <div class="row" > 
+    <div class="col m-3 d-flex justify-content-center" >
+
+        <div class="card" >
+            <img src="/images/imagenesDocs/Pts8imagen1.png" class="card-img-top" >
+            <div class="card-body">
+                <p class="card-text">imagen 2.1</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 2) conectar segun diagrama.
 
-</div> </div> 
+
 
 <div class="row" > 
     <div class="col m-3 d-flex justify-content-center" >
