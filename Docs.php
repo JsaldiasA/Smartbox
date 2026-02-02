@@ -17,23 +17,34 @@ $Model = $Page->get_Model();
  <div class="col m-3" >
  
 <p class="h1 m-3">Procedimientos.</p>
-<p class="h2 m-3">Index</p>
-<p class="h3 m-3" >Procedimientos terreno PST</p>
-<p class="m-3" style="white-space: pre-line;">
-    <a href="#PT1">PT1 Procedimiento instalacion Sirecor <a/>
-    <a href="#PT2">PT2 Procedimiento instalacion Sirecor Estanque <a/>
-    <a href="#PT3">PT3 Procedimiento instalacion Milesight autoEnegizado <a/>
-    <a href="#PT4">PT4 Procedimiento instalacion Milesight con Caja de energizacion <a/>
-    <a href="#PT5">PT5 Procedimeinto revision flujometro Milesight autoEnegizado <a/>
-    <a href="#PT6">PT6 Procedimeinto revision flujometro Milesight con Caja de energizacion <a/>
-    <a href="#PT7">PT7 Procedimeinto revision flujometro Sirecor <a/>
-    <a href="#PT8">PT8 Procedimeinto revision Sirecor Estanque sensores de nivel <a/>
-    <a href="#PT9">PT9 Procedimeinto cambio de programa sirecor <a/>
-    <a href="#PT10">PT10 Procedimeinto mantencion sirecor <a/>
-    <a href="#PT11">PT11 Procedimeinto mantencion sirecor Estanque <a/>
-    <a href="#PT12">PT12 Procedimeinto mantencion Milesight autoEnegizado (PT13)  <a/>
-    <a href="#PT13">PT13 Procedimeinto mantencion Milesight con Caja de energizacion   <a/>
-</p>
+
+<ul class="list-unstyled">
+  <li>Index:
+    <ul>
+        <li><a href="#PT1">PT1 Procedimiento instalacion Sirecor <a/></li>
+        <li><a href="#PT2">PT2 Procedimiento instalacion Sirecor Estanque <a/></li>
+        <li><a href="#PT3">PT3 Procedimiento instalacion Milesight autoEnegizado <a/></li>
+        <li><a href="#PT4">PT4 Procedimiento instalacion Milesight con Caja de energizacion <a/></li>
+        <li><a href="#PT5">PT5 Procedimeinto revision flujometro Milesight autoEnegizado <a/></li>
+        <li><a href="#PT6">PT6 Procedimeinto revision flujometro Milesight con Caja de energizacion<a/></li> 
+        <li><a href="#PT7">PT7 Procedimeinto revision flujometro Sirecor <a/></li>
+        <li><a href="#PT8">PT8 Procedimeinto revision Sirecor Estanque sensores de nivel <a/></li>
+        <li><a href="#PT9">PT9 Procedimeinto cambio de programa sirecor <a/></li>
+        <li><a href="#PT10">PT10 Procedimeinto mantencion sirecor <a/></li>
+        <li><a href="#PT11">PT11 Procedimeinto mantencion sirecor Estanque <a/></li>
+        <li><a href="#PT12">PT12 Procedimeinto mantencion Milesight autoEnegizado (PT13)  <a/></li>
+        <li><a href="#PT13">PT13 Procedimeinto mantencion Milesight con Caja de energizacion   <a/></li>
+    </ul>
+  </li>
+
+</ul>
+
+
+
+
+
+
+
 </div> </div> 
 
 <div class="row" > 
@@ -746,7 +757,7 @@ Herramientas
  <div class="row" >
   <div class="col m-3" >
 
-  <p class="h3 m-3" id="PT13" >3.10 Procedimeinto mantencion Milesight con Caja de energizacion (PT13) </p>
+  <p class="h3 m-3" id="PT13" >3.10 Procedimeinto mantencion Milesight con Caja de energizacion </p>
 
 </div>
 </div>
