@@ -16,10 +16,24 @@ $Model = $Page->get_Model();
  <div class="row" > 
  <div class="col m-3" >
  
- <p class="h1 m-3">Procedimientos.</p>
-
- <a href="#PTS2">PTS2 Crear Checklist<a/>
-
+<p class="h1 m-3">Procedimientos.</p>
+<p class="h2 m-3">Index</p>
+<p class="h3 m-3" >Procedimientos terreno PST</p>
+<p class="m-3" style="white-space: pre-line;">
+    <a href="#PT1">PT1 Procedimiento instalacion Sirecor <a/>
+    <a href="#PT2">PT2 Procedimiento instalacion Sirecor Estanque <a/>
+    <a href="#PT3">PT3 Procedimiento instalacion Milesight autoEnegizado <a/>
+    <a href="#PT4">PT4 Procedimiento instalacion Milesight con Caja de energizacion <a/>
+    <a href="#PT5">PT5 Procedimeinto revision flujometro Milesight autoEnegizado <a/>
+    <a href="#PT6">PT6 Procedimeinto revision flujometro Milesight con Caja de energizacion <a/>
+    <a href="#PT7">PT7 Procedimeinto revision flujometro Sirecor <a/>
+    <a href="#PT8">PT8 Procedimeinto revision Sirecor Estanque sensores de nivel <a/>
+    <a href="#PT9">PT9 Procedimeinto cambio de programa sirecor <a/>
+    <a href="#PT10">PT10 Procedimeinto mantencion sirecor <a/>
+    <a href="#PT11">PT11 Procedimeinto mantencion sirecor Estanque <a/>
+    <a href="#PT12">PT12 Procedimeinto mantencion Milesight autoEnegizado (PT13)  <a/>
+    <a href="#PT13">PT13 Procedimeinto mantencion Milesight con Caja de energizacion   <a/>
+</p>
 </div> </div> 
 
 <div class="row" > 
@@ -162,7 +176,7 @@ Si no tiene observaciones coloca OK, no puedes dejar el campo vacío.
 <div class="row" > 
 <div class="col m-3" >
 
-<p class="h3 m-3">2.2Procedimiento  Sirecor mantención panel (PTS3)  </p>
+<p class="h3 m-3" id="PTS3" >2.2Procedimiento  Sirecor mantención panel (PTS3)  </p>
 <p class="m-3" style="white-space: pre-line;">
 herramientas:
 - pano para limpiar panel.
@@ -191,7 +205,7 @@ herramientas:
 <div class="row" > 
 <div class="col m-3" >
 
-<p class="h3 m-3">2.3 Procedimiento limpieza valvula solenoide (PTS4)</p>
+<p class="h3 m-3" id="PTS4" >2.3 Procedimiento limpieza valvula solenoide (PTS4)</p>
 <p class="m-3" style="white-space: pre-line;">
 Herramientas
 
@@ -215,7 +229,7 @@ Herramientas
 <div class="row" > 
 <div class="col m-3" >
 
-<p class="h3 m-3">Procedimiento limpieza flujometro (PTS5)</p>
+<p class="h3 m-3" id="PTS5">Procedimiento limpieza flujometro (PTS5)</p>
 <p class="m-3" style="white-space: pre-line;">
 Herramientas
 
@@ -234,7 +248,7 @@ Herramientas
 <div class="row" >
  <div class="col m-3" >
  
- <p class="h3 m-3">2.4 Procedimiento Instalacion Flujometro (PTS6)</p>
+ <p class="h3 m-3" id="PTS6">2.4 Procedimiento Instalacion Flujometro (PTS6)</p>
 <p class="m-3" style="white-space: pre-line;">
 Herramientas
 
@@ -280,7 +294,7 @@ Si no marca flujo pongase en contacto con ayuda tecnica.
 <div class="row" > 
 <div class="col m-3" >
 
-<p class="h3 m-3">2.5 Procedimiento ajustar reguladores voltaje sirecor (PTS7)</p>
+<p class="h3 m-3" id="PTS7">2.5 Procedimiento ajustar reguladores voltaje sirecor (PTS7)</p>
 <p class="m-3" style="white-space: pre-line;">
 El regulador de la izquierda corresponde a la tensión de la carga de la batería BAT, para una batería de gel es necesario 13.9V a 14.2V, y un pack de 3 litio en serie 12,4 a 12,8 V. El regulador de la derecha alimenta el Microcontrolador y el módulo GSM MCU. Si estamos utilizando el módulo GSM SIM7600 (Actual) es necesario una tensión de 5v A 5.3V. En caso de que estemos utilizando el módulo GSM rojo SIM800 (descontinuado) la tensión necesaria es de 3.2v-3.5v.
 
@@ -371,7 +385,7 @@ Ahora para regular el regulador MCU debemos desconectar el panel, luego conectar
 <div class="row" > 
 <div class="col m-3" >
 
-<p class="h3 m-3">2.6 Procedimiento Instalacion caja Enegizacion Milesight (PTS8) </p>
+<p class="h3 m-3" id="PTS8>2.6 Procedimiento Instalacion caja Enegizacion Milesight (PTS8) </p>
 <p class="m-3" style="white-space: pre-line;">
 Herramientas
 
@@ -436,7 +450,7 @@ Test 3: El voltaje a la salida del regulandor verde ( entre pin  Vo + y el pin G
 <div class="row" > 
 <div class="col m-3" >
 
-<p class="h3 m-3">Procedimiento configuracion milesight (PTS9)</p>
+<p class="h3 m-3" id="PTS9" >Procedimiento configuracion milesight (PTS9)</p>
 <p class="m-3" style="white-space: pre-line;">
 Herramientas
 
@@ -450,7 +464,7 @@ TODO, agregar todo el proceso que no me lo se. usar manual q dejo la paola
  <div class="row" >
   <div class="col m-3" >
 
-  <p class="h3 m-3">2.7 Procedimiento Instalacion flotadores (PTS10) </p>
+  <p class="h3 m-3" id="PT10" >2.7 Procedimiento Instalacion flotadores (PTS10) </p>
 <p class="m-3" style="white-space: pre-line;">
 TODO, mas adelante lo hago
 </p>
@@ -471,7 +485,7 @@ EJEMPLO: "Proced mantencion sirecor: -> incluye (PST1 mantecion panel) (PST2 Cre
  <div class="row" > 
  <div class="col m-3" >
  
- <p class="h3 m-3">3.1 Procedimiento instalacion Sirecor (PT1) </p>
+ <p class="h3 m-3" id="PT1" >3.1 Procedimiento instalacion Sirecor (PT1) </p>
 <p class="m-3" style="white-space: pre-line;">
 Herramientas
 
@@ -515,7 +529,7 @@ lo es responsabilidad de quien instala el punto.
  <div class="row" >
   <div class="col m-3" >
   
-  <p class="h3 m-3">Procedimiento instalacion Sirecor Estanque (PT2) </p>
+  <p class="h3 m-3" id="PT2" >Procedimiento instalacion Sirecor Estanque (PT2) </p>
 <p class="m-3" style="white-space: pre-line;">
 TODO
 </p>
@@ -523,7 +537,7 @@ TODO
  <div class="row" > 
  <div class="col m-3" >
  
- <p class="h3 m-3">3.2 Procedimiento instalacion Milesight autoEnegizado (PT3) </p>
+ <p class="h3 m-3" id="PT3" >3.2 Procedimiento instalacion Milesight autoEnegizado (PT3) </p>
 <p class="m-3" style="white-space: pre-line;">
 Herramientas
 
@@ -565,7 +579,7 @@ lo es responsabilidad de quien instala el punto.
  <div class="row" > 
  <div class="col m-3" >
  
- <p class="h3 m-3">Procedimiento instalacion Milesight con Caja de energizacion (PT4) </p>
+ <p class="h3 m-3" id="PT4" >Procedimiento instalacion Milesight con Caja de energizacion (PT4) </p>
 <p class="m-3" style="white-space: pre-line;">
 Herramientas
 
@@ -607,7 +621,7 @@ lo es responsabilidad de quien instala el punto.
 <div class="row" >
  <div class="col m-3" >
  
- <p class="h3 m-3">Procedimeinto revision flujometro Milesight autoEnegizado (PT5)</p>
+ <p class="h3 m-3" id="PT5" >Procedimeinto revision flujometro Milesight autoEnegizado (PT5)</p>
 <p class="m-3" style="white-space: pre-line;">
 Herramientas
 
@@ -641,7 +655,7 @@ el fusible, si no tiene corte el cable y instale caja de energizacion PST8.
 <div class="row" >
  <div class="col m-3" >
  
- <p class="h3 m-3">3.3 Procedimeinto revision flujometro Milesight con Caja de energizacion  (PT6)</p>
+ <p class="h3 m-3" id="PT6" >3.3 Procedimeinto revision flujometro Milesight con Caja de energizacion  (PT6)</p>
 <p class="m-3" style="white-space: pre-line;">
 Herramientas
 
@@ -672,14 +686,14 @@ Herramientas
 <div class="row" >
  <div class="col m-3" >
  
- <p class="h3 m-3">3.4 Procedimeinto revision Sirecor (P7)</p>
+ <p class="h3 m-3" id="PT7" >3.4 Procedimeinto revision flujometro Sirecor (PT7)</p>
 
 </div> </div> 
 
 <div class="row" > 
 <div class="col m-3" >
 
-<p class="h3 m-3">3.5 Procedimeinto revision Sirecor Estanque sensores de nivel (PT8) </p>
+<p class="h3 m-3" id="PT8" >3.5 Procedimeinto revision Sirecor Estanque sensores de nivel (PT8) </p>
 
 
 </div> </div> 
@@ -687,7 +701,7 @@ Herramientas
 <div class="row" >
  <div class="col m-3" >
 
- <p class="h3 m-3">3.6 Procedimeinto cambio de programa sirecor (PT9) </p>
+ <p class="h3 m-3" id="PT9" >3.6 Procedimeinto cambio de programa sirecor (PT9) </p>
 <p class="m-3" style="white-space: pre-line;">
 Herramientas
 
@@ -714,25 +728,25 @@ Herramientas
  <div class="row" >
   <div class="col m-3" >
 
-  <p class="h3 m-3">3.7 Procedimeinto mantencion sirecor (PT11) </p>
+  <p class="h3 m-3" id="PT10" >3.7 Procedimeinto mantencion sirecor (PT10) </p>
 </div> </div>
 
  <div class="row" >
   <div class="col m-3" >
 
-  <p class="h3 m-3">3.8 Procedimeinto mantencion sirecor Estanque (PT12) </p>
+  <p class="h3 m-3" id="PT11" >3.8 Procedimeinto mantencion sirecor Estanque (PT11) </p>
 </div> </div>
 
  <div class="row" >
   <div class="col m-3" >
 
-  <p class="h3 m-3">3.9 Procedimeinto mantencion Milesight autoEnegizado (PT13) </p>
+  <p class="h3 m-3" id="PT12" >3.9 Procedimeinto mantencion Milesight autoEnegizado (PT12) </p>
 </div> </div>
 
  <div class="row" >
   <div class="col m-3" >
 
-  <p class="h3 m-3">3.10 Procedimeinto mantencion Milesight con Caja de energizacion (PT14) </p>
+  <p class="h3 m-3" id="PT13" >3.10 Procedimeinto mantencion Milesight con Caja de energizacion (PT13) </p>
 
 </div>
 </div>
