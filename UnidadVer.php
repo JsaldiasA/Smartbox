@@ -208,7 +208,8 @@ $HtmlPage=$HtmlPage.'<div class="accordion" id="accordionExample">
 
 		$HtmlPage=$HtmlPage. '<tr><td><button type="button" onclick="FunctionCreateSMS('."'ABRIR'".')" class="btn btn-primary" >ABRIR</button></td>
 			<td><button type="button" onclick="FunctionCreateSMS('."'CERRAR'".')" class="btn btn-primary" >CERRAR</button></td>
-			<td><button type="button" onclick="FunctionCreateSMS('."'RESET'".')" class="btn btn-primary" >RESET</button></td><tr>';
+			<td><button type="button" onclick="FunctionCreateSMS('."'RESET'".')" class="btn btn-primary" >RESET</button></td><tr>
+			<td><button type="button" onclick="FunctionCreateSMS('."'INTERNET30'".')" class="btn btn-primary" >Modo Riego</button></td><tr>';
 		$HtmlPage=$HtmlPage. '</tbody></table>';
 	}
 $HtmlPage=$HtmlPage.'		  </div>
