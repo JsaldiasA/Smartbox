@@ -70,7 +70,7 @@ if( $unidad != null)
 }
 
 
-if($IsDuplicated == false && $NewSMS->SMS != null && $IsAlreadyOpenOrClose == false)
+if($IsDuplicated == false && $NewSMS->SMS != null && $IsAlreadyOpen == false && $IsAlreadyOpen == false)
 {
 	$model->MYSQLInsertInto('smstounidades',$NewSMS);
 	echo 'SMS creado Correctamente';
