@@ -69,11 +69,10 @@ usort ($UnidadesFiltradasPorTipo, function($a, $b)
 
 	// Retornar valores como tabla.
 	echo '<table class="table">
-	<thead>
-	<th scope="col">Serie</th>';
+	<thead>';
+	
 	echo $IsMilesight ? '<th scope="col">DevEUI</th>' : '<th scope="col">IMEI</th>';
 	echo '<th scope="col">Ubicación</th>';
-	echo $IsMilesight ? null : '<th scope="col">Número</th>';
 	echo '<th scope="col">ÚltimaActz</th>
 	<th scope="col">Estado</th>
 	<th scope="col">Batería</th>';
@@ -106,10 +105,8 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
 
 	// Print row.
     echo "<tr>";
-    echo "<td>".$unidad->get_Serie()."</td>"; 
     echo "<td>". $unidad->get_Tag()."</td>";
     echo "<td>".$unidad->get_Ubicacion()."</td>";
-    echo $IsMilesight ? null : "<td>".$unidad->get_Numero()."</td>";
     echo "<td>".$unidad->DiffBetweenNow_and_UltimaActualizacion()."</td>";
     echo "<td>".$unidad->get_Estado()  ."</td>";
     echo "<td>".$BatNivel->get_HtmlTableField()."</td>";
