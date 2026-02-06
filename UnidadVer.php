@@ -92,7 +92,7 @@ $HtmlPage=$HtmlPage.'
 				}
 		}	
 		
-		
+		$UltimoRegistroIniciacion = $Model->MYSQLSelectWHERE('evento','UNIDAD', $unidadDbEntity->get_tag() )[0] ;
 
 			$HtmlPage=$HtmlPage. '<table class="table" >
 		  <tbody>';
@@ -100,6 +100,7 @@ $HtmlPage=$HtmlPage.'
 	$HtmlPage=$HtmlPage. '<tr><td><b>Volumen:</b></td><td>'.$ultimoRegistro->VOLUMEN.'</td></tr>';
 	$HtmlPage=$HtmlPage. '<tr><td><b>Caudal:</b></td><td>'.$ultimoRegistro->CAUDAL.'</td></tr>';
 	$HtmlPage=$HtmlPage. '<tr><td><b>Última Registro:</b></td><td>'.$ultimoRegistro->DATETIME.'</td></tr>';
+	$HtmlPage=$HtmlPage. '<tr><td><b>Modo</b></td><td>'. $UltimoRegistroIniciacion->INTERNET .'</td></tr>';
 	$HtmlPage=$HtmlPage. '</tbody></table>';
 
 	$HtmlPage=$HtmlPage. '<table class="table" >
