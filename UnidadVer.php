@@ -92,7 +92,7 @@ $HtmlPage=$HtmlPage.'
 				}
 		}	
 		
-		$UltimoRegistroIniciacion = $Model->MYSQLSelectWHERE('evento','UNIDAD', $unidadDbEntity->get_tag() )[0] ;
+		$UltimoRegistroIniciacion = $Model->MYSQLSelectWHERE('eventos','UNIDAD', $unidadDbEntity->get_tag() )[0] ;
 
 			$HtmlPage=$HtmlPage. '<table class="table" >
 		  <tbody>';
