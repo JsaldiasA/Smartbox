@@ -78,7 +78,7 @@ usort ($UnidadesFiltradasPorTipo, function($a, $b)
 	<th scope="col">Batería</th>';
 	echo !$isEstanque ? '<th scope="col">Caudal</th>' : null;
 	echo !$isEstanque ? '<th scope="col">Volumen</th>' : null;
-	echo '<th scope="col"></th>
+	echo '
 	</thead>
 	<tbody>';
 
@@ -105,14 +105,14 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
 
 	// Print row.
     echo "<tr>";
-    echo "<td>". $unidad->get_Tag()."</td>";
+    echo "<td> <a href='unidadver.php?tag=".$unidad->get_Tag()."'> ". $unidad->get_Tag()."</a> </td>";
     echo "<td>".$unidad->get_Ubicacion()."</td>";
     echo "<td>".$unidad->DiffBetweenNow_and_UltimaActualizacion()."</td>";
     echo "<td>".$unidad->get_Estado()  ."</td>";
     echo "<td>".$BatNivel->get_HtmlTableField()."</td>";
 	echo !$isEstanque ? ($ultimoRegistro->id == 0 ? "<td>0</td>":"<td>".$ultimoRegistro->CAUDAL."</td>"): null;
     echo !$isEstanque ? ($IsMilesight ?  "<td>".$unidad->get_VolumenForMilesight()."</td>":"<td>".$unidad->get_Volumen()."</td>" ): null;
-    echo "<td> <a href='unidadver.php?tag=".$unidad->get_Tag()."'>Ver</a></td></tr>";
+    echo "</tr>";
 }
 	echo '</tbody></table>';
 
