@@ -286,9 +286,8 @@ class Model
 
 	function get_eventos()
 		{
-		$sql = "SELECT * FROM `eventos` ORDER BY `TIMESTAMP` DESC ";
+			$sql = "SELECT * FROM `eventos` ORDER BY `TIMESTAMP` DESC ";
 			return $this->MYSQLfetchObj($sql, 'eventosDbEntity');
-			return $eventos;
 		}
 
 	function RegistrosIniciacionByTag($tag)
