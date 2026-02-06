@@ -92,7 +92,7 @@ $HtmlPage=$HtmlPage.'
 				}
 		}	
 		
-		$RegistrosDiarios = $Model->MYSQLSelectWHERE('eventos','UNIDAD',$unidadDbEntity->get_tag());
+		
 
 			$HtmlPage=$HtmlPage. '<table class="table" >
 		  <tbody>';
