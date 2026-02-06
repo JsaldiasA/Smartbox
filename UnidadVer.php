@@ -79,17 +79,6 @@ $HtmlPage=$HtmlPage.'
 	}
     $HtmlPage=$HtmlPage.'
 	<div class="col p-3 m-3 card shadow ">';
-	/*		$HtmlPage=$HtmlPage. '<table class="table">
-			<thead >
-			<th scope="col">Parámetros</th>
-			<th scope="col">Valor</th>	
-			</thead><tbody>';// Header tabla
-			//print row
-			$HtmlPage=$HtmlPage. "<tr>  
-			<td>". "<b>Volumen máximo:</b>".
-			"</td> <td>". $unidadDbEntity->get_VolMax().
-			" (L)</td></tr>";
-			$HtmlPage=$HtmlPage. '</tbody></table>';*/// configuraciopn cuadro 
 
 		$RegistrosDiarios = [];
 		$RegistrosDiarios = $Model->get_UltimoRegistroDiarioDeCadaUnidad();
@@ -102,13 +91,15 @@ $HtmlPage=$HtmlPage.'
 					break;
 				}
 		}	
+		
+		$RegistrosDiarios = $Model->MYSQLSelectWHERE('eventos','UNIDAD',$unidadDbEntity->get_tag());
 
 			$HtmlPage=$HtmlPage. '<table class="table" >
 		  <tbody>';
 	$HtmlPage=$HtmlPage. '<tr><td><b>Estado:</b></td><td>'.$ultimoRegistro->ESTADO.'</td></tr>';
 	$HtmlPage=$HtmlPage. '<tr><td><b>Volumen:</b></td><td>'.$ultimoRegistro->VOLUMEN.'</td></tr>';
 	$HtmlPage=$HtmlPage. '<tr><td><b>Caudal:</b></td><td>'.$ultimoRegistro->CAUDAL.'</td></tr>';
-	$HtmlPage=$HtmlPage. '<tr><td><b>Última actualización:</b></td><td>'.$ultimoRegistro->DATETIME.'</td></tr>';
+	$HtmlPage=$HtmlPage. '<tr><td><b>Última Registro:</b></td><td>'.$ultimoRegistro->DATETIME.'</td></tr>';
 	$HtmlPage=$HtmlPage. '</tbody></table>';
 
 	$HtmlPage=$HtmlPage. '<table class="table" >
@@ -204,12 +195,19 @@ $HtmlPage=$HtmlPage.'<div class="accordion" id="accordionExample">
 		$HtmlPage=$HtmlPage. '<th scope="col">Controles Basicos</th>';
 		$HtmlPage=$HtmlPage. '<th scope="col"></th>';
 		$HtmlPage=$HtmlPage. '<th scope="col"></th>';
+		$HtmlPage=$HtmlPage. '<th scope="col"></th>';
+		$HtmlPage=$HtmlPage. '<th scope="col"></th>';
+		$HtmlPage=$HtmlPage. '<th scope="col"></th>';
 		$HtmlPage=$HtmlPage. '</thead><tbody>';
 
 		$HtmlPage=$HtmlPage. '<tr><td><button type="button" onclick="FunctionCreateSMS('."'ABRIR'".')" class="btn btn-primary" >ABRIR</button></td>
 			<td><button type="button" onclick="FunctionCreateSMS('."'CERRAR'".')" class="btn btn-primary" >CERRAR</button></td>
 			<td><button type="button" onclick="FunctionCreateSMS('."'RESET'".')" class="btn btn-primary" >RESET</button></td><tr>
-			<td><button type="button" onclick="FunctionCreateSMS('."'INTERNET30'".')" class="btn btn-primary" >Modo Riego</button></td><tr>';
+			<td><button type="button" onclick="FunctionCreateSMS('."'INTERNET30'".')" class="btn btn-primary" >Riego mode ON</button></td><tr>
+			<td><button type="button" onclick="FunctionCreateSMS('."'INTERNET75'".')" class="btn btn-primary" >Riego mode OFF</button></td><tr>
+			<td><button type="button" onclick="FunctionCreateSMS('."'INTERNET900'".')" class="btn btn-primary" >Standby mode</button></td><tr>
+			';
+
 		$HtmlPage=$HtmlPage. '</tbody></table>';
 	}
 $HtmlPage=$HtmlPage.'		  </div>

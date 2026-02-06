@@ -26,7 +26,7 @@ $NewSMS->CreateTime = date("Y-m-d H:i:s");
 
 // Check if the mesage is duplicated
 
-$isDuplicated = false;
+$IsDuplicated = false;
 
 $smsForThisUnit = $model->MYSQLSelectWHERE('smstounidades','Id_unidad',$NewSMS->Id_unidad);
 $smsNoReceived = [];
@@ -45,20 +45,56 @@ if($smsNoReceived != null)
 	{
 		if($sms->SMS == $NewSMS->SMS)
 		{
-			$isDuplicated = true;
+			$IsDuplicated = true;
 		}
 	}
 
 }
 
-if($isDuplicated == false && $NewSMS->SMS != null)
+// Si se abre la valvula, asegurarse de que la valvula este cerrada y viceversa.
+
+$unidad = $model->MYSQLSelectWHERE('unidad','Id',$NewSMS->Id_unidad)[0];
+$IsAlreadyOpen = false;
+$IsAlreadyClose = false;
+
+if( $unidad != null)
+{
+	if( ( $NewSMS->SMS == "ABRIR" && $unidad->Estado == "ON" ) ) 
+	{
+		$IsAlreadyOpen = true;
+	}
+	if( ( $NewSMS->SMS == "CERRAR" && $unidad->Estado == "OFF" ) ) 
+	{
+		$IsAlreadyClose = true;
+	}
+}
+
+
+if($IsDuplicated == false && $NewSMS->SMS != null && $IsAlreadyOpenOrClose == false)
 {
 	$model->MYSQLInsertInto('smstounidades',$NewSMS);
 	echo 'SMS creado Correctamente';
 	echo var_dump($NewSMS);
 }
 else{
-	echo 'Error, mensaje duplicado o el mensaje es NULL';
+
+	If( $IsDuplicated ) 
+	{
+		echo 'Error, mensaje duplicado o el mensaje es NULL';
+	}
+	If( $IsAlreadyOpen ) 
+	{
+		echo 'Error al abrir solenoide, la valvula ya esta abierta';
+	}
+	If( $IsAlreadyClose ) 
+	{
+		echo 'Error al cerrar solenoide, la valvula ya esta cerrada';
+	}
+	If( $NewSMS->SMS == null ) 
+	{
+		echo 'Error, mensaje duplicado o el mensaje es NULL';
+	}
+	
 }
 
 
