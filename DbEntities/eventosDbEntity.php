@@ -17,40 +17,6 @@ class eventosDbEntity {
 	public $TIPO;
 	public $TipoBat;
 
-  function __construct(
-	$UNIDAD,
-	$USUARIO1,
-	$USUARIO2,
-	$USUARIO3,
-	$USUARIO4,
-	$ADMIN,
-	$MANTENCION,
-	$INTERNET,
-	$VerCodigo,
-	$LVOLTAJE,
-	$INV,
-	$VOLUMEN_MAX,
-	$TIMESTAMP,
-	$TIPO,
-	$TipoBat)
-
-  {
-	$this->UNIDAD = $UNIDAD;
-	$this->USUARIO1 = $USUARIO1;
-	$this->USUARIO2 = $USUARIO2;
-	$this->USUARIO3 = $USUARIO3;
-	$this->USUARIO4 = $USUARIO4;
-	$this->ADMIN = $ADMIN;
-	$this->MANTENCION = $MANTENCION;
-	$this->INTERNET = $INTERNET;
-	$this->VerCodigo = $VerCodigo;
-	$this->LVOLTAJE = $LVOLTAJE;
-	$this->INV = $INV;
-	$this->VOLUMEN_MAX = $VOLUMEN_MAX;
-	$this->TIMESTAMP = $TIMESTAMP;
-	$this->TIPO = $TIPO;
-	$this->TipoBat = $TipoBat;
-  }
 	function get_UNIDAD() { return $this->UNIDAD; }
 	function get_USUARIO1() { return $this->USUARIO1; }
 	function get_USUARIO2() { return $this->USUARIO2; }

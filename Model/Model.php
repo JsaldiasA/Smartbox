@@ -286,35 +286,8 @@ class Model
 
 	function get_eventos()
 		{
-			$sql = "SELECT * FROM eventos e ORDER BY TIMESTAMP DESC";
-			$result = $this->executeSQL($sql);
-			$eventos = [];
-
-			if ($result->num_rows > 0)
-				{
-					while($row = $result->fetch_assoc())
-						{
-							$eventos[] = new eventosDbEntity
-								(
-									$row["UNIDAD"],
-									$row["USUARIO1"],
-									$row["USUARIO2"],
-									$row["USUARIO3"],
-									$row["USUARIO4"],
-									$row["ADMIN"],
-									$row["MANTENCION"],
-									$row["INTERNET"],
-									$row["VerCodigo"],
-									$row["LVOLTAJE"],
-									$row["INV"],
-									$row["VOLUMEN MAX"],
-									$row["TIMESTAMP"],
-									$row["TIPO"],
-									$row["TipoBat"]
-			    				);
-						}
-				}
-
+		$sql = "SELECT * FROM `eventos` ORDER BY `TIMESTAMP` DESC ";
+			return $this->MYSQLfetchObj($sql, 'eventosDbEntity');
 			return $eventos;
 		}
 
