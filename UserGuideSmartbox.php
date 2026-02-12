@@ -19,7 +19,7 @@ $Model = $Page->get_Model();
     <p class="h1 m-3">Guia de usuario</p>
 
     <ul class="list-unstyled m-3">
-    <li class="m-3">Indice<br>
+    <li class="m-3"><p class="h2 m-3" > Indice </p>
         <ul>
             <li class="m-1" ><a href="#T1">T1 Modo de la unidad <a/></li>
             <li class="m-1" ><a href="#T2">T2 Accionamiento <a/></li>
