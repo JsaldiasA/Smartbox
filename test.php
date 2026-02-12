@@ -5,7 +5,7 @@ $sitebasepath=$_SERVER['DOCUMENT_ROOT'];
 require_once $sitebasepath."/Model/model.php";
 
 $model = new Model();
-
+phpinfo(); 
 //$NewTicket->Id = '1';
 //$NewTicket->Nombre = 'Nombre' ;
 //$NewTicket->Ubicacion = 'Ubicacion' ;

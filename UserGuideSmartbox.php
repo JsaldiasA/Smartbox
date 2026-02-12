@@ -91,7 +91,7 @@ $Model = $Page->get_Model();
             <div class="card" style="width: 18rem;">
                 <img src="/images/imagenesDocs/Pts2imagen1.jpg" class="card-img-top" >
                 <div class="card-body">
-                    <p class="card-text">imagen 1</p>
+                    <div class="card-text">imagen 1</div>
                 </div>
             </div>
         </div>
@@ -99,7 +99,7 @@ $Model = $Page->get_Model();
         Ir a la seccion de control hacer click en abrir.
 
         
-
+    
 
 
         </p>
