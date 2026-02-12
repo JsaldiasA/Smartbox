@@ -42,21 +42,21 @@ $Model = $Page->get_Model();
         Las unidades sirecor desde la version 4.6s es posible controlarlas desde internet. Para ver la version actual de la unidad vea  <a href="#T1"> T4 Registros iniciacion <a/>. 
         La Unidad funciona de manera asincrona,cuando la caja envia un mensaje recibe como respuesta el mensaje de control. 
         
-        <p class="h3 m-3"  > Modo riego off  </p>
+        <div class="h3 m-3"  > Modo riego off  </div>
 
         La Frecuencia en la cual la caja envia mensajes es de 5 minutos, si queremos abrir la caja tenemos que esperar al lo mas 5 minitos para que la caja envie el mensaje. Cuando la caja esta abierta la frecuencia automaticamente se cambia a 1 minuto.
         
         Frecuencia de mensajes: 5 minutos cuando esta off, 1 minuto cuando esta on
         Recomendable: durante jornada normal.
 
-        <p class="h3 m-3"  > Modo riego On  </p>
+        <div class="h3 m-3"  > Modo riego On  </div>
 
         Para tener una respuesta mas instantanea para regar, podemos cambiar la caja a modo riego, la frecuencia de mensajes sera siempre 1 min.
         
         Frecuencia de mensajes: 1 minuto cuando esta off, 1 minuto cuando esta on
         Recomendable: durante dia de riego.
 
-        <p class="h3 m-3"  > odo standby  </p>
+        <div class="h3 m-3"  > odo standby  </div>
 
         Debido a que las unidades tienen un maximo de 30 mb de trafico y una frecuencia de mensajes alta consume mas energia, es convieniente que se baje a 1 hora. 
 
