@@ -56,7 +56,7 @@ $Model = $Page->get_Model();
         Frecuencia de mensajes: 1 minuto cuando esta off, 1 minuto cuando esta on
         Recomendable: durante dia de riego.
 
-        <div class="h3 m-3"  > odo standby  </div>
+        <div class="h3 m-3"  > Modo standby  </div>
 
         Debido a que las unidades tienen un maximo de 30 mb de trafico y una frecuencia de mensajes alta consume mas energia, es convieniente que se baje a 1 hora. 
 
@@ -77,6 +77,30 @@ $Model = $Page->get_Model();
         
         <p class="h2 m-3" id="T2" >T2 Accionamiento </p>
         <p class="m-3" style="white-space: pre-line;">
+
+        Las unidades sirecor desde la version 4.6s es posible controlarlas desde internet. Para ver la version actual de la unidad vea  <a href="#T1"> T4 Registros iniciacion <a/>. 
+        La Unidad funciona de manera asincrona,cuando la caja envia un mensaje recibe como respuesta el mensaje de control. 
+
+        Es posible abrir La unidad mediante SMS, LLAMADA (no recomendado desde version 4.6), internet.
+
+        <div class="h3 m-3"  > Mediante internet </div>
+        
+        Desde la pagina de smartbox, escoger la unidad con ver (imagen 1).
+
+        <div class="row m-3 d-flex justify-content-center" > 
+            <div class="card" style="width: 18rem;">
+                <img src="/images/imagenesDocs/Pts2imagen1.jpg" class="card-img-top" >
+                <div class="card-body">
+                    <p class="card-text">imagen 1</p>
+                </div>
+            </div>
+        </div>
+
+        Ir a la seccion de control hacer click en abrir.
+
+        
+
+
 
         </p>
 
