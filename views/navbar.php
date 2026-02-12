@@ -59,9 +59,15 @@ echo'
            <li class="nav-item">
           <a class="nav-link" href="../ChecklistInicio.php" >Checklist</a>
         </li>
-        </li>
-           <li class="nav-item">
-          <a class="nav-link" href="../Docs.php" >Procedimientos</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Docs
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="nav-link" href="../Docs.php" >Procedimientos</a></li>
+            <li><a class="nav-link" href="../UserGuideSmartbox.php" >Guia de usuario</a></li>
+            <li><a class="dropdown-item" href="https://github.com/infoECO3/repo-S2-1">Sirecor</a></li>
+          </ul>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
