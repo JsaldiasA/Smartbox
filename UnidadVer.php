@@ -219,40 +219,24 @@ $HtmlPage=$HtmlPage.'		  </div>
 $HtmlPage=$HtmlPage.'<div class="accordion" id="accordionExample">
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" >
         Registros diarios
       </button>
     </h2>
     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
       <div class="accordion-body">
-		<div class="overflow-auto">';
-
+		';
 // TABLA REGISTROS DIARIOS
+	$HtmlPage=$HtmlPage. '<button type="button" onclick="GetRegistrosDiariosTable(\''.$unidadDbEntity->Id.'\')" class="btn btn-primary" >Refrescar</button>';
+	$HtmlPage=$HtmlPage. '<div class="overflow-auto"> <div id="RegistrosDiariosTable"></div>  </div>';
 
-	$HtmlPage=$HtmlPage. '<script>let table = new DataTable("#TablaRegistros");</script>';
-	$HtmlPage=$HtmlPage. '<table id="TablaRegistros" class="display"><thead><tr><th scope="col">ESTADO</th><th scope="col">VOLUMEN</th><th scope="col">CAUDAL</th><th scope="col">SENAL</th><th scope="col">BAT</th><th scope="col">FECHA</th></tr></thead><tbody>';
-
-$RegistrosDiarios = $Model->RegistrosDiariosById_unidad($unidadDbEntity->Id);
-
-foreach ($RegistrosDiarios as $registro) {
-    // output data of each row
-
-		$HtmlPage=$HtmlPage. '<tr>  <td>'. $registro->ESTADO. "</td><td>" . $registro->VOLUMEN ."</td> <td>" . $registro->CAUDAL."</td> <td>" . $registro->SENAL ." </td><td>" . $registro->VOLTAJE ."%</td><td>" . $registro->DATETIME ."</td></tr>";
-
-}
-
-		$HtmlPage=$HtmlPage. '</tbody></table>';
-		$HtmlPage=$HtmlPage. "<script>
-		$(document).ready(function(){
-    	$('#TablaRegistros').dataTable();
-		});
-		</script>";
 
 $HtmlPage=$HtmlPage.'
-		  </div>
+		 
       </div>
     </div>
   </div>';
+
   $HtmlPage=$HtmlPage.'
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingTwo">

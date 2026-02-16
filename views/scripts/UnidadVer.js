@@ -16,6 +16,22 @@ function GetSMSTable()
 		    success: function(result){document.getElementById("SMSTable").innerHTML= result;}
 		});	
 	}
+
+function GetRegistrosDiariosTable( id_unidad )
+	{
+    	var URL = "ApiController/RegistrosDiarios/RegistrosDiariosGet.php"
+		$.ajax({
+            url:URL,    //the page containing php script
+            type: "post",    //request 
+			dataType:'text',
+			data:
+				{
+            		Id_unidad: id_unidad,
+        		},
+			
+		    success: function(result){document.getElementById("RegistrosDiariosTable").innerHTML= result;}
+		});	
+	}	
 		
 function FunctionNuevoNumero(unidad)
 	{
