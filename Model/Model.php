@@ -189,25 +189,8 @@ class Model
 
 	function get_unidadtipos()
 		{
-			$sql = "SELECT * FROM `unidadtipo`";
-			$result = $this->executeSQL($sql);
-			$TiposDeUnidades = [];
-
-			if ($result->num_rows > 0)
-				{
-					while($row = $result->fetch_assoc())
-						{
-							$TiposDeUnidades[] = new unidadtipoDbEntity
-								(
-									$row["Id"],
-									$row["Nombre"],
-									$row["Descripcion"],
-									$row["IsMilesight"]
-								);
-						}
-				}
-
-			return $TiposDeUnidades;
+			$sql = "SELECT * FROM `unidadtipo` ";
+			return $this->MYSQLfetchObj($sql, 'unidadtipoDbEntity');
 		}
 
 	function UnidadTipoById($Id_UnidadTipo)

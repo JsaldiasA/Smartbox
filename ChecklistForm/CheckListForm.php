@@ -13,6 +13,8 @@ $UnidadTag= $_GET['tag'];
 $Model = new Model();
 $unidadDbEntity=$Model->unidadByTag($UnidadTag);
 
+$unidadTipo=$Model->MYSQLSelectWHERE('');
+
 ?>	
 
 <script>

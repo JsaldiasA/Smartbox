@@ -7,18 +7,6 @@ public $Nombre;
 public $Descripcion;
 public $IsMilesight;
 
-function __construct(
-$Id,
-$Nombre,
-$Descripcion,
-$IsMilesight)
-
-{
-$this->Id = $Id;
-$this->Nombre = $Nombre;
-$this->Descripcion = $Descripcion;
-$this->IsMilesight = $IsMilesight;
-}
 
 function get_Id() { return $this->Id; }
 function get_Nombre() { return $this->Nombre; }
