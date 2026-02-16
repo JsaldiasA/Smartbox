@@ -23,6 +23,5 @@ while($r = mysqli_fetch_assoc($sth)) {
 }
 print json_encode($rows);
 
-//Cerrando conexion SQL
-$conn->close();
+
 ?>
