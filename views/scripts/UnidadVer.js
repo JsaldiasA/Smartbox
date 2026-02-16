@@ -29,7 +29,16 @@ function GetRegistrosDiariosTable( id_unidad )
             		Id_unidad: id_unidad,
         		},
 			
-		    success: function(result){document.getElementById("RegistrosDiariosTable").innerHTML= result;}
+		    success: 
+			function(result){
+
+				let table = new DataTable("#TablaRegistros");
+				document.getElementById("RegistrosDiariosTable").innerHTML= result;
+				$(document).ready(function(){
+				$('#TablaRegistros').dataTable();
+				});
+
+			}
 		});	
 	}	
 		
