@@ -12,7 +12,6 @@ $Id_unidad= $_POST['Id_unidad'];
 $return='';
 // TABLA REGISTROS DIARIOS
 
-//$return=$return. '<script>let table = new DataTable("#TablaRegistros");</script>';
 $return=$return. '<table id="TablaRegistros" class="display"><thead><tr><th scope="col">ESTADO</th><th scope="col">VOLUMEN</th><th scope="col">CAUDAL</th><th scope="col">SENAL</th><th scope="col">BAT</th><th scope="col">FECHA</th></tr></thead><tbody>';
 
 $RegistrosDiarios = $Model->RegistrosDiariosById_unidad($Id_unidad);
@@ -25,11 +24,6 @@ foreach ($RegistrosDiarios as $registro) {
 }
 
 $return=$return. '</tbody></table>';
-//$return=$return. "<script>
-//$(document).ready(function(){
-//$('#TablaRegistros').dataTable();
-//});
-//</script>";
 
 echo $return;
 

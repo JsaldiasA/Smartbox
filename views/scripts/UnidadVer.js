@@ -19,7 +19,10 @@ function GetSMSTable()
 
 function GetRegistrosDiariosTable( id_unidad )
 	{
-    	var URL = "ApiController/RegistrosDiarios/RegistrosDiariosGet.php"
+    	document.getElementById("RegistrosDiariosTable").innerHTML= '<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>';
+		
+		var URL = "ApiController/RegistrosDiarios/RegistrosDiariosGet.php"
+
 		$.ajax({
             url:URL,    //the page containing php script
             type: "post",    //request 
