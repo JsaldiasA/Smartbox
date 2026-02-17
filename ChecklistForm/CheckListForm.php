@@ -81,8 +81,12 @@ $HtmlPage=$HtmlPage.'
 	<div class="row">
 		<div class="col m-3 p-3" >
 			<input id="sortpicture" type="file" name="sortpic" />
-			<button id="upload" class="btn btn-success btn-lg" onclick="uploadPicture()" >Upload</button>
 		</div>
+
+		<div class="col m-3 p-3" >
+			<button id="upload" class="btn btn-success btn-lg" onclick="uploadPicture()" >Subir Foto</button>
+		</div>
+		
 		<div class="col m-3 p-3" >
 			<button type="button" class="btn btn-success btn-lg" onclick="FunctionNuevoCheckListPost()">Enviar CheckList</button>
 		</div>
