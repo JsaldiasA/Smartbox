@@ -23,17 +23,6 @@ echo'
   background-color: #213A58 ;
 }
 
-  h1 {
-    color: #213A58 ;
-  }
-
-  h2 {
-    color: #213A58;
-  }
-
-  h3 {
-    color: #213A58;
-  }
 
 </style>
 <nav class="navbar navbar-expand-lg">
