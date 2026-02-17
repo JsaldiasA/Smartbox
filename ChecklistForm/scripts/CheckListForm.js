@@ -173,12 +173,10 @@
 		return true;
 		break;
 	  case (Parameter.value == ""):
-		alert("Error en" +Parameter.id+". este campo no puede estar vacío");
-		return true;
+		return false;
 		break;
 	  case (Parameter.value == null):
-		alert("Error en" +Parameter.id+". este campo no puede estar vacío");
-		return true;
+		return false;
 		break;
 			
 	  default:
