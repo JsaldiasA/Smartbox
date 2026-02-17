@@ -73,9 +73,9 @@ usort ($UnidadesFiltradasPorTipo, function($a, $b)
 	
 	echo $IsMilesight ? '<th scope="col">DevEUI</th>' : '<th scope="col">IMEI</th>';
 	echo '<th scope="col">Ubicación</th>';
-	echo '<th scope="col">ÚltimaActz</th>
-	<th scope="col">Estado</th>
-	<th scope="col">Batería</th>';
+	echo !$IsMilesight ? '<th scope="col">ÚltimaActz</th>' : '';
+	echo '<th scope="col">Estado</th>';
+	echo '<th scope="col">Batería</th>';
 	echo !$isEstanque ? '<th scope="col">Caudal</th>' : null;
 	echo !$isEstanque ? '<th scope="col">Volumen</th>' : null;
 	echo '
@@ -107,7 +107,7 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
     echo "<tr>";
     echo "<td> <a href='unidadver.php?tag=".$unidad->get_Tag()."'> ...". substr($unidad->get_Tag() ?? "NULL", -4)."</a> </td>";
     echo "<td>".$unidad->get_Ubicacion()."</td>";
-    echo "<td>".$unidad->DiffBetweenNow_and_UltimaActualizacion()."</td>";
+    echo  !$IsMilesight ? ("<td>".$unidad->DiffBetweenNow_and_UltimaActualizacion()."</td>") : ('');
     echo "<td>".$unidad->get_Estado()  ."</td>";
     echo "<td>".$BatNivel->get_HtmlTableField()."</td>";
 	echo !$isEstanque ? ($ultimoRegistro->id == 0 ? "<td>0</td>":"<td>".$ultimoRegistro->CAUDAL."</td>"): null;
