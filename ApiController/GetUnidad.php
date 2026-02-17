@@ -72,7 +72,7 @@ usort ($UnidadesFiltradasPorTipo, function($a, $b)
 	<thead>';
 	
 	echo $IsMilesight ? '<th scope="col">DevEUI</th>' : '<th scope="col">IMEI</th>';
-	echo '<th scope="col">Ubicación</th>';
+	echo '<th scope="col">Punto</th>';
 	echo !$IsMilesight ? '<th scope="col">ÚltimaActz</th>' : '';
 	echo '<th scope="col">Estado</th>';
 	echo '<th scope="col">Batería</th>';
