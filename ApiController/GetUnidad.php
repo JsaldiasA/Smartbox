@@ -68,12 +68,12 @@ usort ($UnidadesFiltradasPorTipo, function($a, $b)
 );
 
 	// Retornar valores como tabla.
-	echo '<table class="table">
+	echo '<table class="table text-nowrap">
 	<thead>';
 	
 	echo $IsMilesight ? '<th scope="col">DevEUI</th>' : '<th scope="col">IMEI</th>';
-	echo '<th scope="col">&nbsp;<i class="bi bi-pin-map"></i>&nbsp;</th>';
-	echo !$IsMilesight ? '<th scope="col">&nbsp;<i class="bi bi-activity">&nbsp;</i></th>' : '';
+	echo '<th scope="col"><i class="bi bi-pin-map"></i></th>';
+	echo !$IsMilesight ? '<th scope="col"><i class="bi bi-activity"></i></th>' : '';
 	echo '<th scope="col">Estado</th>';
 	echo '<th scope="col">Batería</th>';
 	echo !$isEstanque ? '<th scope="col">Caudal</th>' : null;
