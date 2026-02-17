@@ -74,10 +74,10 @@ usort ($UnidadesFiltradasPorTipo, function($a, $b)
 	echo $IsMilesight ? '<th scope="col">DevEUI</th>' : '<th scope="col">IMEI</th>';
 	echo '<th scope="col"><i class="bi bi-pin-map"></i></th>';
 	echo !$IsMilesight ? '<th scope="col"><i class="bi bi-activity"></i></th>' : '';
-	echo '<th scope="col">Estado</th>';
-	echo '<th scope="col">Batería</th>';
-	echo !$isEstanque ? '<th scope="col">Caudal</th>' : null;
-	echo !$isEstanque ? '<th scope="col">Volumen</th>' : null;
+	echo '<th scope="col"></th>';
+	echo '<th scope="col"></th>';
+	echo !$isEstanque ? '<th scope="col">[L/m]</th>' : null;
+	echo !$isEstanque ? '<th scope="col">[L]</th>' : null;
 	echo '
 	</thead>
 	<tbody>';
