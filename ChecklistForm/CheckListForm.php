@@ -41,7 +41,7 @@ $HtmlPage=$HtmlPage.'
 			<table class="table">
 			<tbody>	
 			<tr><td><b>IMEI:</b></td><td>'.$unidadDbEntity->get_tag().'</td><td></td></tr>
-			<tr><td><b>ID de la unidad:</b></td><td'. $unidadDbEntity->Id'</td><td></td></tr>
+			<tr><td><b>ID de la unidad:</b></td><td'. $unidadDbEntity->Id.'</td><td></td></tr>
 			<tr><td><b>Tipo de unidad:</b></td><td>
 			<select name="unidadtipo" class="form-select" id="unidadtipo" required>.';	
 
