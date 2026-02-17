@@ -161,9 +161,11 @@
 			  
 	switch (true) {
 	  case (Parameter.value == ""):
+		Parameter.value = 0;
 		return false;
 		break;
 	  case (Parameter.value == null):
+		Parameter.value = 0;
 		return false;
 		break;
 	  case (Parameter.value < lowLimit):
