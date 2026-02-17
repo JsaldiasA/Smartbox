@@ -160,6 +160,12 @@
 	var noAjustarMsg = " ,vuelva a ajustarlo. SI NO PUEDE AJUSTARLO NO UTILICE ESTA PLACA EN TERRENO, póngase en contacto con la oficina técnica.";
 			  
 	switch (true) {
+	  case (Parameter.value == ""):
+		return false;
+		break;
+	  case (Parameter.value == null):
+		return false;
+		break;
 	  case (Parameter.value < lowLimit):
 		alert(Parameter.id+" no puede ser menor a "+lowLimit+" "+noAjustarMsg);		  
 		return true;
@@ -172,12 +178,7 @@
 		alert("Error en " +Parameter.id+". Ingrese solo valores numéricos, no se aceptan letras o caracteres en este campo. Ej: 1 ,13 ,14.2 ,13.5");
 		return true;
 		break;
-	  case (Parameter.value == ""):
-		return false;
-		break;
-	  case (Parameter.value == null):
-		return false;
-		break;
+	 
 			
 	  default:
 	    return false;
