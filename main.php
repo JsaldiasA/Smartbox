@@ -114,7 +114,7 @@ $HtmlPage='
 	</div>
 	<div class="row pb-3">
 		<div class="col p-3 card shadow">
-			<H1>Milesight</H1>
+			<H1>Milesight (solo para checklist)</H1>
 			<div class="overflow-auto">
 				<div id="GetMilesightResult"></div>
 			</div>
