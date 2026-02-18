@@ -52,67 +52,153 @@ else
 	$cuarteles = $model->MYSQLSelect('cuarteles');
 }
 
+
+
 $Unidad;
 $LatestChecklist;
 $ChecklistsForThisUnidad = [];
 
 
-foreach ($cuarteles as $cuartel)
+if(isset($_POST['returnJson'])) 
 {
-
-	if($cuartel->Id_unidad != '' || $cuartel->Id_unidad != NULL)
+	$returnJson = $_POST['returnJson'];
+	
+	if($returnJson == 1)
 	{
-		foreach ($unidades as $uni ) // geting the unit of the cuartel
-		{
-				if($cuartel->Id_unidad == $uni->Id)
-				{
-					$Unidad = $uni;
-					break;
-				}	
+		$Response = [];
 
+		class JsonRespons
+		{
+			public $UnidadName;
+			public $Checklist;
 		}
 
-		foreach($checklists as $ck) // getting the checklist
+		foreach ($cuarteles as $cuartel)
 		{
-			if($ck->id_unidad == $Unidad->Id)
-			{
-				$ChecklistsForThisUnidad [] = $ck;
-			}	
-		}
 
-		usort ($ChecklistsForThisUnidad, function($a, $b) // order checklists by date
+			if($cuartel->Id_unidad != '' || $cuartel->Id_unidad != NULL)
 			{
-				if ($a->Fecha == $b->Fecha)
+				foreach ($unidades as $uni ) // geting the unit of the cuartel
 				{
-					return 0;
+						if($cuartel->Id_unidad == $uni->Id)
+						{
+							$Unidad = $uni;
+							break;
+						}	
+
 				}
-				return ($a->Fecha > $b->Fecha) ? -1 : 1;
+			
+				$row = new JsonRespons();
+				$row->UnidadName = ($Unidad != null) ? $Unidad->Ubicacion : null  ;	
+	
+				foreach($checklists as $ck) // getting the checklist
+				{
+					if($ck->id_unidad == $Unidad->Id)
+					{
+						$ChecklistsForThisUnidad [] = $ck;
+					}	
+				}
+
+				usort ($ChecklistsForThisUnidad, function($a, $b) // order checklists by date
+					{
+						if ($a->Fecha == $b->Fecha)
+						{
+							return 0;
+						}
+						return ($a->Fecha > $b->Fecha) ? -1 : 1;
+					}
+				);
+
+				if ($ChecklistsForThisUnidad != NULL)
+				{
+					$LatestChecklist = $ChecklistsForThisUnidad[0];
+					$BadChecklist=false;
+
+					$row->Checklist = $LatestChecklist;	
+				}					
+				else
+				{
+					$row->Checklist = null;	
+				}
+
+				$Response [] = $row;
+
+				$ChecklistsForThisUnidad = null;
 			}
-		);
-
-
-		if ($ChecklistsForThisUnidad != NULL)
-		{
-			$LatestChecklist = $ChecklistsForThisUnidad[0];
-			$BadChecklist=false;
-
-			if( ($LatestChecklist->Solenoide != '1') or ($LatestChecklist->Flujometro != '1') or ($LatestChecklist->agua != '1') or ($LatestChecklist->ConduitChoco != '1') )
-			{
-				$BadChecklist=true;
-			}
-
-			$return=$return. '<tr  class="'.($BadChecklist == true ? 'bg-danger text-white' : '').'">  <td>'. $LatestChecklist->Id. "</td><td>" . $cuartel->Name . "</td><td>" . $LatestChecklist->Fecha ."</td> <td>" . ( ($LatestChecklist->Solenoide == '1') ? $trueIcon : $falseIcon )  ."</td> <td>" . ( ($LatestChecklist->Flujometro == '1') ? $trueIcon : $falseIcon )."</td> <td>" . ( ($LatestChecklist->agua == '1') ? $trueIcon : $falseIcon ) ."</td> <td>" . ( ($LatestChecklist->ConduitChoco == '1') ? $trueIcon : $falseIcon ) ."</td></tr>";
-		}
-		else
-		{
-			$return=$return. '<tr  class="bg-danger text-white">  <td>'. 'sin checklist'. "</td><td>" . $cuartel->Name . "</td><td>" . ''."</td> <td>" . '' ."</td> <td>" . ''."</td> <td>" . '' ."</td> <td>" . '' ."</td></tr>";
 		}
 
-		$ChecklistsForThisUnidad = null;
+		$return=$return. '</tbody></table>';
+	
 	}
+	else
+	{
+		foreach ($cuarteles as $cuartel)
+		{
+
+			if($cuartel->Id_unidad != '' || $cuartel->Id_unidad != NULL)
+			{
+				foreach ($unidades as $uni ) // geting the unit of the cuartel
+				{
+						if($cuartel->Id_unidad == $uni->Id)
+						{
+							$Unidad = $uni;
+							break;
+						}	
+
+				}
+
+				foreach($checklists as $ck) // getting the checklist
+				{
+					if($ck->id_unidad == $Unidad->Id)
+					{
+						$ChecklistsForThisUnidad [] = $ck;
+					}	
+				}
+
+				usort ($ChecklistsForThisUnidad, function($a, $b) // order checklists by date
+					{
+						if ($a->Fecha == $b->Fecha)
+						{
+							return 0;
+						}
+						return ($a->Fecha > $b->Fecha) ? -1 : 1;
+					}
+				);
+
+
+				if ($ChecklistsForThisUnidad != NULL)
+				{
+					$LatestChecklist = $ChecklistsForThisUnidad[0];
+					$BadChecklist=false;
+
+					if( ($LatestChecklist->Solenoide != '1') or ($LatestChecklist->Flujometro != '1') or ($LatestChecklist->agua != '1') or ($LatestChecklist->ConduitChoco != '1') )
+					{
+						$BadChecklist=true;
+					}
+
+					$return=$return. '<tr  class="'.($BadChecklist == true ? 'bg-danger text-white' : '').'">  <td>'. $LatestChecklist->Id. "</td><td>" . $cuartel->Name . "</td><td>" . $LatestChecklist->Fecha ."</td> <td>" . ( ($LatestChecklist->Solenoide == '1') ? $trueIcon : $falseIcon )  ."</td> <td>" . ( ($LatestChecklist->Flujometro == '1') ? $trueIcon : $falseIcon )."</td> <td>" . ( ($LatestChecklist->agua == '1') ? $trueIcon : $falseIcon ) ."</td> <td>" . ( ($LatestChecklist->ConduitChoco == '1') ? $trueIcon : $falseIcon ) ."</td></tr>";
+				}
+				else
+				{
+					$return=$return. '<tr  class="bg-danger text-white">  <td>'. 'sin checklist'. "</td><td>" . $cuartel->Name . "</td><td>" . ''."</td> <td>" . '' ."</td> <td>" . ''."</td> <td>" . '' ."</td> <td>" . '' ."</td></tr>";
+				}
+
+				$ChecklistsForThisUnidad = null;
+			}
+		}
+
+		$return=$return. '</tbody></table>';
+	}
+
+}  
+else
+{
+	$return = 'returnJson Parameter not found in the http get request';
 }
 
-	$return=$return. '</tbody></table>';
+
+
+
     
 echo $return;
 ?>

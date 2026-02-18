@@ -68,7 +68,7 @@ $Model = $Page->get_Model();
         </div>
         <div class="row">
             <div class="col">
-                 <h2><b>Estanques/b></h2> 
+                 <h2><b>Estanques</b></h2> 
             </div>
             </div>
         <div class="row">

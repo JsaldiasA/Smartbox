@@ -1,12 +1,12 @@
 
-GetChecklistTable("Z3");
-GetChecklistTable("Z2");
-GetChecklistTable("Z1");
-GetChecklistTable("Z4");
-GetChecklistTable("FASE2");
-GetChecklistTable("Estanques");
+GetChecklistTable("Z3", 0);
+GetChecklistTable("Z2", 0);
+GetChecklistTable("Z1", 0);
+GetChecklistTable("Z4", 0);
+GetChecklistTable("FASE2",0);
+GetChecklistTable("Estanques",1);
 
-function GetChecklistTable( ZonaName )
+function GetChecklistTable( ZonaName, returnJson )
 	{
     	var URL = "ApiController/Checklist/ChecklistGet.php"
 		$.ajax({
@@ -16,9 +16,12 @@ function GetChecklistTable( ZonaName )
 			data:				
 			{     		
 				Zona: ZonaName,
+				returnJson: returnJson,
 			},
 			
-		    success: function(result){document.getElementById("mainChecklist"+ZonaName).innerHTML= result;}
+		    success: function(result){
+				document.getElementById("mainChecklist"+ZonaName).innerHTML= result;
+			}
 		});	
 	}
 
