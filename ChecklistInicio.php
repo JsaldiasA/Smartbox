@@ -38,7 +38,7 @@ $Model = $Page->get_Model();
         </div>
         <div class="row">
             <div class="col">
-                 <h2><b>Sector Z1</b></h2> 
+                 <h2><b>Sector Z2</b></h2> 
             </div>
          </div>
         <div class="row">
