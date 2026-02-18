@@ -75,7 +75,7 @@ if( $IsMilesight)
 		{
 			return 0;
 		}
-		return ($a->Ubicacion > $b->Ubicacion) ? -1 : 1;
+		return ($a->Ubicacion > $b->Ubicacion) ? 1 : -1;
 	}
 	);
 }
