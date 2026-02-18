@@ -67,6 +67,20 @@ usort ($UnidadesFiltradasPorTipo, function($a, $b)
 }
 );
 
+if( $IsMilesight)
+{	
+	usort ($UnidadesFiltradasPorTipo, function($a, $b)
+	{
+		if ($a->Ubicacion == $b->Ubicacion)
+		{
+			return 0;
+		}
+		return ($a->Ubicacion > $b->Ubicacion) ? -1 : 1;
+	}
+	);
+}
+
+
 	// Retornar valores como tabla.
 	echo '<table class="table text-nowrap">
 	<thead>';

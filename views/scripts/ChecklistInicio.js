@@ -32,7 +32,7 @@ function GetChecklistTable( ZonaName, returnJson )
 					// Create table body rows
 					parsedJson.forEach(row => {
 						tableHTML += '<tr>';
-						 tableHTML +=`<td>${row["Checklist"]["Id"]}</td>`;
+						tableHTML +=`<td>${row["Checklist"]["Id"]}</td>`;
 					 	tableHTML += `<td>${row["UnidadName"]}</td>`;
 					 	tableHTML += `<td>${row["Checklist"]["Fecha"]}</td>`;
 						tableHTML += '</tr>';
