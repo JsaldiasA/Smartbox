@@ -64,7 +64,7 @@ else
 
 $Unidad;
 $LatestChecklist;
-
+$ChecklistsForThisUnidad = [];
 
 
 foreach ($cuarteles as $cuartel)
@@ -82,17 +82,18 @@ foreach ($cuarteles as $cuartel)
 
 		}
 
-
 		foreach($checklists as $ck) // getting the checklist
 		{
 			if($ck->id_unidad == $Unidad->Id)
 			{
-				$LatestChecklist= $ck;
-				break;
+				$ChecklistsForThisUnidad [] = $ck;
 			}	
 		}
-		if ($LatestChecklist != NULL)
+
+
+		if ($ChecklistsForThisUnidad != NULL)
 		{
+			$LatestChecklist = $ChecklistsForThisUnidad[0];
 			$BadChecklist=false;
 
 			if( ($LatestChecklist->Solenoide != '1') or ($LatestChecklist->Flujometro != '1') or ($LatestChecklist->agua != '1') or ($LatestChecklist->ConduitChoco != '1') )
@@ -106,6 +107,8 @@ foreach ($cuarteles as $cuartel)
 		{
 			$return=$return. '<tr  class="bg-danger text-white">  <td>'. 'sin checklist'. "</td><td>" . $cuartel->Name . "</td><td>" . ''."</td> <td>" . '' ."</td> <td>" . ''."</td> <td>" . '' ."</td> <td>" . '' ."</td></tr>";
 		}
+
+		$ChecklistsForThisUnidad = null;
 	}
 }
 
