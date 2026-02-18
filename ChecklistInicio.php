@@ -38,6 +38,16 @@ $Model = $Page->get_Model();
         </div>
         <div class="row">
             <div class="col">
+                 <h2><b>Sector Z1</b></h2> 
+            </div>
+         </div>
+        <div class="row">
+            <div class="col  m-3 p-3 overflow-auto">
+                <div id="mainChecklistZ2"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
                  <h2><b>Sector Z4</b></h2> 
             </div>
          </div>

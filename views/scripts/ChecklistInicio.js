@@ -1,5 +1,6 @@
 
 GetChecklistTable("Z3");
+GetChecklistTable("Z2");
 GetChecklistTable("Z1");
 GetChecklistTable("Z4");
 GetChecklistTable("FASE2");
