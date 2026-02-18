@@ -52,12 +52,9 @@ else
 	$cuarteles = $model->MYSQLSelect('cuarteles');
 }
 
-
-
 $Unidad;
 $LatestChecklist;
 $ChecklistsForThisUnidad = [];
-
 
 if(isset($_POST['returnJson'])) 
 {
@@ -127,7 +124,7 @@ if(isset($_POST['returnJson']))
 			}
 		}
 
-		$return=$return. '</tbody></table>';
+		$return=json_encode( $Response );
 	
 	}
 	else
