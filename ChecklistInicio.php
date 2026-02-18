@@ -66,6 +66,16 @@ $Model = $Page->get_Model();
                 <div id="mainChecklistFASE2"></div>
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                 <h2><b>Estanques/b></h2> 
+            </div>
+            </div>
+        <div class="row">
+            <div class="col  m-3 p-3 overflow-auto">
+                <div id="mainChecklistEstanques"></div>
+            </div>
+        </div>
     </div>';
 
 $Page->set_PageHTML($HtmlPage);

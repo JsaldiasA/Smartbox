@@ -4,6 +4,7 @@ GetChecklistTable("Z2");
 GetChecklistTable("Z1");
 GetChecklistTable("Z4");
 GetChecklistTable("FASE2");
+GetChecklistTable("Estanques");
 
 function GetChecklistTable( ZonaName )
 	{
