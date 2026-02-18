@@ -88,7 +88,7 @@ function GetSensorHumedadMilesight()
 
 $HtmlPage='
 <div class="container">
-	<div class="row p-3">
+	<div class="row pb-3">
 		<div class="col p-3 card shadow">
 			<H1>Aplicaciones</H1>
 			<div class="overflow-auto">
@@ -96,7 +96,7 @@ $HtmlPage='
 			</div>
 		</div>
 	</div>
-	<div class="row p-3">
+	<div class="row pb-3">
 		<div class="col p-3 card shadow">
 			<H1>Estanques</H1>
 			<div class="overflow-auto">
@@ -104,7 +104,7 @@ $HtmlPage='
 			</div>
 		</div>
 	</div>
-	<div class="row p-3">
+	<div class="row pb-3">
 		<div class="col p-3 card shadow">
 			<H1>Sirecor</H1>
 			<div class="overflow-auto">
@@ -112,7 +112,7 @@ $HtmlPage='
 			</div>
 		</div>
 	</div>
-	<div class="row p-3">
+	<div class="row pb-3">
 		<div class="col p-3 card shadow">
 			<H1>Milesight</H1>
 			<div class="overflow-auto">
@@ -120,7 +120,7 @@ $HtmlPage='
 			</div>
 		</div>
 	</div>
-	<div class="row p-3">
+	<div class="row pb-3">
 		<div class="col p-3 card shadow">
 			<h1>Unidad Indefinida</H1>
 			<div class="overflow-auto">
