@@ -36,6 +36,16 @@ $model = new Model();
 $unidades = $model->get_unidades();
 $checklists = $model->MYSQLSelect('checklist');
 
+usort ($checklists, function($a, $b) // order checklists by date
+	{
+		if ($a->Fecha == $b->Fecha)
+		{
+			return 0;
+		}
+		return ($a->Fecha > $b->Fecha) ? -1 : 1;
+	}
+);
+
 if(isset($_POST['Zona'])) 
 {
 	$zonaName = $_POST['Zona'];
@@ -71,6 +81,7 @@ foreach ($cuarteles as $cuartel)
 				}	
 
 		}
+
 
 		foreach($checklists as $ck) // getting the checklist
 		{
