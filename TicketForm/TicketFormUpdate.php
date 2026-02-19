@@ -56,6 +56,9 @@ $ticket = $Model->ticketById($id_ticket);
 							return alert ("Debe escribir su nombre.");
 						}
 
+					var f = document.getElementById("cuartel");
+					var Id_unidad = f.options[f.selectedIndex].value; 	
+
 					$.ajax(
 						{
             				url:URL,
@@ -68,6 +71,7 @@ $ticket = $Model->ticketById($id_ticket);
 									Ubicacion: Ubicacion,
 									Descripcion: Descripcion,
 									Usuario: Usuario,
+									Id_unidad: Id_unidad,
         						},
 							success: function(result)
 								{
@@ -113,6 +117,20 @@ $ticket = $Model->ticketById($id_ticket);
 					<input type="text" class="form-control" id="Ubicacion" value="'.$ticket->Ubicacion.'"><br>
 				</div>
 			</div>
+
+			<div class="row">
+				<div class="col">
+					<b>cuartel: </b>
+				</div>
+			<select name="cuartel" class="form-select" id="cuartel" required>.';	
+
+					$Unidades = $Model->get_unidades();
+					foreach($Unidades as $uni){ $HtmlPage=$HtmlPage.'<option value="'.$uni->Id.'">'.$uni->Ubicacion.'</option>'; }
+			
+			$HtmlPage=$HtmlPage.'</select>   </td><td></td></tr>
+			
+			</div>
+
 
 			<div class="row">
 				<div class="col">
