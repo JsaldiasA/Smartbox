@@ -15,7 +15,7 @@ function GetChecklistTable( ZonaName, returnJson )
 		var URL = "ApiController/Checklist/ChecklistGet.php"
 		$.ajax({
             url:URL,    //the page containing php script
-            type: "post",    //request 
+            type: "get",    //request 
 			dataType:'text',
 			data:				
 			{     		
