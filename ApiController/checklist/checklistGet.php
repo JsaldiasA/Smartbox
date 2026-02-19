@@ -182,7 +182,7 @@ if(isset($_POST['returnJson']))
 }  
 else
 {
-	$return = 'returnJson Parameter not found in the http get request';
+	$return = 'returnJson Parameter not found in the http request';
 }
 
 
