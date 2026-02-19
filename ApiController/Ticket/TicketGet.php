@@ -51,10 +51,10 @@ if($tickets[0] !== NULL)
             }
         }   
     }
-    
+    $return = json_encode( $arrayReturn );
 }
 
-$return = json_encode( $arrayReturn );
+
 
 
 echo $return;
