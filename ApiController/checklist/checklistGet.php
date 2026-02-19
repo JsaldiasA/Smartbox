@@ -36,7 +36,7 @@ $model = new Model();
 $unidades = $model->get_unidades();
 $checklists = $model->MYSQLSelect('checklist');
 
-if(isset($_POST['Zona'])) 
+if(isset($_GET['Zona'])) 
 {
 	$zonaName = $_POST['Zona'];
 	$Zona =  $model->MYSQLSelectWHERE('zona','Name',$zonaName)[0];
@@ -56,7 +56,7 @@ $Unidad;
 $LatestChecklist;
 $ChecklistsForThisUnidad = [];
 
-if(isset($_POST['returnJson'])) 
+if(isset($_GET['returnJson'])) 
 {
 	$returnJson = $_POST['returnJson'];
 	
