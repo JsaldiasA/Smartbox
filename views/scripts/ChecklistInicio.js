@@ -9,47 +9,13 @@ GetChecklistTable("Estanques",1);
 function GetChecklistTable( ZonaName, returnJson )
 	{
 
-		var checklists;
-		var tickets;
+		var checklists = (async () => {
+ 			 await GetChecklist(ZonaName, returnJson);
+		})();
 
-		var URL = "ApiController/Checklist/ChecklistGet.php"
-		$.ajax({
-            url:URL,    //the page containing php script
-            type: "get",    //request 
-			dataType:'text',
-			data:				
-			{     		
-				Zona: ZonaName,
-				returnJson: returnJson,
-			},
-			
-		    success: function(result){
-
-				checklists = JSON.parse(result);
-
-			}
-		});
-		
-		
-		var URL = "ApiController/ticket/ticketGet.php"
-		$.ajax({
-            url:URL,    //the page containing php script
-            type: "post",    //request 
-			dataType:'text',
-			data:				
-			{     		
-				Zona: ZonaName,
-				returnJson: returnJson,
-			},
-			
-		    success: function(result){
-
-				tickets = JSON.parse(result);
-
-			}
-		});	
-
-
+		var tickets = (async () => {
+  		await GetTicket();
+		})();
 		
 		let tableHTML = '<table class="table"><thead><tr>';
 		 tableHTML += `<th>Id</th>`;
@@ -90,6 +56,46 @@ function GetChecklistTable( ZonaName, returnJson )
 
 	}
 
+async function GetChecklist( ZonaName, returnJson )
+	{
+		var URL = "ApiController/Checklist/ChecklistGet.php"
+		$.ajax({
+            url:URL,    //the page containing php script
+            type: "get",    //request 
+			dataType:'text',
+			data:				
+			{     		
+				Zona: ZonaName,
+				returnJson: returnJson,
+			},
+			
+		    success: function(result){
+
+				return JSON.parse(result);
+
+			}
+		});
+		
+
+	}
+
+async function GetTicket( )
+	{
+		
+		var URL = "ApiController/ticket/ticketGet.php"
+		$.ajax({
+            url:URL,    //the page containing php script
+            type: "post",    //request 
+			dataType:'text',
+			
+		    success: function(result){
+
+				return  JSON.parse(result);
+
+			}
+		});	
+
+	}
 
 
 	
