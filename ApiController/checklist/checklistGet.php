@@ -38,7 +38,7 @@ $checklists = $model->MYSQLSelect('checklist');
 
 if(isset($_GET['Zona'])) 
 {
-	$zonaName = $_POST['Zona'];
+	$zonaName = $_GET['Zona'];
 	$Zona =  $model->MYSQLSelectWHERE('zona','Name',$zonaName)[0];
 
 	if($Zona !== NULL)
@@ -58,7 +58,7 @@ $ChecklistsForThisUnidad = [];
 
 if(isset($_GET['returnJson'])) 
 {
-	$returnJson = $_POST['returnJson'];
+	$returnJson = $_GET['returnJson'];
 	
 	if($returnJson == 1)
 	{
