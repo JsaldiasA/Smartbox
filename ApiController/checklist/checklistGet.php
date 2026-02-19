@@ -98,7 +98,7 @@ if(isset($_GET['returnJson']))
 
 
 
-				if ($ChecklistsForThisUnidad != NULL)
+				if ($ChecklistsForThisUnidad[0] != NULL)
 				{
 					usort ($ChecklistsForThisUnidad, function($a, $b) // order checklists by date
 						{
