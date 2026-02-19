@@ -65,7 +65,7 @@ if(isset($_GET['returnJson']))
 
 		class JsonRespons
 		{
-			public $UnidadName;
+			public $Unidad;
 			public $Checklist;
 		}
 
@@ -86,7 +86,7 @@ if(isset($_GET['returnJson']))
 				$ChecklistsForThisUnidad = [];
 
 				$row = new JsonRespons();
-				$row->UnidadName = $cuartel->Name ;	
+				$row->Unidad = $Unidad ;	
 	
 				foreach($checklists as $ck) // getting the checklist
 				{

@@ -4,7 +4,7 @@ GetChecklistTable("Z2", 1);
 GetChecklistTable("Z1", 1);
 GetChecklistTable("Z4", 1);
 GetChecklistTable("FASE2",1);
-GetChecklistTable("Estanques",1);
+GetChecklistTableForEstanque("Estanques",1);
 
 async function GetChecklistTable( ZonaName, returnJson )
 	{
@@ -45,21 +45,23 @@ async function GetChecklistTable( ZonaName, returnJson )
 					 badChecklist = false;
 				}
 				
-			tableHTML += badChecklist ?'<tr class="bg-danger text-white" >' :'<tr>';
-			tableHTML +=`<td>${row["Checklist"]["Id"]}</td>`;
-		 	tableHTML += `<td>${row["UnidadName"]}</td>`;
-		 	tableHTML += `<td>${row["Checklist"]["Fecha"]}</td>`;
-			tableHTML += `<td>${row["Checklist"]["Solenoide"]}</td>`;
-			tableHTML += `<td>${row["Checklist"]["Flujometro"]}</td>`;
-			tableHTML += `<td>${row["Checklist"]["agua"]}</td>`;
-			tableHTML += `<td>${row["Checklist"]["ConduitChoco"]}</td>`;
-			tableHTML += `<td>${hasTicket}</td>`;
+				
+
+				tableHTML += badChecklist ?'<tr class="bg-danger text-white" >' :'<tr>';
+				tableHTML +=`<td>${row["Checklist"]["Id"]}</td>`;
+				tableHTML += `<td>${row["Unidad"]["Ubicacion"]}</td>`;
+				tableHTML += `<td>${row["Checklist"]["Fecha"]}</td>`;
+				tableHTML += `<td>${row["Checklist"]["Solenoide"]}</td>`;
+				tableHTML += `<td>${row["Checklist"]["Flujometro"]}</td>`;
+				tableHTML += `<td>${row["Checklist"]["agua"]}</td>`;
+				tableHTML += `<td>${row["Checklist"]["ConduitChoco"]}</td>`;
+				tableHTML += `<td>${hasTicket}</td>`;
 			}
 			else
 			{
 				tableHTML += '<tr class="bg-danger text-white">';
 				tableHTML +=`<td></td>`;
-				tableHTML += `<td>${row["UnidadName"]}</td>`;
+				tableHTML += `<td>${["Unidad"]["Ubicacion"]}</td>`;
 				tableHTML += `<td>Sin checklist</td>`;
 				tableHTML += `<td></td>`;
 				tableHTML += `<td></td>`;
@@ -75,6 +77,66 @@ async function GetChecklistTable( ZonaName, returnJson )
 		document.getElementById("mainChecklist"+ZonaName).innerHTML= tableHTML;
 
 	}
+
+async function GetChecklistTableForEstanque( ZonaName, returnJson )
+	{
+
+		var checklists = await GetChecklist(ZonaName, returnJson);
+
+		var tickets = await GetTicket();
+		
+		
+		let tableHTML = '<table class="table"><thead><tr>';
+		 tableHTML += `<th>Id</th>`;
+		 tableHTML += `<th>Ubicacion</th>`;
+		 tableHTML += `<th>Fecha</th>`;
+		 tableHTML += `<th>sin ticket</th>`;
+		// Create table body rows
+		checklists.forEach(row => {
+
+			let hasTicket = '0';
+			let badChecklist = true;
+
+			if(row["Checklist"]!= null )
+			{
+				tickets.forEach(rowTk => {
+				
+					if(row["Checklist"]["id_unidad"] == rowTk["Id_unidad"])
+					{
+						hasTicket = '1';
+					}	
+				
+				})
+
+				if( hasTicket== '0' )
+				{
+					 badChecklist = false;
+				}
+				
+				
+				
+				tableHTML += badChecklist ?'<tr class="bg-danger text-white" >' :'<tr>';
+				tableHTML +=`<td>${row["Checklist"]["Id"]}</td>`;
+				tableHTML += `<td>${row["Unidad"]["Ubicacion"]}</td>`;
+				tableHTML += `<td>${row["Checklist"]["Fecha"]}</td>`;
+				tableHTML += `<td>${hasTicket}</td>`;
+			}
+			else
+			{
+				tableHTML += '<tr class="bg-danger text-white">';
+				tableHTML +=`<td></td>`;
+				tableHTML += `<td>${["Unidad"]["Ubicacion"]}</td>`;
+				tableHTML += `<td>Sin checklist</td>`;
+				tableHTML += `<td>${hasTicket}</td>`;
+			}	
+
+			tableHTML += '</tr>';
+		});
+
+		tableHTML += '</tbody></table>';
+		document.getElementById("mainChecklist"+ZonaName).innerHTML= tableHTML;
+
+	}	
 
 async function GetChecklist( ZonaName, returnJson )
 	{
