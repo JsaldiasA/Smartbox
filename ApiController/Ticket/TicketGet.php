@@ -8,12 +8,56 @@ require_once $sitebasepath."/Model/model.php";
 
 $model = new Model();
 
-$Id_ticket= $_POST['id_ticket'];
-$ticketToDelete= $model->ticketById($Id_ticket);
-$result = $model->delete_ticket($ticketToDelete);
+$arrayReturn = [];
+$tickets = [];
+
+$return = 'no data';
+
+$Unidades =  $model->MYSQLSelect('unidad');
+
+class ticketDTO extends ticketDbEntity
+{
+	public $Unidad;
+}
+
+if(isset($_POST['Id'])) 
+{
+	$Id_ticket = $_POST['Id'];
+	$tickets =  $model->MYSQLSelectWHERE('checklist','Id',$Id_ticket);
+}  
+else
+{
+	$tickets = $model->MYSQLSelect('checklist');
+}
+
+if($tickets[0] !== NULL)
+{
+	foreach($tickets as $tk)
+    {
+        foreach($Unidades as $uni)
+        {
+            if($tk->Id_unidad == $uni->Id)
+            {
+                $newTicket = new ticketDTO();
+                $newTicket->Unidad = $uni;
+                
+                $allKeys = array_keys((array)$tk);
+
+                foreach ($allKeys as $key ) 
+                {
+                    $newTicket->$key = $tk->$key ;
+                }
+                $arrayReturn [] =  $newTicket;
+            }
+        }   
+    }
+    
+}
+
+$return = json_encode( $arrayReturn );
 
 
-echo 'alert(Ticket Eliminado exitosamente)';
-echo '<script>window.location.href = "https://smartbox.eco3.cl/ticketinicio.php"</script>';
+echo $return;
+
 
 ?>
