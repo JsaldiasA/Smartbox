@@ -38,7 +38,7 @@ async function GetChecklistTable( ZonaName, returnJson )
 					}	
 				
 				})
-			}	
+				
 			tableHTML += '<tr>';
 			tableHTML +=`<td>${row["Checklist"]["Id"]}</td>`;
 		 	tableHTML += `<td>${row["UnidadName"]}</td>`;
@@ -48,7 +48,7 @@ async function GetChecklistTable( ZonaName, returnJson )
 			tableHTML += `<td>${row["Checklist"]["agua"]}</td>`;
 			tableHTML += `<td>${row["Checklist"]["ConduitChoco"]}</td>`;
 			tableHTML += `<td>${hasTicket}</td>`;
-
+			}
 			tableHTML += '</tr>';
 		});
 
