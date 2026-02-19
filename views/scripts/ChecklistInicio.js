@@ -27,8 +27,8 @@ async function GetChecklistTable( ZonaName, returnJson )
 		checklists.forEach(row => {
 
 			let hasTicket = '0';
-			
-			if(row["Checklist"]["id_unidad"] != null )
+
+			if(row["Checklist"]!= null )
 			{
 				tickets.forEach(rowTk => {
 				
