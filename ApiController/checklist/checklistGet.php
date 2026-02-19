@@ -96,18 +96,20 @@ if(isset($_POST['returnJson']))
 					}	
 				}
 
-				usort ($ChecklistsForThisUnidad, function($a, $b) // order checklists by date
-					{
-						if ($a->Fecha == $b->Fecha)
-						{
-							return 0;
-						}
-						return ($a->Fecha > $b->Fecha) ? -1 : 1;
-					}
-				);
+
 
 				if ($ChecklistsForThisUnidad != NULL)
 				{
+					usort ($ChecklistsForThisUnidad, function($a, $b) // order checklists by date
+						{
+							if ($a->Fecha == $b->Fecha)
+							{
+								return 0;
+							}
+							return ($a->Fecha > $b->Fecha) ? -1 : 1;
+						}
+					);
+					
 					$LatestChecklist = $ChecklistsForThisUnidad[0];
 					$BadChecklist=false;
 
