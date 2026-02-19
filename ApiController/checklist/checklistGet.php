@@ -86,7 +86,7 @@ if(isset($_GET['returnJson']))
 				}
 			
 				$row = new JsonRespons();
-				$row->UnidadName = ($Unidad != null) ? $Unidad->Ubicacion : null  ;	
+				$row->UnidadName = ($Unidad != null) ? $Unidad->Ubicacion : $cuartel->Name ;	
 	
 				foreach($checklists as $ck) // getting the checklist
 				{
