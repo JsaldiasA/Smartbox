@@ -8,13 +8,9 @@ GetChecklistTable("Estanques",1);
 
 function GetChecklistTable( ZonaName, returnJson )
 	{
-    	
-		
 
 		var checklists;
 		var tickets;
-
-		var tableHTML;
 
 		var URL = "ApiController/Checklist/ChecklistGet.php"
 		$.ajax({
