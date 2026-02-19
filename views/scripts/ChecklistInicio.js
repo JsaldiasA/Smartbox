@@ -58,9 +58,9 @@ async function GetChecklistTable( ZonaName, returnJson )
 			else
 			{
 				tableHTML += '<tr>';
-				tableHTML +=`<td>Sin checklist</td>`;
-				tableHTML += `<td></td>`;
-				tableHTML += `<td></td>`;
+				tableHTML +=`<td></td>`;
+				tableHTML += `<td>${row["UnidadName"]}</td>`;
+				tableHTML += `<td>Sin checklist</td>`;
 				tableHTML += `<td></td>`;
 				tableHTML += `<td></td>`;
 				tableHTML += `<td></td>`;
