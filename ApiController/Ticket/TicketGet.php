@@ -23,11 +23,11 @@ class ticketDTO extends ticketDbEntity
 if(isset($_POST['Id'])) 
 {
 	$Id_ticket = $_POST['Id'];
-	$tickets =  $model->MYSQLSelectWHERE('checklist','Id',$Id_ticket);
+	$tickets =  $model->MYSQLSelectWHERE('ticket','Id',$Id_ticket);
 }  
 else
 {
-	$tickets = $model->MYSQLSelect('checklist');
+	$tickets = $model->MYSQLSelect('ticket');
 }
 
 if($tickets[0] !== NULL)
