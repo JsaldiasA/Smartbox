@@ -54,7 +54,6 @@ else
 
 $Unidad;
 $LatestChecklist;
-$ChecklistsForThisUnidad = [];
 
 if(isset($_GET['returnJson'])) 
 {
@@ -84,9 +83,10 @@ if(isset($_GET['returnJson']))
 						}	
 
 				}
-			
+				$ChecklistsForThisUnidad = [];
+
 				$row = new JsonRespons();
-				$row->UnidadName = ($Unidad != null) ? $Unidad->Ubicacion : $cuartel->Name ;	
+				$row->UnidadName = $cuartel->Name ;	
 	
 				foreach($checklists as $ck) // getting the checklist
 				{
@@ -97,8 +97,7 @@ if(isset($_GET['returnJson']))
 				}
 
 
-
-				if ($ChecklistsForThisUnidad[0] != NULL)
+				if ($ChecklistsForThisUnidad != NULL)
 				{
 					usort ($ChecklistsForThisUnidad, function($a, $b) // order checklists by date
 						{
@@ -122,7 +121,6 @@ if(isset($_GET['returnJson']))
 
 				$Response [] = $row;
 
-				$ChecklistsForThisUnidad = null;
 			}
 		}
 
@@ -145,6 +143,7 @@ if(isset($_GET['returnJson']))
 						}	
 
 				}
+				$ChecklistsForThisUnidad = [];
 
 				foreach($checklists as $ck) // getting the checklist
 				{
@@ -172,7 +171,6 @@ if(isset($_GET['returnJson']))
 					$return=$return. '<tr  class="bg-danger text-white">  <td>'. 'sin checklist'. "</td><td>" . $cuartel->Name . "</td><td>" . ''."</td> <td>" . '' ."</td> <td>" . ''."</td> <td>" . '' ."</td> <td>" . '' ."</td></tr>";
 				}
 
-				$ChecklistsForThisUnidad = null;
 			}
 		}
 
