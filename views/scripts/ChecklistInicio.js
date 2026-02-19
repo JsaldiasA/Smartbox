@@ -1,14 +1,22 @@
 
-GetChecklistTable("Z3", 0);
-GetChecklistTable("Z2", 0);
-GetChecklistTable("Z1", 0);
-GetChecklistTable("Z4", 0);
-GetChecklistTable("FASE2",0);
+GetChecklistTable("Z3", 1);
+GetChecklistTable("Z2", 1);
+GetChecklistTable("Z1", 1);
+GetChecklistTable("Z4", 1);
+GetChecklistTable("FASE2",1);
 GetChecklistTable("Estanques",1);
 
 function GetChecklistTable( ZonaName, returnJson )
 	{
-    	var URL = "ApiController/Checklist/ChecklistGet.php"
+    	
+		
+
+		var checklists;
+		var tickets;
+
+		var tableHTML;
+
+		var URL = "ApiController/Checklist/ChecklistGet.php"
 		$.ajax({
             url:URL,    //the page containing php script
             type: "post",    //request 
@@ -21,34 +29,69 @@ function GetChecklistTable( ZonaName, returnJson )
 			
 		    success: function(result){
 
-				if( returnJson )
-				{
-					parsedJson = JSON.parse(result);
-					let tableHTML = '<table class="table"><thead><tr>';
-					 tableHTML += `<th>Id</th>`;
-					 tableHTML += `<th>Ubicacion</th>`;
-					 tableHTML += `<th>Fecha</th>`;
-					 tableHTML += '</tr></thead><tbody>';
-					// Create table body rows
-					parsedJson.forEach(row => {
-						tableHTML += '<tr>';
-						tableHTML +=`<td>${row["Checklist"]["Id"]}</td>`;
-					 	tableHTML += `<td>${row["UnidadName"]}</td>`;
-					 	tableHTML += `<td>${row["Checklist"]["Fecha"]}</td>`;
-						tableHTML += '</tr>';
-					});
+				checklists = JSON.parse(result);
 
-					tableHTML += '</tbody></table>';
-
-					document.getElementById("mainChecklist"+ZonaName).innerHTML= tableHTML;
-				}
-				else
-				{
-					document.getElementById("mainChecklist"+ZonaName).innerHTML= result;
-				}
+			}
+		});
 		
+		
+		var URL = "ApiController/ticket/ticketGet.php"
+		$.ajax({
+            url:URL,    //the page containing php script
+            type: "post",    //request 
+			dataType:'text',
+			data:				
+			{     		
+				Zona: ZonaName,
+				returnJson: returnJson,
+			},
+			
+		    success: function(result){
+
+				tickets = JSON.parse(result);
+
 			}
 		});	
+
+
+		
+		let tableHTML = '<table class="table"><thead><tr>';
+		 tableHTML += `<th>Id</th>`;
+		 tableHTML += `<th>Ubicacion</th>`;
+		 tableHTML += `<th>Fecha</th>`;
+		 tableHTML += `<th>Sole</th>`;
+		 tableHTML += `<th>Flujo</th>`;
+		 tableHTML += `<th>Test agua</th>`;
+		 tableHTML += `<th>Condui Chocko</th>`;
+		 tableHTML += `<th>sin ticket</th>`;
+		// Create table body rows
+		checklists.forEach(row => {
+
+			let hasTicket = '0';
+
+			tickets.forEach(rowTk => {
+				if(row["Checklist"]["id_unidad"] == rowTk["Id_unidad"])
+				{
+					hasTicket = '1';
+				}	
+			})
+
+			tableHTML += '<tr>';
+			tableHTML +=`<td>${row["Checklist"]["Id"]}</td>`;
+		 	tableHTML += `<td>${row["UnidadName"]}</td>`;
+		 	tableHTML += `<td>${row["Checklist"]["Fecha"]}</td>`;
+			tableHTML += `<td>${row["Checklist"]["Solenoide"]}</td>`;
+			tableHTML += `<td>${row["Checklist"]["Flujometro"]}</td>`;
+			tableHTML += `<td>${row["Checklist"]["agua"]}</td>`;
+			tableHTML += `<td>${row["Checklist"]["ConduitChoco"]}</td>`;
+			tableHTML += `<td>${hasTicket}</td>`;
+
+			tableHTML += '</tr>';
+		});
+
+		tableHTML += '</tbody></table>';
+		document.getElementById("mainChecklist"+ZonaName).innerHTML= tableHTML;
+
 	}
 
 function jsonToHtmlTable(data) {

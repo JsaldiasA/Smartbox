@@ -17,7 +17,7 @@ $Unidades =  $model->MYSQLSelect('unidad');
 
 class ticketDTO extends ticketDbEntity
 {
-	public $Unidad;
+	public $unidad;
 }
 
 if(isset($_POST['Id'])) 
@@ -39,7 +39,7 @@ if($tickets[0] !== NULL)
             if($tk->Id_unidad == $uni->Id)
             {
                 $newTicket = new ticketDTO();
-                $newTicket->Unidad = $uni;
+                $newTicket->unidad = $uni;
                 
                 $allKeys = array_keys((array)$tk);
 
