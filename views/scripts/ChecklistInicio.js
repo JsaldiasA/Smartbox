@@ -27,14 +27,18 @@ async function GetChecklistTable( ZonaName, returnJson )
 		checklists.forEach(row => {
 
 			let hasTicket = '0';
-
-			tickets.forEach(rowTk => {
-				if(row["Checklist"]["id_unidad"] == rowTk["Id_unidad"])
-				{
-					hasTicket = '1';
-				}	
-			})
-
+			
+			if(row["Checklist"]["id_unidad"] != null )
+			{
+				tickets.forEach(rowTk => {
+				
+					if(row["Checklist"]["id_unidad"] == rowTk["Id_unidad"])
+					{
+						hasTicket = '1';
+					}	
+				
+				})
+			}	
 			tableHTML += '<tr>';
 			tableHTML +=`<td>${row["Checklist"]["Id"]}</td>`;
 		 	tableHTML += `<td>${row["UnidadName"]}</td>`;
