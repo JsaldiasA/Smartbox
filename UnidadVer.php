@@ -14,8 +14,8 @@ $HtmlPage=$HtmlPage.'<script src="/views/scripts/UnidadVer.js"></script>';
 
 $HtmlPage=$HtmlPage.'<body>	
 	
-<div class="container p-3" >
-<div class="row p-3" >
+<div class="container" >
+<div class="row pb-3" >
 	<div class="col p-3 card shadow" >
 	';
 	
@@ -130,7 +130,7 @@ $HtmlPage=$HtmlPage.'
 	
 
 $HtmlPage=$HtmlPage.'
-<div class="row p-3">
+<div class="row">
 <div class="col p-3 card shadow">';
 
 $HtmlPage=$HtmlPage.'<div class="accordion" id="accordionExample">
