@@ -27,6 +27,7 @@ async function GetChecklistTable( ZonaName, returnJson )
 		checklists.forEach(row => {
 
 			let hasTicket = '0';
+			let badChecklist = true;
 
 			if(row["Checklist"]!= null )
 			{
@@ -38,8 +39,13 @@ async function GetChecklistTable( ZonaName, returnJson )
 					}	
 				
 				})
+
+				if( hasTicket== '0' && row["Checklist"]["Solenoide"] == '1'  && row["Checklist"]["Solenoide"] == '1'  && row["Checklist"]["Flujometro"] == '1'  && row["Checklist"]["agua"] == '1'  && row["Checklist"]["ConduitChoco"] == '1' )
+				{
+					 badChecklist = false;
+				}
 				
-			tableHTML += '<tr>';
+			tableHTML += badChecklist ?'<tr class="bg-danger text-white >' :'<tr>';
 			tableHTML +=`<td>${row["Checklist"]["Id"]}</td>`;
 		 	tableHTML += `<td>${row["UnidadName"]}</td>`;
 		 	tableHTML += `<td>${row["Checklist"]["Fecha"]}</td>`;
@@ -49,6 +55,19 @@ async function GetChecklistTable( ZonaName, returnJson )
 			tableHTML += `<td>${row["Checklist"]["ConduitChoco"]}</td>`;
 			tableHTML += `<td>${hasTicket}</td>`;
 			}
+			else
+			{
+				tableHTML += '<tr>';
+				tableHTML +=`<td>Sin checklist</td>`;
+				tableHTML += `<td></td>`;
+				tableHTML += `<td></td>`;
+				tableHTML += `<td></td>`;
+				tableHTML += `<td></td>`;
+				tableHTML += `<td></td>`;
+				tableHTML += `<td></td>`;
+				tableHTML += `<td>${hasTicket}</td>`;
+			}	
+
 			tableHTML += '</tr>';
 		});
 
