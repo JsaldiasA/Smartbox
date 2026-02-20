@@ -24,7 +24,7 @@ echo '<style>body{background-color: #191919; color: #FFFFFF}</style>
 			if (confirm(text) == true)
 				{
 					let pattern = /(^\d+\.\d+$)|(^\d+$)/;
-					var URL = "NuevoTicketPost.php";
+					var URL = "/ApiController/ticket/TicketCreate.php";
 					var Respuesta;
 
 					var Nombre = document.getElementById("Nombre").value;

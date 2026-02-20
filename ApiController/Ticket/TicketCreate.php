@@ -7,20 +7,27 @@ $sitebasepath=$_SERVER['DOCUMENT_ROOT'];
 require_once $sitebasepath."/Model/model.php";
 
 $model = new Model();
-$UpdateTicket = new ticketDbEntity();
+$newTicket = new ticketDbEntity();
 
 $allKeys = array_keys((array)$NewTicket);
 
 foreach ($allKeys as $key ) 
 {
-	$UpdateTicket->$key = $_POST[$key] ;
+	$UpdateTicket->$key = isset( $_POST[$key] ) ? $_POST[$key] : null  ;
 }
 
-//$ticketToDelete= $model->ticketById($Id_ticket);
-//$result = $model->delete_ticket($ticketToDelete);
+date_default_timezone_set('America/Santiago');
+$FechaActual= date_create(date("Y-m-d H:i:s"));
 
-echo var_dump($UpdateTicket);
-//echo 'alert(Ticket Eliminado exitosamente)';
-//echo '<script>window.location.href = "https://smartbox.eco3.cl/ticketinicio.php"</script>';
+// default values
+$NewTicket->Id = '0';
+$NewTicket->FechaInicio = $FechaActual->format('Y-m-d H:i:s');
+$NewTicket->FechaCierre = 'NULL';
+$NewTicket->Id_TicketPriority = '1';
+$NewTicket->Id_TicketStatus = '1';
+
+$Model->create_ticket($NewTicket);
+
+echo 'alert Ticket Creado exitosamente  ';
 
 ?>

@@ -25,6 +25,7 @@ $NewTicket->Id_TicketPriority = '1';
 $NewTicket->Id_TicketStatus = '1';
 
 
+
 //$sql = "INSERT INTO `ticket` (`Id`, `Nombre`, `Ubicacion`, `Descripcion`, `Usuario`, `FechaInicio`, `FechaCierre`, `Id_TicketPriority`, `Id_TicketStatus`) VALUES (NULL,'{$Nombre}','{$Ubicacion}','{$Descripcion}','{$Usuario}',current_timestamp(),NULL,1,1)";
 //$result = $Model->executeSQL($sql);
 
