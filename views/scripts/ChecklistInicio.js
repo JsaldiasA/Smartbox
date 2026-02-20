@@ -51,11 +51,11 @@ async function GetChecklistTable( ZonaName, returnJson )
 				tableHTML +=`<td>${row["Checklist"]["Id"]}</td>`;
 				tableHTML += `<td>${row["Unidad"]["Ubicacion"]}</td>`;
 				tableHTML += `<td>${row["Checklist"]["Fecha"]}</td>`;
-				tableHTML += `<td>${row["Checklist"]["Solenoide"] == '1' ? '<i class="bi bi-check-circle"></i>' : '<i class="bi bi-x-circle"></i>' } </td>`;
-				tableHTML += `<td>${row["Checklist"]["Flujometro"] == '1' ? '<i class="bi bi-check-circle"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
-				tableHTML += `<td>${row["Checklist"]["agua"] == '1' ? '<i class="bi bi-check-circle"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
-				tableHTML += `<td>${row["Checklist"]["ConduitChoco"] == '1' ? '<i class="bi bi-check-circle"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
-				tableHTML += `<td>${hasTicket ? '<i class="bi bi-check-circle"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
+				tableHTML += `<td>${row["Checklist"]["Solenoide"] == '1' ? '<i class="bi bi-check-circle text-success"></i>' : '<i class="bi bi-x-circle"></i>' } </td>`;
+				tableHTML += `<td>${row["Checklist"]["Flujometro"] == '1' ? '<i class="bi bi-check-circle text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
+				tableHTML += `<td>${row["Checklist"]["agua"] == '1' ? '<i class="bi bi-check-circle text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
+				tableHTML += `<td>${row["Checklist"]["ConduitChoco"] == '1' ? '<i class="bi bi-check-circle text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
+				tableHTML += `<td>${hasTicket ? '<i class="bi bi-check-circle text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
 			}
 			else
 			{
@@ -67,7 +67,7 @@ async function GetChecklistTable( ZonaName, returnJson )
 				tableHTML += `<td></td>`;
 				tableHTML += `<td></td>`;
 				tableHTML += `<td></td>`;
-				tableHTML += `<td>${hasTicket ? '<i class="bi bi-check-circle"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
+				tableHTML += `<td>${hasTicket ? '<i class="bi bi-check-circle text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
 			}	
 
 			tableHTML += '</tr>';
@@ -119,7 +119,7 @@ async function GetChecklistTableForEstanque( ZonaName, returnJson )
 				tableHTML +=`<td>${row["Checklist"]["Id"]}</td>`;
 				tableHTML += `<td>${row["Unidad"]["Ubicacion"]}</td>`;
 				tableHTML += `<td>${row["Checklist"]["Fecha"]}</td>`;
-				tableHTML += `<td>${hasTicket ? '<i class="bi bi-check-circle"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
+				tableHTML += `<td>${hasTicket ? '<i class="bi bi-check-circle text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
 			}
 			else
 			{
@@ -127,7 +127,7 @@ async function GetChecklistTableForEstanque( ZonaName, returnJson )
 				tableHTML +=`<td></td>`;
 				tableHTML += `<td>${["Unidad"]["Ubicacion"]}</td>`;
 				tableHTML += `<td>Sin checklist</td>`;
-				tableHTML += `<td>${hasTicket ? '<i class="bi bi-check-circle"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
+				tableHTML += `<td>${hasTicket ? '<i class="bi bi-check-circle text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
 			}	
 
 			tableHTML += '</tr>';
