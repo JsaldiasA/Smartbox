@@ -13,6 +13,7 @@ require_once $sitebasepath."/Model/model.php";
 echo '<style>body{background-color: #191919; color: #FFFFFF}</style>
 		<style>.container{background-color: #292929;color: #FFFFFF;padding: 20px;border-radius: 8px;}</style>';
 
+	$Model = new Model();
 ?>
 
 <script>
