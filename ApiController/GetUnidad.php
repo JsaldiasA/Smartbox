@@ -67,19 +67,31 @@ usort ($UnidadesFiltradasPorTipo, function($a, $b)
 }
 );
 
-if( $IsMilesight)
+if($IsMilesight)
 {	
-	usort ($UnidadesFiltradasPorTipo, function($a, $b)
-	{
-		if ($a->Ubicacion == $b->Ubicacion)
+	usort($UnidadesFiltradasPorTipo, function($a, $b)
 		{
-			return 0;
+			if($a->Ubicacion == $b->Ubicacion)
+				{
+				return 0;
+				}
+				return ($a->Ubicacion > $b->Ubicacion) ? 1 : -1;
 		}
-		return ($a->Ubicacion > $b->Ubicacion) ? 1 : -1;
-	}
 	);
 }
 
+if($isEstanque)
+{	
+	usort($UnidadesFiltradasPorTipo, function($a, $b)
+		{
+   			if($a->get_UltimaActualizacion() == $b->get_UltimaActualizacion())
+			{
+        	return 0;
+    		}
+    		return ($a->get_UltimaActualizacion() > $b->get_UltimaActualizacion()) ? -1 : 1;
+		}
+	);
+}
 
 	// Retornar valores como tabla.
 	echo '<table class="table text-nowrap">
