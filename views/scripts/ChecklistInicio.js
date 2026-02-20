@@ -67,7 +67,7 @@ async function GetChecklistTable( ZonaName, returnJson )
 				tableHTML += `<td></td>`;
 				tableHTML += `<td></td>`;
 				tableHTML += `<td></td>`;
-				tableHTML += `<td>${hasTicket  == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
+				tableHTML += `<td>${hasTicket  == '0' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
 			}	
 
 			tableHTML += '</tr>';
