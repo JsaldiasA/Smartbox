@@ -7,7 +7,7 @@ $sitebasepath=$_SERVER['DOCUMENT_ROOT'];
 require_once $sitebasepath."/Model/model.php";
 
 $Model = new Model();
-$newTicket = new ticketDbEntity();
+$NewTicket = new ticketDbEntity();
 
 $allKeys = array_keys((array)$NewTicket);
 
