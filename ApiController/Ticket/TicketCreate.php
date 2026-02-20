@@ -13,7 +13,7 @@ $allKeys = array_keys((array)$NewTicket);
 
 foreach ($allKeys as $key ) 
 {
-	$UpdateTicket->$key = isset( $_POST[$key] ) ? $_POST[$key] : null  ;
+	$NewTicket->$key = isset( $_POST[$key] ) ? $_POST[$key] : null  ;
 }
 
 date_default_timezone_set('America/Santiago');
