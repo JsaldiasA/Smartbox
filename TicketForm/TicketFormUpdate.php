@@ -122,13 +122,14 @@ $ticket = $Model->ticketById($id_ticket);
 				<div class="col">
 					<b>cuartel: </b>
 				</div>
-				<div class="col">
+			<div class="col">
 			<select name="cuartel" class="form-select" id="cuartel" required>.';	
 
 					$Unidades = $Model->get_unidades();
 					foreach($Unidades as $uni){ echo '<option value="'.$uni->Id.'">'.$uni->Ubicacion.'</option>'; }
 			
-				echo '</select>  
+				echo '</select>
+				<br>  
 				</div>
 			</div>
 

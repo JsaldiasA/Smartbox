@@ -49,6 +49,8 @@ echo '<style>body{background-color: #191919; color: #FFFFFF}</style>
 						{
 							return alert ("Debe escribir su nombre.");
 						}
+					var f = document.getElementById("cuartel");
+					var Id_unidad = f.options[f.selectedIndex].value; 	
 
 					$.ajax(
 						{
@@ -61,6 +63,7 @@ echo '<style>body{background-color: #191919; color: #FFFFFF}</style>
 									Ubicacion: Ubicacion,
 									Descripcion: Descripcion,
 									Usuario: Usuario,
+									Id_unidad: Id_unidad,
         						},
 							success: function(result)
 								{
@@ -106,6 +109,21 @@ echo '<style>body{background-color: #191919; color: #FFFFFF}</style>
 				</div>
 				<div class="col">
 					<input type="text" class="form-control" id="Ubicacion" placeholder="Dispositivo y/o plataforma."><br>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col">
+					<b>cuartel: </b>
+				</div>
+			<div class="col">
+			<select name="cuartel" class="form-select" id="cuartel" required>.';	
+
+					$Unidades = $Model->get_unidades();
+					foreach($Unidades as $uni){ echo '<option value="'.$uni->Id.'">'.$uni->Ubicacion.'</option>'; }
+			
+				echo '</select>
+				<br>  
 				</div>
 			</div>
 
