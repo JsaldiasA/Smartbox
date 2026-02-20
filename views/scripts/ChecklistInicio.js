@@ -45,7 +45,7 @@ async function GetChecklistTable( ZonaName, returnJson )
 					 badChecklist = false;
 				}
 				
-				<i class="bi bi-check-circle"></i>
+	
 
 				tableHTML += badChecklist ?'<tr class="bg-danger text-white" >' :'<tr>';
 				tableHTML +=`<td>${row["Checklist"]["Id"]}</td>`;
