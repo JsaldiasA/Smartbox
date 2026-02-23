@@ -1,6 +1,10 @@
+if(document.getElementById("SMSTable").innerHTML != null)
+{
+	GetSMSTable();
+	var myRefreshAplicaciones = setInterval(GetSMSTable, 1000);
+}
 
-GetSMSTable();
-var myRefreshAplicaciones = setInterval(GetSMSTable, 1000);
+
 function GetSMSTable()
 	{
     	var URL = "ApiController/SMSToUnidades/SMSToUnidadesGet.php"
@@ -135,7 +139,7 @@ function FunctionNuevoCuartel( Id_unidad ) {
 
 
 	var e = document.getElementById("Cuarteles");
-	var Id_cuartel = e.options[e.selectedIndex].text;
+	var Id_cuartel = e.value;
 
 	$.ajax({
             url:"ApiController/cuarteles/cuartelesUpdate.php", 
@@ -144,7 +148,7 @@ function FunctionNuevoCuartel( Id_unidad ) {
 			  data: {
             Id: Id_cuartel,
 			Id_unidad: Id_unidad,
-			
+
         	},
 		    success: function(result){alert(result)}
 		  });
