@@ -180,19 +180,18 @@ async function CountUnidadesOK( )
 		
 		var Operativas = await CountUnidadesOK();
 		var total = 130;
-
 		var operatibilidad = (Operativas/total)*100;
 
 	   	let tableHTML = '	<table class="table" ><thead>';
         tableHTML += `<tr>`    	;
         tableHTML += `<th scope="col">Total</th>`  	;
-        tableHTML += `<th scope="col">Con problemas</th>`       ;
+        tableHTML += `<th scope="col">Operativas</th>`       ;
         tableHTML += `<th scope="col">% operatibilidad</th>`        ;
         tableHTML += `</tr>`        ;
         tableHTML += `</thead><tbody>`        ;
         tableHTML += `<tr>`        ;
         tableHTML += `<td> ${total}</td>`        ;
-        tableHTML += `<td> ${NoOperativas} </td>`        ;
+        tableHTML += `<td> ${Operativas} </td>`        ;
         tableHTML += `<td> ${Math.round(operatibilidad)} </td>`        ;
         tableHTML += `</tr></tbody></table>`        ;
 		
