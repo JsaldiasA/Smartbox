@@ -26,8 +26,8 @@ $Model = $Page->get_Model();
                 </thead><tbody>
                 <tr>
                 <td> 130 </td>
-                <td> <div id="Operativas"></div> <script> document.getElementById("Operativas").innerHTML=  CountUnidadesConProblemas(); </script></td>
-                <td> <div id="Operatibilidad"></div> <script> document.getElementById("Operatibilidad").innerHTML=  CountUnidadesConProblemas() / 130; </script>  </td>
+                <td> <div id="Operativas"></div> <script> document.getElementById("Operativas").innerHTML= await CountUnidadesConProblemas(); </script></td>
+                <td> <div id="Operatibilidad"></div> <script> document.getElementById("Operatibilidad").innerHTML= await CountUnidadesConProblemas() / 130; </script>  </td>
                 </tr></tbody></table>
             </div>
         </div>
