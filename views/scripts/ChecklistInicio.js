@@ -1,4 +1,5 @@
 
+GetTableTableEstadoGeneral();
 GetChecklistTable("Z3");
 GetChecklistTable("Z2");
 GetChecklistTable("Z1");
