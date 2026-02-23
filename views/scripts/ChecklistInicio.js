@@ -139,7 +139,7 @@ async function GetChecklistTableForEstanque( ZonaName )
 
 	}
 	
-async function CountUnidadesConProblemas( )
+async function CountUnidadesOK( )
 	{
 
 		var checklists = await GetChecklists( );
@@ -151,7 +151,6 @@ async function CountUnidadesConProblemas( )
 		checklists.forEach(row => {
 
 			let hasTicket = '0';
-			let badChecklist = true;
 
 			if(row["Checklist"]!= null )
 			{
@@ -164,17 +163,12 @@ async function CountUnidadesConProblemas( )
 		
 				})
 
-				if( hasTicket == '1' || row["Checklist"]["Solenoide"] != '1'  || row["Checklist"]["Solenoide"] != '1'  || row["Checklist"]["Flujometro"] != '1'  || row["Checklist"]["agua"] != '1'  || row["Checklist"]["ConduitChoco"] != '1' )
+				if(  hasTicket== '0' && row["Checklist"]["Solenoide"] == '1'  && row["Checklist"]["Solenoide"] == '1'  && row["Checklist"]["Flujometro"] == '1'  && row["Checklist"]["agua"] == '1'  && row["Checklist"]["ConduitChoco"] == '1' )
 				{
 					Count ++; // si el checklist tiene un algun campo en false o tiene tickets. la unidad tiene problemas.
 				}
 				
 			}
-			else
-			{
-				Count ++; // si no tiene checklist, la unidad tiene problemas
-			}	
-
 		
 		});
 
@@ -184,7 +178,7 @@ async function CountUnidadesConProblemas( )
 	async function GetTableTableEstadoGeneral()
 	{	
 		
-		var NoOperativas = await CountUnidadesConProblemas();
+		var NoOperativas = await CountUnidadesOK();
 		var total = 130;
 		var Operativas = total - NoOperativas;
 		
@@ -194,13 +188,13 @@ async function CountUnidadesConProblemas( )
 	   	let tableHTML = '	<table class="table" ><thead>';
         tableHTML += `<tr>`    	;
         tableHTML += `<th scope="col">Total</th>`  	;
-        tableHTML += `<th scope="col">Operativas</th>`       ;
+        tableHTML += `<th scope="col">Con problemas</th>`       ;
         tableHTML += `<th scope="col">% operatibilidad</th>`        ;
         tableHTML += `</tr>`        ;
         tableHTML += `</thead><tbody>`        ;
         tableHTML += `<tr>`        ;
         tableHTML += `<td> ${total}</td>`        ;
-        tableHTML += `<td> ${Operativas} </td>`        ;
+        tableHTML += `<td> ${NoOperativas} </td>`        ;
         tableHTML += `<td> ${Math.round(operatibilidad)} </td>`        ;
         tableHTML += `</tr></tbody></table>`        ;
 		
