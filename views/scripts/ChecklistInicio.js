@@ -214,13 +214,13 @@ async function CountUnidadesOK( )
         tableHTML += `<tr>`    	;
         tableHTML += `<th scope="col">Total</th>`  	;
         tableHTML += `<th scope="col">Operativas</th>`       ;
-        tableHTML += `<th scope="col">% operatibilidad</th>`        ;
+        tableHTML += `<th scope="col">Operatibilidad</th>`        ;
         tableHTML += `</tr>`        ;
         tableHTML += `</thead><tbody>`        ;
         tableHTML += `<tr>`        ;
         tableHTML += `<td><b> ${total} </b></td>`        ;
         tableHTML += `<td><b> ${Operativas} </b></td>`        ;
-        tableHTML += `<td class="${ColorOperatibilidar}"><b> ${operatibilidad} </b></td>`        ;
+        tableHTML += `<td class="${ColorOperatibilidar}"><b> ${operatibilidad} %</b></td>`        ;
         tableHTML += `</tr></tbody></table>`        ;
 		
 		document.getElementById("TableEstadoGeneral").innerHTML= tableHTML;
