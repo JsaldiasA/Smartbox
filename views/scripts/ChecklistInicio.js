@@ -164,7 +164,7 @@ async function CountUnidadesConProblemas( )
 		
 				})
 
-				if( hasTicket== '0' && row["Checklist"]["Solenoide"] != '1'  && row["Checklist"]["Solenoide"] != '1'  && row["Checklist"]["Flujometro"] != '1'  && row["Checklist"]["agua"] != '1'  && row["Checklist"]["ConduitChoco"] != '1' )
+				if( hasTicket == '1' || row["Checklist"]["Solenoide"] != '1'  || row["Checklist"]["Solenoide"] != '1'  || row["Checklist"]["Flujometro"] != '1'  || row["Checklist"]["agua"] != '1'  || row["Checklist"]["ConduitChoco"] != '1' )
 				{
 					Count ++; // si el checklist tiene un algun campo en false o tiene tickets. la unidad tiene problemas.
 				}
