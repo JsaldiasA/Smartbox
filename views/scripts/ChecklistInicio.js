@@ -146,6 +146,7 @@ async function CountUnidadesOK( )
 
 		var tickets = await GetTicket();
 		
+		var Estanqueschecklists = await GetChecklistByZonaName( 'Estanques' );
 		var Count = 0;
 
 		checklists.forEach(row => {
@@ -165,7 +166,32 @@ async function CountUnidadesOK( )
 
 				if(  hasTicket== '0' && row["Checklist"]["Solenoide"] == '1'  && row["Checklist"]["Solenoide"] == '1'  && row["Checklist"]["Flujometro"] == '1'  && row["Checklist"]["agua"] == '1'  && row["Checklist"]["ConduitChoco"] == '1' )
 				{
-					Count ++; // si el checklist tiene un algun campo en false o tiene tickets. la unidad tiene problemas.
+					Count ++; 
+				}
+				
+			}
+		
+		});
+
+
+		Estanqueschecklists.forEach(row => {
+
+			let hasTicket = '0';
+
+			if(row["Checklist"]!= null )
+			{
+				tickets.forEach(rowTk => {
+				
+					if(row["Checklist"]["id_unidad"] == rowTk["Id_unidad"])
+					{
+						hasTicket = '1';
+					}	
+		
+				})
+
+				if(  hasTicket== '0' )
+				{
+					Count ++; 
 				}
 				
 			}
