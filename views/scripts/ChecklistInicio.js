@@ -178,10 +178,8 @@ async function CountUnidadesOK( )
 	async function GetTableTableEstadoGeneral()
 	{	
 		
-		var NoOperativas = await CountUnidadesOK();
+		var Operativas = await CountUnidadesOK();
 		var total = 130;
-		var Operativas = total - NoOperativas;
-		
 
 		var operatibilidad = (Operativas/total)*100;
 
