@@ -10,76 +10,62 @@ $Model = $Page->get_Model();
     <script src="/views/scripts/ChecklistInicio.js"></script>
 
     <div class="container">
-        <div class="row">
-            <div class="col ">
-                 <h2><b>Estado General</b></h2> 
-            </div>
-         </div> 
-        <div class="row">
-            <div class="col m-3">
-               <div id="TableEstadoGeneral">
+        <div class="row pb-3">
+            <div class="col p-3 card shadow p-3 card shadow">
+                <h2><b>Estado General</b></h2> 
+                <div class="overflow-auto">
+                    <div id="TableEstadoGeneral"></div>
+                </div>
+            </div>        
             </div>
         </div>
 
-        <div class="row">
-            <div class="col ">
+        <div class="row pb-3">
+            <div class="col p-3 card shadow ">
                  <h2><b>Sector Z3</b></h2> 
-            </div>
-         </div>
-        <div class="row">
-            <div class="col  m-3 p-3 overflow-auto">
-
-                <div id="mainChecklistZ3"></div>
+                 <div class="overflow-auto">
+                    <div id="mainChecklistZ3"></div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
+        <div class="row pb-3">
+            <div class="col p-3 card shadow">
                  <h2><b>Sector Z1</b></h2> 
-            </div>
-         </div>
-        <div class="row">
-            <div class="col  m-3 p-3 overflow-auto">
-                <div id="mainChecklistZ1"></div>
+                <div class="overflow-auto">
+                    <div id="mainChecklistZ1"></div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
+        <div class="row pb-3">
+            <div class="col p-3 card shadow">
                  <h2><b>Sector Z2</b></h2> 
-            </div>
-         </div>
-        <div class="row">
-            <div class="col  m-3 p-3 overflow-auto">
-                <div id="mainChecklistZ2"></div>
+                <div class="overflow-auto">
+                    <div id="mainChecklistZ2"></div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
+        <div class="row pb-3">
+            <div class="col p-3 card shadow">
                  <h2><b>Sector Z4</b></h2> 
-            </div>
-         </div>
-        <div class="row">
-            <div class="col  m-3 p-3 overflow-auto">
-                <div id="mainChecklistZ4"></div>
+                <div class="overflow-auto">
+                    <div id="mainChecklistZ4"></div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
+        <div class="row pb-3">
+            <div class="col p-3 card shadow">
                  <h2><b>Sector Fase 2</b></h2> 
-            </div>
-            </div>
-        <div class="row">
-            <div class="col  m-3 p-3 overflow-auto">
-                <div id="mainChecklistFASE2"></div>
+                <div class="overflow-auto">
+                    <div id="mainChecklistFASE2"></div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
+        <div class="row pb-3">
+            <div class="col p-3 card shadow">
                  <h2><b>Estanques</b></h2> 
-            </div>
-            </div>
-        <div class="row">
-            <div class="col  m-3 p-3 overflow-auto">
-                <div id="mainChecklistEstanques"></div>
+                <div class="overflow-auto">                 
+                    <div id="mainChecklistEstanques"></div>
+                </div>
             </div>
         </div>
     </div>';
