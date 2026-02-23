@@ -1,15 +1,15 @@
 
-GetChecklistTable("Z3", 1);
-GetChecklistTable("Z2", 1);
-GetChecklistTable("Z1", 1);
-GetChecklistTable("Z4", 1);
-GetChecklistTable("FASE2",1);
-GetChecklistTableForEstanque("Estanques",1);
+GetChecklistTable("Z3");
+GetChecklistTable("Z2");
+GetChecklistTable("Z1");
+GetChecklistTable("Z4");
+GetChecklistTable("FASE2");
+GetChecklistTableForEstanque("Estanques");
 
-async function GetChecklistTable( ZonaName, returnJson )
+async function GetChecklistTable( ZonaName)
 	{
 
-		var checklists = await GetChecklist(ZonaName, returnJson);
+		var checklists = await GetChecklistByZona( ZonaName );
 
 		var tickets = await GetTicket();
 		
@@ -78,10 +78,10 @@ async function GetChecklistTable( ZonaName, returnJson )
 
 	}
 
-async function GetChecklistTableForEstanque( ZonaName, returnJson )
+async function GetChecklistTableForEstanque( ZonaName )
 	{
 
-		var checklists = await GetChecklist(ZonaName, returnJson);
+		var checklists = await GetChecklist( ZonaName );
 
 		var tickets = await GetTicket();
 		
@@ -136,9 +136,51 @@ async function GetChecklistTableForEstanque( ZonaName, returnJson )
 		tableHTML += '</tbody></table>';
 		document.getElementById("mainChecklist"+ZonaName).innerHTML= tableHTML;
 
+	}
+	
+async function CountUnidadesConProblemas( )
+	{
+
+		var checklists = await GetChecklists( );
+
+		var tickets = await GetTicket();
+		
+		var Count = 0;
+
+		checklists.forEach(row => {
+
+			let hasTicket = '0';
+			let badChecklist = true;
+
+			if(row["Checklist"]!= null )
+			{
+				tickets.forEach(rowTk => {
+				
+					if(row["Checklist"]["id_unidad"] == rowTk["Id_unidad"])
+					{
+						hasTicket = '1';
+					}	
+		
+				})
+
+				if( hasTicket== '0' && row["Checklist"]["Solenoide"] == '1'  && row["Checklist"]["Solenoide"] == '1'  && row["Checklist"]["Flujometro"] == '1'  && row["Checklist"]["agua"] == '1'  && row["Checklist"]["ConduitChoco"] == '1' )
+				{
+					Count ++; // si el checklist tiene un algun campo en false o tiene tickets. la unidad tiene problemas.
+				}
+				
+			}
+			else
+			{
+				Count ++; // si no tiene checklist, la unidad tiene problemas
+			}	
+
+		
+		});
+
+		return Count; 
 	}	
 
-async function GetChecklist( ZonaName, returnJson )
+async function GetChecklistByZonaName( ZonaName)
 	{
 		var URL = "ApiController/Checklist/ChecklistGet.php"
 		return $.ajax({
@@ -147,8 +189,8 @@ async function GetChecklist( ZonaName, returnJson )
 			dataType:'json',
 			data:				
 			{     		
-				Zona: ZonaName,
-				returnJson: returnJson,
+				ZonaName: ZonaName,
+				returnJson: 1,
 			},
 		}).then(function(response){
       console.log("getRecord response: "+JSON.stringify(response));
@@ -157,6 +199,25 @@ async function GetChecklist( ZonaName, returnJson )
 		
 
 	}
+
+async function GetChecklists()
+	{
+		var URL = "ApiController/Checklist/ChecklistGet.php"
+		return $.ajax({
+            url:URL,    //the page containing php script
+            type: "get",    //request 
+			dataType:'json',
+			data:				
+			{     	
+				returnJson: 1,
+			},
+		}).then(function(response){
+      console.log("getRecord response: "+JSON.stringify(response));
+      return response;
+  	  });
+		
+
+	}	
 
 async function GetTicket( )
 	{
