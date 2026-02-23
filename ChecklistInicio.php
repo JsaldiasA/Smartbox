@@ -17,7 +17,6 @@ $Model = $Page->get_Model();
                     <div id="TableEstadoGeneral"></div>
                 </div>
             </div>        
-            </div>
         </div>
 
         <div class="row pb-3">
