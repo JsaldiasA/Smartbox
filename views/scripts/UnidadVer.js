@@ -128,6 +128,31 @@ function FunctionNuevoTipo(unidad) {
     alert("La operación se ha cancelado.");
   }
 }	
+
+function FunctionNuevoCuartel( Id_unidad ) {
+  let text = "¿Está seguro de cambiar el tipo de unidad?";
+  if (confirm(text) == true) {
+
+
+	var e = document.getElementById("Cuarteles");
+	var Id_cuartel = e.options[e.selectedIndex].text;
+
+	$.ajax({
+            url:"ApiController/cuarteles/cuartelesUpdate.php", 
+            type: "post", 
+			dataType: 'text',
+			  data: {
+            Id: Id_cuartel,
+			Id_unidad: Id_unidad,
+			
+        	},
+		    success: function(result){alert(result)}
+		  });
+
+  } else {
+    alert("La operación se ha cancelado.");
+  }
+}	
 	
 function FunctionEliminar(unidad) {
   let text = "¿Está seguro de eliminar la unidad?";

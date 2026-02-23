@@ -211,7 +211,7 @@ $HtmlPage=$HtmlPage.'<div class="accordion" id="accordionExample">
 
 		$HtmlPage=$HtmlPage. '</tbody></table>';
 	}
-$HtmlPage=$HtmlPage.'		  </div>
+		$HtmlPage=$HtmlPage.'		  </div>
       </div>
     </div>
   </div>';
@@ -230,9 +230,7 @@ $HtmlPage=$HtmlPage.'<div class="accordion" id="accordionExample">
 	$HtmlPage=$HtmlPage. '<button type="button" onclick="GetRegistrosDiariosTable(\''.$unidadDbEntity->Id.'\')" class="btn btn-primary" >Refrescar</button>';
 	$HtmlPage=$HtmlPage. '<div class="overflow-auto"> <div id="RegistrosDiariosTable"></div>  </div>';
 
-
-$HtmlPage=$HtmlPage.'
-		 
+	$HtmlPage=$HtmlPage.'
       </div>
     </div>
   </div>';
@@ -297,18 +295,29 @@ $HtmlPage=$HtmlPage.'
 		$HtmlPage=$HtmlPage. '<button onclick="FunctionCambiarVolMax('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-secondary">Editar</button> Nuevo volumen máximo:';
 		$HtmlPage=$HtmlPage. '<input type="text" id="VolMax" name="VolMax" class="form-control">';   // Input cambio de volumen máximo.
 		$HtmlPage=$HtmlPage. '</div>';
-		
+
 		$HtmlPage=$HtmlPage. '<div class="subContainer">';
 		$HtmlPage=$HtmlPage. '<button onclick="FunctionNuevoTipo('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-secondary">Editar</button>';
 
-		$q = $Model->executeSQL("SELECT `Nombre` FROM `unidadtipo`");
+		$TiposDeUnidad = $Model->MYSQLSelect("unidadtipo");
 		$HtmlPage=$HtmlPage. ' <select name="NuevoTipo" id="NuevoTipo" required>';
-		while($rows = $q->fetch_assoc())
+		foreach($TiposDeUnidad as $tipos)
 		{
-			$unidadTipo_name= $rows['Nombre'];
-			$HtmlPage=$HtmlPage. "<option value='$unidadTipo_name'>$unidadTipo_name</option>";
+			$HtmlPage=$HtmlPage. "<option value='".$tipos->Id."'>".$tipos->Nombre."</option>";
 		}
 		$HtmlPage=$HtmlPage. "<option value='NULL'>Unidad Indefinida</option>";
+		$HtmlPage=$HtmlPage. '</select>';
+		$HtmlPage=$HtmlPage. '</div>';
+		
+		$HtmlPage=$HtmlPage. '<div class="subContainer">';
+		$HtmlPage=$HtmlPage. '<button onclick="FunctionNuevoCuartel('."'".$unidadDbEntity->Id."'".')" class="btn btn-secondary">Editar</button>';
+
+		$Cuarteles = $Model->MYSQLSelect("cuarteles");
+		$HtmlPage=$HtmlPage. ' <select name="Cuarteles" id="Cuarteles" required>';
+		foreach($Cuarteles as $Cuartel)
+		{
+			$HtmlPage=$HtmlPage. "<option value='$Cuartel->Id'>$Cuartel->Name</option>";
+		}
 		$HtmlPage=$HtmlPage. '</select>';
 		$HtmlPage=$HtmlPage. '</div>';
 
