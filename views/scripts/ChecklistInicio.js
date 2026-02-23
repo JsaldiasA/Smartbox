@@ -184,8 +184,10 @@ async function CountUnidadesConProblemas( )
 	async function GetTableTableEstadoGeneral()
 	{	
 		
-		var Operativas = await CountUnidadesConProblemas();
+		var NoOperativas = await CountUnidadesConProblemas();
 		var total = 130;
+		var Operativas = total - NoOperativas;
+		
 
 		var operatibilidad = (Operativas/total)*100;
 
@@ -199,7 +201,7 @@ async function CountUnidadesConProblemas( )
         tableHTML += `<tr>`        ;
         tableHTML += `<td> ${total}</td>`        ;
         tableHTML += `<td> ${Operativas} </td>`        ;
-        tableHTML += `<td> ${operatibilidad} </td>`        ;
+        tableHTML += `<td> ${Math.round(operatibilidad)} </td>`        ;
         tableHTML += `</tr></tbody></table>`        ;
 		
 		document.getElementById("TableEstadoGeneral").innerHTML= tableHTML;
