@@ -206,7 +206,9 @@ async function CountUnidadesOK( )
 		
 		var Operativas = await CountUnidadesOK();
 		var total = 130;
-		var operatibilidad = (Operativas/total)*100;
+		var operatibilidad = Math.round( (Operativas/total)*100 );
+
+		var ColorOperatibilidar = operatibilidad > 80 ? "text-success" : ( operatibilidad > 60 ? ("text-warning") : ("text-danger") )
 
 	   	let tableHTML = '	<table class="table" ><thead>';
         tableHTML += `<tr>`    	;
@@ -216,9 +218,9 @@ async function CountUnidadesOK( )
         tableHTML += `</tr>`        ;
         tableHTML += `</thead><tbody>`        ;
         tableHTML += `<tr>`        ;
-        tableHTML += `<td> ${total}</td>`        ;
-        tableHTML += `<td> ${Operativas} </td>`        ;
-        tableHTML += `<td> ${Math.round(operatibilidad)} </td>`        ;
+        tableHTML += `<td><b> ${total} </b></td>`        ;
+        tableHTML += `<td><b> ${Operativas} </b></td>`        ;
+        tableHTML += `<td class="${ColorOperatibilidar}"><b> ${operatibilidad} </b></td>`        ;
         tableHTML += `</tr></tbody></table>`        ;
 		
 		document.getElementById("TableEstadoGeneral").innerHTML= tableHTML;
