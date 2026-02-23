@@ -16,21 +16,20 @@ $Model = $Page->get_Model();
             </div>
          </div>
         <div class="row">
-        <table class="table" ><thead>
-		<tr>
-        <th scope="col">Total</th>
-		<th scope="col">Operativas</th>
-		<th scope="col">% operatibilidad</th>
-        </tr>
-		</thead><tbody>
-        <tr>
-        <td> 130 </td>
-        <td> <script> document.getElementById("Operativas").innerHTML=  CountUnidadesConProblemas(); </script> <div id="Operativas"></div></td>
-        <td> <script> document.getElementById("Operatibilidad").innerHTML=  CountUnidadesConProblemas() / 130; </script> <div id="Operatibilidad"></div> </td>
-        </tr></tbody></table>
-        
-
-          
+            <div class="col m-3">
+                <table class="table" ><thead>
+                <tr>
+                <th scope="col">Total</th>
+                <th scope="col">Operativas</th>
+                <th scope="col">% operatibilidad</th>
+                </tr>
+                </thead><tbody>
+                <tr>
+                <td> 130 </td>
+                <td> <div id="Operativas"></div> <script> document.getElementById("Operativas").innerHTML=  CountUnidadesConProblemas(); </script></td>
+                <td> <div id="Operatibilidad"></div> <script> document.getElementById("Operatibilidad").innerHTML=  CountUnidadesConProblemas() / 130; </script>  </td>
+                </tr></tbody></table>
+            </div>
         </div>
 
         <div class="row">
