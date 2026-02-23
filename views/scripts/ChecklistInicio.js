@@ -9,7 +9,7 @@ GetChecklistTableForEstanque("Estanques");
 async function GetChecklistTable( ZonaName)
 	{
 
-		var checklists = await GetChecklistByZona( ZonaName );
+		var checklists = await GetChecklistByZonaName( ZonaName );
 
 		var tickets = await GetTicket();
 		
@@ -81,7 +81,7 @@ async function GetChecklistTable( ZonaName)
 async function GetChecklistTableForEstanque( ZonaName )
 	{
 
-		var checklists = await GetChecklist( ZonaName );
+		var checklists = await GetChecklistByZonaName( ZonaName );
 
 		var tickets = await GetTicket();
 		
@@ -179,6 +179,31 @@ async function CountUnidadesConProblemas( )
 
 		return Count; 
 	}	
+
+	async function GetTableTableEstadoGeneral()
+	{	
+		
+		var Operativas = await CountUnidadesConProblemas();
+		var total = 130;
+
+		var operatibilidad = (Operativas/total)*100;
+
+	   	let tableHTML = '	<table class="table" ><thead>';
+        tableHTML += `<tr>`    	;
+        tableHTML += `<th scope="col">Total</th>`  	;
+        tableHTML += `<th scope="col">Operativas</th>`       ;
+        tableHTML += `<th scope="col">% operatibilidad</th>`        ;
+        tableHTML += `</tr>`        ;
+        tableHTML += `</thead><tbody>`        ;
+        tableHTML += `<tr>`        ;
+        tableHTML += `<td> ${total}</td>`        ;
+        tableHTML += `<td> ${Operativas} </td>`        ;
+        tableHTML += `<td> ${operatibilidad} </td>`        ;
+        tableHTML += `</tr></tbody></table>`        ;
+		
+		document.getElementById("TableEstadoGeneral").innerHTML= tableHTML;
+	}	
+
 
 async function GetChecklistByZonaName( ZonaName)
 	{

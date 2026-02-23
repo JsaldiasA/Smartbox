@@ -16,19 +16,13 @@ $Model = $Page->get_Model();
             </div>
          </div>
         <div class="row">
+            <div class="col ">
+                 <h2><b>Estado General</b></h2> 
+            </div>
+         </div> 
+        <div class="row">
             <div class="col m-3">
-                <table class="table" ><thead>
-                <tr>
-                <th scope="col">Total</th>
-                <th scope="col">Operativas</th>
-                <th scope="col">% operatibilidad</th>
-                </tr>
-                </thead><tbody>
-                <tr>
-                <td> 130 </td>
-                <td> <div id="Operativas"></div> <script> document.getElementById("Operativas").innerHTML= await CountUnidadesConProblemas(); </script></td>
-                <td> <div id="Operatibilidad"></div> <script> document.getElementById("Operatibilidad").innerHTML= await CountUnidadesConProblemas() / 130; </script>  </td>
-                </tr></tbody></table>
+               <div id="TableEstadoGeneral">
             </div>
         </div>
 
