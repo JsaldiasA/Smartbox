@@ -8,22 +8,37 @@ require_once $sitebasepath."/Model/model.php";
 
 $Model = new Model();
 
-$Id_unidad= $_POST['Id_unidad'];
+$Id_unidad= $_GET['Id_unidad'];
 $return='';
-// TABLA REGISTROS DIARIOS
 
-$return=$return. '<table id="TablaRegistros" class="display"><thead><tr><th scope="col">ESTADO</th><th scope="col">VOLUMEN</th><th scope="col">CAUDAL</th><th scope="col">SENAL</th><th scope="col">BAT</th><th scope="col">FECHA</th></tr></thead><tbody>';
+if(isset($_GET['returnJson'])) 
+{
 
-$RegistrosDiarios = $Model->RegistrosDiariosById_unidad($Id_unidad);
+  $returnJson = $_GET['returnJson'];
+	
+	if($returnJson == 1)
+	{
+		$ArrayObj = $Model->MYSQLSelectWHERE('unidades_lastortolas','Id_unidad',$Id_unidad);
+    $return = json_encode( $ArrayObj );   
+	}
 
-foreach ($RegistrosDiarios as $registro) {
-    // output data of each row
+}
+else
+{
 
-		$return=$return. '<tr>  <td>'. $registro->ESTADO. "</td><td>" . $registro->VOLUMEN ."</td> <td>" . $registro->CAUDAL."</td> <td>" . $registro->SENAL ." </td><td>" . $registro->VOLTAJE ."%</td><td>" . $registro->DATETIME ."</td></tr>";
+     // TABLA REGISTROS DIARIOS
+   $return=$return. '<table id="TablaRegistros" class="display"><thead><tr><th scope="col">ESTADO</th><th scope="col">VOLUMEN</th><th scope="col">CAUDAL</th><th scope="col">SENAL</th><th scope="col">BAT</th><th scope="col">FECHA</th></tr></thead><tbody>';
+   $RegistrosDiarios = $Model->RegistrosDiariosById_unidad($Id_unidad);
+   foreach ($RegistrosDiarios as $registro) {
+       // output data of each row
+       $return=$return. '<tr>  <td>'. $registro->ESTADO. "</td><td>" . $registro->VOLUMEN ."</td> <td>" . $registro->CAUDAL."</td> <td>" . $registro->SENAL ." </td><td>" . $registro->VOLTAJE ."%</td><td>" . $registro->DATETIME ."</td></tr>";
+   }
+   $return=$return. '</tbody></table>';
 
 }
 
-$return=$return. '</tbody></table>';
+
+
 
 echo $return;
 

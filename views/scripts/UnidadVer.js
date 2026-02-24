@@ -1,7 +1,28 @@
 
 	GetSMSTable();
+	GetStatusTable()
 	var myRefreshAplicaciones = setInterval(GetSMSTable, 1000);
+	var myRefreshAplicaciones = setInterval(GetStatusTable, 1000);
 
+async function GetRegistrosDiarios()
+	{
+
+		var URL = "ApiController/unidades_lastortolas/RegistrosDiariosGet.php"
+		return $.ajax({
+            url:URL,    //the page containing php script
+            type: "get",    //request 
+			dataType:'json',
+			data:				
+			{     		
+				Id_unidad: id_unidad,
+				returnJson: 1,
+			},
+		}).then(function(response){
+      console.log("getRecord response: "+JSON.stringify(response));
+      return response;
+  	  });
+
+	}
 
 function GetSMSTable()
 	{
@@ -17,7 +38,24 @@ function GetSMSTable()
 			
 		    success: function(result){document.getElementById("SMSTable").innerHTML= result;}
 		});	
-	}
+ 	}
+
+async function GetStatusTable()
+	{
+		var Registros = await GetRegistrosDiarios();
+
+		var UltimoRegistro =  Registros[0];
+
+		let tableHTML = '	<table class="table" ><thead>';
+       	tableHTML +=  `<tr><td><b>Estado:</b></td><td>${UltimoRegistro['ESTADO']}</td></tr>`;
+		tableHTML +=  `<tr><td><b>Volumen:</b></td><td>${UltimoRegistro['VOLUMEN']}</td></tr>`;
+		tableHTML +=  `<tr><td><b>Caudal:</b></td><td>${UltimoRegistro['CAUDAL']}</td></tr>`;
+		tableHTML +=  `<tr><td><b>Última Registro:</b></td><td>${UltimoRegistro['DATETIME']}</td></tr>`;
+        tableHTML +=  `</tr></tbody></table>`        ;
+		
+		document.getElementById("TableEstadoGeneral").innerHTML= tableHTML;
+
+	}	
 
 function GetRegistrosDiariosTable( id_unidad )
 	{
@@ -27,7 +65,7 @@ function GetRegistrosDiariosTable( id_unidad )
 
 		$.ajax({
             url:URL,    //the page containing php script
-            type: "post",    //request 
+            type: "get",    //request 
 			dataType:'text',
 			data:
 				{

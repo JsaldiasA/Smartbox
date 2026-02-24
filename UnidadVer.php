@@ -91,17 +91,9 @@ $HtmlPage=$HtmlPage.'
 					break;
 				}
 		}	
-		
-		//$UltimoRegistroIniciacion = $Model->MYSQLSelectWHERE('eventos','UNIDAD', $unidadDbEntity->get_Tag() )[0] ;
+			// StatusTable
 
-			$HtmlPage=$HtmlPage. '<table class="table" >
-		  <tbody>';
-	$HtmlPage=$HtmlPage. '<tr><td><b>Estado:</b></td><td>'.$ultimoRegistro->ESTADO.'</td></tr>';
-	$HtmlPage=$HtmlPage. '<tr><td><b>Volumen:</b></td><td>'.$ultimoRegistro->VOLUMEN.'</td></tr>';
-	$HtmlPage=$HtmlPage. '<tr><td><b>Caudal:</b></td><td>'.$ultimoRegistro->CAUDAL.'</td></tr>';
-	$HtmlPage=$HtmlPage. '<tr><td><b>Última Registro:</b></td><td>'.$ultimoRegistro->DATETIME.'</td></tr>';
-	//$HtmlPage=$HtmlPage. '<tr><td><b>Modo</b></td><td>'. $UltimoRegistroIniciacion->INTERNET .'</td></tr>';
-	$HtmlPage=$HtmlPage. '</tbody></table>';
+			$HtmlPage=$HtmlPage. '<div id="StatusTable" ></div>';
 
 	$HtmlPage=$HtmlPage. '<table class="table" >
 		  <thead >';
