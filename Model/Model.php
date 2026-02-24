@@ -69,6 +69,12 @@ class Model
 			return $this->MYSQLfetchObj($sql, $TableName.'DbEntity');
 		}		
 
+	function MYSQLSelectWHERELIMIT($TableName ,$key , $value,$LIMIT)
+		{
+			$sql = "SELECT * FROM `".$TableName."` WHERE ".$key." = '".$value."' ORDER BY Id DESC LIMI'".$LIMIT;
+			return $this->MYSQLfetchObj($sql, $TableName.'DbEntity');
+		}		
+
 	function MYSQLUpdate($TableName, $obj)
 		{
 

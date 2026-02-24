@@ -16,6 +16,7 @@ async function GetRegistrosDiarios()
 			{     		
 				Id_unidad: id_unidad,
 				returnJson: 1,
+				limit: 3,
 			},
 		}).then(function(response){
       console.log("getRecord response: "+JSON.stringify(response));
