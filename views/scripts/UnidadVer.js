@@ -1,8 +1,6 @@
-if(document.getElementById("SMSTable").innerHTML != null)
-{
+
 	GetSMSTable();
 	var myRefreshAplicaciones = setInterval(GetSMSTable, 1000);
-}
 
 
 function GetSMSTable()
