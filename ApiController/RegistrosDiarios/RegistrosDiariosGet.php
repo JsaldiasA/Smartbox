@@ -18,7 +18,7 @@ if(isset($_GET['returnJson']))
 	
 	if($returnJson == 1)
 	{
-		$ArrayObj = $Model->MYSQLSelectWHERE('unidades_lastortolas','Id_unidad',$Id_unidad);
+		$ArrayObj = $Model->MYSQLSelectWHERE('unidades_lastortolas','unidad_id',$Id_unidad);
     $return = json_encode( $ArrayObj );   
 	}
 

@@ -1,7 +1,7 @@
 <?php
 class unidades_lastortolasDbEntity {
 	
-  public $id;
+  public $Id;
   public $unidad_id;
   public $ESTADO;
   public $VOLUMEN;
