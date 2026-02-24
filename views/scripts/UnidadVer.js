@@ -53,7 +53,7 @@ async function GetStatusTable()
 		tableHTML +=  `<tr><td><b>Última Registro:</b></td><td>${UltimoRegistro['DATETIME']}</td></tr>`;
         tableHTML +=  `</tr></tbody></table>`        ;
 		
-		document.getElementById("TableEstadoGeneral").innerHTML= tableHTML;
+		document.getElementById("StatusTable").innerHTML= tableHTML;
 
 	}	
 
