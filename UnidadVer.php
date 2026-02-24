@@ -69,7 +69,7 @@ $HtmlPage=$HtmlPage.'
 		
 			
 	$HtmlPage=$HtmlPage.'	
-<div class="row" >';
+	<div class="row" >';
 	
 	if(!empty($checklistDbEntity))
 	{
@@ -80,19 +80,7 @@ $HtmlPage=$HtmlPage.'
     $HtmlPage=$HtmlPage.'
 	<div class="col p-3 m-3 card shadow ">';
 
-		$RegistrosDiarios = [];
-		$RegistrosDiarios = $Model->get_UltimoRegistroDiarioDeCadaUnidad();
-
-		foreach ($RegistrosDiarios as $r)
-		{
-			if($r->unidad_id == $unidadDbEntity->Id )
-				{
-					$ultimoRegistro = $r;
-					break;
-				}
-		}	
 			// StatusTable
-
 			$HtmlPage=$HtmlPage. '<div id="StatusTable" ></div>';
 
 	$HtmlPage=$HtmlPage. '<table class="table" >
@@ -161,7 +149,7 @@ $HtmlPage=$HtmlPage.'<div class="accordion" id="accordionExample">
 		$HtmlPage=$HtmlPage. '</tbody></table>';
 	}
 
-		if ($unidadDbEntity->get_Id_Unidadtipo() == '2')
+		if ($unidadDbEntity->get_Id_Unidadtipo() == '2' || $unidadDbEntity->get_Id_Unidadtipo() == '1') // estanque y sirecor
 	{	
 
 
