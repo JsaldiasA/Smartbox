@@ -71,7 +71,7 @@ class Model
 
 	function MYSQLSelectWHERELIMIT($TableName ,$key , $value,$LIMIT)
 		{
-			$sql = "SELECT * FROM `".$TableName."` WHERE ".$key." = '".$value."' ORDER BY Id DESC LIMI'".$LIMIT;
+			$sql = "SELECT * FROM `".$TableName."` WHERE ".$key." = '".$value."' ORDER BY Id DESC LIMIT '".$LIMIT;
 			return $this->MYSQLfetchObj($sql, $TableName.'DbEntity');
 		}		
 
