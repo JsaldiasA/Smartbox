@@ -7,7 +7,7 @@
 async function GetRegistrosDiarios()
 	{
 
-		var URL = "ApiController/unidades_lastortolas/RegistrosDiariosGet.php"
+		var URL = "ApiController/RegistrosDiarios/RegistrosDiariosGet.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
@@ -60,6 +60,8 @@ async function GetStatusTable()
 function GetRegistrosDiariosTable( id_unidad )
 	{
 		
+		document.getElementById("RegistrosDiariosTable").innerHTML= '<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>';	
+
 		var URL = "ApiController/RegistrosDiarios/RegistrosDiariosGet.php"
 
 		$.ajax({
@@ -72,10 +74,13 @@ function GetRegistrosDiariosTable( id_unidad )
         		},
 			
 		    success: 
-			function(response){
+			function(result){
 
-				console.log("getRecord response: "+JSON.stringify(response));
-      			return response;
+				let table = new DataTable("#TablaRegistros");
+				document.getElementById("RegistrosDiariosTable").innerHTML= result;
+				$(document).ready(function(){
+				$('#TablaRegistros').dataTable();
+				});
 				
 
 			}
