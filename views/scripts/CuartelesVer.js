@@ -1,10 +1,10 @@
 
-GetChecklistTable("1");
-GetChecklistTable("2");
-GetChecklistTable("3");
-GetChecklistTable("4");
-GetChecklistTable("5");
-GetChecklistTableForEstanque("6");
+GetTable("1");
+GetTable("2");
+GetTable("3");
+GetTable("4");
+GetTable("5");
+GetTable("6");
 
 async function GetTable( Id_zona )
 	{
