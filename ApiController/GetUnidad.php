@@ -130,7 +130,7 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
 
 	// Print row.
     echo "<tr>";
-    echo "<td> <a href='unidadver.php?tag=".$unidad->get_Tag()."'> ".($unidad->get_Ubicacion() == '' || $unidad->get_Ubicacion() == null ) ? ("...". substr($unidad->get_Tag() ?? "NULL", -5))."</a> </td>";
+    echo "<td> <a href='unidadver.php?tag=".$unidad->get_Tag()."'> ".( ($unidad->get_Ubicacion() == '') || ($unidad->get_Ubicacion() == null) ) ? ("...". substr($unidad->get_Tag() ?? "NULL", -5)) :  ($unidad->get_Ubicacion()) ."</a> </td>";
     echo  !$IsMilesight ? ("<td>".$unidad->DiffBetweenNow_and_UltimaActualizacion()."</td>") : ('');
     echo "<td ".( $unidad->get_Estado() == 'ON' ? 'class="bg-danger text-white"' : '')." >".$unidad->get_Estado()  ."</td>";
     echo "<td>".$BatNivel->get_HtmlTableField()."</td>";
