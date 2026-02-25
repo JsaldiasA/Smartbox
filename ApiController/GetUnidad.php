@@ -132,7 +132,7 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
     echo "<tr>";
     echo "<td> <a href='unidadver.php?tag=".$unidad->get_Tag()."'> ".$unidad->get_Ubicacion() ?? ("...". substr($unidad->get_Tag() ?? "NULL", -5))."</a> </td>";
     echo  !$IsMilesight ? ("<td>".$unidad->DiffBetweenNow_and_UltimaActualizacion()."</td>") : ('');
-    echo "<td>".$unidad->get_Estado()  ."</td>";
+    echo "<td ".( $unidad->get_Estado() == 'ON' ? 'class="bg-danger text-white"' : '')." >".$unidad->get_Estado()  ."</td>";
     echo "<td>".$BatNivel->get_HtmlTableField()."</td>";
 	echo !$isEstanque ? ($ultimoRegistro->Id == 0 ? "<td>0</td>":"<td>".$ultimoRegistro->get_CAUDALforHtmlTable()."</td>"): null;
     echo !$isEstanque ? ($IsMilesight ?  "<td>".$unidad->get_VolumenForMilesight()."</td>":"<td>".$unidad->get_Volumen()."</td>" ): null;
