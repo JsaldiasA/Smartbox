@@ -57,7 +57,7 @@ async function GetChecklistTable( ZonaName)
 			else
 			{
 				tableHTML += '<tr class="bg-danger text-white">';
-				tableHTML += `<td><a href='unidadverCheckList.php?CheckList_Id="${row["Checklist"]["Id"]}"'>${row["Unidad"]["Ubicacion"]}</a></td>`;
+				tableHTML += `<td>${row["Unidad"]["Ubicacion"]}</td>`;
 				tableHTML += `<td>Sin checklist</td>`;
 				tableHTML += `<td></td>`;
 				tableHTML += `<td></td>`;
@@ -111,7 +111,7 @@ async function GetChecklistTableForEstanque( ZonaName )
 				
 				
 				tableHTML += badChecklist ?'<tr class="bg-danger text-white" >' :'<tr>';
-				tableHTML += `<td>${row["Unidad"]["Ubicacion"]}</td>`;
+				tableHTML += `<td><a href='unidadverCheckList.php?CheckList_Id="${row["Checklist"]["Id"]}"'>${row["Unidad"]["Ubicacion"]}</a></td>`;
 				tableHTML += `<td>${row["Checklist"]["Fecha"]}</td>`;
 				tableHTML += `<td>${hasTicket  == '0' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
 			}
