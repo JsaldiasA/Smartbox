@@ -134,7 +134,7 @@ foreach ($UnidadesFiltradasPorTipo as $unidad)
     echo  !$IsMilesight ? ("<td>".$unidad->DiffBetweenNow_and_UltimaActualizacion()."</td>") : ('');
     echo "<td>".$unidad->get_Estado()  ."</td>";
     echo "<td>".$BatNivel->get_HtmlTableField()."</td>";
-	echo !$isEstanque ? ($ultimoRegistro->Id == 0 ? "<td>0</td>":"<td>".$ultimoRegistro->CAUDAL."</td>"): null;
+	echo !$isEstanque ? ($ultimoRegistro->Id == 0 ? "<td>0</td>":"<td>".$ultimoRegistro->get_CAUDALforHtmlTable()."</td>"): null;
     echo !$isEstanque ? ($IsMilesight ?  "<td>".$unidad->get_VolumenForMilesight()."</td>":"<td>".$unidad->get_Volumen()."</td>" ): null;
     echo "</tr>";
 }
