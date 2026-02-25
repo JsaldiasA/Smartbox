@@ -108,7 +108,6 @@ async function GetCuartelesbyZonaId( Id_zona )
 			data:				
 			{    
 				Id_zona: Id_zona, 	
-				returnJson: 1,
 			},
 		}).then(function(response){
       console.log("getRecord response: "+JSON.stringify(response));
