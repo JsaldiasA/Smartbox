@@ -10,6 +10,20 @@ class unidades_lastortolasDbEntity {
   public $VOLTAJE;
   public $DATETIME;
 	  	
+  function get_CAUDALforHtmlTable() { 
+    switch ($this->CAUDAL) {
+    case '-999':
+        return '<p class="text-danger"> <8 <i class="bi bi-exclamation-triangle-fill"></i> </>';
+        break;
+    case '999':
+        return '<p class="text-danger"> >140 <i class="bi bi-exclamation-triangle-fill"></i> </>';
+        break;
+
+    default:
+        return $this->CAUDAL; 
+}
+    
+  }
 }
 
 ?>

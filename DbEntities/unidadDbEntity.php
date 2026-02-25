@@ -47,6 +47,7 @@ public $FactorFlujometro;
     } 
     return $this->Estado; 
   }
+  
   function get_id_unidadTipo() { return $this->id_unidadTipo; }
   function get_InvertirEntrada() { return $this->InvertirEntrada; }
   function get_BatNivel() { return $this->BatNivel; }
