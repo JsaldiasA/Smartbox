@@ -21,7 +21,7 @@ async function GetChecklistTables( )
 			tableHTML += '   <div class="overflow-auto">';
 			
 			// Create table body rows
-			Cuarteles.forEach(rowCT => {
+			cuarteles.forEach(rowCT => {
 
 				if( rowCT["Id_zona"] == rowZona["Id"])
 				{
