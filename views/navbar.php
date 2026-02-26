@@ -40,6 +40,9 @@ echo'
           <a class="nav-link" href="../main.php" >Home</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="../cuartelesver.php" >Cuarteles</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="../UnidadVerRowData.php" >RowData</a>
         </li>
         <li class="nav-item">
