@@ -13,10 +13,9 @@ async function GetTable( Id_zona )
 
 		var Cuarteles = await GetCuartelesbyZonaId( Id_zona );
 		
-		let tableHTML = '<table class="table text-nowrap">thead><tr>';
+		let tableHTML = '<table class="table text-nowrap"><thead><tr>';
 		 tableHTML += `<th scope="col"><i class="bi bi-pin-map"></i></th>`;
 		 tableHTML += `<th scope="col"><i class="bi bi-activity"></i></th>`;
-		 tableHTML += `<th scope="col"></th>`;
 		 tableHTML += `<th scope="col"></th>`;
 		 tableHTML += `<th scope="col">[L/m]</th>`;
 		 tableHTML += `<th scope="col">[L]</th>`;
