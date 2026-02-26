@@ -1,19 +1,26 @@
 
-GetTable("1");
-GetTable("2");
-GetTable("3");
-GetTable("4");
-GetTable("5");
-GetTable("6");
+GetMain();
 
-async function GetTable( Id_zona )
+async function GetMain(  )
 	{
 
 		var UltimosRegistros = await GetUltimosRegistros( );
 
-		var Cuarteles = await GetCuartelesbyZonaId( Id_zona );
+		var Zonas =await GetZonas();
+
+		var Cuarteles = await GetCuarteles( );
+
+		let tableHTML = '<div class="container">';
+		Zonas.forEach(rowZona => {
+
+		 tableHTML += '	<div class="row pb-3">';
+        tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
+        tableHTML += `    <h2><b>${rowZona["Id_unidad"]}</b></h2> `;
+        tableHTML += '   <div class="overflow-auto">';
+               
+
 		
-		let tableHTML = '<table class="table text-nowrap"><thead><tr>';
+		 tableHTML += '<table class="table text-nowrap"><thead><tr>';
 		 tableHTML += `<th scope="col"><i class="bi bi-pin-map"></i></th>`;
 		 tableHTML += `<th scope="col"><i class="bi bi-activity"></i></th>`;
 		 tableHTML += `<th scope="col"></th>`;
@@ -24,11 +31,22 @@ async function GetTable( Id_zona )
 		// Create table body rows
 		Cuarteles.forEach(row => {
 
-			if(row["Id_unidad"]!= null )
-			{
-				UltimosRegistros.forEach(rowUr => {
-				
-					if(row["Id_unidad"] == rowUr["unidad_id"])
+			if(row["Id_zona"] == rowZona["Id"])
+			{	
+				if(row["Id_unidad"]!= null )
+				{
+					HasRegistrio= false;
+
+					UltimosRegistros.forEach(rowUr => {
+					
+						if(row["Id_unidad"] == rowUr["unidad_id"])
+						{
+							HasRegistrio=true;
+						}	
+					
+					})
+
+					if(HasRegistrio)
 					{
 						tableHTML +='<tr>';
 						tableHTML += `<td> ${row["Name"]}</td>`;
@@ -36,33 +54,41 @@ async function GetTable( Id_zona )
 						tableHTML += `<td>${rowUr["VOLTAJE"]}</td>`;
 						tableHTML += `<td>${rowUr["CAUDAL"]}</td>`;
 						tableHTML += `<td>${rowUr["VOLUMEN"]}</td>`;
-					}	
+					}
+					else
+					{
+						tableHTML += '<tr >';
+						tableHTML += `<td> ${row["Name"]}</td>`;
+						tableHTML += `<td>Sin Registros</td>`;
+						tableHTML += `<td></td>`;
+						tableHTML += `<td></td>`;
+						tableHTML += `<td></td>`;
+					}
+						
+				}
+				else
+				{
 					tableHTML += '<tr class="bg-danger text-white">';
 					tableHTML += `<td> ${row["Name"]}</td>`;
-					tableHTML += `<td>Registro</td>`;
+					tableHTML += `<td>Sin unidad</td>`;
 					tableHTML += `<td></td>`;
 					tableHTML += `<td></td>`;
 					tableHTML += `<td></td>`;
+				}	
 
-				
-				})
-					
+				tableHTML += '</tr>';
 			}
-			else
-			{
-				tableHTML += '<tr class="bg-danger text-white">';
-				tableHTML += `<td> ${row["Name"]}</td>`;
-				tableHTML += `<td>Sin unidad</td>`;
-				tableHTML += `<td></td>`;
-				tableHTML += `<td></td>`;
-				tableHTML += `<td></td>`;
-			}	
 
-			tableHTML += '</tr>';
 		});
 
 		tableHTML += '</tbody></table>';
-		document.getElementById(Id_zona).innerHTML= tableHTML;
+		tableHTML += '          </div>';// div overflow
+        tableHTML += '    </div>      ';  // col
+        tableHTML += '</div>'; // row
+		
+		});
+		tableHTML += '</div>'; // container
+		document.getElementById('main').innerHTML= tableHTML;
 
 	}
 
@@ -102,19 +128,34 @@ async function GetChecklists()
   	  });
 		
 
+	}
+	
+async function GetZonas()
+	{
+		var URL = "ApiController/zona/zonaGet.php"
+		return $.ajax({
+            url:URL,    //the page containing php script
+            type: "get",    //request 
+			dataType:'json',
+			data:				
+			{     	
+				returnJson: 1,
+			},
+		}).then(function(response){
+      console.log("getRecord response: "+JSON.stringify(response));
+      return response;
+  	  });
+		
+
 	}	
 
-async function GetCuartelesbyZonaId( Id_zona )
+async function GetCuarteles( )
 	{
 		var URL = "ApiController/Cuarteles/CuartelesGet.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
 			dataType:'json',
-			data:				
-			{    
-				Id_zona: Id_zona, 	
-			},
 		}).then(function(response){
       console.log("getRecord response: "+JSON.stringify(response));
       return response;
