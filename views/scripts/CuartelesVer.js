@@ -37,6 +37,13 @@ async function GetTable( Id_zona )
 						tableHTML += `<td>${rowUr["CAUDAL"]}</td>`;
 						tableHTML += `<td>${rowUr["VOLUMEN"]}</td>`;
 					}	
+					tableHTML += '<tr class="bg-danger text-white">';
+					tableHTML += `<td> ${row["Name"]}</td>`;
+					tableHTML += `<td>Registro</td>`;
+					tableHTML += `<td></td>`;
+					tableHTML += `<td></td>`;
+					tableHTML += `<td></td>`;
+
 				
 				})
 					
