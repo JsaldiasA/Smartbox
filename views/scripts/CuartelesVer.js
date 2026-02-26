@@ -15,7 +15,7 @@ async function GetMain(  )
 
 		 tableHTML += '	<div class="row pb-3">';
         tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
-        tableHTML += `    <h2><b>${rowZona["Id_unidad"]}</b></h2> `;
+        tableHTML += `    <h2><b>${rowZona["Name"]}</b></h2> `;
         tableHTML += '   <div class="overflow-auto">';
                
 
