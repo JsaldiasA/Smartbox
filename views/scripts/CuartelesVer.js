@@ -6,13 +6,7 @@ var myRefreshMain = setInterval(GetMain, 5000);
 async function GetMain(  )
 	{
 
-		var UltimosRegistros = await GetUltimosRegistros( );
-
-		var Zonas =await GetZonas();
-
-		var Cuarteles = await GetCuarteles( );
-
-		var Unidades = await GetUnidades( );
+		let [UltimosRegistros, Zonas, Cuarteles, Unidades] = await Promise.all([GetUltimosRegistros(), GetZonas(),GetCuarteles(),GetUnidades()]);
 
 		let tableHTML = '<div class="container">';
 		Zonas.forEach(rowZona => {
