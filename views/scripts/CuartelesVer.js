@@ -10,6 +10,8 @@ async function GetMain(  )
 
 		var Cuarteles = await GetCuarteles( );
 
+		var Unidades = await GetUnidades( );
+
 		let tableHTML = '<div class="container">';
 		Zonas.forEach(rowZona => {
 
@@ -18,10 +20,9 @@ async function GetMain(  )
         tableHTML += `    <h2><b>${rowZona["Name"]}</b></h2> `;
         tableHTML += '   <div class="overflow-auto">';
                
-
-		
 		 tableHTML += '<table class="table text-nowrap"><thead><tr>';
 		 tableHTML += `<th scope="col"><i class="bi bi-pin-map"></i></th>`;
+		 tableHTML += `<th scope="col"><i class="bi bi-motherboard"></i></i></th>`;
 		 tableHTML += `<th scope="col"><i class="bi bi-activity"></i></th>`;
 		 tableHTML += `<th scope="col"></th>`;
 		 tableHTML += `<th scope="col">[L/m]</th>`;
@@ -35,7 +36,18 @@ async function GetMain(  )
 			{	
 				if(row["Id_unidad"]!= null )
 				{
-					HasRegistrio= false;
+					let HasRegistrio = false;
+					let UnidadSerie = '';
+					let UnidadTag = ''; 
+
+					Unidades.forEach(rowUnidades => {
+						if(row["Id_unidad"] == rowUnidades["Id"])
+						{
+							UnidadSerie = rowUnidades["Serie"];
+							UnidadTag = rowUnidades["tag"];
+						}
+
+					});	
 
 					UltimosRegistros.forEach(rowUr => {
 					
@@ -43,8 +55,10 @@ async function GetMain(  )
 						{
 							HasRegistrio=true;
 
+
 							tableHTML +='<tr>';
 							tableHTML += `<td> ${row["Name"]}</td>`;
+							tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
 							tableHTML += `<td>${rowUr["DATETIME"]}</td>`;
 							tableHTML += `<td>${rowUr["VOLTAJE"]}</td>`;
 							tableHTML += `<td>${rowUr["CAUDAL"]}</td>`;
@@ -57,6 +71,7 @@ async function GetMain(  )
 					{
 						tableHTML += '<tr >';
 						tableHTML += `<td> ${row["Name"]}</td>`;
+						tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
 						tableHTML += `<td>Sin Registros</td>`;
 						tableHTML += `<td></td>`;
 						tableHTML += `<td></td>`;
@@ -68,7 +83,7 @@ async function GetMain(  )
 				{
 					tableHTML += '<tr class="bg-danger text-white">';
 					tableHTML += `<td> ${row["Name"]}</td>`;
-					tableHTML += `<td>Sin unidad</td>`;
+					tableHTML += `<td>Sin Dispositivo</td>`;
 					tableHTML += `<td></td>`;
 					tableHTML += `<td></td>`;
 					tableHTML += `<td></td>`;
@@ -106,6 +121,20 @@ async function GetUltimosRegistros(  )
 
 	}
 
+async function GetUnidades(  )
+	{
+
+		var URL = "ApiController/unidad/unidadGet.php"
+		return $.ajax({
+            url:URL,    //the page containing php script
+            type: "get",    //request 
+			dataType:'json',
+		}).then(function(response){
+      console.log("getRecord response: "+JSON.stringify(response));
+      return response;
+  	  });
+
+	}
 	
 
 
