@@ -121,7 +121,7 @@ async function GetChecklistTables( )
 						{
 							tickets.forEach(rowTk => {
 							
-								if(e["id_unidad"] == rowTk["Id_unidad"])
+								if(Checklist["id_unidad"] == rowTk["Id_unidad"])
 								{
 									hasTicket = '1';
 								}	
