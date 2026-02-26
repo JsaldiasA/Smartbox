@@ -55,7 +55,6 @@ echo '<style>body{background-color: #191919; color: #FFFFFF}</style>
 							data:
 								{
 									Nombre: Nombre,
-									Ubicacion: Ubicacion,
 									Descripcion: Descripcion,
 									Usuario: Usuario,
 									Id_unidad: Id_unidad,
@@ -100,16 +99,7 @@ echo '<style>body{background-color: #191919; color: #FFFFFF}</style>
 
 			<div class="row">
 				<div class="col">
-					<b>Ubicación: </b>
-				</div>
-				<div class="col">
-					<input type="text" class="form-control" id="Ubicacion" placeholder="Dispositivo y/o plataforma."><br>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col">
-					<b>cuartel: </b>
+					<b>Cuartel: </b>
 				</div>
 			<div class="col">
 			<select name="cuartel" class="form-select" id="cuartel" required>.';	
