@@ -64,18 +64,18 @@ async function GetChecklistTables( )
 							let hasTicket = '0';
 							let badChecklist = true;
 						
+							tickets.forEach(rowTk => {
+								
+								if(rowCT["Id_unidad"] == rowTk["Id_unidad"])
+								{
+									hasTicket = '1';
+								}	
 							
+							})
+
 							if(Checklist != null )
 							{
-								tickets.forEach(rowTk => {
-								
-									if(Checklist["id_unidad"] == rowTk["Id_unidad"])
-									{
-										hasTicket = '1';
-									}	
-								
-								})
-
+	
 								if( hasTicket == '0' )
 								{
 									badChecklist = false;
@@ -125,16 +125,18 @@ async function GetChecklistTables( )
 						let hasTicket = '0';
 						let badChecklist = true;
 
+						tickets.forEach(rowTk => {
+						
+							if(rowCT["Id_unidad"] == rowTk["Id_unidad"])
+							{
+								hasTicket = '1';
+							}	
+					
+						})
+
 						if(Checklist != null )
 						{
-							tickets.forEach(rowTk => {
-							
-								if(Checklist["id_unidad"] == rowTk["Id_unidad"])
-								{
-									hasTicket = '1';
-								}	
 						
-							})
 
 							if( hasTicket== '0' && Checklist["Solenoide"] == '1'  && Checklist["Solenoide"] == '1'  && Checklist["Flujometro"] == '1'  && Checklist["agua"] == '1'  && Checklist["ConduitChoco"] == '1' )
 							{
@@ -162,17 +164,11 @@ async function GetChecklistTables( )
 							tableHTML += `<td>${hasTicket  == '0' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
 						}	
 
-						tableHTML += '</tr>';
-							
-					
+						tableHTML += '</tr>';		
 
-					}
-
-					
+					}					
 				}
-			
-			
-				
+						
 			});
 
 			tableHTML += '</tbody></table>';
