@@ -6,7 +6,7 @@ GetChecklistTables();
 async function GetChecklistTables( )
 	{
 
-		let [checklists, Zonas, tickets] = await Promise.all([GetChecklists(), GetZonas(),GetTicket()]);
+		let [checklists, Zonas, tickets, cuarteles] = await Promise.all([GetChecklists(), GetZonas(),GetTicket(),GetCuarteles()]);
 
 		
 		let tableHTML = '';
@@ -20,116 +20,146 @@ async function GetChecklistTables( )
 			tableHTML += `    <h2><b>${rowZona["Name"]}</b></h2> `;
 			tableHTML += '   <div class="overflow-auto">';
 			
-			if(rowZona["Name"] == "Estanques")
-			{
-				tableHTML += '<table class="table"><thead><tr>';
-				tableHTML += `<th>Ubicacion</th>`;
-				tableHTML += `<th>Fecha</th>`;
-				tableHTML += `<th>sin ticket</th>`;
-				// Create table body rows
-				checklists.forEach(row => {
+			// Create table body rows
+			Cuarteles.forEach(rowCT => {
 
-					let hasTicket = '0';
-					let badChecklist = true;
-
-					if(row["Checklist"]!= null )
+				if( rowCT["Id_zona"] == rowZona["Id"])
+				{
+					if(rowZona["Name"] == "Estanques")
 					{
-						tickets.forEach(rowTk => {
-						
-							if(row["Checklist"]["id_unidad"] == rowTk["Id_unidad"])
-							{
-								hasTicket = '1';
-							}	
-						
-						})
+						tableHTML += '<table class="table"><thead><tr>';
+						tableHTML += `<th>Ubicacion</th>`;
+						tableHTML += `<th>Fecha</th>`;
+						tableHTML += `<th>sin ticket</th>`;
+						// Create table body rows
 
-						if( hasTicket== '0' )
-						{
-							badChecklist = false;
-						}
+						let Checklist;
+
+						checklists.forEach(rowCL => {
+							
+							if(rowCL["Checklist"]["id_unidad"] == rowCT["Id_unidad"] )
+							{
+								Checklist = rowCL["Checklist"];
+							}
+
+						});
+							let hasTicket = '0';
+							let badChecklist = true;
 						
+							
+							if(Checklist != null )
+							{
+								tickets.forEach(rowTk => {
+								
+									if(Checklist["id_unidad"] == rowTk["Id_unidad"])
+									{
+										hasTicket = '1';
+									}	
+								
+								})
+
+								if( hasTicket == '0' )
+								{
+									badChecklist = false;
+								}
+								
+							
+								tableHTML += badChecklist ?'<tr class="bg-danger text-white" >' :'<tr>';
+								tableHTML += `<td><a href='unidadverCheckList.php?CheckList_Id=${Checklist["Id"]}'>${rowCT["Name"]}</a></td>`;
+								tableHTML += `<td>${Checklist["Fecha"]}</td>`;
+								tableHTML += `<td>${hasTicket  == '0' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
+							}
+							else
+							{
+								tableHTML += '<tr class="bg-danger text-white">';
+								tableHTML +=`<td></td>`;
+								tableHTML += `<td>${rowCT["Name"]}</td>`;
+								tableHTML += `<td>Sin checklist</td>`;
+								tableHTML += `<td>${hasTicket  == '0' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
+							}	
+
+							tableHTML += '</tr>';
+							
 						
-						
-						tableHTML += badChecklist ?'<tr class="bg-danger text-white" >' :'<tr>';
-						tableHTML += `<td><a href='unidadverCheckList.php?CheckList_Id=${row["Checklist"]["Id"]}'>${row["Unidad"]["Ubicacion"]}</a></td>`;
-						tableHTML += `<td>${row["Checklist"]["Fecha"]}</td>`;
-						tableHTML += `<td>${hasTicket  == '0' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
-					}
+
+					}	
 					else
 					{
-						tableHTML += '<tr class="bg-danger text-white">';
-						tableHTML +=`<td></td>`;
-						tableHTML += `<td>${["Unidad"]["Ubicacion"]}</td>`;
-						tableHTML += `<td>Sin checklist</td>`;
-						tableHTML += `<td>${hasTicket  == '0' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
-					}	
 
-					tableHTML += '</tr>';
-				});
+						tableHTML += '<table class="table"><thead><tr>';
+						tableHTML += `<th>Ubicacion</th>`;
+						tableHTML += `<th>Fecha</th>`;
+						tableHTML += `<th>Sole</th>`;
+						tableHTML += `<th>Flujo</th>`;
+						tableHTML += `<th>Test agua</th>`;
+						tableHTML += `<th>Condui Chocko</th>`;
+						tableHTML += `<th>sin ticket</th>`;
+						// Create table body rows
 
-			}	
-			else
-			{
+						let Checklist;
 
-				tableHTML += '<table class="table"><thead><tr>';
-				tableHTML += `<th>Ubicacion</th>`;
-				tableHTML += `<th>Fecha</th>`;
-				tableHTML += `<th>Sole</th>`;
-				tableHTML += `<th>Flujo</th>`;
-				tableHTML += `<th>Test agua</th>`;
-				tableHTML += `<th>Condui Chocko</th>`;
-				tableHTML += `<th>sin ticket</th>`;
-				// Create table body rows
-				checklists.forEach(row => {
-
-					let hasTicket = '0';
-					let badChecklist = true;
-
-					if(row["Checklist"]!= null )
-					{
-						tickets.forEach(rowTk => {
-						
-							if(row["Checklist"]["id_unidad"] == rowTk["Id_unidad"])
+						checklists.forEach(rowCL => {
+							
+							if(rowCL["Checklist"]["id_unidad"] == rowCT["Id_unidad"] )
 							{
-								hasTicket = '1';
-							}	
-						
-						})
+								Checklist = rowCL["Checklist"];
+							}
 
-						if( hasTicket== '0' && row["Checklist"]["Solenoide"] == '1'  && row["Checklist"]["Solenoide"] == '1'  && row["Checklist"]["Flujometro"] == '1'  && row["Checklist"]["agua"] == '1'  && row["Checklist"]["ConduitChoco"] == '1' )
+						});
+	
+
+						let hasTicket = '0';
+						let badChecklist = true;
+
+						if(Checklist != null )
 						{
-							badChecklist = false;
-						}
+							tickets.forEach(rowTk => {
+							
+								if(e["id_unidad"] == rowTk["Id_unidad"])
+								{
+									hasTicket = '1';
+								}	
 						
-						tableHTML += badChecklist ?'<tr class="bg-danger text-white" >' :'<tr>';
-						tableHTML += `<td><a href='unidadverCheckList.php?CheckList_Id=${row["Checklist"]["Id"]}'>${row["Unidad"]["Ubicacion"]}</a></td>`;
-						tableHTML += `<td>${row["Checklist"]["Fecha"]}</td>`;
-						tableHTML += `<td>${row["Checklist"]["Solenoide"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' } </td>`;
-						tableHTML += `<td>${row["Checklist"]["Flujometro"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
-						tableHTML += `<td>${row["Checklist"]["agua"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
-						tableHTML += `<td>${row["Checklist"]["ConduitChoco"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
-						tableHTML += `<td>${hasTicket  == '0' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
-					}
-					else
-					{
-						tableHTML += '<tr class="bg-danger text-white">';
-						tableHTML += `<td>${row["Unidad"]["Ubicacion"]}</td>`;
-						tableHTML += `<td>Sin checklist</td>`;
-						tableHTML += `<td></td>`;
-						tableHTML += `<td></td>`;
-						tableHTML += `<td></td>`;
-						tableHTML += `<td></td>`;
-						tableHTML += `<td>${hasTicket  == '0' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
-					}	
+							})
 
-					tableHTML += '</tr>';
+							if( hasTicket== '0' && Checklist["Solenoide"] == '1'  && Checklist["Solenoide"] == '1'  && Checklist["Flujometro"] == '1'  && Checklist["agua"] == '1'  && Checklist["ConduitChoco"] == '1' )
+							{
+								badChecklist = false;
+							}
+							
+							tableHTML += badChecklist ?'<tr class="bg-danger text-white" >' :'<tr>';
+							tableHTML += `<td><a href='unidadverCheckList.php?CheckList_Id=${Checklist["Id"]}'>${rowCT["Name"]}</a></td>`;
+							tableHTML += `<td>${Checklist["Fecha"]}</td>`;
+							tableHTML += `<td>${Checklist["Solenoide"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' } </td>`;
+							tableHTML += `<td>${Checklist["Flujometro"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
+							tableHTML += `<td>${Checklist["agua"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
+							tableHTML += `<td>${Checklist["ConduitChoco"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
+							tableHTML += `<td>${hasTicket  == '0' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
+						}
+						else
+						{
+							tableHTML += '<tr class="bg-danger text-white">';
+							tableHTML += `<td>${rowCT["Name"]}</td>`;
+							tableHTML += `<td>Sin checklist</td>`;
+							tableHTML += `<td></td>`;
+							tableHTML += `<td></td>`;
+							tableHTML += `<td></td>`;
+							tableHTML += `<td></td>`;
+							tableHTML += `<td>${hasTicket  == '0' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
+						}	
+
+						tableHTML += '</tr>';
+							
 					
-				});
 
-			}
+					}
 
+					tableHTML += '</tbody></table>';
+				}
+			
+				
+			});
 
-			tableHTML += '</tbody></table>';
 			tableHTML += '          </div>';// div overflow
 			tableHTML += '    </div>      ';  // col
 			tableHTML += '</div>'; // row
@@ -158,6 +188,21 @@ async function GetZonas()
 		
 
 	}	
+
+async function GetCuarteles( )
+	{
+		var URL = "ApiController/Cuarteles/CuartelesGet.php"
+		return $.ajax({
+            url:URL,    //the page containing php script
+            type: "get",    //request 
+			dataType:'json',
+		}).then(function(response){
+      console.log("getRecord response: "+JSON.stringify(response));
+      return response;
+  	  });
+		
+
+	}		
 
 
 async function GetChecklistTableForEstanque( ZonaName )
