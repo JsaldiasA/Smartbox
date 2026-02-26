@@ -1,16 +1,12 @@
 
 GetMain();
 
+var myRefreshMain = setInterval(GetMain, 5000);
+
 async function GetMain(  )
 	{
 
-		var UltimosRegistros = await GetUltimosRegistros( );
-
-		var Zonas =await GetZonas();
-
-		var Cuarteles = await GetCuarteles( );
-
-		var Unidades = await GetUnidades( );
+		let [UltimosRegistros, Zonas, Cuarteles, Unidades] = await Promise.all([GetUltimosRegistros(), GetZonas(),GetCuarteles(),GetUnidades()]);
 
 		let tableHTML = '<div class="container">';
 		Zonas.forEach(rowZona => {
@@ -25,6 +21,7 @@ async function GetMain(  )
 		 tableHTML += `<th scope="col"><i class="bi bi-motherboard"></i></i></th>`;
 		 tableHTML += `<th scope="col"><i class="bi bi-activity"></i></th>`;
 		 tableHTML += `<th scope="col"></th>`;
+		 tableHTML += `<th scope="col"><i class="bi bi-lightning-fill"></i></th>`;
 		 tableHTML += `<th scope="col">[L/m]</th>`;
 		 tableHTML += `<th scope="col">[L]</th>`;
 		 tableHTML += `</thead>`;
@@ -59,8 +56,9 @@ async function GetMain(  )
 							tableHTML +='<tr>';
 							tableHTML += `<td> ${row["Name"]}</td>`;
 							tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
+							tableHTML += `<td>${rowUr["ESTADO"]}</td>`;
 							tableHTML += `<td>${rowUr["DATETIME"]}</td>`;
-							tableHTML += `<td>${rowUr["VOLTAJE"]}</td>`;
+							tableHTML += `<td>${rowUr["VOLTAJE"]}%</td>`;
 							tableHTML += `<td>${rowUr["CAUDAL"]}</td>`;
 							tableHTML += `<td>${rowUr["VOLUMEN"]}</td>`;
 						}	
@@ -76,6 +74,7 @@ async function GetMain(  )
 						tableHTML += `<td></td>`;
 						tableHTML += `<td></td>`;
 						tableHTML += `<td></td>`;
+						tableHTML += `<td></td>`;
 					}
 						
 				}
@@ -84,6 +83,7 @@ async function GetMain(  )
 					tableHTML += '<tr class="bg-danger text-white">';
 					tableHTML += `<td> ${row["Name"]}</td>`;
 					tableHTML += `<td>Sin Dispositivo</td>`;
+					tableHTML += `<td></td>`;
 					tableHTML += `<td></td>`;
 					tableHTML += `<td></td>`;
 					tableHTML += `<td></td>`;
