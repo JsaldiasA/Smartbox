@@ -23,7 +23,6 @@ echo '<div class="col p-3"><h1><b>Ticket '. $ticket->get_Nombre().' </b></h1> </
 echo '<table class="table"><tbody>';
 echo "<tr><td><b>ID:</b></td><td>". $ticket->get_Id(). "</td></tr>";
 echo "<tr><td><b>Título:</b></td><td>". $ticket->get_Nombre(). "</td></tr>";
-echo "<tr><td><b>Ubicacion:</b></td><td>". $ticket->get_Ubicacion(). "</td></tr>";
 echo "<tr><td><b>Descripcion: </b></td><td>". $ticket->get_Descripcion(). "</td></tr>";
 echo "<tr><td><b>Usuario:</b></td><td>". $ticket->get_Usuario(). "</td></tr>";
 echo "<tr><td><b>Fecha de ingreso:</b></td><td>". $ticket->get_FechaInicio(). "</td></tr>";

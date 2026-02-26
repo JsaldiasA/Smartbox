@@ -38,12 +38,6 @@ $ticket = $Model->ticketById($id_ticket);
 							return alert ("Debe especificar un dispositivo y/o plataforma.");
 						}
 
-	  				var Ubicacion = document.getElementById("Ubicacion").value;
-					if (Ubicacion == "")
-						{
-							return alert ("Debe especificar un dispositivo y/o plataforma.");
-						}
-
 					var Descripcion = document.getElementById("Descripcion").value;
 					if (Descripcion == "" )
 						{

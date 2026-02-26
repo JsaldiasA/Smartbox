@@ -29,7 +29,6 @@ $Model = $Page->get_Model();
 	        <thead>
 	        <th scope="col">Id</th>
             <th scope="col">Nombre</th>
-            <th scope="col">Ubicacion</th>
             <th scope="col">FechaInicio</th>
             <th scope="col"></th>
 	        </thead>
@@ -45,7 +44,6 @@ $Model = $Page->get_Model();
                 $HtmlPage = $HtmlPage. "<tr>";
                 $HtmlPage = $HtmlPage. "<td>". $ticket->get_Id() ."</td>"; 
                 $HtmlPage = $HtmlPage. "<td>". $ticket->get_Nombre() ."</td>";
-                $HtmlPage = $HtmlPage. "<td>". $ticket->get_Ubicacion() ."</td>";
                 $HtmlPage = $HtmlPage. "<td>". $ticket->get_FechaInicio() ."</td>";
                 $HtmlPage = $HtmlPage. "<td>". $ticketstatus->get_Descripcion() ."</td>";
                 $HtmlPage = $HtmlPage. "<td> <a href='Ticketver.php?id_ticket=".$ticket->get_Id()."'>Ver</a></td></tr>";

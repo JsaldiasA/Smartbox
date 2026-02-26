@@ -16,7 +16,6 @@ $NewTicket = new ticketDbEntity();
 
 $NewTicket->Id = '0';
 $NewTicket->Nombre = $_POST['Nombre'];
-$NewTicket->Ubicacion = $_POST['Ubicacion'];
 $NewTicket->Descripcion = $_POST['Descripcion'];
 $NewTicket->Usuario = $_POST['Usuario'];
 $NewTicket->FechaInicio = $FechaActual->format('Y-m-d H:i:s');
@@ -26,7 +25,7 @@ $NewTicket->Id_TicketStatus = '1';
 
 
 
-//$sql = "INSERT INTO `ticket` (`Id`, `Nombre`, `Ubicacion`, `Descripcion`, `Usuario`, `FechaInicio`, `FechaCierre`, `Id_TicketPriority`, `Id_TicketStatus`) VALUES (NULL,'{$Nombre}','{$Ubicacion}','{$Descripcion}','{$Usuario}',current_timestamp(),NULL,1,1)";
+//$sql = "INSERT INTO `ticket` (`Id`, `Nombre`, `Descripcion`, `Usuario`, `FechaInicio`, `FechaCierre`, `Id_TicketPriority`, `Id_TicketStatus`) VALUES (NULL,'{$Nombre}','{$Ubicacion}','{$Descripcion}','{$Usuario}',current_timestamp(),NULL,1,1)";
 //$result = $Model->executeSQL($sql);
 
 $Model->create_ticket($NewTicket);
