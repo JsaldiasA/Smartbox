@@ -37,11 +37,14 @@ async function GetChecklistTables( )
 
 						checklists.forEach(rowCL => {
 							
-							if(rowCL["Checklist"]["id_unidad"] == rowCT["Id_unidad"] )
+							if(rowCL["Checklist"] != null)
 							{
-								Checklist = rowCL["Checklist"];
-							}
-
+								if(rowCL["Checklist"]["id_unidad"] == rowCT["Id_unidad"] )
+								{
+									Checklist = rowCL["Checklist"];
+								}
+							}	
+					
 						});
 							let hasTicket = '0';
 							let badChecklist = true;
@@ -100,11 +103,14 @@ async function GetChecklistTables( )
 
 						checklists.forEach(rowCL => {
 							
-							if(rowCL["Checklist"]["id_unidad"] == rowCT["Id_unidad"] )
+							if(rowCL["Checklist"] != null)
 							{
-								Checklist = rowCL["Checklist"];
-							}
-
+								if(rowCL["Checklist"]["id_unidad"] == rowCT["Id_unidad"] )
+								{
+									Checklist = rowCL["Checklist"];
+								}
+							}	
+					
 						});
 	
 
