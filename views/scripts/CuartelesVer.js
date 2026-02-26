@@ -1,5 +1,5 @@
 
-GetMain();
+await GetMain();
 var myRefreshMain = setInterval(GetMain, 5000);
 
 async function GetMain(  )
