@@ -6,7 +6,7 @@ GetChecklistTables();
 async function GetChecklistTables( )
 	{
 
-		let [checklists, Zonas, tickets] = await Promise.all([GetChecklists(), GetZonas(),tickets()]);
+		let [checklists, Zonas, tickets] = await Promise.all([GetChecklists(), GetZonas(),GetTicket()]);
 
 		
 		let tableHTML = '';
