@@ -42,20 +42,18 @@ async function GetMain(  )
 						if(row["Id_unidad"] == rowUr["unidad_id"])
 						{
 							HasRegistrio=true;
+
+							tableHTML +='<tr>';
+							tableHTML += `<td> ${row["Name"]}</td>`;
+							tableHTML += `<td>${rowUr["DATETIME"]}</td>`;
+							tableHTML += `<td>${rowUr["VOLTAJE"]}</td>`;
+							tableHTML += `<td>${rowUr["CAUDAL"]}</td>`;
+							tableHTML += `<td>${rowUr["VOLUMEN"]}</td>`;
 						}	
 					
 					})
 
-					if(HasRegistrio)
-					{
-						tableHTML +='<tr>';
-						tableHTML += `<td> ${row["Name"]}</td>`;
-						tableHTML += `<td>${rowUr["DATETIME"]}</td>`;
-						tableHTML += `<td>${rowUr["VOLTAJE"]}</td>`;
-						tableHTML += `<td>${rowUr["CAUDAL"]}</td>`;
-						tableHTML += `<td>${rowUr["VOLUMEN"]}</td>`;
-					}
-					else
+					if(!HasRegistrio)
 					{
 						tableHTML += '<tr >';
 						tableHTML += `<td> ${row["Name"]}</td>`;
