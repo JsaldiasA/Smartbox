@@ -79,7 +79,7 @@ if( is_null($unidadObj) ) // new unit
 
 $sql = "INSERT INTO unidades_lastortolas
       ( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
-      VALUES( ".$unidadObj->get_id().", '{$ESTADO}' ,{$VOLUMEN},{$CAUDAL},{$SENAL},{$VOLTAJE},current_timestamp())";
+      VALUES( ".$unidadObj->get_id().", '{$ESTADO}' ,{$VOLUMEN},{$CAUDAL},{$SENAL},{$VOLTAJE},date_add(NOW(), INTERVAL 15 MINUTE))";
 
       $result = $model->executeSQL($sql);
 
@@ -88,12 +88,12 @@ $sql = "INSERT INTO unidades_lastortolas
   {   
       $sql = "INSERT INTO unidades_lastortolas
       ( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
-      VALUES( ".$unidadObj->get_id().", '{$ESTADO}' ,{$VOLUMEN},{$CAUDAL},{$SENAL},{$VOLTAJE},current_timestamp())";
+      VALUES( ".$unidadObj->get_id().", '{$ESTADO}' ,{$VOLUMEN},{$CAUDAL},{$SENAL},{$VOLTAJE},date_add(NOW(), INTERVAL 15 MINUTE))";
 
       $result = $model->executeSQL($sql);
 
       $sql = "UPDATE sirecor.unidad
-      SET    UltimaActualizacion=current_timestamp(), Volumen={$VOLUMEN}, Estado='{$ESTADO}', BatNivel={$VOLTAJE}
+      SET UltimaActualizacion=current_timestamp(), Volumen={$VOLUMEN}, Estado='{$ESTADO}', BatNivel={$VOLTAJE}
       WHERE Id = ".$unidadObj->get_id();
 
       $result = $model->executeSQL($sql);
@@ -119,6 +119,5 @@ $sql = "INSERT INTO unidades_lastortolas
       }
 
   }
-
-
+  
 ?>
