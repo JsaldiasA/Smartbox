@@ -53,7 +53,6 @@ $Model = $Page->get_Model();
                                     </div>
                                     </div>';
 
-       
 
 $Page->set_PageHTML($HtmlPage);
 echo $Page->get_PageHTML();

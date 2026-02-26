@@ -62,7 +62,6 @@ $ticket = $Model->ticketById($id_ticket);
 								{
 									Id: <?php echo $id_ticket; ?> ,
 									Nombre: Nombre,
-									Ubicacion: Ubicacion,
 									Descripcion: Descripcion,
 									Usuario: Usuario,
 									Id_unidad: Id_unidad,
@@ -105,19 +104,10 @@ $ticket = $Model->ticketById($id_ticket);
 
 			<div class="row">
 				<div class="col">
-					<b>Ubicación: </b>
-				</div>
-				<div class="col">
-					<input type="text" class="form-control" id="Ubicacion" value="'.$ticket->Ubicacion.'"><br>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col">
 					<b>cuartel: </b>
 				</div>
 			<div class="col">
-			<select name="cuartel" class="form-select" id="cuartel" required>.';	
+			<select name="cuartel" class="form-select" id="cuartel" required>.';
 
 					$Unidades = $Model->get_unidades();
 					foreach($Unidades as $uni){ echo '<option value="'.$uni->Id.'">'.$uni->Ubicacion.'</option>'; }
@@ -126,7 +116,6 @@ $ticket = $Model->ticketById($id_ticket);
 				<br>  
 				</div>
 			</div>
-
 
 			<div class="row">
 				<div class="col">
