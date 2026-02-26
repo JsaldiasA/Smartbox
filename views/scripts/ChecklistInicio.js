@@ -19,7 +19,10 @@ async function GetChecklistTables( )
 			tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
 			tableHTML += `    <h2><b>${rowZona["Name"]}</b></h2> `;
 			tableHTML += '   <div class="overflow-auto">';
-			
+			tableHTML += '<table class="table"><thead><tr>';
+			tableHTML += `<th>Ubicacion</th>`;
+			tableHTML += `<th>Fecha</th>`;
+			tableHTML += `<th>sin ticket</th>`;
 			// Create table body rows
 			cuarteles.forEach(rowCT => {
 
@@ -27,10 +30,7 @@ async function GetChecklistTables( )
 				{
 					if(rowZona["Name"] == "Estanques")
 					{
-						tableHTML += '<table class="table"><thead><tr>';
-						tableHTML += `<th>Ubicacion</th>`;
-						tableHTML += `<th>Fecha</th>`;
-						tableHTML += `<th>sin ticket</th>`;
+			
 						// Create table body rows
 
 						let Checklist;
@@ -163,12 +163,13 @@ async function GetChecklistTables( )
 					tableHTML += '</tbody></table>';
 				}
 			
+				tableHTML += '          </div>';// div overflow
+				tableHTML += '    </div>      ';  // col
+				tableHTML += '</div>'; // row
 				
 			});
 
-			tableHTML += '          </div>';// div overflow
-			tableHTML += '    </div>      ';  // col
-			tableHTML += '</div>'; // row
+		
 
 		});
 		document.getElementById("mainChecklist").innerHTML= tableHTML;
