@@ -160,16 +160,17 @@ async function GetChecklistTables( )
 
 					}
 
-					tableHTML += '</tbody></table>';
+					
 				}
 			
-				tableHTML += '          </div>';// div overflow
-				tableHTML += '    </div>      ';  // col
-				tableHTML += '</div>'; // row
+			
 				
 			});
-
-		
+			
+			tableHTML += '</tbody></table>';
+			tableHTML += '          </div>';// div overflow
+			tableHTML += '    </div>      ';  // col
+			tableHTML += '</div>'; // row
 
 		});
 		document.getElementById("mainChecklist").innerHTML= tableHTML;
