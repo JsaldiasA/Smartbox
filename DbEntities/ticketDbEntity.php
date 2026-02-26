@@ -4,7 +4,6 @@ class ticketDbEntity
   {
     public $Id;
     public $Nombre;
-    public $Ubicacion;
     public $Descripcion;
     public $Usuario;
     public $FechaInicio;
@@ -15,7 +14,6 @@ class ticketDbEntity
 
     function get_Id() {return $this->Id;}
     function get_Nombre() {return $this->Nombre;}
-    function get_Ubicacion() {return $this->Ubicacion;}
     function get_Descripcion() {return $this->Descripcion;}
     function get_Usuario() {return $this->Usuario;}
     function get_FechaInicio() {return $this->FechaInicio;}
