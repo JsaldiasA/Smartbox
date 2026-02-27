@@ -138,7 +138,7 @@ async function GetChecklistTables( )
 						{
 						
 
-							if( hasTicket== '0' && Checklist["Solenoide"] == '1'  && Checklist["Solenoide"] == '1'  && Checklist["Flujometro"] == '1'  && Checklist["agua"] == '1'  && Checklist["ConduitChoco"] == '1' )
+							if( hasTicket== '0' && Checklist["Solenoide"] == '1'  && Checklist["Solenoide"] == '1'  && Checklist["Flujometro"] == '1'  && Checklist["agua"] == '1' )
 							{
 								badChecklist = false;
 							}
@@ -300,7 +300,7 @@ async function CountUnidadesOK( )
 		
 				})
 
-				if(  hasTicket== '0' && row["Checklist"]["Solenoide"] == '1'  && row["Checklist"]["Solenoide"] == '1'  && row["Checklist"]["Flujometro"] == '1'  && row["Checklist"]["agua"] == '1'  && row["Checklist"]["ConduitChoco"] == '1' )
+				if(  hasTicket== '0' && row["Checklist"]["Solenoide"] == '1'  && row["Checklist"]["Solenoide"] == '1'  && row["Checklist"]["Flujometro"] == '1'  && row["Checklist"]["agua"] == '1'  )
 				{
 					Count ++; 
 				}

@@ -28,8 +28,8 @@ $Model = $Page->get_Model();
             <table class="table">
 	        <thead>
 	        <th scope="col">Id</th>
+            <th scope="col">Cuartel</th>
             <th scope="col">Nombre</th>
-            <th scope="col">Cuertel</th>
             <th scope="col">FechaInicio</th>
             <th scope="col"></th>
 	        </thead>
