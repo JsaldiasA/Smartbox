@@ -45,7 +45,7 @@ $Model = $Page->get_Model();
 
                 foreach( $cuarteles as $cuartel)
                 {
-                    if( $cuartel->Id_unidad == null )
+                    if( $cuartel->Id_unidad != null )
                     {
                         if( $cuartel->Id_unidad == $ticket->Id_unidad)
                         {
