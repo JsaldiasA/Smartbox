@@ -31,7 +31,7 @@ $Model = $Page->get_Model();
             <th scope="col">Nombre</th>
             <th scope="col">Cuertel</th>
             <th scope="col">FechaInicio</th>
-            <th scope="col"></th>
+            <th scope="col"></th>`
 	        </thead>
 	        <tbody>';
 
