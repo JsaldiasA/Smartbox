@@ -55,7 +55,7 @@ $Model = $Page->get_Model();
 
                 $HtmlPage = $HtmlPage. "<tr>";
                 $HtmlPage = $HtmlPage. "<td>". $ticket->get_Id() ."</td>"; 
-                $HtmlPage = $HtmlPage. "<td>". $cuartelAsociado == null ? 'sin cuartel' : $cuartelAsociado->Name ."</td>"; 
+                $HtmlPage = $HtmlPage. "<td>". ( $cuartelAsociado == null ? 'sin cuartel' : $cuartelAsociado->Name )."</td>"; 
                 $HtmlPage = $HtmlPage. "<td>". $ticket->get_Nombre() ."</td>";
                 $HtmlPage = $HtmlPage. "<td>". $ticket->get_FechaInicio() ."</td>";
                 $HtmlPage = $HtmlPage. "<td>". $ticketstatus->get_Descripcion() ."</td>";
