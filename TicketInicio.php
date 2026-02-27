@@ -29,20 +29,33 @@ $Model = $Page->get_Model();
 	        <thead>
 	        <th scope="col">Id</th>
             <th scope="col">Nombre</th>
+            <th scope="col">Cuertel</th>
             <th scope="col">FechaInicio</th>
             <th scope="col"></th>
 	        </thead>
 	        <tbody>';
 
             $tickets = $Model->get_ticket();
+            $cuarteles = $Model->MYSQLSelect('cuarteles');
 
             foreach( $tickets as $ticket )
             {   
+
+                $cuartelAsociado;
+
+                foreach( $cuarteles as $cuartel)
+                {
+                    if( $cuartel->Id_unidad == $ticket->$Id_unidad)
+                    {
+                        $cuartelAsociado =  $cuartel ;
+                    } 
+                }    
 
                 $ticketstatus = $Model->ticketStatusById( $ticket->get_Id_TicketStatus() );
 
                 $HtmlPage = $HtmlPage. "<tr>";
                 $HtmlPage = $HtmlPage. "<td>". $ticket->get_Id() ."</td>"; 
+                $HtmlPage = $HtmlPage. "<td>". $cuartelAsociado == null ? 'sin cuartel' : $cuartelAsociado->Name ."</td>"; 
                 $HtmlPage = $HtmlPage. "<td>". $ticket->get_Nombre() ."</td>";
                 $HtmlPage = $HtmlPage. "<td>". $ticket->get_FechaInicio() ."</td>";
                 $HtmlPage = $HtmlPage. "<td>". $ticketstatus->get_Descripcion() ."</td>";
