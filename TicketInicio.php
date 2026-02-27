@@ -41,7 +41,7 @@ $Model = $Page->get_Model();
             foreach( $tickets as $ticket )
             {   
 
-                $cuartelAsociado == null;
+                $cuartelAsociado = null;
 
                 foreach( $cuarteles as $cuartel)
                 {
