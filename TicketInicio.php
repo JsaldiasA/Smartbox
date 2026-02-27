@@ -38,16 +38,19 @@ $Model = $Page->get_Model();
             $tickets = $Model->get_ticket();
             $cuarteles = $Model->MYSQLSelect('cuarteles');
 
+            $cuartelAsociado;
+
             foreach( $tickets as $ticket )
             {   
 
-                $cuartelAsociado = null;
-
                 foreach( $cuarteles as $cuartel)
                 {
-                    if( $cuartel->Id_unidad == $ticket->$Id_unidad)
+                    if( $cuartel->Id_unidad == null )
                     {
-                        $cuartelAsociado =  $cuartel ;
+                        if( $cuartel->Id_unidad == $ticket->$Id_unidad)
+                        {
+                            $cuartelAsociado =  $cuartel ;
+                        } 
                     } 
                 }    
 
@@ -61,6 +64,9 @@ $Model = $Page->get_Model();
                 $HtmlPage = $HtmlPage. "<td>". $ticketstatus->get_Descripcion() ."</td>";
                 $HtmlPage = $HtmlPage. "<td> <a href='Ticketver.php?id_ticket=".$ticket->get_Id()."'>Ver</a></td></tr>";
                 $HtmlPage = $HtmlPage. "</tr>";
+
+                $cuartelAsociado = null;
+
             }
             $HtmlPage = $HtmlPage.'</tbody></table>
                                     </div>
