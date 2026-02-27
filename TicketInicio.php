@@ -47,7 +47,7 @@ $Model = $Page->get_Model();
                 {
                     if( $cuartel->Id_unidad == null )
                     {
-                        if( $cuartel->Id_unidad == $ticket->$Id_unidad)
+                        if( $cuartel->Id_unidad == $ticket->Id_unidad)
                         {
                             $cuartelAsociado =  $cuartel ;
                         } 
@@ -68,12 +68,12 @@ $Model = $Page->get_Model();
                 $cuartelAsociado = null;
 
             }
+
             $HtmlPage = $HtmlPage.'</tbody></table>
                                     </div>
                                     </div>';
 
-
-$Page->set_PageHTML($HtmlPage);
-echo $Page->get_PageHTML();
+            $Page->set_PageHTML($HtmlPage);
+            echo $Page->get_PageHTML();
 
     ?>
