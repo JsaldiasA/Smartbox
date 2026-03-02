@@ -8,7 +8,7 @@ $sitebasepath=$_SERVER['DOCUMENT_ROOT'];
 require_once $sitebasepath."/Model/model.php";
 
 $model = new Model();
-$tableName = 'ticketstatus';
+$tableName = 'ticket_status';
 
 $ArrayObj = $model->MYSQLSelect($tableName);
 $return = json_encode( $ArrayObj ); 
