@@ -17,6 +17,17 @@ $Model = $Page->get_Model();
     <script src="/views/scripts/TicketInicio.js"></script>
 
     <div class="container">
+         <div class="row">
+            <div class="col">
+                <br><h1><b>Tickets</b></h1><br>
+            </div>
+            <div class="col">
+                <tr><td><b></b></td></tr>
+            </div>
+            <div class="col">
+                <br><br><p class="text-end"><b>Ingresar nuevo ticket.  <b><a href="../TicketForm/TicketForm.php" class="btn btn-success" role="button"> + </a>
+            </div>
+        </div>
         <div id="main"><div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div></div>
     </div>';
 
