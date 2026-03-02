@@ -10,6 +10,28 @@ $Model = $Page->get_Model();
 //        <style>.container{background-color: #292929;color: #FFFFFF; padding: 20px; border-radius: 8px;}</style>';
 
 
+
+    $HtmlPage='
+
+    <script src="/views/scripts/API.js"></script>
+    <script src="/views/scripts/TicketInicio.js"></script>
+
+    <div class="container">
+        <div class="row pb-3">
+            <div class="col p-3 card shadow p-3 card shadow">
+                <h2><b>Estado General</b></h2> 
+                <div class="overflow-auto">
+                    <div id="TableEstadoGeneral"></div>
+                </div>
+            </div>        
+        </div>
+
+                    <div id="main"></div>
+  
+  
+    </div>';
+
+
     $HtmlPage='
     <div class="container">
         <div class="row">
