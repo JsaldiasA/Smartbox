@@ -101,6 +101,21 @@ async function GetTicket( )
 
 	}
 
+async function GetTicketStatus( )
+	{
+		
+		var URL = "ApiController/ticketstatus/ticketstatusGet.php"
+		return $.ajax({
+            url:URL,    //the page containing php script
+            type: "post",    //request 
+			dataType:'json',
+
+		}).then(function(response){
+      console.log("getRecord response: "+JSON.stringify(response));
+      return response;
+  	  });
+
+	}
 
 	
 

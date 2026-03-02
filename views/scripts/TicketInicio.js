@@ -6,9 +6,11 @@ var myRefreshMain = setInterval(GetMain, 5000);
 async function GetMain(  )
 	{
 
-		let [Tickets, Zonas, Cuarteles, Unidades] = await Promise.all([GetTicket(), GetZonas(),GetCuarteles(),GetUnidades()]);
+		let [Tickets, TicketStatus, Cuarteles, Unidades] = await Promise.all([GetTicket(), GetTicketStatus(),GetCuarteles(),GetUnidades()]);
 
 		let tableHTML = '';
+		
+
 
 		tableHTML += '	<div class="row pb-3">';
 		tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
@@ -36,9 +38,25 @@ async function GetMain(  )
 
 			});
 
+			// GETTING Status
+
+			let Status = 'Undefined';
+
+			TicketStatus.forEach(rowTs => {
+			
+				if(rowTs["Id"] == rowTK["Id_TicketStatus"])
+				{
+					Status=rowTs["Estado"];
+				}	
+
+			});
+
+
+			// creating table rows
+			
 			tableHTML +='<tr>';
 			tableHTML += `<td> ${CuartelName}</td>`;
-			tableHTML += `<td>${rowTK["Nombre"]}</td>`;
+			tableHTML += `<td>${Status}</td>`;
 			tableHTML += `<td>${rowTK["FechaInicio"]}</td>`;
 			tableHTML += `<td>${rowTK["Id_TicketStatus"]}</td>`;
 			tableHTML +='<tr>';
@@ -49,7 +67,7 @@ async function GetMain(  )
 		tableHTML += '          </div>';// div overflow
 		tableHTML += '    </div>      ';  // col
 		tableHTML += '</div>'; // row
-		
+
 		document.getElementById('main').innerHTML= tableHTML;
 
 	}
