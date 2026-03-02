@@ -42,13 +42,14 @@ async function GetMain(  )
 			tableHTML += `<td>${rowTK["FechaInicio"]}</td>`;
 			tableHTML += `<td>${rowTK["Id_TicketStatus"]}</td>`;
 			tableHTML +='<tr>';
-
-			tableHTML += '</tbody></table>';
-			tableHTML += '          </div>';// div overflow
-			tableHTML += '    </div>      ';  // col
-			tableHTML += '</div>'; // row
 		
 		});
+
+		tableHTML += '</tbody></table>';
+		tableHTML += '          </div>';// div overflow
+		tableHTML += '    </div>      ';  // col
+		tableHTML += '</div>'; // row
+		
 		document.getElementById('main').innerHTML= tableHTML;
 
 	}
