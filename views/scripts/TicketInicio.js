@@ -21,6 +21,7 @@ async function GetMain(  )
 		tableHTML += `<th scope="col">Nombre</th>`;
 		tableHTML += `<th scope="col">Fecha Inicio</th>`;
 		tableHTML += `<th scope="col">Status</th>`;
+		tableHTML += `<th scope="col"></th>`;
 		tableHTML += `</thead>`;
 
 		Tickets.forEach(rowTK => {
@@ -53,12 +54,13 @@ async function GetMain(  )
 
 
 			// creating table rows
-			
+
 			tableHTML +='<tr>';
 			tableHTML += `<td> ${CuartelName}</td>`;
 			tableHTML += `<td>${Status}</td>`;
 			tableHTML += `<td>${rowTK["FechaInicio"]}</td>`;
 			tableHTML += `<td>${rowTK["Id_TicketStatus"]}</td>`;
+			tableHTML += `<td> <a href='Ticketver.php?id_ticket="${rowTK["Id"]}"'>Ver</a></td></tr>`;
 			tableHTML +='<tr>';
 		
 		});
