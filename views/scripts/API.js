@@ -104,7 +104,7 @@ async function GetTicket( )
 async function GetTicketStatus( )
 	{
 		
-		var URL = "ApiController/ticketstatus/ticketstatusGet.php"
+		var URL = "ApiController/ticket_status/ticket_statusGet.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "post",    //request 
