@@ -60,7 +60,7 @@ async function GetMain(  )
 			tableHTML += `<td>${rowTK["Nombre"]}</td>`;
 			tableHTML += `<td>${rowTK["FechaInicio"]}</td>`;
 			tableHTML += `<td>${Status}</td>`;
-			tableHTML += `<td> <a href='Ticketver.php?id_ticket="${rowTK["Id"]}"'>Ver</a></td></tr>`;
+			tableHTML += `<td> <a href='Ticketver.php?id_ticket=${rowTK["Id"]}'>Ver</a></td></tr>`;
 			tableHTML +='<tr>';
 		
 		});
