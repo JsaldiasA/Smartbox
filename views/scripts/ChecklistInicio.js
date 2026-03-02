@@ -156,7 +156,7 @@ async function GetChecklistTables( )
 						{
 							tableHTML += '<tr class="bg-danger text-white">';
 							tableHTML += `<td>${rowCT["Name"]}</td>`;
-							tableHTML += `<td>${rowCT["Name"] == null ? 'Sin Unidad' : 'Sin Checklist'}<</td>`;
+							tableHTML += `<td>${rowCT["Id_unidad"] == null ? 'Sin Unidad' : 'Sin Checklist'}</td>`;
 							tableHTML += `<td></td>`;
 							tableHTML += `<td></td>`;
 							tableHTML += `<td></td>`;
