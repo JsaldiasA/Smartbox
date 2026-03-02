@@ -57,9 +57,9 @@ async function GetMain(  )
 
 			tableHTML +='<tr>';
 			tableHTML += `<td> ${CuartelName}</td>`;
-			tableHTML += `<td>${Status}</td>`;
+			tableHTML += `<td>${rowTK["Nombre"]}</td>`;
 			tableHTML += `<td>${rowTK["FechaInicio"]}</td>`;
-			tableHTML += `<td>${rowTK["Id_TicketStatus"]}</td>`;
+			tableHTML += `<td>${Status}</td>`;
 			tableHTML += `<td> <a href='Ticketver.php?id_ticket="${rowTK["Id"]}"'>Ver</a></td></tr>`;
 			tableHTML +='<tr>';
 		
