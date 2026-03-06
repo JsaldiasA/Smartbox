@@ -10,7 +10,7 @@ async function GetMain(  )
 
 		let tableHTML = '';
 		
-		items.sort((a, b) => a.Id - b.Id);
+		TicketStatus.sort((a, b) => a.Id - b.Id);
 
 
 		TicketStatus.forEach(rowTKStatus => {
