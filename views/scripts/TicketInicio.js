@@ -15,6 +15,7 @@ async function GetMain(  )
 
 		TicketStatus.forEach(rowTKStatus => {
 
+
 			tableHTML += '	<div class="row pb-3">';
 			tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
 			tableHTML += `    <h2><b>${rowTKStatus["Estado"]}</b></h2> `;
@@ -22,7 +23,7 @@ async function GetMain(  )
 			tableHTML += '<table class="table text-nowrap"><thead><tr>';
 			tableHTML += `<th scope="col"><i class="bi bi-pin-map"></i></th>`;
 			tableHTML += `<th scope="col">Nombre</th>`;
-			tableHTML += `<th scope="col">Fecha Inicio</th>`;
+			tableHTML += `<th scope="col">${ ( rowTKStatus["Id"] == '3' ? 'Fecha Cierre ' : 'Fecha Inicio' ) }</th>`;
 			tableHTML += `<th scope="col"></th>`;
 			tableHTML += `</thead>`;
 
@@ -49,7 +50,7 @@ async function GetMain(  )
 					tableHTML +='<tr>';
 					tableHTML += `<td> ${CuartelName}</td>`;
 					tableHTML += `<td>${rowTK["Nombre"]}</td>`;
-					tableHTML += `<td>${rowTK["FechaInicio"]}</td>`;
+					tableHTML += `<td>${ ( rowTKStatus["Id"] == '3' ? rowTK["FechaCierre"] : rowTK["FechaInicio"] ) }</td>`;
 					tableHTML += `<td> <a href='Ticketver.php?id_ticket=${rowTK["Id"]}'>Ver</a></td></tr>`;
 					tableHTML +='<tr>';
 				}	
