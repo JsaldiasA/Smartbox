@@ -24,7 +24,7 @@ foreach ($allKeys as $key )
 echo var_dump($ticket);
 echo var_dump($UpdatedTicket);
 
-$model->update_ticket($UpdatedTicket);
+$model->MYSQLUpdate('ticket',$UpdatedTicket);
 
 echo 'Ticket Editado exitosamente';
 echo var_dump($UpdatedTicket);

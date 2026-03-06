@@ -136,26 +136,7 @@ class Model
 
 	function get_comandos_milesight()
 		{
-			$sql = "SELECT * FROM `comandos_milesight`";
-			$result = $this->executeSQL($sql);
-			$comandos_milesight = [];
-
-			if ($result->num_rows > 0)
-				{
-					while($row = $result->fetch_assoc())
-						{
-							$comandos_milesight[] = new comandos_milesightDbEntity
-								(
-									$row["Id"],
-									$row["Nombre"],
-									$row["Comando_HEX"],
-									$row["Comando_Base64"],
-									$row["Descripcion"]
-								);
-						}
-				}
-
-			return $comandos_milesight;
+			return $this->MYSQLSelect('comandos_milesight');
 		}
 
 	function comando_milesightByNombre($Nombre)
@@ -229,42 +210,13 @@ class Model
 			return null;
 		}
 
-	function get_unidades_lastortolas()
-		{
-			$sql = "SELECT * FROM `unidades_lastortolas` ORDER BY `id` DESC LIMIT 10000";
-			return $this->MYSQLfetchObj($sql, 'unidades_lastortolasDbEntity');
-		}
-
 	function get_UltimoRegistroDiarioDeCadaUnidad()
 		{ 			
 			$sql = "SELECT * FROM unidades_lastortolas WHERE id in (SELECT max(id) FROM unidades_lastortolas GROUP BY unidad_id);";
 		    return $this->MYSQLfetchObj($sql, 'unidades_lastortolasDbEntity');
 		}
 
-	function UltimoRegistroDiarioById_unidad($Id_unidad)
-		{
-			$RegistrosDiarios = $this->get_unidades_lastortolas();
 
-			usort($RegistrosDiarios, function($a, $b)
-				{
-    				if ($a->DATETIME == $b->DATETIME)
-						{
-        					return 0;
-    					}
-
-    				return ($a->DATETIME > $b->DATETIME) ? -1 : 1;
-				});
-
-			foreach ($RegistrosDiarios as $r)
-				{
- 					if ($r->unidad_id == $Id_unidad)
-						{
-							return $r;
-						}
-				}
-
-			// return null;
-		}
 
 	function RegistrosDiariosById_unidad($Id_unidad)
 		{
@@ -295,12 +247,6 @@ class Model
 			return $RegistrosIniciacionForThisUnit;
 		}
 
-	
-		function checklistsWHERE($key, $value)
-	{
-		$sql = "SELECT * FROM `checklist` WHERE ".$key." = ".$value." ORDER BY Id DESC";
-		return $this->MYSQLfetchObj($sql, 'checklistDbEntity');
-	}	
 
 	function UltimochecklistById_unidad($Id_unidad)
 		{
@@ -324,19 +270,6 @@ class Model
 			return null;
 		}
 
-	function ticketStatusById($Id_ticketStatus)
-		{
-			$ticketStatuses = $this->get_ticket_status();
-
-			foreach ($ticketStatuses as $ticketstatus)
-				{
- 					if ($ticketstatus->get_id() == $Id_ticketStatus)
-						{
-							return $ticketstatus;
-						}
-				}
-			return null;
-		}		
     // CRUD ticket
 	function get_ticket()
 	{
@@ -344,29 +277,9 @@ class Model
 		return $this->MYSQLfetchObj($sql, 'ticketDbEntity');
 	}
 
-	function update_ticket($obj)
-	{
-		$sql = "UPDATE `ticket` SET ";
-		$allKeys = array_keys((array)$obj);
-		foreach ($allKeys as $key ) 
-		{
-   					
-			if($obj->$key == 'NULL' || $obj->$key == '' || $obj->$key == null  )
-			{	
-   				$sql = $sql.$key ." = null, ";	
-			}
-			else
-			{
-				$sql = $sql.$key ." = '".$obj->$key."', ";	
-			}
-		}
-		$sql = substr($sql, 0, -2); // removing extra ', '
-		$sql = $sql." WHERE Id =".$obj->Id;
 
-		$this->executeSQL($sql);
-	}
 
-		function create_ticket($obj)
+	function create_ticket($obj)
 	{
 
 		$allKeys = array_keys((array)$obj);
@@ -393,19 +306,6 @@ class Model
 		$sql = $sql." )";
 
 		$this->executeSQL($sql);
-	}
-
-	function delete_ticket($obj)
-	{
-		$id_obj= $obj->Id;
-		$sql = "DELETE FROM `ticket` WHERE Id =".$id_obj;
-		$this->executeSQL($sql);
-	}
-
-	function get_ticket_status()
-	{
-		$sql = "SELECT * FROM `ticket_status`";
-		return $this->MYSQLfetchObj($sql, 'ticket_statusDbEntity');
 	}
 }
 

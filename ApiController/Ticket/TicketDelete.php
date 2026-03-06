@@ -9,9 +9,26 @@ require_once $sitebasepath."/Model/model.php";
 $model = new Model();
 
 $Id_ticket= $_POST['id_ticket'];
-$ticketToDelete= $model->ticketById($Id_ticket);
-$result = $model->delete_ticket($ticketToDelete);
+$ticket= $model->ticketById($Id_ticket);
 
+$UpdatedTicket = new ticketDbEntity();
+
+$allKeys = array_keys((array)$UpdatedTicket);
+
+foreach ($allKeys as $key ) 
+{
+	$UpdatedTicket->$key = (($_POST[$key] == null)? $ticket->$key : $_POST[$key]);
+}
+
+// set closed status
+$UpdatedTicket->Id_TicketStatus = '3';
+
+// SET creationtime
+date_default_timezone_set('America/Santiago');
+$UpdatedTicket->FechaCierre = date("Y-m-d H:i:s");
+
+
+$model->MYSQLUpdate('ticket',$UpdatedTicket);
 
 echo 'alert(Ticket Eliminado exitosamente)';
 echo '<script>window.location.href = "https://smartbox.eco3.cl/ticketinicio.php"</script>';
