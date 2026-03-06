@@ -7,19 +7,7 @@ public $Comando_HEX;
 public $Comando_Base64;
 public $Descripcion;
 	    
-  function __construct($Id,
-$Nombre,
-$Comando_HEX,
-$Comando_Base64,
-$Descripcion ) {
-	  		
-	  		$this->Id = $Id;
-		$this->Nombre = $Nombre;
-		$this->Comando_HEX = $Comando_HEX;
-		$this->Comando_Base64 = $Comando_Base64;
-		$this->Descripcion = $Descripcion;
-  }
-	
+
  function get_Id() { return $this->Id; }
 function get_Nombre() { return $this->Nombre; }
 function get_Comando_HEX() { return $this->Comando_HEX; }
