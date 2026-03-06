@@ -10,6 +10,9 @@ async function GetMain(  )
 
 		let tableHTML = '';
 		
+		items.sort((a, b) => a.Id - b.Id);
+
+
 		TicketStatus.forEach(rowTKStatus => {
 
 			tableHTML += '	<div class="row pb-3">';
