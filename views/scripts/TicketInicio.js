@@ -14,7 +14,7 @@ async function GetMain(  )
 
 			tableHTML += '	<div class="row pb-3">';
 			tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
-			tableHTML += `    <h2><b>${rowTK["Estado"]}</b></h2> `;
+			tableHTML += `    <h2><b>${rowTKStatus["Estado"]}</b></h2> `;
 			tableHTML += '   <div class="overflow-auto">';
 			tableHTML += '<table class="table text-nowrap"><thead><tr>';
 			tableHTML += `<th scope="col"><i class="bi bi-pin-map"></i></th>`;
