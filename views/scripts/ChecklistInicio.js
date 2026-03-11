@@ -64,12 +64,14 @@ async function GetChecklistTables( )
 							let badChecklist = true;
 						
 							tickets.forEach(rowTk => {
-								
-								if(rowCT["Id_unidad"] == rowTk["Id_unidad"])
+								if( rowTk["Id_TicketStatus"] == '1' )
 								{
-									hasTicket = '1';
+									if(rowCT["Id_unidad"] == rowTk["Id_unidad"])
+									{
+										hasTicket = '1';
+									}
 								}	
-							
+																						
 							})
 
 							if(Checklist != null )
@@ -347,8 +349,6 @@ async function GetChecklistByZonaName( ZonaName)
       console.log("getRecord response: "+JSON.stringify(response));
       return response;
   	  });
-		
-
 	}
 
 
