@@ -203,10 +203,13 @@ async function CountUnidadesOK( )
 			{
 				tickets.forEach(rowTk => {
 				
-					if(row["Checklist"]["id_unidad"] == rowTk["Id_unidad"])
-					{
-						hasTicket = '1';
-					}	
+					if( rowTk["Id_TicketStatus"] == '1' )
+					{					
+						if(row["Checklist"]["id_unidad"] == rowTk["Id_unidad"])
+						{
+							hasTicket = '1';
+						}	
+					}
 		
 				})
 
