@@ -2,7 +2,6 @@
 GetTableTableEstadoGeneral();
 GetChecklistTables();
 
-
 async function GetChecklistTables( )
 	{
 
@@ -32,7 +31,7 @@ async function GetChecklistTables( )
 			}
 			else
 			{
-						tableHTML += '<table class="table"><thead><tr>';
+				tableHTML += '<table class="table"><thead><tr>';
 				tableHTML += `<th>Ubicacion</th>`;
 				tableHTML += `<th>Fecha</th>`;
 				tableHTML += `<th>sin ticket</th>`;
@@ -182,39 +181,8 @@ async function GetChecklistTables( )
 	}
 
 	
-async function GetZonas()
-	{
-		var URL = "ApiController/zona/zonaGet.php"
-		return $.ajax({
-            url:URL,    //the page containing php script
-            type: "get",    //request 
-			dataType:'json',
-			data:				
-			{     	
-				returnJson: 1,
-			},
-		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
-      return response;
-  	  });
-		
 
-	}	
 
-async function GetCuarteles( )
-	{
-		var URL = "ApiController/Cuarteles/CuartelesGet.php"
-		return $.ajax({
-            url:URL,    //the page containing php script
-            type: "get",    //request 
-			dataType:'json',
-		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
-      return response;
-  	  });
-		
-
-	}		
 
 
 async function GetChecklistTableForEstanque( ZonaName )
@@ -383,93 +351,12 @@ async function GetChecklistByZonaName( ZonaName)
 
 	}
 
-async function GetChecklists()
-	{
-		var URL = "ApiController/Checklist/ChecklistGet.php"
-		return $.ajax({
-            url:URL,    //the page containing php script
-            type: "get",    //request 
-			dataType:'json',
-			data:				
-			{     	
-				returnJson: 1,
-			},
-		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
-      return response;
-  	  });
-		
-
-	}	
-
-async function GetTicket( )
-	{
-		
-		var URL = "ApiController/ticket/ticketGet.php"
-		return $.ajax({
-            url:URL,    //the page containing php script
-            type: "post",    //request 
-			dataType:'json',
-
-		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
-      return response;
-  	  });
-
-	}
 
 
-	
-function jsonToHtmlTable(data) {
-    if (!Array.isArray(data) || data.length === 0) {
-        return "<p>No data to display.</p>";
-    }
 
-    // Extract column headers from the first object's keys
-    const columns = Object.keys(data[0]);
 
-    let tableHTML = '<table class="my-table"><thead><tr>';
 
-    // Create table header row
-    columns.forEach(col => {
-        tableHTML += `<th>${col}</th>`;
-    });
-    tableHTML += '</tr></thead><tbody>';
-
-    // Create table body rows
-    data.forEach(row => {
-        tableHTML += '<tr>';
-        columns.forEach(col => {
-            // Use a value or an empty string if null/undefined
-            const value = row[col] !== null && row[col] !== undefined ? row[col] : "";
-            tableHTML += `<td>${value}</td>`;
-        });
-        tableHTML += '</tr>';
-    });
-
-    tableHTML += '</tbody></table>';
-
-    return tableHTML;
-}
 
 
 
 	
-async function GetZonas()
-	{
-		var URL = "ApiController/zona/zonaGet.php"
-		return $.ajax({
-            url:URL,    //the page containing php script
-            type: "get",    //request 
-			dataType:'json',
-			data:				
-			{     	
-				returnJson: 1,
-			},
-		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
-      return response;
-  	  });
-		
-
-	}	

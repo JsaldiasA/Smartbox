@@ -7,6 +7,7 @@ $Model = $Page->get_Model();
 
     $HtmlPage='
 
+    <script src="/views/scripts/API.js"></script>
     <script src="/views/scripts/ChecklistInicio.js"></script>
 
     <div class="container">
@@ -19,7 +20,7 @@ $Model = $Page->get_Model();
             </div>        
         </div>
 
-                    <div id="mainChecklist"></div>
+            <div id="mainChecklist"></div>
   
   
     </div>';
