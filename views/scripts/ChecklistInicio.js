@@ -128,11 +128,14 @@ async function GetChecklistTables( )
 
 						tickets.forEach(rowTk => {
 						
-							if(rowCT["Id_unidad"] == rowTk["Id_unidad"])
+							if( rowTk["Id_TicketStatus"] == '1' )
 							{
-								hasTicket = '1';
+								if(rowCT["Id_unidad"] == rowTk["Id_unidad"])
+								{
+									hasTicket = '1';
+								}
 							}	
-					
+									
 						})
 
 						if(Checklist != null )
@@ -179,69 +182,6 @@ async function GetChecklistTables( )
 
 		});
 		document.getElementById("mainChecklist").innerHTML= tableHTML;
-
-	}
-
-	
-
-
-
-
-async function GetChecklistTableForEstanque( ZonaName )
-	{
-
-		var checklists = await GetChecklistByZonaName( ZonaName );
-
-		var tickets = await GetTicket();
-		
-		
-		let tableHTML = '<table class="table"><thead><tr>';
-		 tableHTML += `<th>Ubicacion</th>`;
-		 tableHTML += `<th>Fecha</th>`;
-		 tableHTML += `<th>sin ticket</th>`;
-		// Create table body rows
-		checklists.forEach(row => {
-
-			let hasTicket = '0';
-			let badChecklist = true;
-
-			if(row["Checklist"]!= null )
-			{
-				tickets.forEach(rowTk => {
-				
-					if(row["Checklist"]["id_unidad"] == rowTk["Id_unidad"])
-					{
-						hasTicket = '1';
-					}	
-				
-				})
-
-				if( hasTicket== '0' )
-				{
-					 badChecklist = false;
-				}
-				
-				
-				
-				tableHTML += badChecklist ?'<tr class="bg-danger text-white" >' :'<tr>';
-				tableHTML += `<td><a href='unidadverCheckList.php?CheckList_Id=${row["Checklist"]["Id"]}'>${row["Unidad"]["Ubicacion"]}</a></td>`;
-				tableHTML += `<td>${row["Checklist"]["Fecha"]}</td>`;
-				tableHTML += `<td>${hasTicket  == '0' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
-			}
-			else
-			{
-				tableHTML += '<tr class="bg-danger text-white">';
-				tableHTML +=`<td></td>`;
-				tableHTML += `<td>${["Unidad"]["Ubicacion"]}</td>`;
-				tableHTML += `<td>Sin checklist</td>`;
-				tableHTML += `<td>${hasTicket  == '0' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
-			}	
-
-			tableHTML += '</tr>';
-		});
-
-		tableHTML += '</tbody></table>';
-		document.getElementById("mainChecklist"+ZonaName).innerHTML= tableHTML;
 
 	}
 	
