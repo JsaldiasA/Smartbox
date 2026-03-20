@@ -245,7 +245,8 @@ function FieldActivity( date ) {
 
 	var pastDate = new Date(date);
 	var now = new Date();
-
+	now = now.getDate();
+	
 	var minutesAgo = Math.floor((now - pastDate) / 60000);
 
 	if( minutesAgo > 59 )
