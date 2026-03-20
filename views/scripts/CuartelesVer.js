@@ -244,14 +244,7 @@ function jsonToHtmlTable(data) {
 function FieldActivity( date ) {
 
 	var pastDate = new Date(date);
-	var now = new Date();
-
-	now = new Intl.DateTimeFormat("en-US", {
-	timeZone: "America/Santiago",
-	dateStyle: "full",
-	timeStyle: "medium",
-	}).format(now);
-	
+	var now = new Date(new Date().toLocaleString('en', {timeZone: 'America/Santiago'}))
 
 	var minutesAgo = Math.floor((now - pastDate) / 60000);
 
