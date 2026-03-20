@@ -246,11 +246,11 @@ function FieldActivity( date ) {
 	var pastDate = new Date(date);
 	var now = new Date(new Date().toLocaleString('en', {timeZone: 'America/Santiago'}))
 
-	var minutesAgo = Math.floor((now - pastDate) / 60000);
+	var minutesAgo = Math.floor((now - pastDate) / 60000) + 15;// 15 min mas que agregea la base de datos a la tabla unidades_lastortolas, se desconoce el porque.
 
 	if( minutesAgo > 59 )
 	{
-		return '<a style="color: green;">' +minutesAgo.toString() + 'min</a>';
+		return '<a style="color: green;">' +minutesAgo.toString() + ' min</a>';
 	}
 	else
 	{
@@ -258,13 +258,13 @@ function FieldActivity( date ) {
 
 		if( hoursAgo > 23 )
 		{
-			return '<a style="color: red;">' +hoursAgo.toString() + 'Horas</a>';
+			return '<a style="color: red;">' +hoursAgo.toString() + ' Horas</a>';
 		}
 		else
 		{
 			var DaysAgo = Math.floor((now - pastDate) / (3600000*24));
 
-			return '<a style="color: red;">' +DaysAgo.toString() + 'Dias</a>';
+			return '<a style="color: red;">' +DaysAgo.toString() + ' Dias</a>';
 		}
 	}	
 
