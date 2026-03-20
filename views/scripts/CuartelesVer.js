@@ -272,35 +272,36 @@ function FieldActivity( date ) {
 
 function FieldBattery( level ) {
 	  
-	var ImgUrl;
-	let levelParsed = parseInt(level);
+	  		var ImgUrl;
+			let levelParsed = parseInt(level);
 
-	if( levelParsed < 101 && levelParsed >= 80)
-	{
-		ImgUrl = '/images/BatFull.jpg';
-	}
+			switch (true) {
 
-	if( levelParsed < 80 && levelParsed >= 30 )
-	{
-		ImgUrl ='/images/BatMedio.jpg';
-	}
-				
-	if( levelParsed < 30 && levelParsed >= 10 )
-	{
-		ImgUrl= '/images/BatBajo.jpg'; 
-	}
-				
-	if( levelParsed < 10 && levelParsed >= 1 )
-	{
-		ImgUrl = '/images/BatEmpty.jpg'; 
-	}
-	else
-	{
-		return 'NULL';
-	}	
-		
-	return '<div  class="d-inline" >'+level+'%</div><img  src="'+ImgUrl+'" width="30" height="20">';
+			case levelParsed < 101 && levelParsed >= 80:
+				// Code to execute if expression === value1
+				ImgUrl = '/images/BatFull.jpg';
+				break;
+			case levelParsed < 80 && levelParsed >= 30:
+				// Code to execute if expression === value2
+				ImgUrl ='/images/BatMedio.jpg';
+				break;
+			case levelParsed < 30 && levelParsed >= 10:
+				// Code to execute if expression === value2
+				ImgUrl= '/images/BatBajo.jpg'; 
+				break;
+			case levelParsed < 10 && levelParsed >= 1:
+			// Code to execute if expression === value2
+				ImgUrl = '/images/BatEmpty.jpg'; 
+				break;
+			default:
+				// Code to execute if expression matches no cases
+				return 'NULL';
+			}
 
+			return '<div  class="d-inline" >'+level+'%</div><img  src="'+ImgUrl+'" width="30" height="20">';
+
+  
+   
 }
 
 
