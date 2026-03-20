@@ -245,6 +245,12 @@ function FieldActivity( date ) {
 
 	var pastDate = new Date(date);
 	var now = new Date();
+
+	now = new Intl.DateTimeFormat("en-US", {
+	timeZone: "America/Santiago",
+	dateStyle: "full",
+	timeStyle: "medium",
+	}).format(now);
 	
 
 	var minutesAgo = Math.floor((now - pastDate) / 60000);
