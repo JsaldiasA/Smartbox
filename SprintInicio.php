@@ -16,7 +16,6 @@ $Model = $Page->get_Model();
                 </iframe>
             </div>        
         </div>
-  
     </div>';
 
 $Page->set_PageHTML($HtmlPage);

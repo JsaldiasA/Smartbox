@@ -57,7 +57,7 @@ async function GetMain(  )
 							tableHTML += `<td> ${row["Name"]}</td>`;
 							tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
 							tableHTML += `<td>${rowUr["ESTADO"]}</td>`;
-							tableHTML += `<td>${rowUr["DATETIME"]}</td>`;
+							tableHTML += `<td>${FieldActivity(rowUr["DATETIME"])}</td>`;
 							tableHTML += `<td>${rowUr["VOLTAJE"]}%</td>`;
 							tableHTML += `<td>${rowUr["CAUDAL"]}</td>`;
 							tableHTML += `<td>${rowUr["VOLUMEN"]}</td>`;
@@ -241,5 +241,35 @@ function jsonToHtmlTable(data) {
     return tableHTML;
 }
 
+function FieldActivity( date ) {
+
+	var pastDate = new Date(date);
+	var now = new Date();
+
+	var minutesAgo = Math.floor((now - pastDate) / 60000);
+
+	if( minutesAgo > 59 )
+	{
+		return '<a style="color: green;">' +minutesAgo.toString() + 'min</a>';
+	}
+	else
+	{
+		var hoursAgo = Math.floor((now - pastDate) / 3600000);
+
+		if( hoursAgo > 23 )
+		{
+			return '<a style="color: red;">' +hoursAgo.toString() + 'Horas</a>';
+		}
+		else
+		{
+			var DaysAgo = Math.floor((now - pastDate) / (3600000*24));
+
+			return '<a style="color: red;">' +DaysAgo.toString() + 'Dias</a>';
+		}
+	}	
+
+
+    
+}
 
 
