@@ -58,7 +58,7 @@ async function GetMain(  )
 							tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
 							tableHTML += `<td>${rowUr["ESTADO"]}</td>`;
 							tableHTML += `<td>${FieldActivity(rowUr["DATETIME"])}</td>`;
-							tableHTML += `<td>${rowUr["VOLTAJE"]}%</td>`;
+							tableHTML += `<td>${FieldBattery(rowUr["VOLTAJE"])}</td>`;
 							tableHTML += `<td>${rowUr["CAUDAL"]}</td>`;
 							tableHTML += `<td>${rowUr["VOLUMEN"]}</td>`;
 						}	
@@ -267,9 +267,41 @@ function FieldActivity( date ) {
 			return '<a style="color: red;">' +DaysAgo.toString() + ' Dias</a>';
 		}
 	}	
+   
+}
 
+function FieldBattery( level ) {
+	  
+	  		var ImgUrl;
+			let levelParsed = parseInt(level);
 
-    
+			switch (expression) {
+
+			case levelParsed < 101 && levelParsed >= 80:
+				// Code to execute if expression === value1
+				ImgUrl = '/images/BatFull.jpg';
+				break;
+			case levelParsed < 80 && levelParsed >= 30:
+				// Code to execute if expression === value2
+				ImgUrl ='/images/BatMedio.jpg';
+				break;
+			case levelParsed < 30 && levelParsed >= 10:
+				// Code to execute if expression === value2
+				ImgUrl= '/images/BatBajo.jpg'; 
+				break;
+			case levelParsed < 10 && levelParsed >= 1:
+			// Code to execute if expression === value2
+				ImgUrl = '/images/BatEmpty.jpg'; 
+				break;
+			default:
+				// Code to execute if expression matches no cases
+				return 'NULL';
+			}
+
+			return '<div  class="d-inline" >'+level+'%</div><img  src="'+ImgUrl+'" width="30" height="20">';
+
+  
+   
 }
 
 
