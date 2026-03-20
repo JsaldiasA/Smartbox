@@ -19,8 +19,8 @@ async function GetMain(  )
 		 tableHTML += '<table class="table text-nowrap"><thead><tr>';
 		 tableHTML += `<th scope="col"><i class="bi bi-pin-map"></i></th>`;
 		 tableHTML += `<th scope="col"><i class="bi bi-motherboard"></i></i></th>`;
-		 tableHTML += `<th scope="col"><i class="bi bi-activity"></i></th>`;
 		 tableHTML += `<th scope="col"></th>`;
+		 tableHTML += `<th scope="col"><i class="bi bi-activity"></i></th>`;
 		 tableHTML += `<th scope="col"><i class="bi bi-lightning-fill"></i></th>`;
 		 tableHTML += `<th scope="col">[L/m]</th>`;
 		 tableHTML += `<th scope="col">[L]</th>`;
@@ -70,7 +70,7 @@ async function GetMain(  )
 						tableHTML += '<tr >';
 						tableHTML += `<td> ${row["Name"]}</td>`;
 						tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
-						tableHTML += `<td>Sin Registros</td>`;
+						tableHTML += `<td>Milesight</td>`;
 						tableHTML += `<td></td>`;
 						tableHTML += `<td></td>`;
 						tableHTML += `<td></td>`;
