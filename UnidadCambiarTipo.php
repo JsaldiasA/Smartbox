@@ -12,10 +12,13 @@ $token= $_POST['token'];
 
 if (strcmp($token,'eco3spa')==0)
 {
-	$unidadtipo =  $model->UnidadTipoByNombre($NuevoTipo);
+	$unidadtipo =  $model->MYSQLSelectWHERE('unidadtipo','Nombre',$NuevoTipo)[0];
+	$unidad = $model->MYSQLSelectWHERE('unidad','tag',$tag)[0];
 
-	$sql = "UPDATE `unidad` SET `id_unidadTipo` = ".$unidadtipo->get_Id()." WHERE `tag` LIKE '{$tag}'";
-	$result = $model->executeSQL($sql);
+	$unidad->id_unidadTipo = $unidadtipo->Id;
+
+	$model->MYSQLUpdate('unidad',$unidad);
+
 	echo "Cambio de tipo de unidad hecho correctamente.";
 }
 else

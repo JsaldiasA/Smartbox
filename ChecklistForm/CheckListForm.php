@@ -45,7 +45,7 @@ $HtmlPage=$HtmlPage.'
 			<tr><td><b>Tipo de unidad:</b></td><td>
 			<select name="unidadtipo" class="form-select" id="unidadtipo" required>.';	
 
-					$UnidadesTipos = $Model->get_unidadtipos();
+					$UnidadesTipos = $Model->MYSQLSelect('unidadtipo');
 					foreach($UnidadesTipos as $Ut){ $HtmlPage=$HtmlPage.'<option value="'.$Ut->get_Id().'">'.$Ut->get_Nombre().'</option>'; }
 			
 			$HtmlPage=$HtmlPage.'</select>   </td><td></td></tr>

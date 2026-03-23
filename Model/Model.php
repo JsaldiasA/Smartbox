@@ -159,49 +159,12 @@ class Model
 			return $this->MYSQLSelect('unidad');		
 		}
 
-	function get_unidadtipos()
-		{
-			$sql = "SELECT * FROM `unidadtipo` ";
-			return $this->MYSQLfetchObj($sql, 'unidadtipoDbEntity');
-		}
-
-	function UnidadTipoById($Id_UnidadTipo)
-		{
-			$unidadtipos = $this->get_unidadtipos();
-
-			foreach ($unidadtipos as $unidadtipo)
-				{
- 					if ($unidadtipo->get_Id() == $Id_UnidadTipo)
-						{
-							return $unidadtipo;
-						}
-				}
-
-			return null;
-		}
-
-	function UnidadTipoByNombre($NombreUnidadTipo)
-		{
-			$unidadtipos = $this->get_unidadtipos();
-
-			foreach ($unidadtipos as $unidadtipo)
-				{
- 					if ($unidadtipo->get_Nombre() == $NombreUnidadTipo)
-						{
-							return $unidadtipo;
-						}
-				}
-
-			return null;
-		}
 
 	function get_UltimoRegistroDiarioDeCadaUnidad()
 		{ 			
 			$sql = "SELECT * FROM unidades_lastortolas WHERE id in (SELECT max(id) FROM unidades_lastortolas GROUP BY unidad_id);";
 		    return $this->MYSQLfetchObj($sql, 'unidades_lastortolasDbEntity');
 		}
-
-
 
 	function RegistrosDiariosById_unidad($Id_unidad)
 		{
@@ -240,7 +203,6 @@ class Model
 		}
 
 
-	
 	function ticketById($Id_ticket)
 		{
 			$tickets = $this->get_ticket();

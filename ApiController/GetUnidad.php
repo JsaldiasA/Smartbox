@@ -10,7 +10,7 @@ $model = new Model();
 
 $unidadTipo_Nombre= $_GET['unidadtipo'];
 
-$unidadestipo =$model->get_unidadtipos();
+$unidadestipo =$model->MYSQLSelect('unidadtipo');
 
 $UnidadTipoFound = NULL;
 
