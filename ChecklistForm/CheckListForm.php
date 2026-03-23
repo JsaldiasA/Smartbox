@@ -13,7 +13,7 @@ $Model = $Page->get_Model();
 
 $UnidadTag= $_GET['tag'];
 
-$unidadDbEntity=$Model->unidadByTag($UnidadTag);
+$unidadDbEntity=$Model->MYSQLSelectWHERE('unidad','tag',$UnidadTag)[0];
 
 $unidadTipo=$Model->MYSQLSelectWHERE('unidadtipo','Id',$unidadDbEntity->id_unidadTipo)[0];
 

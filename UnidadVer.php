@@ -5,7 +5,7 @@ require_once 'views/page.php';
 $Page = new page();
 $Model = $Page->get_Model();
 $dat= $_GET['tag'];
-$unidadDbEntity = $Model->unidadByTag($dat);
+$unidadDbEntity = $Model->MYSQLSelectWHERE('unidad','tag',$dat)[0];
 $checklistDbEntity= $Model->UltimochecklistById_unidad($unidadDbEntity->get_id());
 
 $HtmlPage='<script>var id_unidad ='.$unidadDbEntity->get_id().';</script>';

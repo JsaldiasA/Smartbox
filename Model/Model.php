@@ -159,21 +159,6 @@ class Model
 			return $this->MYSQLSelect('unidad');		
 		}
 
-	function unidadByTag($tag_unidad)
-		{ 	
-			$unidades = $this->get_unidades();
-			
-			foreach ($unidades as $unidad)
-				{
- 					if ($unidad->get_tag() == $tag_unidad)
-						{	
-							return $unidad;
-						}
-				}
-
-			return null;
-		}
-
 	function get_unidadtipos()
 		{
 			$sql = "SELECT * FROM `unidadtipo` ";
