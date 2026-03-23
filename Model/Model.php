@@ -134,26 +134,6 @@ class Model
 			$this->executeSQL($sql);
 		}
 
-	function get_comandos_milesight()
-		{
-			return $this->MYSQLSelect('comandos_milesight');
-		}
-
-	function comando_milesightByNombre($Nombre)
-		{
-			$comandos_milesight = $this->get_comandos_milesight();
-
-			foreach ($comandos_milesight as $comando)
-				{
- 					if ($comando->get_Nombre() == $Nombre)
-						{
-							return $comando;
-						}
-				}
-
-			return null;
-		}
-
 	function get_unidades()
 		{
 			return $this->MYSQLSelect('unidad');		

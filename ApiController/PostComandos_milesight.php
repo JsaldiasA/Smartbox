@@ -41,7 +41,7 @@ $mqtt->subscribe('downlink/'.$tag, function ($topic, $message) {
 }, 0);
 
 $model = new model();
-$comandos = $model->get_comandos_milesight();
+$comandos = $model->MYSQLSelect('comandos_milesight');
 foreach ($comandos as $x) {if($x->get_Nombre() == $ComandoNombre) {$comando = $x->get_Comando_Base64();}}
 // echo $comando;
 
