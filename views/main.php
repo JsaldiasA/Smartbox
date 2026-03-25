@@ -27,7 +27,7 @@ var myRefreshUnidadIndefinida = setInterval(GetUnidadIndefinida, 10000);
 // GetEstanques
 function GetAplicaciones()
 	{
-    	var URL = "ApiController/GetAplicaciones.php"
+    	var URL = "../ApiController/GetAplicaciones.php"
 		$.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
@@ -38,7 +38,7 @@ function GetAplicaciones()
 // GetEstanques
 function GetEstanques()
 	{
-    	var URL = "ApiController/GetUnidad.php?unidadtipo=Estanque7600"
+    	var URL = "../ApiController/GetUnidad.php?unidadtipo=Estanque7600"
 		$.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
@@ -48,7 +48,7 @@ function GetEstanques()
 // GetSirecor	
 function GetSirecor()
 	{
-    	var URL = "ApiController/GetUnidad.php?unidadtipo=Sirecor7600"
+    	var URL = "../ApiController/GetUnidad.php?unidadtipo=Sirecor7600"
 		$.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
@@ -58,7 +58,7 @@ function GetSirecor()
 // GetMilesight	
 function GetMilesight()
 	{
-    	var URL = "ApiController/GetUnidad.php?unidadtipo=Milesight"
+    	var URL = "../ApiController/GetUnidad.php?unidadtipo=Milesight"
 		$.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
@@ -68,7 +68,7 @@ function GetMilesight()
 // GetMilesight	
 function GetUnidadIndefinida()
 	{
-    	var URL = "ApiController/GetUnidad.php?unidadtipo="
+    	var URL = "../ApiController/GetUnidad.php?unidadtipo="
 		$.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
@@ -78,7 +78,7 @@ function GetUnidadIndefinida()
 /*// GetSensorHumedadMilesight
 function GetSensorHumedadMilesight()
 	{
-    	var URL = "ApiController/GetUnidad.php?unidadtipo=SensorHumedadMilesight"
+    	var URL = "../ApiController/GetUnidad.php?unidadtipo=SensorHumedadMilesight"
 		$.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request
