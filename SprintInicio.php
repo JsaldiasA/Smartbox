@@ -4,7 +4,9 @@ $self = $_SERVER['PHP_SELF'];
 $thispath = dirname($_SERVER['PHP_SELF']);
 $sitebasepath = $_SERVER['DOCUMENT_ROOT'];
 
-require_once $sitebasepath."views/page.php";
+require_once $sitebasepath."/views/page.php";
+
+require_once '';
 
 $Page = new page();
 $Model = $Page->get_Model();
