@@ -62,7 +62,7 @@ echo '<style>body{background-color: #191919; color: #FFFFFF}</style>
 							success: function(result)
 								{
 									alert (result);
-									window.location.href = "https://smartbox.eco3.cl/TicketInicio.php";
+									window.location.href = "https://smartbox.eco3.cl/views/TicketInicio.php";
 								}
 						});
 

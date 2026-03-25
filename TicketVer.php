@@ -34,7 +34,7 @@ echo '<div class="row">';
   
   <input type="hidden" name="id_ticket" value="'.$ticket->get_Id().'" />
   
-  <button class="btn btn-danger" type="submit">Eliminar</button>
+  <button class="btn btn-danger" type="submit">Cerrar Ticket</button>
 </form>';
 echo '</div>';
 	

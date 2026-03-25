@@ -37,19 +37,19 @@ echo'
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="../main.php" >Home</a>
+          <a class="nav-link" href="../views/main.php" >Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../cuartelesver.php" >Cuarteles</a>
+          <a class="nav-link" href="../views/cuartelesver.php" >Cuarteles</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../UnidadVerRowData.php" >RowData</a>
+          <a class="nav-link" href="../views/UnidadVerRowData.php" >RowData</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../TicketInicio.php" >Tickets</a>
+          <a class="nav-link" href="../views/TicketInicio.php" >Tickets</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../ChecklistInicio.php" >Checklist</a>
+          <a class="nav-link" href="../views/ChecklistInicio.php" >Checklist</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="../views/SprintInicio.php" >Sprint</a>
@@ -59,8 +59,8 @@ echo'
             Docs
           </a>
           <ul class="dropdown-menu">
-            <li><a class="nav-link" href="../Docs.php" >Procedimientos</a></li>
-            <li><a class="nav-link" href="../UserGuideSmartbox.php" >Guia de usuario</a></li>
+            <li><a class="nav-link" href="../views/Docs.php" >Procedimientos</a></li>
+            <li><a class="nav-link" href="../views/UserGuideSmartbox.php" >Guia de usuario</a></li>
             <li><a class="dropdown-item" href="https://github.com/infoECO3/repo-S2-1">Sirecor</a></li>
           </ul>
         </li>
