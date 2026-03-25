@@ -278,7 +278,7 @@ async function CountUnidadesOK( )
 
 async function GetChecklistByZonaName( ZonaName)
 	{
-		var URL = "ApiController/Checklist/ChecklistGet.php"
+		var URL = "../ApiController/Checklist/ChecklistGet.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
