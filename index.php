@@ -14,7 +14,7 @@ require_once 'views/head.php';
 	
 function Login() 
 	{
-    		var URL = "ApiController/Login.php";
+    		var URL = "ApiController/Login/Login.php";
 
 	var email =  document.getElementById("email").value;
 	var password = document.getElementById("password").value ;

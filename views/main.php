@@ -1,12 +1,8 @@
-<?php	
-$self = $_SERVER['PHP_SELF']; 
-$thispath = dirname($_SERVER['PHP_SELF']);
-$sitebasepath = $_SERVER['DOCUMENT_ROOT'];
 
-require_once $sitebasepath."/views/page.php";
-?>	
 <script>
 
+
+checkToken();
 GetAplicaciones();
 GetEstanques();
 GetSirecor();
@@ -34,6 +30,24 @@ function GetAplicaciones()
 		    success: function(result){document.getElementById("GetAplicacionesResult").innerHTML= result;}
 		});	
 	}
+
+function checkToken()
+	{
+    	var URL = "../ApiController/GetAplicaciones.php"
+		$.ajax({
+            url:URL,    //the page containing php script
+            type: "get",    //request 
+		    statusCode: {
+				200: function() {
+					console.log("Success: 200 OK");
+				},
+				404: function(result) {
+					console.log("Error: 404 Not Found - The PHP file was not found at this URL.");
+					window.location.href = "https://smartbox.eco3.cl/";
+				}
+    		}
+		});	
+	}	
 
 // GetEstanques
 function GetEstanques()
@@ -88,10 +102,7 @@ function GetSensorHumedadMilesight()
 */
 </script>
 
-<?php
-
-$HtmlPage='
-<div class="container">
+<div class="container" id="main">
 	<div class="row pb-3">
 		<div class="col p-3 card shadow">
 			<H1>Aplicaciones</H1>
@@ -132,10 +143,4 @@ $HtmlPage='
 			</div>
 		</div>
 	</div>
-</div>';
-
-$Page = new page();
-$Page->set_PageHTML($HtmlPage);
-echo $Page->get_PageHTML();
-
-?>
+</div>
