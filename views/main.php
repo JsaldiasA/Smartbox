@@ -1,13 +1,22 @@
 
+<head>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+   <script>
+       $(function(){ $("head").load("../views/head.html") });
+   </script>
+</head>
+
+
+
+
 <?php
 
 
 $self=$_SERVER['PHP_SELF']; 
 $thispath=dirname($_SERVER['PHP_SELF']);
 $sitebasepath=$_SERVER['DOCUMENT_ROOT'];
-
-
-require_once $sitebasepath.'/views/head.php';	
+	
 require_once $sitebasepath.'/views/navbar.php';
 
 ?>
