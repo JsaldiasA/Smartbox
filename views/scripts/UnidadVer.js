@@ -7,7 +7,7 @@
 async function GetRegistrosDiarios()
 	{
 
-		var URL = "ApiController/RegistrosDiarios/RegistrosDiariosGet.php"
+		var URL = "../ApiController/RegistrosDiarios/RegistrosDiariosGet.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
@@ -27,7 +27,7 @@ async function GetRegistrosDiarios()
 
 function GetSMSTable()
 	{
-    	var URL = "ApiController/SMSToUnidades/SMSToUnidadesGet.php"
+    	var URL = "../ApiController/SMSToUnidades/SMSToUnidadesGet.php"
 		$.ajax({
             url:URL,    //the page containing php script
             type: "post",    //request 
@@ -63,7 +63,7 @@ function GetRegistrosDiariosTable( id_unidad )
 		
 		document.getElementById("RegistrosDiariosTable").innerHTML= '<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>';	
 
-		var URL = "ApiController/RegistrosDiarios/RegistrosDiariosGet.php"
+		var URL = "../ApiController/RegistrosDiarios/RegistrosDiariosGet.php"
 
 		$.ajax({
             url:URL,    //the page containing php script
@@ -224,7 +224,7 @@ function FunctionComandosMilesight(ComandoNombre) {
   let text = "¿Está seguro de accionar la unidad?";
   if (confirm(text) == true) {
 
-	var URL = "ApiController/Postcomandos_milesight.php";
+	var URL = "../ApiController/Postcomandos_milesight.php";
 	var Respuesta;
 	var token = document.getElementById("password").value;
 	$.ajax({
@@ -273,7 +273,7 @@ function FunctionCreateSMS(SMS) {
   let text = "¿Está seguro de enviar un SMS?";
   if (confirm(text) == true) {
 
-	var URL = "Apicontroller/SMSToUnidades/SMSToUnidadesCreate.php";
+	var URL = "../Apicontroller/SMSToUnidades/SMSToUnidadesCreate.php";
 	var Respuesta;
 	var NuevoVolMax = document.getElementById("VolMax").value;
 	var token = document.getElementById("password").value;
@@ -300,7 +300,7 @@ function FunctionDeleteSMS(Id_SMSToUnidades) {
   let text = "¿Está seguro de eliminar un SMS?";
   if (confirm(text) == true) {
 
-	var URL = "Apicontroller/SMSToUnidades/SMSToUnidadesDelete.php";
+	var URL = "../Apicontroller/SMSToUnidades/SMSToUnidadesDelete.php";
 	var Respuesta;
 	var token = document.getElementById("password").value;
 
