@@ -181,7 +181,7 @@ function FunctionNuevoCuartel( Id_unidad ) {
 	var Id_cuartel = e.value;
 
 	$.ajax({
-            url:"ApiController/cuarteles/cuartelesUpdate.php", 
+            url:"../ApiController/cuarteles/cuartelesUpdate.php", 
             type: "post", 
 			dataType: 'text',
 			  data: {
