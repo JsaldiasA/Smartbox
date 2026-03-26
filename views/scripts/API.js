@@ -1,4 +1,22 @@
+checkToken();
 
+function checkToken()
+	{
+    	var URL = "../ApiController/Login/CheckToken.php"
+		$.ajax({
+            url:URL,    //the page containing php script
+            type: "get",    //request 
+		    statusCode: {
+				200: function() {
+					console.log("Success: 200 OK");
+				},
+				404: function(result) {
+					console.log("Error: 404 Not Found - The PHP file was not found at this URL.");
+					window.location.href = "https://smartbox.eco3.cl/";
+				}
+    		}
+		});	
+	}
 
 async function GetUltimosRegistros(  )
 	{

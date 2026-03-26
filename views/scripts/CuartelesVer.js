@@ -8,7 +8,7 @@ async function GetMain(  )
 
 		let [UltimosRegistros, Zonas, Cuarteles, Unidades] = await Promise.all([GetUltimosRegistros(), GetZonas(),GetCuarteles(),GetUnidades()]);
 
-		let tableHTML = '<div class="container">';
+		let tableHTML = '';
 		Zonas.forEach(rowZona => {
 
 		 tableHTML += '	<div class="row pb-3">';
@@ -100,7 +100,6 @@ async function GetMain(  )
         tableHTML += '</div>'; // row
 		
 		});
-		tableHTML += '</div>'; // container
 		document.getElementById('main').innerHTML= tableHTML;
 
 	}
