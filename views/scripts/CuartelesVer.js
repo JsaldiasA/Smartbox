@@ -86,21 +86,11 @@ async function GetMain(  )
 								tableHTML += `<td></td>`;
 								tableHTML += `<td></td>`;
 								tableHTML += `<td></td>`;
+								tableHTML += '</tr>';
 							}
 								
 					}
-					else
-					{
-						tableHTML += '<tr class="bg-danger text-white">';
-						tableHTML += `<td> ${row["Name"]}</td>`;
-						tableHTML += `<td>Sin Dispositivo</td>`;
-						tableHTML += `<td></td>`;
-						tableHTML += `<td></td>`;
-						tableHTML += `<td></td>`;
-						tableHTML += `<td></td>`;
-					}
-
-					tableHTML += '</tr>';
+					
 				}
 
 			});
