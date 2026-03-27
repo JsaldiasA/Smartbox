@@ -89,7 +89,7 @@ $HtmlPage=$HtmlPage.'
 	$HtmlPage=$HtmlPage. '<table class="table" >
 		  <thead >';
 	$HtmlPage=$HtmlPage. '<th scope="col">Último checklist</th>';
-	$HtmlPage=$HtmlPage. '<th scope="col"><a href="checklistform/checklistform.php?tag='.$unidadDbEntity->get_Tag().'">Nuevo checklist</a></th>';
+	$HtmlPage=$HtmlPage. '<th scope="col"><a href="../checklistform/checklistform.php?tag='.$unidadDbEntity->get_Tag().'">Nuevo checklist</a></th>';
 	$HtmlPage=$HtmlPage. '</thead><tbody>';
 	if(!empty($checklistDbEntity))
 	{	
