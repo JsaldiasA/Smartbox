@@ -13,202 +13,201 @@ async function GetMain(  )
 
 		let tableHTML = '';
 		
-		switch ( filtroValue ) {
+		switch ( filtroValue ) 
+		{
 		case 'all':
+
 			Zonas.forEach(rowZona => {
 
-		 tableHTML += '	<div class="row pb-3">';
-        tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
-        tableHTML += `    <h2><b>${rowZona["Name"]}</b></h2> `;
-        tableHTML += '   <div class="overflow-auto">';
-               
-		 tableHTML += '<table class="table text-nowrap"><thead><tr>';
-		 tableHTML += `<th scope="col"><i class="bi bi-pin-map"></i></th>`;
-		 tableHTML += `<th scope="col"><i class="bi bi-motherboard"></i></i></th>`;
-		 tableHTML += `<th scope="col"></th>`;
-		 tableHTML += `<th scope="col"><i class="bi bi-activity"></i></th>`;
-		 tableHTML += `<th scope="col"><i class="bi bi-lightning-fill"></i></th>`;
-		 tableHTML += `<th scope="col">[L/m]</th>`;
-		 tableHTML += `<th scope="col">[L]</th>`;
-		 tableHTML += `</thead>`;
+			tableHTML += '	<div class="row pb-3">';
+			tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
+			tableHTML += `    <h2><b>${rowZona["Name"]}</b></h2> `;
+			tableHTML += '   <div class="overflow-auto">';
+				
+			tableHTML += '<table class="table text-nowrap"><thead><tr>';
+			tableHTML += `<th scope="col"><i class="bi bi-pin-map"></i></th>`;
+			tableHTML += `<th scope="col"><i class="bi bi-motherboard"></i></i></th>`;
+			tableHTML += `<th scope="col"></th>`;
+			tableHTML += `<th scope="col"><i class="bi bi-activity"></i></th>`;
+			tableHTML += `<th scope="col"><i class="bi bi-lightning-fill"></i></th>`;
+			tableHTML += `<th scope="col">[L/m]</th>`;
+			tableHTML += `<th scope="col">[L]</th>`;
+			tableHTML += `</thead>`;
 
-		// Create table body rows
-		Cuarteles.forEach(row => {
+			// Create table body rows
+			Cuarteles.forEach(row => {
 
-			if(row["Id_zona"] == rowZona["Id"])
-			{
+				if(row["Id_zona"] == rowZona["Id"])
+				{
 
-				if(row["Id_unidad"]!= null )
-				{   
-					
-					let HasRegistrio = false;
-					let UnidadSerie = '';
-					let UnidadTag = ''; 
-
-					Unidades.forEach(rowUnidades => {
-						if(row["Id_unidad"] == rowUnidades["Id"])
-						{
-								UnidadSerie = rowUnidades["Serie"];
-								UnidadTag = rowUnidades["tag"];
-								id_unidadTipo = rowUnidades["id_unidadTipo"];
-						}
-
-					});	
-
-					
-						UltimosRegistros.forEach(rowUr => {
+					if(row["Id_unidad"]!= null )
+					{   
 						
-							if(row["Id_unidad"] == rowUr["unidad_id"])
+						let HasRegistrio = false;
+						let UnidadSerie = '';
+						let UnidadTag = ''; 
+
+						Unidades.forEach(rowUnidades => {
+							if(row["Id_unidad"] == rowUnidades["Id"])
 							{
-								HasRegistrio=true;
+									UnidadSerie = rowUnidades["Serie"];
+									UnidadTag = rowUnidades["tag"];
+									id_unidadTipo = rowUnidades["id_unidadTipo"];
+							}
+
+						});	
+
+						
+							UltimosRegistros.forEach(rowUr => {
+							
+								if(row["Id_unidad"] == rowUr["unidad_id"])
+								{
+									HasRegistrio=true;
 
 
-								tableHTML +='<tr>';
+									tableHTML +='<tr>';
+									tableHTML += `<td> ${row["Name"]}</td>`;
+									tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
+									tableHTML += `<td>${rowUr["ESTADO"]}</td>`;
+									tableHTML += `<td>${FieldActivity(rowUr["DATETIME"])}</td>`;
+									tableHTML += `<td>${FieldBattery(rowUr["VOLTAJE"])}</td>`;
+									tableHTML += `<td>${rowUr["CAUDAL"]}</td>`;
+									tableHTML += `<td>${rowUr["VOLUMEN"]}</td>`;
+								}	
+							
+							})
+
+							if(!HasRegistrio)
+							{
+								tableHTML += '<tr >';
 								tableHTML += `<td> ${row["Name"]}</td>`;
 								tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
-								tableHTML += `<td>${rowUr["ESTADO"]}</td>`;
-								tableHTML += `<td>${FieldActivity(rowUr["DATETIME"])}</td>`;
-								tableHTML += `<td>${FieldBattery(rowUr["VOLTAJE"])}</td>`;
-								tableHTML += `<td>${rowUr["CAUDAL"]}</td>`;
-								tableHTML += `<td>${rowUr["VOLUMEN"]}</td>`;
-							}	
-						
-						})
+								tableHTML += `<td>Milesight</td>`;
+								tableHTML += `<td></td>`;
+								tableHTML += `<td></td>`;
+								tableHTML += `<td></td>`;
+								tableHTML += `<td></td>`;
+							}
+								
+					}
+					else
+					{
+						tableHTML += '<tr class="bg-danger text-white">';
+						tableHTML += `<td> ${row["Name"]}</td>`;
+						tableHTML += `<td>Sin Dispositivo</td>`;
+						tableHTML += `<td></td>`;
+						tableHTML += `<td></td>`;
+						tableHTML += `<td></td>`;
+						tableHTML += `<td></td>`;
+					}
 
-						if(!HasRegistrio)
-						{
-							tableHTML += '<tr >';
-							tableHTML += `<td> ${row["Name"]}</td>`;
-							tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
-							tableHTML += `<td>Milesight</td>`;
-							tableHTML += `<td></td>`;
-							tableHTML += `<td></td>`;
-							tableHTML += `<td></td>`;
-							tableHTML += `<td></td>`;
-						}
-							
-				}
-				else
-				{
-					tableHTML += '<tr class="bg-danger text-white">';
-					tableHTML += `<td> ${row["Name"]}</td>`;
-					tableHTML += `<td>Sin Dispositivo</td>`;
-					tableHTML += `<td></td>`;
-					tableHTML += `<td></td>`;
-					tableHTML += `<td></td>`;
-					tableHTML += `<td></td>`;
+
+					tableHTML += '</tr>';
 				}
 
+			});
 
-				tableHTML += '</tr>';
-			}
-
-		});
-
-		tableHTML += '</tbody></table>';
-		tableHTML += '          </div>';// div overflow
-        tableHTML += '    </div>      ';  // col
-        tableHTML += '</div>'; // row
-		
-		});
+			tableHTML += '</tbody></table>';
+			tableHTML += '          </div>';// div overflow
+			tableHTML += '    </div>      ';  // col
+			tableHTML += '</div>'; // row
+			
+			});
 			break;
-		case 'Sirecor':
-			Zonas.forEach(rowZona => {
 
-		 tableHTML += '	<div class="row pb-3">';
-        tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
-        tableHTML += `    <h2><b>${rowZona["Name"]}</b></h2> `;
-        tableHTML += '   <div class="overflow-auto">';
-               
-		 tableHTML += '<table class="table text-nowrap"><thead><tr>';
-		 tableHTML += `<th scope="col"><i class="bi bi-pin-map"></i></th>`;
-		 tableHTML += `<th scope="col"><i class="bi bi-motherboard"></i></i></th>`;
-		 tableHTML += `<th scope="col"></th>`;
-		 tableHTML += `<th scope="col"><i class="bi bi-activity"></i></th>`;
-		 tableHTML += `<th scope="col"><i class="bi bi-lightning-fill"></i></th>`;
-		 tableHTML += `<th scope="col">[L/m]</th>`;
-		 tableHTML += `<th scope="col">[L]</th>`;
-		 tableHTML += `</thead>`;
+		case 'sirecor':
 
-		// Create table body rows
-		Cuarteles.forEach(row => {
+			tableHTML += '	<div class="row pb-3">';
+			tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
+			tableHTML += `    <h2><b>Sirecor</b></h2> `;
+			tableHTML += '   <div class="overflow-auto">';
+				
+			tableHTML += '<table class="table text-nowrap"><thead><tr>';
+			tableHTML += `<th scope="col"><i class="bi bi-pin-map"></i></th>`;
+			tableHTML += `<th scope="col"><i class="bi bi-motherboard"></i></i></th>`;
+			tableHTML += `<th scope="col"></th>`;
+			tableHTML += `<th scope="col"><i class="bi bi-activity"></i></th>`;
+			tableHTML += `<th scope="col"><i class="bi bi-lightning-fill"></i></th>`;
+			tableHTML += `<th scope="col">[L/m]</th>`;
+			tableHTML += `<th scope="col">[L]</th>`;
+			tableHTML += `</thead>`;
 
-			if(row["Id_zona"] == rowZona["Id"])
-			{
+			// Create table body rows
+			Cuarteles.forEach(row => {
 
-				if(row["Id_unidad"]!= null )
-				{   
-					
-					let HasRegistrio = false;
-					let UnidadSerie = '';
-					let UnidadTag = ''; 
-
-					Unidades.forEach(rowUnidades => {
-						if(row["Id_unidad"] == rowUnidades["Id"])
-						{
-								UnidadSerie = rowUnidades["Serie"];
-								UnidadTag = rowUnidades["tag"];
-								id_unidadTipo = rowUnidades["id_unidadTipo"];
-						}
-
-					});	
-
-					
-						UltimosRegistros.forEach(rowUr => {
+					if(row["Id_unidad"]!= null )
+					{   
 						
-							if(row["Id_unidad"] == rowUr["unidad_id"])
+						let HasRegistrio = false;
+						let UnidadSerie = '';
+						let UnidadTag = ''; 
+
+						Unidades.forEach(rowUnidades => {
+							if(row["Id_unidad"] == rowUnidades["Id"])
 							{
-								HasRegistrio=true;
+									UnidadSerie = rowUnidades["Serie"];
+									UnidadTag = rowUnidades["tag"];
+									id_unidadTipo = rowUnidades["id_unidadTipo"];
+							}
+
+						});	
+
+						if(id_unidadTipo == "2")
+							UltimosRegistros.forEach(rowUr => {
+							
+								if(row["Id_unidad"] == rowUr["unidad_id"])
+								{
+									HasRegistrio=true;
 
 
-								tableHTML +='<tr>';
+									tableHTML +='<tr>';
+									tableHTML += `<td> ${row["Name"]}</td>`;
+									tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
+									tableHTML += `<td>${rowUr["ESTADO"]}</td>`;
+									tableHTML += `<td>${FieldActivity(rowUr["DATETIME"])}</td>`;
+									tableHTML += `<td>${FieldBattery(rowUr["VOLTAJE"])}</td>`;
+									tableHTML += `<td>${rowUr["CAUDAL"]}</td>`;
+									tableHTML += `<td>${rowUr["VOLUMEN"]}</td>`;
+								}	
+							
+							})
+
+							if(!HasRegistrio)
+							{
+								tableHTML += '<tr >';
 								tableHTML += `<td> ${row["Name"]}</td>`;
 								tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
-								tableHTML += `<td>${rowUr["ESTADO"]}</td>`;
-								tableHTML += `<td>${FieldActivity(rowUr["DATETIME"])}</td>`;
-								tableHTML += `<td>${FieldBattery(rowUr["VOLTAJE"])}</td>`;
-								tableHTML += `<td>${rowUr["CAUDAL"]}</td>`;
-								tableHTML += `<td>${rowUr["VOLUMEN"]}</td>`;
-							}	
-						
-						})
-
-						if(!HasRegistrio)
-						{
-							tableHTML += '<tr >';
-							tableHTML += `<td> ${row["Name"]}</td>`;
-							tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
-							tableHTML += `<td>Milesight</td>`;
-							tableHTML += `<td></td>`;
-							tableHTML += `<td></td>`;
-							tableHTML += `<td></td>`;
-							tableHTML += `<td></td>`;
-						}
-							
-				}
-				else
-				{
-					tableHTML += '<tr class="bg-danger text-white">';
-					tableHTML += `<td> ${row["Name"]}</td>`;
-					tableHTML += `<td>Sin Dispositivo</td>`;
-					tableHTML += `<td></td>`;
-					tableHTML += `<td></td>`;
-					tableHTML += `<td></td>`;
-					tableHTML += `<td></td>`;
-				}
+								tableHTML += `<td>Milesight</td>`;
+								tableHTML += `<td></td>`;
+								tableHTML += `<td></td>`;
+								tableHTML += `<td></td>`;
+								tableHTML += `<td></td>`;
+							}
+								
+					}
+					else
+					{
+						tableHTML += '<tr class="bg-danger text-white">';
+						tableHTML += `<td> ${row["Name"]}</td>`;
+						tableHTML += `<td>Sin Dispositivo</td>`;
+						tableHTML += `<td></td>`;
+						tableHTML += `<td></td>`;
+						tableHTML += `<td></td>`;
+						tableHTML += `<td></td>`;
+					}
 
 
-				tableHTML += '</tr>';
-			}
+					tableHTML += '</tr>';
+				
 
-		});
+			});
 
-		tableHTML += '</tbody></table>';
-		tableHTML += '          </div>';// div overflow
-        tableHTML += '    </div>      ';  // col
-        tableHTML += '</div>'; // row
-		
-		});
+			tableHTML += '</tbody></table>';
+			tableHTML += '          </div>';// div overflow
+			tableHTML += '    </div>      ';  // col
+			tableHTML += '</div>'; // row
+			
+			
 			break;
 		default:
 			// Code to execute if no match is found
