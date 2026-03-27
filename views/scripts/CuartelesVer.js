@@ -153,6 +153,7 @@ async function GetMain(  )
 						});	
 
 						if(id_unidadTipo == "2")
+						{	
 							UltimosRegistros.forEach(rowUr => {
 							
 								if(row["Id_unidad"] == rowUr["unidad_id"])
@@ -183,7 +184,7 @@ async function GetMain(  )
 								tableHTML += `<td></td>`;
 								tableHTML += `<td></td>`;
 							}
-								
+						}	
 					}
 					else
 					{
