@@ -119,7 +119,7 @@ async function GetMain(  )
 			tableHTML+= GetUnidadesTableById_unidadTipo('2','Sirecor',Cuarteles,Unidades,UltimosRegistros);
 
 			break;
-		case 'Milesight':
+		case 'milesight':
 			
 			tableHTML+= GetUnidadesTableById_unidadTipo('3','Milesight',Cuarteles,Unidades,UltimosRegistros);
 
