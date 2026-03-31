@@ -123,6 +123,11 @@ async function GetMain(  )
 			
 			tableHTML+= GetUnidadesTableById_unidadTipo('3','Milesight',Cuarteles,Unidades,UltimosRegistros);
 
+			break;
+		case 'indefinidas':
+			
+			tableHTML+= GetUnidadesTableById_unidadTipo('','indefinidas',Cuarteles,Unidades,UltimosRegistros);
+
 			break;	
 		default:
 			// Code to execute if no match is found
