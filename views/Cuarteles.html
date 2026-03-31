@@ -2,18 +2,18 @@
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
    <script>
-       $(function(){ $("head").load("../views/head.html") });
+       $(function(){ $("head").load("head.html") });
    </script>
 </head>
 
 <div id="nav-placeholder"></div>
 <script>
   $(function(){
-    $("#nav-placeholder").load("../views/navbar.html");
+    $("#nav-placeholder").load("navbar.html");
   });
 </script>
-<script src="/views/scripts/API.js"></script>
-<script src="/views/scripts/CuartelesVer.js"></script>
+<script src="scripts/API.js"></script>
+<script src="https://smartbox.eco3.cl/views/scripts/CuartelesVer.js"></script>
 
 <body>
 
@@ -25,7 +25,7 @@
             </div>
             <div class="col align-self-center">
                <select class="form-select" id="filtro">
-                <option value="all" selected>Filtro</option>
+                <option value="indefinidas" selected>Filtro</option>
                 <option value="sirecor" >Solo Sirecor</option>
                 <option value="milesight" >Solo milesight</option>
                 <option value="indefinidas" >Solo milesight</option>

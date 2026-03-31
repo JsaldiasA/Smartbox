@@ -1,4 +1,6 @@
 <?php
+
+header("Access-Control-Allow-Origin: *");
 // Create SQL Connection
 
 $self=$_SERVER['PHP_SELF'];

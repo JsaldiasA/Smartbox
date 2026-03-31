@@ -1,4 +1,4 @@
-checkToken();
+//checkToken();
 
 function checkToken()
 	{

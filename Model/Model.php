@@ -1,7 +1,5 @@
 <?php
 
-header("Access-Control-Allow-Origin: *");
-
 /// NOTE: no usar datatype BIT en la base de datos, usar BOOL.
 // NOTE 2: todas las columnas Id debe ser con I mayuscula y d minuscula.
 // Note 3: Las clases Dbentities deben tener el mismo nombre que la tabla + 'DbEntity'  OJO con las manyusculas y minusculas
