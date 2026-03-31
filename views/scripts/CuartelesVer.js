@@ -126,7 +126,7 @@ async function GetMain(  )
 			break;
 		case 'indefinidas':
 			
-			tableHTML+= GetUnidadesTableById_unidadTipo('','indefinidas',Cuarteles,Unidades,UltimosRegistros);
+			tableHTML+= GetUnidadesTableById_unidadTipo(null,'indefinidas',Cuarteles,Unidades,UltimosRegistros);
 
 			break;	
 		default:
