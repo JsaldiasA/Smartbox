@@ -1,5 +1,6 @@
 <?php
 
+header("Access-Control-Allow-Origin: *");
 
 /// NOTE: no usar datatype BIT en la base de datos, usar BOOL.
 // NOTE 2: todas las columnas Id debe ser con I mayuscula y d minuscula.

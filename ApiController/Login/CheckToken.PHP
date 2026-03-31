@@ -1,5 +1,7 @@
 <?php
 
+header("Access-Control-Allow-Origin: *");
+
 $self=$_SERVER['PHP_SELF']; 
 $thispath=dirname($_SERVER['PHP_SELF']);
 $sitebasepath=$_SERVER['DOCUMENT_ROOT'];
