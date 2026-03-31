@@ -115,7 +115,7 @@
 							success: function(result)
 								{
 									alert(result);
-									window.location.href = "https://smartbox.eco3.cl/main.php";
+									window.location.href = "https://smartbox.eco3.cl/views/main.php";
 								}    
 						});
 
