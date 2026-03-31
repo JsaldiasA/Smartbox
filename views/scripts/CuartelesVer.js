@@ -126,7 +126,7 @@ async function GetMain(  )
 			break;
 		case 'indefinidas':
 			
-			tableHTML+= GetUnidadesTableById_unidadTipo(null,'indefinidas',Cuarteles,Unidades,UltimosRegistros);
+			tableHTML+= GetUnidadesTableById_unidadTipo( null ,'indefinidas',Cuarteles,Unidades,UltimosRegistros);
 
 			break;	
 		default:
@@ -165,6 +165,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 						let HasRegistrio = false;
 						let UnidadSerie = '';
 						let UnidadTag = ''; 
+						var id_unidadTipo = '';
 
 						Unidades.forEach(rowUnidades => {
 							if(row["Id_unidad"] == rowUnidades["Id"])
@@ -176,7 +177,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 
 						});	
 
-						if(id_unidadTipo == unidadTipo)
+						if( id_unidadTipo == unidadTipo )
 						{	
 							UltimosRegistros.forEach(rowUr => {
 							
@@ -213,6 +214,62 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 					}
 
 			});
+
+			// para unidades indefinidas unidadTipo = null
+
+			if(unidadTipo == null)
+			{
+									
+						Unidades.forEach(rowUnidades => {
+
+							let HasRegistrio = false;
+							let UnidadSerie = '';
+							let UnidadTag = ''; 
+				
+
+		
+									UnidadSerie = rowUnidades["Serie"];
+									UnidadTag = rowUnidades["tag"];
+
+
+							if(rowUnidades["id_unidadTipo"] == null )
+							{	
+								UltimosRegistros.forEach(rowUr => {
+								
+									if(rowUnidades["Id"] == rowUr["unidad_id"])
+									{
+										HasRegistrio=true;
+
+
+										tableHTML +='<tr>';
+										tableHTML += `<td> ${rowUnidades["Serie"]}</td>`;
+										tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
+										tableHTML += `<td>${rowUr["ESTADO"]}</td>`;
+										tableHTML += `<td>${FieldActivity(rowUr["DATETIME"])}</td>`;
+										tableHTML += `<td>${FieldBattery(rowUr["VOLTAJE"])}</td>`;
+										tableHTML += `<td>${rowUr["CAUDAL"]}</td>`;
+										tableHTML += `<td>${rowUr["VOLUMEN"]}</td>`;
+									
+									}
+								})
+								if(!HasRegistrio)
+							{
+								tableHTML += '<tr >';
+								tableHTML += `<td> </td>`;
+								tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
+								tableHTML += `<td>Milesight</td>`;
+								tableHTML += `<td></td>`;
+								tableHTML += `<td></td>`;
+								tableHTML += `<td></td>`;
+								tableHTML += `<td></td>`;
+								tableHTML += '</tr>';
+							}
+
+							}	
+					
+						});	
+			
+			}
 
 			tableHTML += '</tbody></table>';
 			tableHTML += '          </div>';// div overflow

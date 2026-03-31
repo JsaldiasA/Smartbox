@@ -1,10 +1,10 @@
 
 	head();
-    
+
     function head( )
 	{
 
-      return `	<!-- meta tags -->
+      document.getElementById('head').innerHTML= `	<!-- meta tags -->
 	<title>Eco3</title>
 	<link rel="shortcut icon" href="/favicon/favicon.jpg"/>
 	<meta charset="utf-8">

@@ -1,21 +1,16 @@
 <head>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-   <script>
-       $(function(){ $("head").load("https://smartbox.eco3.cl/views/head.html") });
-   </script>
+  <div id="head"></div>
+   <script src="scripts/head.js"></script>
+  
 </head>
 
-<div id="nav-placeholder"></div>
-<script>
-  $(function(){
-    $("#nav-placeholder").load("https://smartbox.eco3.cl/views/navbar.html");
-  });
-</script>
-<script src="scripts/head.js"></script>
+<div id="navbar"></div>
+
 <script src="scripts/navbar.js"></script>
+
 <script src="scripts/API.js"></script>
-<script src="https://smartbox.eco3.cl/views/scripts/CuartelesVer.js"></script>
+<script src="scripts/CuartelesVer.js"></script>
 
 <body>
 
@@ -23,14 +18,14 @@
 
         <div class="row">
             <div class="col">
-                <br><h1>Cuarteles</h1><br>
+                <br><h1>Unidades</h1><br>
             </div>
             <div class="col align-self-center">
                <select class="form-select" id="filtro">
-                <option value="indefinidas" selected>Filtro</option>
+                <option value="all" selected>Por cuartel</option>
                 <option value="sirecor" >Solo Sirecor</option>
                 <option value="milesight" >Solo milesight</option>
-                <option value="indefinidas" >Solo milesight</option>
+                <option value="indefinidas" >indefinidas</option>
                 </select>
             </div>
         </div>

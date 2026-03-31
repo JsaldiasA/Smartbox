@@ -3,7 +3,7 @@
     function navbar( )
 	{
 
-      return `
+      document.getElementById('navbar').innerHTML= `
 <style>
 
 	 
