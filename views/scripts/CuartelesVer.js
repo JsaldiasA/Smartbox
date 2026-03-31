@@ -226,7 +226,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 async function GetUltimosRegistros(  )
 	{
 
-		var URL = "../ApiController/RegistrosDiarios/UltimosRegistros.php"
+		var URL = "https://smartbox.eco3.cl/ApiController/RegistrosDiarios/UltimosRegistros.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
@@ -241,7 +241,7 @@ async function GetUltimosRegistros(  )
 async function GetUnidades(  )
 	{
 
-		var URL = "../ApiController/unidad/unidadGet.php"
+		var URL = "https://smartbox.eco3.cl/ApiController/unidad/unidadGet.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
@@ -257,7 +257,7 @@ async function GetUnidades(  )
 
 async function GetChecklists()
 	{
-		var URL = "../ApiController/Checklist/ChecklistGet.php"
+		var URL = "https://smartbox.eco3.cl/ApiController/Checklist/ChecklistGet.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
@@ -276,7 +276,7 @@ async function GetChecklists()
 	
 async function GetZonas()
 	{
-		var URL = "../ApiController/zona/zonaGet.php"
+		var URL = "https://smartbox.eco3.cl/ApiController/zona/zonaGet.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
@@ -295,7 +295,7 @@ async function GetZonas()
 
 async function GetCuarteles( )
 	{
-		var URL = "../ApiController/Cuarteles/CuartelesGet.php"
+		var URL = "https://smartbox.eco3.cl/ApiController/Cuarteles/CuartelesGet.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
@@ -311,7 +311,7 @@ async function GetCuarteles( )
 async function GetTicket( )
 	{
 		
-		var URL = "../ApiController/ticket/ticketGet.php"
+		var URL = "https://smartbox.eco3.cl/ApiController/ticket/ticketGet.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "post",    //request 
