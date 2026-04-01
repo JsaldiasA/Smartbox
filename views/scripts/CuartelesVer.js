@@ -527,19 +527,19 @@ function FieldBattery( level ) {
 
 			case levelParsed < 101 && levelParsed >= 80:
 				// Code to execute if expression === value1
-				ImgUrl = '/images/BatFull.jpg';
+				ImgUrl = 'images/BatFull.jpg';
 				break;
 			case levelParsed < 80 && levelParsed >= 30:
 				// Code to execute if expression === value2
-				ImgUrl ='/images/BatMedio.jpg';
+				ImgUrl ='images/BatMedio.jpg';
 				break;
 			case levelParsed < 30 && levelParsed >= 10:
 				// Code to execute if expression === value2
-				ImgUrl= '/images/BatBajo.jpg'; 
+				ImgUrl= 'images/BatBajo.jpg'; 
 				break;
 			case levelParsed < 10 && levelParsed >= 1:
 			// Code to execute if expression === value2
-				ImgUrl = '/images/BatEmpty.jpg'; 
+				ImgUrl = 'images/BatEmpty.jpg'; 
 				break;
 			default:
 				// Code to execute if expression matches no cases
