@@ -46,6 +46,7 @@ async function GetMain(  )
 						let HasRegistrio = false;
 						let UnidadSerie = '';
 						let UnidadTag = ''; 
+						var unidad;
 
 						Unidades.forEach(rowUnidades => {
 							if(row["Id_unidad"] == rowUnidades["Id"])
@@ -53,6 +54,8 @@ async function GetMain(  )
 									UnidadSerie = rowUnidades["Serie"];
 									UnidadTag = rowUnidades["tag"];
 									id_unidadTipo = rowUnidades["id_unidadTipo"];
+									unidad = rowUnidades;
+
 							}
 
 						});	
@@ -65,7 +68,7 @@ async function GetMain(  )
 
 									tableHTML +='<tr>';
 									tableHTML += `<td> ${row["Name"]}</td>`;
-									tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
+									tableHTML += `<td> <button type="button" onclick="unidadVerPage('${unidad['Id']}')" class="btn btn-primary" ></td>`;
 									tableHTML += `<td>${rowUr["ESTADO"]}</td>`;
 									tableHTML += `<td>${FieldActivity(rowUr["DATETIME"])}</td>`;
 									tableHTML += `<td>${FieldBattery(rowUr["VOLTAJE"])}</td>`;
@@ -79,7 +82,7 @@ async function GetMain(  )
 							{
 								tableHTML += '<tr >';
 								tableHTML += `<td> ${row["Name"]}</td>`;
-								tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
+								tableHTML += `<td> <button type="button" onclick="unidadVerPage('${unidad['Id']}')" class="btn btn-primary" >${UnidadSerie}</button></td>`;
 								tableHTML += `<td>Milesight</td>`;
 								tableHTML += `<td></td>`;
 								tableHTML += `<td></td>`;
@@ -295,53 +298,54 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 			if(unidadTipo == null)
 			{
 									
-						Unidades.forEach(rowUnidades => {
+				Unidades.forEach(rowUnidades => {
 
-							let HasRegistrio = false;
-							let UnidadSerie = '';
-							let UnidadTag = ''; 
+					let HasRegistrio = false;
+					let UnidadSerie = '';
+					let UnidadTag = ''; 
 				
-
-		
-									UnidadSerie = rowUnidades["Serie"];
-									UnidadTag = rowUnidades["tag"];
+					UnidadSerie = rowUnidades["Serie"];
+					UnidadTag = rowUnidades["tag"];
 
 
-							if(rowUnidades["id_unidadTipo"] == null )
-							{	
-								UltimosRegistros.forEach(rowUr => {
+					if(rowUnidades["id_unidadTipo"] == null )
+					{	
+						UltimosRegistros.forEach(rowUr => {
 								
-									if(rowUnidades["Id"] == rowUr["unidad_id"])
-									{
-										HasRegistrio=true;
+							if(rowUnidades["Id"] == rowUr["unidad_id"])
+							{
+								HasRegistrio=true;
 
 
-										tableHTML +='<tr>';
-										tableHTML += `<td> ${rowUnidades["Serie"]}</td>`;
-										tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
-										tableHTML += `<td>${rowUr["ESTADO"]}</td>`;
-										tableHTML += `<td>${FieldActivity(rowUr["DATETIME"])}</td>`;
-										tableHTML += `<td>${FieldBattery(rowUr["VOLTAJE"])}</td>`;
-										tableHTML += `<td>${rowUr["CAUDAL"]}</td>`;
-										tableHTML += `<td>${rowUr["VOLUMEN"]}</td>`;
-									
-									}
-								})
-								if(!HasRegistrio)
-								{
-									tableHTML += '<tr >';
-									tableHTML += `<td> </td>`;
-									tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
-									tableHTML += `<td>Milesight</td>`;
-									tableHTML += `<td></td>`;
-									tableHTML += `<td></td>`;
-									tableHTML += `<td></td>`;
-									tableHTML += `<td></td>`;
-									tableHTML += '</tr>';
-								}
+								tableHTML +='<tr>';
+								tableHTML += `<td> ${rowUnidades["Serie"]}</td>`;
+								tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
+								tableHTML += `<td>${rowUr["ESTADO"]}</td>`;
+								tableHTML += `<td>${FieldActivity(rowUr["DATETIME"])}</td>`;
+								tableHTML += `<td>${FieldBattery(rowUr["VOLTAJE"])}</td>`;
+								tableHTML += `<td>${rowUr["CAUDAL"]}</td>`;
+								tableHTML += `<td>${rowUr["VOLUMEN"]}</td>`;
+										
+							}
 
-							}			
-						});	
+						})
+
+						if(!HasRegistrio)
+						{
+							tableHTML += '<tr >';
+							tableHTML += `<td> </td>`;
+							tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
+							tableHTML += `<td>Milesight</td>`;
+							tableHTML += `<td></td>`;
+							tableHTML += `<td></td>`;
+							tableHTML += `<td></td>`;
+							tableHTML += `<td></td>`;
+							tableHTML += '</tr>';
+						}
+
+					}
+
+				});	
 			
 			}
 
@@ -353,203 +357,415 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 		return tableHTML;
 	}
 
-
-async function GetUltimosRegistros(  )
+	async function unidadVerPage ( Id_unidad )
 	{
+		clearInterval(myRefreshMain);
 
-		var URL = "https://smartbox.eco3.cl/ApiController/RegistrosDiarios/UltimosRegistros.php"
-		return $.ajax({
-            url:URL,    //the page containing php script
-            type: "get",    //request 
-			dataType:'json',
-		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
-      return response;
-  	  });
+		let tableHTML ='';
+		let [ Zonas, Cuarteles, Unidades, Checklists] = await Promise.all([ GetZonas(),GetCuarteles(),GetUnidades(), GetChecklists()]);
 
-	}
+		var unidad;
+		var cuartel;
+		var checklist;
+		var ultimosRegistro;
 
-async function GetUnidades(  )
-	{
+		// buscar la unidad
+		Unidades.forEach(rowUnidades => {
 
-		var URL = "https://smartbox.eco3.cl/ApiController/unidad/unidadGet.php"
-		return $.ajax({
-            url:URL,    //the page containing php script
-            type: "get",    //request 
-			dataType:'json',
-		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
-      return response;
-  	  });
-
-	}
+			if(Id_unidad == rowUnidades["Id"])
+			{
+				unidad = rowUnidades;
+			}		
 	
+		});	
+
+		//buscar cuartel
+
+		Cuarteles.forEach(rowCuarteles => {
+									
+			if(unidad["Id"] == rowCuarteles["Id_unidad"] )
+			{
+				cuartel = rowCuarteles;
+			} 
+						
+		});	
+
+		// buscar checklist
+
+		Checklists.forEach(rowChecklist => {
+			if(rowChecklist["Checklist"])
+			{
+				if(unidad["Id"] == rowChecklist["Checklist"]["id_unidad"] )
+				{
+					checklist = rowChecklist;
+				} 
+			}						
+		});	
 
 
-async function GetChecklists()
-	{
-		var URL = "https://smartbox.eco3.cl/ApiController/Checklist/ChecklistGet.php"
-		return $.ajax({
-            url:URL,    //the page containing php script
-            type: "get",    //request 
-			dataType:'json',
-			data:				
-			{     	
-				returnJson: 1,
-			},
-		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
-      return response;
-  	  });
-		
 
-	}
-	
-async function GetZonas()
-	{
-		var URL = "https://smartbox.eco3.cl/ApiController/zona/zonaGet.php"
-		return $.ajax({
-            url:URL,    //the page containing php script
-            type: "get",    //request 
-			dataType:'json',
-			data:				
-			{     	
-				returnJson: 1,
-			},
-		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
-      return response;
-  	  });
-		
-
-	}	
-
-async function GetCuarteles( )
-	{
-		var URL = "https://smartbox.eco3.cl/ApiController/Cuarteles/CuartelesGet.php"
-		return $.ajax({
-            url:URL,    //the page containing php script
-            type: "get",    //request 
-			dataType:'json',
-		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
-      return response;
-  	  });
-		
-
-	}		
-
-async function GetTicket( )
-	{
-		
-		var URL = "https://smartbox.eco3.cl/ApiController/ticket/ticketGet.php"
-		return $.ajax({
-            url:URL,    //the page containing php script
-            type: "post",    //request 
-			dataType:'json',
-
-		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
-      return response;
-  	  });
-
-	}
-
-
-	
-function jsonToHtmlTable(data) {
-    if (!Array.isArray(data) || data.length === 0) {
-        return "<p>No data to display.</p>";
-    }
-
-    // Extract column headers from the first object's keys
-    const columns = Object.keys(data[0]);
-
-    let tableHTML = '<table class="my-table"><thead><tr>';
-
-    // Create table header row
-    columns.forEach(col => {
-        tableHTML += `<th>${col}</th>`;
-    });
-    tableHTML += '</tr></thead><tbody>';
-
-    // Create table body rows
-    data.forEach(row => {
-        tableHTML += '<tr>';
-        columns.forEach(col => {
-            // Use a value or an empty string if null/undefined
-            const value = row[col] !== null && row[col] !== undefined ? row[col] : "";
-            tableHTML += `<td>${value}</td>`;
-        });
-        tableHTML += '</tr>';
-    });
-
-    tableHTML += '</tbody></table>';
-
-    return tableHTML;
-}
-
-function FieldActivity( date ) {
-
-	var pastDate = new Date(date);
-	var now = new Date(new Date().toLocaleString('en', {timeZone: 'America/Santiago'}))
-
-	var minutesAgo = Math.floor((now - pastDate) / 60000) + 15;// 15 min mas que agregea la base de datos a la tabla unidades_lastortolas, se desconoce el porque.
-
-	if( minutesAgo < 60 )
-	{
-		return '<a style="color: green;">' +minutesAgo.toString() + ' min</a>';
-	}
-	else
-	{
-		var hoursAgo = Math.floor((now - pastDate) / 3600000);
-
-		if( hoursAgo < 24 )
+		if( unidad ) 
 		{
-			return '<a style="color: red;">' +hoursAgo.toString() + ' Horas</a>';
+			// first row
+
+			tableHTML += '	<div class="row pb-3">';
+			tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
+			tableHTML += `    <h2><b>${unidad["Serie"]}</b></h2> `;
+
+			tableHTML += '<table class="table text-nowrap"><thead><tr>';
+			tableHTML += `<th scope="col"> Serie </th>`;
+			tableHTML += `<th scope="col"> Imei </th>`;
+			tableHTML += `<th scope="col"> Cuartel </th>`;
+			tableHTML += `</thead>`;
+
+			tableHTML += `<tbody>`;
+			tableHTML += '<tr>';
+			tableHTML += `<td>${unidad["Serie"]}</td>`;
+			tableHTML += `<td>${unidad["tag"]}</td>`;
+			tableHTML += `<td>${cuartel["Name"] ?? 'Sin Cuartel' }</td>`;
+			tableHTML += '</tr>';
+			tableHTML += `</tbody>`;
+			tableHTML += `</table>`;
+			
+			
+			tableHTML += '    </div>      ';  // col
+			tableHTML += '</div>'; // end first row
+
+			// row checklist & ultima actualizacion
+
+			tableHTML += '	<div class="row pb-3 shadow border">';
+			
+
+			if( checklist )
+			{
+			
+				//col foto
+				tableHTML += `<div class="col-sm-4 p-3" >`;
+				tableHTML += `<img class="img-thumbnail" src="${checklist["Checklist"]["URL_foto"]}" "="">`;
+				tableHTML += `</div>`;
+				// col ultimo checklits & ultima actualizacion	
+				tableHTML += ' <div class="col p-3">';
+				tableHTML += '<table class="table text-nowrap"><thead><tr>';
+				tableHTML += `<th scope="col"> Ultimo checklist </th>`;
+				tableHTML += `<th scope="col" class="d-flex justify-content-end" ><a href="https://smartbox.eco3.cl/checklistform/checklistform.php?tag=${unidad["tag"]}" class="btn btn-primary" >Nuevo Checklist</a> </th>`;
+				// fecha
+				tableHTML += '<tr>';
+				tableHTML += `<td>Fecha</td>`;
+				tableHTML += `<td>${checklist["Checklist"]["Fecha"]}</td>`;
+				tableHTML += '</tr>';
+				// Observaciones
+				tableHTML += '<tr>';
+				tableHTML += `<td>Observaciones</td>`;
+				tableHTML += `<td>${checklist["Checklist"]["Observaciones"]}</td>`;
+				tableHTML += '</tr>';
+				// Revisar
+				tableHTML += '<tr>';
+				tableHTML += `<td>Revisar</td>`;
+				tableHTML += `<td>ver</td>`;
+				tableHTML += '</tr>';
+				// end table
+				tableHTML += `</tbody>`;
+				tableHTML += `</table>`;
+
+			}
+			else
+			{
+				// col ultimo checklits & ultima actualizacion
+				tableHTML += ' <div class="col p-3">';
+				tableHTML += '<table class="table text-nowrap"><thead><tr>';
+				tableHTML += `<th scope="col"> Ultimo checklist </th>`;
+				tableHTML += `<th scope="col"> </th>`;
+				tableHTML += `</thead>`;
+				tableHTML += `<tbody>`;
+				tableHTML += '<tr>';
+				tableHTML += `<td>Sin checklist</td>`;
+				tableHTML += `<td></td>`;
+				tableHTML += '</tr>';
+				tableHTML += `</tbody>`;
+				tableHTML += `</table>`;
+				
+			}
+			//table Ultima actualizacion
+			if( IsSirecor(unidad["id_unidadTipo"]) )
+			{
+				tableHTML += '<div id="StatusTable" >  ';
+				tableHTML += '<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>';
+				tableHTML += '</div>';
+
+				// inicialize refresh thread every 1 second
+				var myRefreshStatusTable = setInterval(GetStatusTable, 1000, unidad["Id"] );
+			}
+
+			tableHTML += '    </div>      ';  // col end ultimo checklits & ultima actualizacion	
+			tableHTML += '</div>'; //  end row checklist & ultima actualizacion
+
+			// acordeon row
+			tableHTML += '	<div class="row mt-3 shadow border">'; 
+			tableHTML += ' <div class="col p-3">';
+
+			tableHTML += '<div class="accordion" id="accordionExample">';
+  			tableHTML += '<div class="accordion-item">';// acordeon ITEM CONTROL
+    		tableHTML += '<h2 class="accordion-header" id="headingZero">';
+      		tableHTML += ' <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseZero" aria-expanded="false" aria-controls="collapseZero"> Control </button> </h2>';
+       					 			
+            tableHTML += '<div id="collapseZero" class="accordion-collapse collapse" aria-labelledby="headingZero" data-bs-parent="#accordionExample">';
+            tableHTML += '<div class="accordion-body">'; // accordion body
+			tableHTML += '<div class="overflow-auto">'; // overflow
+
+			if( !IsSirecor(unidad["id_unidadTipo"]) )
+			{	
+			//	tableHTML += '<table class="table" > <thead >';
+			//	tableHTML += '<th scope="col">Control</th>';
+			//	tableHTML += '<th scope="col"></th>';
+			//	tableHTML += '<th scope="col"></th>';
+			//	tableHTML += '</thead><tbody>';
+			//	let DisabledAbrir = "";
+			//	let DisabledCerrar = "";
+
+			//	if ($unidadDbEntity->get_Estado() == "1")
+			//	{	
+			//		DisabledAbrir = "disabled";
+			//	}
+			//	else
+			//	{
+			//		DisabledCerrar = "disabled";
+			//	}
+
+			//	tableHTML += `<tr><td><button type="button" onclick="FunctionComandosMilesight('Abrir V1')" class="btn btn-primary" ${DisabledAbrir} >Abrir</button></td>`;
+			//	tableHTML += `<td><button type="button" onclick="FunctionComandosMilesight('Cerrar V1')" class="btn btn-primary" ${DisabledCerrar}  >Cerrar</button></td>`;
+			//	tableHTML += `<td><button type="button" onclick="FunctionComandosMilesight('Reset Count')" class="btn btn-primary">Reiniciar Contador</button></td><tr>`;
+			//	tableHTML += '</tbody></table>';
+			}
+
+			else{
+
+				tableHTML +='<div id="SMSTable" ></div>'; // sms table from post javascript 
+
+				tableHTML += '<table class="table" > <thead >';
+				tableHTML += '<th scope="col">SMS</th>';
+				tableHTML += '<th scope="col"></th>';
+				tableHTML += '</thead><tbody>';
+			
+				tableHTML += '<tr><td class="align-middle" > Mensaje </td>';
+				tableHTML += '<td  ><div class="input-group" >';
+				tableHTML += '		<input type="text" class="form-control" placeholder="Escriba el SMS en mayusculas" id="InputSMS" >';
+				tableHTML += '		<div class="input-group-append">';
+				tableHTML += '			<button class="btn btn-outline-secondary" type="button" onclick="FunctionCreateSMS(\'InputSMS\')" >Enviar</button>';
+				tableHTML += '		</div>';
+				tableHTML += '	</div>';
+				tableHTML += '</td><tr>';
+				tableHTML += '</tbody></table>';
+
+				tableHTML += '<table class="table" > <thead >';
+				tableHTML += '<th scope="col">Controles Basicos</th>';
+				tableHTML += '<th scope="col"></th>';
+				tableHTML += '<th scope="col"></th>';
+				tableHTML += '<th scope="col"></th>';
+				tableHTML += '<th scope="col"></th>';
+				tableHTML += '<th scope="col"></th>';
+				tableHTML += '</thead><tbody>';
+
+				tableHTML += `<tr><td><button type="button" onclick="FunctionCreateSMS( 'ABRIR' )" class="btn btn-primary" >ABRIR</button></td>`;
+				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'CERRAR' )" class="btn btn-primary" >CERRAR</button></td>`;
+				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'RESET' )" class="btn btn-primary" >RESET</button></td><tr>`;
+				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'INTERNET30' )" class="btn btn-primary" >Riego mode ON</button></td><tr>`;
+				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'INTERNET75' )" class="btn btn-primary" >Riego mode OFF</button></td><tr>`;
+				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'INTERNET900' )" class="btn btn-primary" >Standby mode</button></td><tr>`;
+
+				tableHTML += '</tbody></table>';		
+			}
+
+      		tableHTML +='		  </div> '; // end overflow
+			tableHTML +='		  </div> '; // end Acordeon body
+    		tableHTML +='		  </div> '; // end collapseZero
+  			tableHTML +='		  </div> '; // end Acordeon-item CONTROL
+        
+		//	accordion ITEM Registros DIARIOS
+	tableHTML +=`
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" >
+        Registros diarios
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+		`;
+	// TABLA REGISTROS DIARIOS
+	tableHTML += `<button type="button" onclick="GetRegistrosDiariosTable(${unidad["Id"]})" class="btn btn-primary" >Refrescar</button>`;
+	tableHTML += '<div class="overflow-auto"> <div id="RegistrosDiariosTable"></div>  </div>';
+
+			tableHTML +='		  </div> '; // end Acordeon body
+    		tableHTML +='		  </div> '; // end collapseZero
+  			tableHTML +='		  </div> '; // end Acordeon-item Registros DIARIOS
+
+	//	accordion Registros de iniciación		
+  tableHTML +=`
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        Registros de iniciación
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+		<div class="overflow-auto">`;
+
+			tableHTML +='		  </div> '; // end overflow
+			tableHTML +='		  </div> '; // end Acordeon body
+    		tableHTML +='		  </div> '; // end collapseZero
+  			tableHTML +='		  </div> '; // end Acordeon-item CONTROL
+
+		//	accordion Registros de Edición	
+
+		tableHTML += `		
+   		<div class="accordion-item">
+    	<h2 class="accordion-header" id="headingThree">
+    	  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+    	    Edición
+   		   </button>
+    	</h2>
+    	<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+    	  <div class="accordion-body">`;
+		  
+				 tableHTML += `<div class="subContainer">`;
+				 tableHTML += `Introduzca la contraseña para editar: <input type="text" id="password" name="password" class="form-control">`;
+				 tableHTML += `</div>`;   // Input de contraseña.
+				 tableHTML += `<div class="subContainer">`;
+				 tableHTML += `<button onclick="FunctionNuevaUbicacion(${unidad["Id"]})" class="btn btn-secondary">Editar</button> Nueva ubicación:`;
+				 tableHTML += `<input type="text" id="NuevaUbicacion" name="NuevaUbicacion" class="form-control">`;   // Input cambio de ubicación.
+				 tableHTML += `</div>`;
+				 tableHTML += `<div class="subContainer">`;
+				 tableHTML += `<button onclick="FunctionNuevoNumero('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-secondary">Editar</button> Nuevo número:`;
+				 tableHTML += `<input type="text" id="NuevoNumero" name="NuevoNumero" class="form-control">`;   // Input cambio de número.
+				 tableHTML += `</div>`;
+				 tableHTML += `<div class="subContainer">`;
+				 tableHTML += `<button onclick="FunctionCambiarVolMax('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-secondary">Editar</button> Nuevo volumen máximo:`;
+				 tableHTML += `<input type="text" id="VolMax" name="VolMax" class="form-control">`;   // Input cambio de volumen máximo.
+				 tableHTML += `</div>`;
+				 tableHTML += `<div class="subContainer">`;
+				 tableHTML += `<button onclick="FunctionNuevoTipo('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-secondary">Editar</button>`;
+
+				$TiposDeUnidad = $Model->MYSQLSelect("unidadtipo");
+				 tableHTML += ' <select name="NuevoTipo" id="NuevoTipo" required>';
+				foreach($TiposDeUnidad as $tipos)
+				{
+					 tableHTML += "<option value='".$tipos->Id."'>".$tipos->Nombre."</option>";
+				}
+				 tableHTML += "<option value='NULL'>Unidad Indefinida</option>";
+				 tableHTML += '</select>';
+				 tableHTML += '</div>';
+				
+				 tableHTML += '<div class="subContainer">';
+				 tableHTML += '<button onclick="FunctionNuevoCuartel('."'".$unidadDbEntity->Id."'".')" class="btn btn-secondary">Editar</button>';
+				tableHTML += ' <select name="Cuarteles" id="Cuarteles" required>';
+
+				Cuarteles.forEach(rowCuarteles => {
+											
+					 tableHTML += `<option value='${rowCuarteles["Id"]}'>${rowCuarteles["Name"]}</option>`;
+								
+				});	
+				 
+				 tableHTML += '</select>';
+				 tableHTML += '</div>';
+
+				 tableHTML += '<div class="subContainer">';
+				 tableHTML += '<button onclick="FunctionEliminar('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-danger">Eliminar</button> Eliminar unidad...';
+				 tableHTML += '</div>';   // Función para eliminar unidad.
+				
+   			tableHTML +='		  </div> '; // end Acordeon body
+    		tableHTML +='		  </div> '; // end collapseZero
+  			tableHTML +='		  </div> '; // end Acordeon-item Edición
+	
+		//	accordion Registros de Checklist
+		
+		tableHTML += `
+      	<div class="accordion-item">
+    	<h2 class="accordion-header" id="headingFour">
+      	<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+        Checklist
+      	</button>
+    	</h2>
+    	<div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+     	 <div class="accordion-body">
+    	<div class="overflow-auto">`;   
+
+			tableHTML +='		  </div> '; // end overflow
+ 	   		tableHTML +='		  </div> '; // end Acordeon body
+    		tableHTML +='		  </div> '; // end collapseZero
+  			tableHTML +='		  </div> '; // end Acordeon-item Checklist
+
+			tableHTML += '    </div>      ';  // col
+			tableHTML += '</div>'; //end acordeon row 
+
 		}
 		else
 		{
-			var DaysAgo = Math.floor((now - pastDate) / (3600000*24));
+			tableHTML += '	<div class="row pb-3">';
+			tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
+			tableHTML += `    <h2><b>Unidad no encontrada</b></h2> `;
+			tableHTML += '    </div>      ';  // col
+			tableHTML += '</div> '; // row
+		}	
 
-			return '<a style="color: red;">' +DaysAgo.toString() + ' Dias</a>';
-		}
+		tableHTML += '<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>';
+
+		document.getElementById('main').innerHTML= tableHTML;
+
+	}
+
+	async function GetStatusTable( unidad_id )
+	{
+		var Registros = await GetRegistrosDiarios( unidad_id );
+
+		var UltimoRegistro =  Registros[0];
+
+		let tableHTML = '	<table class="table" ><thead>';
+       	tableHTML +=  `<tr><td><b>Estado:</b></td><td>${UltimoRegistro['ESTADO']}</td></tr>`;
+		tableHTML +=  `<tr><td><b>Volumen:</b></td><td>${UltimoRegistro['VOLUMEN']}</td></tr>`;
+		tableHTML +=  `<tr><td><b>Caudal:</b></td><td>${UltimoRegistro['CAUDAL']}</td></tr>`;
+		tableHTML +=  `<tr><td><b>Última Registro:</b></td><td>${UltimoRegistro['DATETIME']}</td></tr>`;
+        tableHTML +=  `</tr></tbody></table>`        ;
+		
+		document.getElementById("StatusTable").innerHTML= tableHTML;
 	}	
-   
-}
 
-function FieldBattery( level ) {
-	  
-	  		var ImgUrl;
-			let levelParsed = parseInt(level);
+	function IsSirecor( Id_UnidadTipo )
+	{
+		if( Id_UnidadTipo == '1' ||  Id_UnidadTipo == '2' ) // Sirecor7600 or EStanque7600
+		{
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 
-			switch (true) {
+	function GetRegistrosDiariosTable( id_unidad )
+	{
 
-			case levelParsed < 101 && levelParsed >= 80:
-				// Code to execute if expression === value1
-				ImgUrl = 'images/BatFull.jpg';
-				break;
-			case levelParsed < 80 && levelParsed >= 30:
-				// Code to execute if expression === value2
-				ImgUrl ='images/BatMedio.jpg';
-				break;
-			case levelParsed < 30 && levelParsed >= 10:
-				// Code to execute if expression === value2
-				ImgUrl= 'images/BatBajo.jpg'; 
-				break;
-			case levelParsed < 10 && levelParsed >= 1:
-			// Code to execute if expression === value2
-				ImgUrl = 'images/BatEmpty.jpg'; 
-				break;
-			default:
-				// Code to execute if expression matches no cases
-				return 'NULL';
+		document.getElementById("RegistrosDiariosTable").innerHTML= '<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>';	
+
+		var URL = "https://smartbox.eco3.cl/ApiController/RegistrosDiarios/RegistrosDiariosGet.php"
+
+		$.ajax({
+            url:URL,    //the page containing php script
+            type: "get",    //request 
+			dataType:'text',
+			data:
+				{
+            		Id_unidad: id_unidad,
+        		},
+			
+		    	success: 
+				function(result){
+
+				let table = new DataTable("#TablaRegistros");
+				document.getElementById("RegistrosDiariosTable").innerHTML= result;
+				$(document).ready(function(){
+				$('#TablaRegistros').dataTable();
+				});
+			
 			}
-
-			return '<div  class="d-inline" >'+level+'%</div><img  src="'+ImgUrl+'" width="30" height="20">';
-
-  
-   
-}
-
-
+		});	
+	}	

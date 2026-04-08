@@ -1,6 +1,6 @@
 
 	GetSMSTable();
-	GetStatusTable()
+	GetStatusTable();
 	var myRefreshAplicaciones = setInterval(GetSMSTable, 1000);
 	var myRefreshAplicaciones = setInterval(GetStatusTable, 1000);
 
