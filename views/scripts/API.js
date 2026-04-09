@@ -135,6 +135,22 @@ async function GetTicketStatus( )
 
 	}
 
+async function GetUnidaTipo( )
+	{
+		
+		var URL = "https://smartbox.eco3.cl/ApiController/unidadtipo/Get.php"
+		return $.ajax({
+            url:URL,    //the page containing php script
+            type: "post",    //request 
+			dataType:'json',
+
+		}).then(function(response){
+      console.log("getRecord response: "+JSON.stringify(response));
+      return response;
+  	  });
+
+	}	
+
 async function GetRegistrosDiarios( id_unidad )
 	{
 
@@ -155,6 +171,8 @@ async function GetRegistrosDiarios( id_unidad )
   	  	});
 
 	}	
+
+	
 
 	function FieldActivity( date ) {
 

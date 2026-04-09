@@ -362,7 +362,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 		clearInterval(myRefreshMain);
 
 		let tableHTML ='';
-		let [ Zonas, Cuarteles, Unidades, Checklists] = await Promise.all([ GetZonas(),GetCuarteles(),GetUnidades(), GetChecklists()]);
+		let [ Zonas, Cuarteles, Unidades, Checklists,Tipos] = await Promise.all([ GetZonas(),GetCuarteles(),GetUnidades(), GetChecklists(),GetUnidaTipo()]);
 
 		var unidad;
 		var cuartel;
@@ -636,28 +636,30 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 				 tableHTML += `<input type="text" id="NuevaUbicacion" name="NuevaUbicacion" class="form-control">`;   // Input cambio de ubicación.
 				 tableHTML += `</div>`;
 				 tableHTML += `<div class="subContainer">`;
-				 tableHTML += `<button onclick="FunctionNuevoNumero('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-secondary">Editar</button> Nuevo número:`;
+				 tableHTML += `<button onclick="FunctionNuevoNumero('${unidad["tag"]}')" class="btn btn-secondary">Editar</button> Nuevo número:`;
 				 tableHTML += `<input type="text" id="NuevoNumero" name="NuevoNumero" class="form-control">`;   // Input cambio de número.
 				 tableHTML += `</div>`;
 				 tableHTML += `<div class="subContainer">`;
-				 tableHTML += `<button onclick="FunctionCambiarVolMax('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-secondary">Editar</button> Nuevo volumen máximo:`;
+				 tableHTML += `<button onclick="FunctionCambiarVolMax('${unidad["tag"]}')" class="btn btn-secondary">Editar</button> Nuevo volumen máximo:`;
 				 tableHTML += `<input type="text" id="VolMax" name="VolMax" class="form-control">`;   // Input cambio de volumen máximo.
 				 tableHTML += `</div>`;
 				 tableHTML += `<div class="subContainer">`;
-				 tableHTML += `<button onclick="FunctionNuevoTipo('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-secondary">Editar</button>`;
+				 tableHTML += `<button onclick="FunctionNuevoTipo('${unidad["tag"]}')" class="btn btn-secondary">Editar</button>`;
 
-				$TiposDeUnidad = $Model->MYSQLSelect("unidadtipo");
 				 tableHTML += ' <select name="NuevoTipo" id="NuevoTipo" required>';
-				foreach($TiposDeUnidad as $tipos)
-				{
-					 tableHTML += "<option value='".$tipos->Id."'>".$tipos->Nombre."</option>";
-				}
+		
+				Tipos.forEach(rowTipo => {
+											
+					 tableHTML += `<option value='${rowTipo["Id"]}'>${rowTipo["Name"]}</option>`;
+								
+				});	
+				
 				 tableHTML += "<option value='NULL'>Unidad Indefinida</option>";
 				 tableHTML += '</select>';
 				 tableHTML += '</div>';
 				
 				 tableHTML += '<div class="subContainer">';
-				 tableHTML += '<button onclick="FunctionNuevoCuartel('."'".$unidadDbEntity->Id."'".')" class="btn btn-secondary">Editar</button>';
+				 tableHTML += `<button onclick="FunctionNuevoCuartel((${unidad["Id"]})" class="btn btn-secondary">Editar</button>`;
 				tableHTML += ' <select name="Cuarteles" id="Cuarteles" required>';
 
 				Cuarteles.forEach(rowCuarteles => {
@@ -670,7 +672,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 				 tableHTML += '</div>';
 
 				 tableHTML += '<div class="subContainer">';
-				 tableHTML += '<button onclick="FunctionEliminar('."'".$unidadDbEntity->get_Tag()."'".')" class="btn btn-danger">Eliminar</button> Eliminar unidad...';
+				 tableHTML += `<button onclick="FunctionEliminar('${unidad["tag"]}')" class="btn btn-danger">Eliminar</button> Eliminar unidad...`;
 				 tableHTML += '</div>';   // Función para eliminar unidad.
 				
    			tableHTML +='		  </div> '; // end Acordeon body
