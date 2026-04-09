@@ -51,7 +51,7 @@ async function GetStatusTable()
        	tableHTML +=  `<tr><td><b>Estado:</b></td><td>${UltimoRegistro['ESTADO']}</td></tr>`;
 		tableHTML +=  `<tr><td><b>Volumen:</b></td><td>${UltimoRegistro['VOLUMEN']}</td></tr>`;
 		tableHTML +=  `<tr><td><b>Caudal:</b></td><td>${UltimoRegistro['CAUDAL']}</td></tr>`;
-		tableHTML +=  `<tr><td><b>Caudal:</b></td><td>${UltimoRegistro['SENAL']}</td></tr>`;
+		tableHTML +=  `<tr><td><b>SENAL:</b></td><td>${UltimoRegistro['SENAL']}</td></tr>`;
 		tableHTML +=  `<tr><td><b>Última Registro:</b></td><td>${UltimoRegistro['DATETIME']}</td></tr>`;
         tableHTML +=  `</tr></tbody></table>`        ;
 		
