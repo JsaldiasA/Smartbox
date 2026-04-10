@@ -68,7 +68,7 @@ async function GetMain(  )
 
 									tableHTML +='<tr>';
 									tableHTML += `<td> ${row["Name"]}</td>`;
-									tableHTML += `<td> <a href='unidadver.php?tag="'${unidad['Tag']}')" ${UnidadSerie}</td>`;
+									tableHTML += `<td> <button type="button" onclick="unidadVerPage(${unidad['Id']})" class="btn btn-primary btn-sm">${UnidadSerie}</button> </td>`;
 									tableHTML += `<td>${rowUr["ESTADO"]}</td>`;
 									tableHTML += `<td>${FieldActivity(rowUr["DATETIME"])}</td>`;
 									tableHTML += `<td>${FieldBattery(rowUr["VOLTAJE"])}</td>`;
@@ -82,7 +82,7 @@ async function GetMain(  )
 							{
 								tableHTML += '<tr >';
 								tableHTML += `<td> ${row["Name"]}</td>`;
-								tableHTML += `<td> <a href='unidadver.php?tag="'${unidad['Tag']}')" ${UnidadSerie}</td>`;
+								tableHTML += `<td> <button type="button" onclick="unidadVerPage(${unidad['Id']})" class="btn btn-primary btn-sm">${UnidadSerie}</button> </td>`;
 								tableHTML += `<td>Milesight</td>`;
 								tableHTML += `<td></td>`;
 								tableHTML += `<td></td>`;
