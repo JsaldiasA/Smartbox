@@ -539,7 +539,9 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 
 			else{
 
+				
 				tableHTML +='<div id="SMSTable" ></div>'; // sms table from post javascript 
+				var myRefreshSMSTable = setInterval(GetSMSTable, 1000, unidad["Id"] );
 
 				tableHTML += '<table class="table" > <thead >';
 				tableHTML += '<th scope="col">SMS</th>';
@@ -769,3 +771,19 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 			}
 		});	
 	}	
+
+	function GetSMSTable(id_unidad)
+	{
+    	var URL = "https://smartbox.eco3.cl/ApiController/SMSToUnidades/SMSToUnidadesGet.php"
+		$.ajax({
+            url:URL,    //the page containing php script
+            type: "post",    //request 
+			dataType:'text',
+			data:
+				{
+            		Id_unidad: id_unidad,
+        		},
+			
+		    success: function(result){document.getElementById("SMSTable").innerHTML= result;}
+		});	
+ 	}
