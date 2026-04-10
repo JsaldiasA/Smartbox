@@ -18,6 +18,24 @@ function checkToken()
 		});	
 	}
 
+async function GetChecklistByZonaName( ZonaName)
+	{
+		var URL = "https://smartbox.eco3.cl/ApiController/Checklist/ChecklistGet.php"
+		return $.ajax({
+            url:URL,    //the page containing php script
+            type: "get",    //request 
+			dataType:'json',
+			data:				
+			{     		
+				ZonaName: ZonaName,
+				returnJson: 1,
+			},
+		}).then(function(response){
+      console.log("getRecord response: "+JSON.stringify(response));
+      return response;
+  	  });
+	}	
+
 async function GetUltimosRegistros(  )
 	{
 

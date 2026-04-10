@@ -49,7 +49,7 @@ echo'
           <a class="nav-link" href="../views/TicketInicio.php" >Tickets</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../views/ChecklistInicio.php" >Checklist</a>
+          <a class="nav-link" href="../views/Checklist.Html" >Checklist</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="../views/SprintInicio.php" >Sprint</a>

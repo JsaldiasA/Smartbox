@@ -185,81 +185,130 @@ async function GetChecklistTables( )
 
 	}
 	
-async function CountUnidadesOK( )
+ function CountUnidadesOK( Id_zona, checklists,Cuarteles, tickets, Estanqueschecklists)
 	{
 
-		var checklists = await GetChecklists( );
-
-		var tickets = await GetTicket();
-		
-		var Estanqueschecklists = await GetChecklistByZonaName( 'Estanques' );
+	
 		var Count = 0;
 
-		checklists.forEach(row => {
+			checklists.forEach(row => {
 
-			let hasTicket = '0';
+				let hasTicket = '0';
 
-			if(row["Checklist"]!= null )
-			{
-				tickets.forEach(rowTk => {
-				
-					if( rowTk["Id_TicketStatus"] == '1' )
-					{					
-						if(row["Checklist"]["id_unidad"] == rowTk["Id_unidad"])
+				if(row["Checklist"]!= null )
+				{
+					tickets.forEach(rowTk => {
+					
+						if( rowTk["Id_TicketStatus"] == '1' )
+						{					
+							if(row["Checklist"]["id_unidad"] == rowTk["Id_unidad"])
+							{
+								hasTicket = '1';
+							}	
+						}
+			
+					})
+
+					if(  hasTicket== '0' && row["Checklist"]["Solenoide"] == '1'  && row["Checklist"]["Solenoide"] == '1'  && row["Checklist"]["Flujometro"] == '1'  && row["Checklist"]["agua"] == '1'  )
+					{
+						if( Id_zona )
 						{
-							hasTicket = '1';
-						}	
+							Cuarteles.forEach(rowCT => {
+						
+								if(row["Checklist"]["id_unidad"] == rowCT["Id_unidad"])
+								{
+									if( rowCT["Id_zona"] == Id_zona)
+									{
+										Count ++; 
+									}
+								}	
+								
+							})
+
+						}
+						else
+						{
+							Count ++;
+						}		
+						
+					}
+					
+				}
+		
+			});
+
+			if( !Id_zona )
+			{
+				Estanqueschecklists.forEach(row => {
+
+					let hasTicket = '0';
+
+					if(row["Checklist"]!= null )
+					{
+						tickets.forEach(rowTk => {
+						
+							if(row["Checklist"]["id_unidad"] == rowTk["Id_unidad"])
+							{
+								hasTicket = '1';
+							}	
+				
+						})
+
+						if(  hasTicket== '0' )
+						{
+							Count ++; 
+						}
+						
 					}
 		
-				})
-
-				if(  hasTicket== '0' && row["Checklist"]["Solenoide"] == '1'  && row["Checklist"]["Solenoide"] == '1'  && row["Checklist"]["Flujometro"] == '1'  && row["Checklist"]["agua"] == '1'  )
-				{
-					Count ++; 
-				}
-				
+				});
 			}
-		
-		});
-
-
-		Estanqueschecklists.forEach(row => {
-
-			let hasTicket = '0';
-
-			if(row["Checklist"]!= null )
-			{
-				tickets.forEach(rowTk => {
-				
-					if(row["Checklist"]["id_unidad"] == rowTk["Id_unidad"])
-					{
-						hasTicket = '1';
-					}	
-		
-				})
-
-				if(  hasTicket== '0' )
-				{
-					Count ++; 
-				}
-				
-			}
-		
-		});
 
 		return Count; 
 	}	
 
+	 function CountUnidades( Id_zona ,Cuarteles)
+	{
+
+		var Count = 0;
+
+		Cuarteles.forEach(rowCT => {
+			if( Id_zona )
+			{
+				if( rowCT["Id_zona"] == Id_zona)
+				{
+					Count ++; 
+				}								
+			}
+			else
+			{
+				Count ++;
+			}						
+		});
+			
+		return Count; 
+	}	
+
+	function ColorOperatibilidar( operatibilidad )
+	{
+		return operatibilidad > 80 ? "text-success" : ( operatibilidad > 60 ? ("text-warning") : ("text-danger") );
+	}
+
 	async function GetTableTableEstadoGeneral()
 	{	
 		
-		var Operativas = await CountUnidadesOK();
-		var total = 122;
+		let [Zonas,checklists,Cuarteles, tickets, Estanqueschecklists] = await Promise.all([GetZonas(),GetChecklists(), GetCuarteles(),GetTicket(),GetChecklistByZonaName( 'Estanques' )]);
+
+
+		var Operativas = await CountUnidadesOK(null,checklists,Cuarteles, tickets, Estanqueschecklists);
+		var total = await CountUnidades(null,Cuarteles);
+
 		var operatibilidad = Math.round( (Operativas/total)*100 );
 
-		var ColorOperatibilidar = operatibilidad > 80 ? "text-success" : ( operatibilidad > 60 ? ("text-warning") : ("text-danger") )
+		var Color = ColorOperatibilidar( operatibilidad );
 
-	   	let tableHTML = '	<table class="table" ><thead>';
+		let tableHTML = `<br><h2>Total</h2><br>`        ;
+	   	 tableHTML += '	<table class="table" ><thead>';
         tableHTML += `<tr>`    	;
         tableHTML += `<th scope="col">Total</th>`  	;
         tableHTML += `<th scope="col">Operativas</th>`       ;
@@ -269,30 +318,48 @@ async function CountUnidadesOK( )
         tableHTML += `<tr>`        ;
         tableHTML += `<td><b> ${total} </b></td>`        ;
         tableHTML += `<td><b> ${Operativas} </b></td>`        ;
-        tableHTML += `<td class="${ColorOperatibilidar}"><b> ${operatibilidad} %</b></td>`        ;
+        tableHTML += `<td class="${Color}"><b> ${operatibilidad} %</b></td>`        ;
         tableHTML += `</tr></tbody></table>`        ;
+
+		tableHTML += `<br><h2> Detalle Por zona </h2><br>`        ;
+
+		tableHTML += '	<table class="table" ><thead>';
+		tableHTML += `<tr>`    	;
+		tableHTML += `<th scope="col">Zona</th>`  	;
+        tableHTML += `<th scope="col">Total</th>`  	;
+        tableHTML += `<th scope="col">Operativas</th>`       ;
+        tableHTML += `<th scope="col">Operatibilidad</th>`        ;
+        tableHTML += `</tr>`        ;
+        tableHTML += `</thead><tbody>`        ;
+
+
+
+		Zonas.forEach(rowZ => {
+			
+			Operativas = CountUnidadesOK(rowZ["Id"],checklists,Cuarteles, tickets, Estanqueschecklists);
+			total = CountUnidades(rowZ["Id"],Cuarteles);
+			operatibilidad = Math.round( (Operativas/total)*100 );
+			Color = ColorOperatibilidar( operatibilidad );
+
+			 tableHTML += `<tr>`        ;
+			tableHTML += `<td><b> ${rowZ["Name"]}  </b></td>`        ;
+        	tableHTML += `<td><b> ${total} </b></td>`        ;
+        	tableHTML += `<td><b> ${Operativas} </b></td>`        ;
+        	tableHTML += `<td class="${Color}"><b> ${operatibilidad} %</b></td>`        ;
+
+			
+		});
+       
+
+        tableHTML += `</tr>`;
+		tableHTML += `</tbody></table>`;
+
 		
 		document.getElementById("TableEstadoGeneral").innerHTML= tableHTML;
 	}	
 
 
-async function GetChecklistByZonaName( ZonaName)
-	{
-		var URL = "../ApiController/Checklist/ChecklistGet.php"
-		return $.ajax({
-            url:URL,    //the page containing php script
-            type: "get",    //request 
-			dataType:'json',
-			data:				
-			{     		
-				ZonaName: ZonaName,
-				returnJson: 1,
-			},
-		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
-      return response;
-  	  });
-	}
+
 
 
 
