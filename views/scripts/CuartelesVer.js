@@ -68,7 +68,7 @@ async function GetMain(  )
 
 									tableHTML +='<tr>';
 									tableHTML += `<td> ${row["Name"]}</td>`;
-									tableHTML += `<td> <button type="button" onclick="unidadVerPage('${unidad['Id']}')" class="btn btn-primary" ></td>`;
+									tableHTML += `<td> <button type="button" onclick="unidadVerPage('${unidad['Id']}')" class="btn btn-primary" >${UnidadSerie}</td>`;
 									tableHTML += `<td>${rowUr["ESTADO"]}</td>`;
 									tableHTML += `<td>${FieldActivity(rowUr["DATETIME"])}</td>`;
 									tableHTML += `<td>${FieldBattery(rowUr["VOLTAJE"])}</td>`;
