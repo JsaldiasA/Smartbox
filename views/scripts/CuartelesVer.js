@@ -531,9 +531,9 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 			//		DisabledCerrar = "disabled";
 			//	}
 
-			//	tableHTML += `<tr><td><button type="button" onclick="FunctionComandosMilesight('Abrir V1')" class="btn btn-primary" ${DisabledAbrir} >Abrir</button></td>`;
-			//	tableHTML += `<td><button type="button" onclick="FunctionComandosMilesight('Cerrar V1')" class="btn btn-primary" ${DisabledCerrar}  >Cerrar</button></td>`;
-			//	tableHTML += `<td><button type="button" onclick="FunctionComandosMilesight('Reset Count')" class="btn btn-primary">Reiniciar Contador</button></td><tr>`;
+			//	tableHTML += `<tr><td><button type="button" onclick="FunctionComandosMilesight('Abrir V1','${unidad["tag"]}')" class="btn btn-primary" ${DisabledAbrir} >Abrir</button></td>`;
+			//	tableHTML += `<td><button type="button" onclick="FunctionComandosMilesight('Cerrar V1','${unidad["tag"]}')" class="btn btn-primary" ${DisabledCerrar}  >Cerrar</button></td>`;
+			//	tableHTML += `<td><button type="button" onclick="FunctionComandosMilesight('Reset Count','${unidad["tag"]}')" class="btn btn-primary">Reiniciar Contador</button></td><tr>`;
 			//	tableHTML += '</tbody></table>';
 			}
 
@@ -552,7 +552,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 				tableHTML += '<td  ><div class="input-group" >';
 				tableHTML += '		<input type="text" class="form-control" placeholder="Escriba el SMS en mayusculas" id="InputSMS" >';
 				tableHTML += '		<div class="input-group-append">';
-				tableHTML += '			<button class="btn btn-outline-secondary" type="button" onclick="FunctionCreateSMS(\'InputSMS\')" >Enviar</button>';
+				tableHTML += `			<button class="btn btn-outline-secondary" type="button" onclick="FunctionCreateSMS(\'InputSMS\',${unidad["Id"]})" >Enviar</button>`;
 				tableHTML += '		</div>';
 				tableHTML += '	</div>';
 				tableHTML += '</td><tr>';
@@ -567,12 +567,12 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 				tableHTML += '<th scope="col"></th>';
 				tableHTML += '</thead><tbody>';
 
-				tableHTML += `<tr><td><button type="button" onclick="FunctionCreateSMS( 'ABRIR' )" class="btn btn-primary" >ABRIR</button></td>`;
-				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'CERRAR' )" class="btn btn-primary" >CERRAR</button></td>`;
-				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'RESET' )" class="btn btn-primary" >RESET</button></td><tr>`;
-				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'INTERNET30' )" class="btn btn-primary" >Riego mode ON</button></td><tr>`;
-				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'INTERNET75' )" class="btn btn-primary" >Riego mode OFF</button></td><tr>`;
-				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'INTERNET900' )" class="btn btn-primary" >Standby mode</button></td><tr>`;
+				tableHTML += `<tr><td><button type="button" onclick="FunctionCreateSMS( 'ABRIR', ${unidad["Id"]} )" class="btn btn-primary" >ABRIR</button></td>`;
+				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'CERRAR',${unidad["Id"]} )" class="btn btn-primary" >CERRAR</button></td>`;
+				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'RESET',${unidad["Id"]} )" class="btn btn-primary" >RESET</button></td><tr>`;
+				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'INTERNET30' ,${unidad["Id"]})" class="btn btn-primary" >Riego mode ON</button></td><tr>`;
+				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'INTERNET75',${unidad["Id"]} )" class="btn btn-primary" >Riego mode OFF</button></td><tr>`;
+				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'INTERNET900',${unidad["Id"]} )" class="btn btn-primary" >Standby mode</button></td><tr>`;
 
 				tableHTML += '</tbody></table>';		
 			}
@@ -787,3 +787,234 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 		    success: function(result){document.getElementById("SMSTable").innerHTML= result;}
 		});	
  	}
+
+	function FunctionNuevoNumero(unidad)
+	{
+  		let text = "¿Está seguro de cambiar el número de la unidad?";
+ 		if (confirm(text) == true)
+			{
+				var URL = "UnidadCambiarNumero.php";
+				var Respuesta;
+				var NuevoNumero = document.getElementById("NuevoNumero").value;
+				var token = document.getElementById("password").value ;
+		
+				$.ajax({
+        			url:URL,
+            		type:"post",
+					dataType:'text',
+					data:
+						{
+            				tag: unidad,
+							NuevoNumero: NuevoNumero,
+							token: token,
+        				},
+					success: function(result)
+						{
+							alert(result)
+						}
+		  		});
+  			}
+		else
+			{
+    			alert("La operación se ha cancelado.");
+  			}
+	}
+
+function FunctionNuevaUbicacion(unidad) {
+  let text = "¿Está seguro de cambiar la ubicación de la unidad?";
+  if (confirm(text) == true) {
+
+	var URL = "UnidadCambiarNombre.php";
+	var Respuesta;
+	var NuevaUbicacion = document.getElementById("NuevaUbicacion").value;
+	var token = document.getElementById("password").value;
+	$.ajax({
+            url:URL, //the page containing php script
+            type: "post", //request
+			dataType: 'text',
+			  data: {
+            tag: unidad,
+			NuevaUbicacion: NuevaUbicacion,
+			token: token,
+        	},
+		    success: function(result){alert(result)}
+		  });
+
+  } else {
+    alert("La operación se ha cancelado.");
+  }
+}
+	
+function FunctionNuevoTipo(unidad) {
+  let text = "¿Está seguro de cambiar el tipo de unidad?";
+  if (confirm(text) == true) {
+
+	var URL = "UnidadCambiarTipo.php";
+	var Respuesta;
+	var e = document.getElementById("NuevoTipo");
+	var value = e.value;
+	var NuevoTipo = e.options[e.selectedIndex].text;
+	var token = document.getElementById("password").value;
+	$.ajax({
+            url:URL, //the page containing php script
+            type: "post", //request
+			dataType: 'text',
+			  data: {
+            tag: unidad,
+			NuevoTipo: NuevoTipo,
+			token: token,
+        	},
+		    success: function(result){alert(result)}
+		  });
+
+  } else {
+    alert("La operación se ha cancelado.");
+  }
+}	
+
+function FunctionNuevoCuartel( Id_unidad ) {
+  let text = "¿Está seguro de cambiar el tipo de unidad?";
+  if (confirm(text) == true) {
+
+
+	var e = document.getElementById("Cuarteles");
+	var Id_cuartel = e.value;
+
+	$.ajax({
+            url:"../ApiController/cuarteles/cuartelesUpdate.php", 
+            type: "post", 
+			dataType: 'text',
+			  data: {
+            Id: Id_cuartel,
+			Id_unidad: Id_unidad,
+
+        	},
+		    success: function(result){alert(result)}
+		  });
+
+  } else {
+    alert("La operación se ha cancelado.");
+  }
+}	
+	
+function FunctionEliminar(unidad) {
+  let text = "¿Está seguro de eliminar la unidad?";
+  if (confirm(text) == true) {
+
+	var URL = "UnidadEliminar.php";
+	var Respuesta;
+	var token = document.getElementById("password").value;
+	$.ajax({
+            url:URL, //the page containing php script
+            type: "post", //request 
+			dataType: 'text',
+			  data: {
+            tag: unidad,
+			token: token,
+        	},
+		    success: function(result){alert(result)}
+		  });	 
+
+  } else {
+    alert("La operación se ha cancelado.");
+  }
+}
+	
+function FunctionComandosMilesight(ComandoNombre, tag_unidad ) {
+  let text = "¿Está seguro de accionar la unidad?";
+  if (confirm(text) == true) {
+
+	var URL = "../ApiController/Postcomandos_milesight.php";
+	var token = document.getElementById("password").value;
+	$.ajax({
+            url:URL, //the page containing php script
+            type: "post", //request
+			dataType: 'text',
+			data: {
+            tag: tag_unidad,
+			nombre: ComandoNombre,
+			token: token,
+        	},
+		    success: function(result){alert(result)}
+		  });
+
+  } else {
+    alert("La operación se ha cancelado.");
+  }
+}
+
+function FunctionCambiarVolMax(unidad) {
+  let text = "¿Está seguro de cambiar el volumen máximo de la unidad?";
+  if (confirm(text) == true) {
+
+	var URL = "UnidadCambiarVolMax.php";
+	var NuevoVolMax = document.getElementById("VolMax").value;
+	var token = document.getElementById("password").value;
+	$.ajax({
+            url:URL, //the page containing php script
+            type: "post", //request
+			dataType: 'text',
+			  data: {
+            tag: unidad,
+			NuevoVolMax: NuevoVolMax,
+			token: token,
+        	},
+		    success: function(result){alert(result)}
+		  });
+
+  } else {
+    alert("La operación se ha cancelado.");
+  }
+}
+
+function FunctionCreateSMS(SMS,id_unidad) {
+  let text = "¿Está seguro de enviar un SMS?";
+  if (confirm(text) == true) {
+
+	var URL = "../Apicontroller/SMSToUnidades/SMSToUnidadesCreate.php";
+	var Respuesta;
+	var NuevoVolMax = document.getElementById("VolMax").value;
+	var token = document.getElementById("password").value;
+
+	var SMStoCreate = SMS == "InputSMS" ? document.getElementById("InputSMS").value : SMS;
+	$.ajax({
+            url:URL, //the page containing php script
+            type: "post", //request
+			dataType: 'text',
+			data: {
+            Id_unidad: id_unidad,
+			SMS: SMStoCreate,
+			token: token,
+        	},
+		    success: function(result){alert(result);}
+		  });
+
+  } else {
+    alert("La operación se ha cancelado.");
+  }
+}
+
+function FunctionDeleteSMS(Id_SMSToUnidades) {
+  let text = "¿Está seguro de eliminar un SMS?";
+  if (confirm(text) == true) {
+
+	var URL = "../Apicontroller/SMSToUnidades/SMSToUnidadesDelete.php";
+	var Respuesta;
+	var token = document.getElementById("password").value;
+
+	$.ajax({
+            url:URL, //the page containing php script
+            type: "post", //request
+			dataType: 'text',
+			data: {
+            Id: Id_SMSToUnidades,
+			token: token,
+        	},
+		    success: function(result){alert(result);}
+		  });
+
+  } else {
+    alert("La operación se ha cancelado.");
+  }
+}
+
