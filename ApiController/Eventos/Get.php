@@ -11,7 +11,7 @@ require_once $sitebasepath."/Model/model.php";
 $model = new Model();
 $tableName = 'eventos';
 
-$ArrayObj = $model->MYSQLSelect($tableName);
+$ArrayObj = $model->get_eventos();
 $return = json_encode( $ArrayObj ); 
     
 echo $return;
