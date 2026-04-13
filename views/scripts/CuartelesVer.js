@@ -363,7 +363,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 		clearInterval(myRefreshMain);
 
 		let tableHTML ='';
-		let [ Zonas, Cuarteles, Unidades, Checklists,Tipos] = await Promise.all([ GetZonas(),GetCuarteles(),GetUnidades(), GetChecklists(),GetUnidaTipo()]);
+		let [ Zonas, Cuarteles, Unidades, Checklists,Tipos,ChecklistsNew] = await Promise.all([ GetZonas(),GetCuarteles(),GetUnidades(), GetChecklists(),GetUnidaTipo(), GetChecklistsNew(),]);
 
 		var unidad;
 		var cuartel;
@@ -695,26 +695,29 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
      	 <div class="accordion-body">
     	<div class="overflow-auto">`;   
 
-			$sql = "SELECT * FROM `checklist` WHERE `id_unidad` like '{$unidadDbEntity->get_id()}'";
-			$result = $Model->executeSQL($sql);
-			if ($result->num_rows > 0) {
-			// output data of each row
-			$HtmlPage=$HtmlPage. '<script>let table = new DataTable("#TablaChecklist");</script>';
-			$HtmlPage=$HtmlPage. '<table id="TablaChecklist" class="display""><thead>
+			let table = new DataTable("#TablaChecklist");
+			
+			tableHTML += `<table id="TablaChecklist" class="display""><thead>
 			<th scope="col">ID</th>
 			<th scope="col">Técnico Responsable</th>
 			<th scope="col">Fecha</th>
 			<th scope="col"></th>
 			
-			</thead><tbody>';
-			while($row = $result->fetch_assoc()) {
-				$HtmlPage=$HtmlPage. "</td> <td>". $row["Id"]. "</td><td>" . $row["TecnicoResponsable"] ."</td> <td>". $row["Fecha"]."</td> <td><a href='unidadverCheckList.php?CheckList_Id=". $row["Id"]."'>Ver</a></td></tr>" ;}
-		$HtmlPage=$HtmlPage. '</tbody></table>';
-		$HtmlPage=$HtmlPage. "<script>
-		$(document).ready(function(){
+			</thead><tbody>`;
+
+			ChecklistsNew.forEach(rowC => {
+				if( rowC["id_unidad"] == Id_unidad )
+				{
+					tableHTML += `</td> <td>${rowC["Id"]}</td><td>${rowC["TecnicoResponsable"]}</td> <td>${rowC["Fecha"]}</td> <td><a href='unidadverCheckList.php?CheckList_Id="${rowC["Id"]}"'>Ver</a></td></tr>` ;
+				}	
+				
+			});
+				tableHTML += '</tbody></table>';
+			
+			$(document).ready(function(){
 			$('#TablaChecklist').dataTable();
-		});
-		</script>";
+			});
+			
 
 			tableHTML +='		  </div> '; // end overflow
  	   		tableHTML +='		  </div> '; // end Acordeon body

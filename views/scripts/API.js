@@ -86,6 +86,26 @@ async function GetChecklists()
 		
 
 	}
+
+async function GetChecklistsNew()
+	{
+		var URL = "https://smartbox.eco3.cl/apiController/checklist/get.php"
+		return $.ajax({
+            url:URL,    //the page containing php script
+            type: "get",    //request 
+			dataType:'json',
+			data:				
+			{     	
+				returnJson: 1,
+			},
+		}).then(function(response){
+      console.log("getRecord response: "+JSON.stringify(response));
+      return response;
+  	  });
+		
+
+	}	
+	
 	
 async function GetZonas()
 	{
