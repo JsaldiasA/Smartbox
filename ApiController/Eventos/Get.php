@@ -14,6 +14,6 @@ $tableName = 'eventos';
 $ArrayObj = $model->get_eventos();
 $return = json_encode( $ArrayObj ); 
     
-echo $return;
+echo var_dump($ArrayObj);
 
 ?>
