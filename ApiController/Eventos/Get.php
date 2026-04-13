@@ -9,9 +9,17 @@ $sitebasepath=$_SERVER['DOCUMENT_ROOT'];
 require_once $sitebasepath."/Model/model.php";
 
 $model = new Model();
-$tableName = 'eventos';
 
-$ArrayObj = $model->get_eventos();
+
+if(isset($_GET['tag'])) 
+{
+	$ArrayObj =  $model->MYSQLSelectWHERE('eventos','UNIDAD',$_GET['tag']);
+}  
+else
+{
+	$ArrayObj = $model->MYSQLSelect('eventos');
+}
+
 $return = json_encode( $ArrayObj ); 
     
 echo var_dump($ArrayObj);

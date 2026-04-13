@@ -1,6 +1,7 @@
 <?php
 class eventosDbEntity {
 
+	public $Id;
 	public $UNIDAD;
 	public $USUARIO1;
 	public $USUARIO2;
