@@ -175,7 +175,7 @@ async function GetMain(  )
 
 									tableHTML +='<tr>';
 									tableHTML += `<td> ${rowUnidades["Serie"]}</td>`;
-									tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
+									tableHTML += `<td> <button type="button" onclick="unidadVerPage(${unidad['Id']})" class="btn btn-primary btn-sm">${UnidadSerie}</button> </td>`;
 									tableHTML += `<td>${rowUr["ESTADO"]}</td>`;
 									tableHTML += `<td>${FieldActivity(rowUr["DATETIME"])}</td>`;
 									tableHTML += `<td>${FieldBattery(rowUr["VOLTAJE"])}</td>`;
@@ -189,7 +189,7 @@ async function GetMain(  )
 							{
 								tableHTML += '<tr >';
 								tableHTML += `<td> </td>`;
-								tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
+								tableHTML += `<td> <button type="button" onclick="unidadVerPage(${unidad['Id']})" class="btn btn-primary btn-sm">${UnidadSerie}</button> </td>`;
 								tableHTML += `<td>Milesight</td>`;
 								tableHTML += `<td></td>`;
 								tableHTML += `<td></td>`;
@@ -251,6 +251,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 									UnidadSerie = rowUnidades["Serie"];
 									UnidadTag = rowUnidades["tag"];
 									id_unidadTipo = rowUnidades["id_unidadTipo"];
+									unidad=rowUnidades;
 							}
 
 						});	
@@ -266,7 +267,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 
 									tableHTML +='<tr>';
 									tableHTML += `<td> ${row["Name"]}</td>`;
-									tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
+									tableHTML += `<td> <button type="button" onclick="unidadVerPage(${unidad['Id']})" class="btn btn-primary btn-sm">${UnidadSerie}</button> </td>`;
 									tableHTML += `<td>${rowUr["ESTADO"]}</td>`;
 									tableHTML += `<td>${FieldActivity(rowUr["DATETIME"])}</td>`;
 									tableHTML += `<td>${FieldBattery(rowUr["VOLTAJE"])}</td>`;
@@ -280,7 +281,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 							{
 								tableHTML += '<tr >';
 								tableHTML += `<td> ${row["Name"]}</td>`;
-								tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
+								tableHTML += `<td> <button type="button" onclick="unidadVerPage(${unidad['Id']})" class="btn btn-primary btn-sm">${UnidadSerie}</button> </td>`;
 								tableHTML += `<td>Milesight</td>`;
 								tableHTML += `<td></td>`;
 								tableHTML += `<td></td>`;
@@ -306,7 +307,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 				
 					UnidadSerie = rowUnidades["Serie"];
 					UnidadTag = rowUnidades["tag"];
-
+					unidad=rowUnidades;
 
 					if(rowUnidades["id_unidadTipo"] == null )
 					{	
@@ -319,7 +320,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 
 								tableHTML +='<tr>';
 								tableHTML += `<td> ${rowUnidades["Serie"]}</td>`;
-								tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
+								tableHTML += `<td> <button type="button" onclick="unidadVerPage(${unidad['Id']})" class="btn btn-primary btn-sm">${UnidadSerie}</button> </td>`;
 								tableHTML += `<td>${rowUr["ESTADO"]}</td>`;
 								tableHTML += `<td>${FieldActivity(rowUr["DATETIME"])}</td>`;
 								tableHTML += `<td>${FieldBattery(rowUr["VOLTAJE"])}</td>`;
@@ -334,7 +335,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 						{
 							tableHTML += '<tr >';
 							tableHTML += `<td> </td>`;
-							tableHTML += `<td> <a href='unidadver.php?tag=${UnidadTag}'>${UnidadSerie}</a></td>`;
+							tableHTML += `<td> <button type="button" onclick="unidadVerPage(${unidad['Id']})" class="btn btn-primary btn-sm">${UnidadSerie}</button> </td>`;
 							tableHTML += `<td>Milesight</td>`;
 							tableHTML += `<td></td>`;
 							tableHTML += `<td></td>`;
@@ -422,7 +423,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 			tableHTML += '<tr>';
 			tableHTML += `<td>${unidad["Serie"]}</td>`;
 			tableHTML += `<td>${unidad["tag"]}</td>`;
-			tableHTML += `<td>${cuartel["Name"] ?? 'Sin Cuartel' }</td>`;
+			tableHTML += `<td>${ cuartel ? cuartel["Name"] :'Sin Cuartel' }</td>`;
 			tableHTML += '</tr>';
 			tableHTML += `</tbody>`;
 			tableHTML += `</table>`;
@@ -694,6 +695,27 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
      	 <div class="accordion-body">
     	<div class="overflow-auto">`;   
 
+			$sql = "SELECT * FROM `checklist` WHERE `id_unidad` like '{$unidadDbEntity->get_id()}'";
+			$result = $Model->executeSQL($sql);
+			if ($result->num_rows > 0) {
+			// output data of each row
+			$HtmlPage=$HtmlPage. '<script>let table = new DataTable("#TablaChecklist");</script>';
+			$HtmlPage=$HtmlPage. '<table id="TablaChecklist" class="display""><thead>
+			<th scope="col">ID</th>
+			<th scope="col">Técnico Responsable</th>
+			<th scope="col">Fecha</th>
+			<th scope="col"></th>
+			
+			</thead><tbody>';
+			while($row = $result->fetch_assoc()) {
+				$HtmlPage=$HtmlPage. "</td> <td>". $row["Id"]. "</td><td>" . $row["TecnicoResponsable"] ."</td> <td>". $row["Fecha"]."</td> <td><a href='unidadverCheckList.php?CheckList_Id=". $row["Id"]."'>Ver</a></td></tr>" ;}
+		$HtmlPage=$HtmlPage. '</tbody></table>';
+		$HtmlPage=$HtmlPage. "<script>
+		$(document).ready(function(){
+			$('#TablaChecklist').dataTable();
+		});
+		</script>";
+
 			tableHTML +='		  </div> '; // end overflow
  	   		tableHTML +='		  </div> '; // end Acordeon body
     		tableHTML +='		  </div> '; // end collapseZero
@@ -881,7 +903,7 @@ function FunctionNuevoCuartel( Id_unidad ) {
 	var Id_cuartel = e.value;
 
 	$.ajax({
-            url:"../ApiController/cuarteles/cuartelesUpdate.php", 
+            url:"https://smartbox.eco3.cl/ApiController/cuarteles/cuartelesUpdate.php", 
             type: "post", 
 			dataType: 'text',
 			  data: {
@@ -924,7 +946,7 @@ function FunctionComandosMilesight(ComandoNombre, tag_unidad ) {
   let text = "¿Está seguro de accionar la unidad?";
   if (confirm(text) == true) {
 
-	var URL = "../ApiController/Postcomandos_milesight.php";
+	var URL = "https://smartbox.eco3.cl/ApiController/Postcomandos_milesight.php";
 	var token = document.getElementById("password").value;
 	$.ajax({
             url:URL, //the page containing php script
@@ -971,7 +993,7 @@ function FunctionCreateSMS(SMS,id_unidad) {
   let text = "¿Está seguro de enviar un SMS?";
   if (confirm(text) == true) {
 
-	var URL = "../Apicontroller/SMSToUnidades/SMSToUnidadesCreate.php";
+	var URL = "https://smartbox.eco3.cl/Apicontroller/SMSToUnidades/SMSToUnidadesCreate.php";
 	var Respuesta;
 	var NuevoVolMax = document.getElementById("VolMax").value;
 	var token = document.getElementById("password").value;
@@ -998,7 +1020,7 @@ function FunctionDeleteSMS(Id_SMSToUnidades) {
   let text = "¿Está seguro de eliminar un SMS?";
   if (confirm(text) == true) {
 
-	var URL = "../Apicontroller/SMSToUnidades/SMSToUnidadesDelete.php";
+	var URL = "https://smartbox.eco3.cl/Apicontroller/SMSToUnidades/SMSToUnidadesDelete.php";
 	var Respuesta;
 	var token = document.getElementById("password").value;
 
