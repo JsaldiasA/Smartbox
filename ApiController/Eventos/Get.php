@@ -22,6 +22,6 @@ else
 
 $return = json_encode( $ArrayObj ); 
     
-echo var_dump($ArrayObj);
+echo $return;
 
 ?>
