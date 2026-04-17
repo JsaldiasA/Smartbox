@@ -105,6 +105,25 @@ async function GetChecklistsNew()
 		
 
 	}	
+
+async function GetEventosBytag( tag )
+	{
+		var URL = "https://smartbox.eco3.cl/apiController/eventos/get.php"
+		return $.ajax({
+            url:URL,    //the page containing php script
+            type: "get",    //request 
+			dataType:'json',
+			data:				
+			{     	
+				tag: tag,
+			},
+		}).then(function(response){
+      console.log("getRecord response: "+JSON.stringify(response));
+      return response;
+  	  });
+		
+
+	}		
 	
 	
 async function GetZonas()

@@ -13,8 +13,6 @@ $Model = $Page->get_Model();
 //    '<style>body{background-color: #191919; color: #FFFFFF}</style>
 //        <style>.container{background-color: #292929;color: #FFFFFF; padding: 20px; border-radius: 8px;}</style>';
 
-
-
     $HtmlPage='
 
     <script src="/views/scripts/API.js"></script>
@@ -36,8 +34,7 @@ $Model = $Page->get_Model();
     </div>';
 
 
-
-            $Page->set_PageHTML($HtmlPage);
-            echo $Page->get_PageHTML();
+    $Page->set_PageHTML($HtmlPage);
+    echo $Page->get_PageHTML();
 
     ?>

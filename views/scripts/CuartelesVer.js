@@ -1,24 +1,35 @@
 
+var  RefreshIntervals_Ids = [];
+
 GetMain();
 
-var myRefreshMain = setInterval(GetMain, 5000);
 
 async function GetMain(  )
 	{
+		// clean an set intervals
+		RefreshIntervals_Ids.forEach(interval_ID => {
+
+		clearInterval(interval_ID)
+
+		});	
+
+		RefreshIntervals_Ids.push(setInterval(GetMain, 5000));
 
 		let [UltimosRegistros, Zonas, Cuarteles, Unidades] = await Promise.all([GetUltimosRegistros(), GetZonas(),GetCuarteles(),GetUnidades()]);
 
+		let tableHTML = '';
+		//render titulo
+		document.getElementById('main').innerHTML = GetTituloCuarteles();
+
 		var e = document.getElementById("filtro");
 		var filtroValue = e.options[e.selectedIndex].value;  
-
-		let tableHTML = '';
-		
+	
 		switch ( filtroValue ) 
 		{
 		case 'all':
 
 			Zonas.forEach(rowZona => {
-
+			
 			tableHTML += '	<div class="row pb-3">';
 			tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
 			tableHTML += `    <h2><b>${rowZona["Name"]}</b></h2> `;
@@ -211,7 +222,7 @@ async function GetMain(  )
 			// Code to execute if no match is found
 		}
 
-		document.getElementById('main').innerHTML= tableHTML;
+		document.getElementById('main').innerHTML += tableHTML;
 
 	}
 
@@ -360,10 +371,17 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 
 	async function unidadVerPage ( Id_unidad )
 	{
-		clearInterval(myRefreshMain);
+		// clean an set intervals
+		RefreshIntervals_Ids.forEach(interval_ID => {
+
+		clearInterval(interval_ID)
+
+		});	
+
+	
 
 		let tableHTML ='';
-		let [ Zonas, Cuarteles, Unidades, Checklists,Tipos,ChecklistsNew] = await Promise.all([ GetZonas(),GetCuarteles(),GetUnidades(), GetChecklists(),GetUnidaTipo(), GetChecklistsNew(),]);
+		let [ Zonas, Cuarteles, Unidades, Checklists,Tipos,ChecklistsNew] = await Promise.all([ GetZonas(),GetCuarteles(),GetUnidades(), GetChecklists(),GetUnidaTipo(), GetChecklistsNew()]);
 
 		var unidad;
 		var cuartel;
@@ -379,6 +397,10 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 			}		
 	
 		});	
+
+		// get eventos
+
+		let eventos = await GetEventosBytag(unidad["tag"]);
 
 		//buscar cuartel
 
@@ -411,8 +433,13 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 
 			tableHTML += '	<div class="row pb-3">';
 			tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
-			tableHTML += `    <h2><b>${unidad["Serie"]}</b></h2> `;
-
+			tableHTML += '<div class="col">';
+			tableHTML += ` <h2><b>${unidad["Serie"]}</b></h2> `;
+			tableHTML += '</div>';
+			tableHTML += '<div class="col align-self-center">';
+			tableHTML += ` <button type="button" class="btn btn-primary" onclick=VolverCuartelesMain() > Volver <i class="bi bi-arrow-left"></i> </button> `;
+			tableHTML += '</div>';
+			    
 			tableHTML += '<table class="table text-nowrap"><thead><tr>';
 			tableHTML += `<th scope="col"> Serie </th>`;
 			tableHTML += `<th scope="col"> Imei </th>`;
@@ -435,7 +462,6 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 			// row checklist & ultima actualizacion
 
 			tableHTML += '	<div class="row pb-3 shadow border">';
-			
 
 			if( checklist )
 			{
@@ -494,7 +520,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 				tableHTML += '</div>';
 
 				// inicialize refresh thread every 1 second
-				var myRefreshStatusTable = setInterval(GetStatusTable, 1000, unidad["Id"] );
+				RefreshIntervals_Ids.push(setInterval(GetStatusTable, 1000, unidad["Id"]));
 			}
 
 			tableHTML += '    </div>      ';  // col end ultimo checklits & ultima actualizacion	
@@ -510,7 +536,8 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
       		tableHTML += ' <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseZero" aria-expanded="false" aria-controls="collapseZero"> Control </button> </h2>';
        					 			
             tableHTML += '<div id="collapseZero" class="accordion-collapse collapse" aria-labelledby="headingZero" data-bs-parent="#accordionExample">';
-            tableHTML += '<div class="accordion-body">'; // accordion body
+            
+			tableHTML += '<div class="accordion-body">'; // accordion body
 			tableHTML += '<div class="overflow-auto">'; // overflow
 
 			if( !IsSirecor(unidad["id_unidadTipo"]) )
@@ -542,7 +569,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 
 				
 				tableHTML +='<div id="SMSTable" ></div>'; // sms table from post javascript 
-				var myRefreshSMSTable = setInterval(GetSMSTable, 1000, unidad["Id"] );
+				RefreshIntervals_Ids.push(setInterval(GetSMSTable, 1000, unidad["Id"] ));
 
 				tableHTML += '<table class="table" > <thead >';
 				tableHTML += '<th scope="col">SMS</th>';
@@ -587,7 +614,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 	tableHTML +=`
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" >
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"  >
         Registros diarios
       </button>
     </h2>
@@ -595,6 +622,9 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
       <div class="accordion-body">
 		`;
 	// TABLA REGISTROS DIARIOS
+
+	
+
 	tableHTML += `<button type="button" onclick="GetRegistrosDiariosTable(${unidad["Id"]})" class="btn btn-primary" >Refrescar</button>`;
 	tableHTML += '<div class="overflow-auto"> <div id="RegistrosDiariosTable"></div>  </div>';
 
@@ -614,10 +644,33 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
       <div class="accordion-body">
 		<div class="overflow-auto">`;
 
-			tableHTML +='		  </div> '; // end overflow
-			tableHTML +='		  </div> '; // end Acordeon body
-    		tableHTML +='		  </div> '; // end collapseZero
-  			tableHTML +='		  </div> '; // end Acordeon-item CONTROL
+		let tableE = new DataTable("#TablaEventos");
+
+		tableHTML += `<table id="TablaEventos" class="display""><thead>
+		<th scope="col">UNIDAD</th>
+		<th scope="col">INTERNET</th>
+		<th scope="col">VerCodigo</th>
+		<th scope="col">TipoBat</th>
+		<th scope="col">TIPO</th>
+		<th scope="col">TIMESTAMP</th>
+			
+		</thead><tbody>`;
+
+		eventos.forEach(rowE => {
+
+			tableHTML += `<tr> <td>${rowE["UNIDAD"]}</td><td>${rowE["INTERNET"]}</td> <td>${rowE["VerCodigo"]}</td> <td>${rowE["TipoBat"]}</td> <td>${rowE["TIPO"]}</td> <td>${rowE["TIMESTAMP"]}</td> </tr>` ;
+				
+		});
+		tableHTML += '</tbody></table>';
+			
+		$(document).ready(function(){
+		$('#TablaEventos').dataTable();
+		});
+
+		tableHTML +='		  </div> '; // end overflow
+		tableHTML +='		  </div> '; // end Acordeon body
+    	tableHTML +='		  </div> '; // end collapseZero
+  		tableHTML +='		  </div> '; // end Acordeon-item CONTROL
 
 		//	accordion Registros de Edición	
 
@@ -696,7 +749,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
     	<div class="overflow-auto">`;   
 
 			let table = new DataTable("#TablaChecklist");
-			
+
 			tableHTML += `<table id="TablaChecklist" class="display""><thead>
 			<th scope="col">ID</th>
 			<th scope="col">Técnico Responsable</th>
@@ -737,7 +790,13 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 			tableHTML += '</div> '; // row
 		}	
 
-		document.getElementById('main').innerHTML= tableHTML;
+		document.getElementById('main').innerHTML = tableHTML;
+
+		const myCollapsible = document.getElementById('collapseTwo');
+		myCollapsible.addEventListener('shown.bs.collapse', function () {
+		// Your custom function logic goes here
+		GetRegistrosDiariosTable(unidad["Id"]);
+	});
 
 	}
 
@@ -756,6 +815,28 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 		
 		document.getElementById("StatusTable").innerHTML= tableHTML;
 	}	
+
+
+	function GetTituloCuarteles(  )
+	{
+
+		return `      <div class="row">
+            <div class="col">
+                <br><h1>Unidades</h1><br>
+            </div>
+            <div class="col align-self-center">
+               <select class="form-select" id="filtro">
+                <option value="all" >Por zona</option>
+                <option value="sirecor" selected >Solo Sirecor</option>
+                <option value="milesight" >Solo milesight</option>
+                <option value="sin cuartel" >Sin cuartel</option>
+                <option value="indefinidas" >indefinidas</option>
+                </select>
+            </div>
+        </div>`;
+		
+	}	
+
 
 	function IsSirecor( Id_UnidadTipo )
 	{
@@ -1043,3 +1124,8 @@ function FunctionDeleteSMS(Id_SMSToUnidades) {
   }
 }
 
+function VolverCuartelesMain()
+{
+	GetMain();
+
+}
