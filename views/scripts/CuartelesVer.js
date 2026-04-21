@@ -3,9 +3,8 @@ var  RefreshIntervals_Ids = [];
 
 GetMain();
 
-
 async function GetMain(  )
-	{
+	{	
 		// clean an set intervals
 		RefreshIntervals_Ids.forEach(interval_ID => {
 
@@ -13,13 +12,21 @@ async function GetMain(  )
 
 		});	
 
-		RefreshIntervals_Ids.push(setInterval(GetMain, 5000));
+		document.getElementById('main').innerHTML = GetTituloCuarteles();
 
+		// data table
+		document.getElementById('main').innerHTML += `<div id="CuartelesMainTable" > <div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div> </div>`;
+
+		RefreshIntervals_Ids.push(setInterval(GetCuartelesMainTable, 1000,'CuartelesMainTable' ));
+
+	}	
+
+async function GetCuartelesMainTable( HtmlElementId  )
+	{
+		
 		let [UltimosRegistros, Zonas, Cuarteles, Unidades] = await Promise.all([GetUltimosRegistros(), GetZonas(),GetCuarteles(),GetUnidades()]);
 
 		let tableHTML = '';
-		//render titulo
-		document.getElementById('main').innerHTML = GetTituloCuarteles();
 
 		var e = document.getElementById("filtro");
 		var filtroValue = e.options[e.selectedIndex].value;  
@@ -222,163 +229,110 @@ async function GetMain(  )
 			// Code to execute if no match is found
 		}
 
-		document.getElementById('main').innerHTML += tableHTML;
+		document.getElementById( HtmlElementId ).innerHTML = tableHTML;
 
 	}
 
 function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades,UltimosRegistros  )
 	{
-			let tableHTML = '';
+			let HTML = '';
 
-			tableHTML += '	<div class="row pb-3">';
-			tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
-			tableHTML += `    <h2><b>${Titulo}</b></h2> `;
-			tableHTML += '   <div class="overflow-auto">';
-				
-			tableHTML += '<table class="table text-nowrap"><thead><tr>';
-			tableHTML += `<th scope="col"><i class="bi bi-pin-map"></i></th>`;
-			tableHTML += `<th scope="col"><i class="bi bi-motherboard"></i></i></th>`;
-			tableHTML += `<th scope="col"></th>`;
-			tableHTML += `<th scope="col"><i class="bi bi-activity"></i></th>`;
-			tableHTML += `<th scope="col"><i class="bi bi-lightning-fill"></i></th>`;
-			tableHTML += `<th scope="col">[L/m]</th>`;
-			tableHTML += `<th scope="col">[L]</th>`;
-			tableHTML += `</thead>`;
-
+			HTML += '	<div class="row pb-3">';
+			HTML += ' <div class="col p-3 card shadow p-3 card shadow">';
+			HTML += `    <h2><b>${Titulo}</b></h2> `;
+			HTML += '   <div class="overflow-auto">';
+	
 			// Create table body rows
+
+			let UnidadesFiltradas = [];
+
 			Cuarteles.forEach(row => {
 
-					if(row["Id_unidad"]!= null )
-					{   
-						
-						let HasRegistrio = false;
-						let UnidadSerie = '';
-						let UnidadTag = ''; 
-						var id_unidadTipo = '';
+				let unidad;
 
-						Unidades.forEach(rowUnidades => {
-							if(row["Id_unidad"] == rowUnidades["Id"])
-							{
-									UnidadSerie = rowUnidades["Serie"];
-									UnidadTag = rowUnidades["tag"];
-									id_unidadTipo = rowUnidades["id_unidadTipo"];
-									unidad=rowUnidades;
-							}
-
-						});	
-
-						if( id_unidadTipo == unidadTipo )
-						{	
-							UltimosRegistros.forEach(rowUr => {
-							
-								if(row["Id_unidad"] == rowUr["unidad_id"])
-								{
-									HasRegistrio=true;
-
-
-									tableHTML +='<tr>';
-									tableHTML += `<td> ${row["Name"]}</td>`;
-									tableHTML += `<td> <button type="button" onclick="unidadVerPage(${unidad['Id']})" class="btn btn-primary btn-sm">${UnidadSerie}</button> </td>`;
-									tableHTML += `<td>${rowUr["ESTADO"]}</td>`;
-									tableHTML += `<td>${FieldActivity(rowUr["DATETIME"])}</td>`;
-									tableHTML += `<td>${FieldBattery(rowUr["VOLTAJE"])}</td>`;
-									tableHTML += `<td>${rowUr["CAUDAL"]}</td>`;
-									tableHTML += `<td>${rowUr["VOLUMEN"]}</td>`;
-								}	
-							
-							})
-
-							if(!HasRegistrio)
-							{
-								tableHTML += '<tr >';
-								tableHTML += `<td> ${row["Name"]}</td>`;
-								tableHTML += `<td> <button type="button" onclick="unidadVerPage(${unidad['Id']})" class="btn btn-primary btn-sm">${UnidadSerie}</button> </td>`;
-								tableHTML += `<td>Milesight</td>`;
-								tableHTML += `<td></td>`;
-								tableHTML += `<td></td>`;
-								tableHTML += `<td></td>`;
-								tableHTML += `<td></td>`;
-								tableHTML += '</tr>';
-							}
-						}	
-					}
-
-			});
-
-			// para unidades indefinidas unidadTipo = null
-
-			if(unidadTipo == null)
-			{
-									
-				Unidades.forEach(rowUnidades => {
-
+				if(row["Id_unidad"]!= null )
+				{   
+					
 					let HasRegistrio = false;
-					let UnidadSerie = '';
-					let UnidadTag = ''; 
-				
-					UnidadSerie = rowUnidades["Serie"];
-					UnidadTag = rowUnidades["tag"];
-					unidad=rowUnidades;
 
-					if(rowUnidades["id_unidadTipo"] == null )
-					{	
+					Unidades.forEach(rowUnidades => {
+						if(row["Id_unidad"] == rowUnidades["Id"])
+						{
+							unidad=rowUnidades;	
+						}
+					});	
+					if( unidad["id_unidadTipo"] == unidadTipo )
+					{
 						UltimosRegistros.forEach(rowUr => {
-								
-							if(rowUnidades["Id"] == rowUr["unidad_id"])
+							if(row["Id_unidad"] == rowUr["unidad_id"])
 							{
 								HasRegistrio=true;
-
-
-								tableHTML +='<tr>';
-								tableHTML += `<td> ${rowUnidades["Serie"]}</td>`;
-								tableHTML += `<td> <button type="button" onclick="unidadVerPage(${unidad['Id']})" class="btn btn-primary btn-sm">${UnidadSerie}</button> </td>`;
-								tableHTML += `<td>${rowUr["ESTADO"]}</td>`;
-								tableHTML += `<td>${FieldActivity(rowUr["DATETIME"])}</td>`;
-								tableHTML += `<td>${FieldBattery(rowUr["VOLTAJE"])}</td>`;
-								tableHTML += `<td>${rowUr["CAUDAL"]}</td>`;
-								tableHTML += `<td>${rowUr["VOLUMEN"]}</td>`;
-										
-							}
-
-						})
-
+								let UnidadDataTable = {unidad: unidad ,ultimoRegistro: rowUr,cuartel: row };
+								UnidadesFiltradas.push( UnidadDataTable );
+							}	
+						});
 						if(!HasRegistrio)
 						{
-							tableHTML += '<tr >';
-							tableHTML += `<td> </td>`;
-							tableHTML += `<td> <button type="button" onclick="unidadVerPage(${unidad['Id']})" class="btn btn-primary btn-sm">${UnidadSerie}</button> </td>`;
-							tableHTML += `<td>Milesight</td>`;
-							tableHTML += `<td></td>`;
-							tableHTML += `<td></td>`;
-							tableHTML += `<td></td>`;
-							tableHTML += `<td></td>`;
-							tableHTML += '</tr>';
+							let UnidadDataTable = {unidad: unidad ,ultimoRegistro: null,cuartel: row };
+							UnidadesFiltradas.push( UnidadDataTable );
 						}
+					}	
+				}
+			});
 
-					}
+			UnidadesFiltradas.sort((a, b) => Date.parse(b["unidad"]["UltimaActualizacion"]) - Date.parse(a["unidad"]["UltimaActualizacion"]) ); 
 
-				});	
-			
-			}
+			HTML += RenderUnidadTable( UnidadesFiltradas );
 
-			tableHTML += '</tbody></table>';
-			tableHTML += '          </div>';// div overflow
-			tableHTML += '    </div>      ';  // col
-			tableHTML += '</div>'; // row
+			HTML += '          </div>';// div overflow
+			HTML += '    </div>      ';  // col
+			HTML += '</div>'; // row
 
-		return tableHTML;
+		return HTML;
+	}
+
+	function RenderUnidadTable ( UnidadArray )
+	{
+		let table;
+		
+		table = '<table class="table text-nowrap"><tr>';
+		table += '<tr>';
+		table += `<th scope="col"><i class="bi bi-pin-map"></i></th>`;
+		table += `<th scope="col"><i class="bi bi-motherboard"></i></i></th>`;
+		table += `<th scope="col"></th>`;
+		table += `<th scope="col"><i class="bi bi-activity"></i></th>`;
+		table += `<th scope="col"><i class="bi bi-lightning-fill"></i></th>`;
+		table += `<th scope="col">[L/m]</th>`;
+		table += `<th scope="col">[L]</th>`;
+		table += `</tr>`;
+
+		UnidadArray.forEach(rowU => {
+					
+			table +='<tr>';
+			table += `<td> ${rowU["cuartel"]["Name"]}</td>`;
+			table += `<td> <button type="button" onclick="unidadVerPage(${rowU['unidad']['Id']})" class="btn btn-primary btn-sm">${rowU['unidad']['Serie']}</button> </td>`;
+			table += `<td>${rowU['ultimoRegistro'] ? rowU["ultimoRegistro"]["ESTADO"] : ''}</td>`;
+			table += `<td>${rowU['ultimoRegistro'] ? FieldActivity(rowU['ultimoRegistro']["DATETIME"]) : ''}</td>`;
+			table += `<td>${rowU['ultimoRegistro'] ? FieldBattery(rowU['ultimoRegistro']["VOLTAJE"]) : ''}</td>`;
+			table += `<td>${ rowU['ultimoRegistro'] ? rowU['ultimoRegistro']["CAUDAL"]  : ''}</td>`;
+			table += `<td>${ rowU['ultimoRegistro'] ?  rowU['ultimoRegistro']["VOLUMEN"] : ''}</td>`;
+			table += '</tr>';
+		})
+
+		table += '</table>';
+
+		return table;
 	}
 
 	async function unidadVerPage ( Id_unidad )
 	{
+		document.getElementById('main').innerHTML = `<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>`;
 		// clean an set intervals
 		RefreshIntervals_Ids.forEach(interval_ID => {
 
 		clearInterval(interval_ID)
 
 		});	
-
-	
 
 		let tableHTML ='';
 		let [ Zonas, Cuarteles, Unidades, Checklists,Tipos,ChecklistsNew] = await Promise.all([ GetZonas(),GetCuarteles(),GetUnidades(), GetChecklists(),GetUnidaTipo(), GetChecklistsNew()]);
@@ -425,8 +379,6 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 			}						
 		});	
 
-
-
 		if( unidad ) 
 		{
 			// first row
@@ -454,7 +406,6 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 			tableHTML += '</tr>';
 			tableHTML += `</tbody>`;
 			tableHTML += `</table>`;
-			
 			
 			tableHTML += '    </div>      ';  // col
 			tableHTML += '</div>'; // end first row
@@ -541,7 +492,8 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 			tableHTML += '<div class="overflow-auto">'; // overflow
 
 			if( !IsSirecor(unidad["id_unidadTipo"]) )
-			{	
+			{
+
 			//	tableHTML += '<table class="table" > <thead >';
 			//	tableHTML += '<th scope="col">Control</th>';
 			//	tableHTML += '<th scope="col"></th>';
@@ -563,11 +515,11 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 			//	tableHTML += `<td><button type="button" onclick="FunctionComandosMilesight('Cerrar V1','${unidad["tag"]}')" class="btn btn-primary" ${DisabledCerrar}  >Cerrar</button></td>`;
 			//	tableHTML += `<td><button type="button" onclick="FunctionComandosMilesight('Reset Count','${unidad["tag"]}')" class="btn btn-primary">Reiniciar Contador</button></td><tr>`;
 			//	tableHTML += '</tbody></table>';
+
 			}
 
 			else{
-
-				
+	
 				tableHTML +='<div id="SMSTable" ></div>'; // sms table from post javascript 
 				RefreshIntervals_Ids.push(setInterval(GetSMSTable, 1000, unidad["Id"] ));
 
@@ -611,49 +563,46 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
   			tableHTML +='		  </div> '; // end Acordeon-item CONTROL
         
 		//	accordion ITEM Registros DIARIOS
-	tableHTML +=`
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingOne">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"  >
-        Registros diarios
-      </button>
-    </h2>
-    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-		`;
-	// TABLA REGISTROS DIARIOS
+		tableHTML +=`
+  		<div class="accordion-item">
+   		 <h2 class="accordion-header" id="headingOne">
+   		<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"  >
+  	    Registros diarios
+ 	    </button>
+	    </h2>
+	    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+  	    <div class="accordion-body">`;
 
-	
+		// TABLA REGISTROS DIARIOS
 
-	tableHTML += `<button type="button" onclick="GetRegistrosDiariosTable(${unidad["Id"]})" class="btn btn-primary" >Refrescar</button>`;
-	tableHTML += '<div class="overflow-auto"> <div id="RegistrosDiariosTable"></div>  </div>';
+		tableHTML += `<button type="button" onclick="GetRegistrosDiariosTable(${unidad["Id"]})" class="btn btn-primary" >Refrescar</button>`;
+		tableHTML += '<div class="overflow-auto"> <div id="RegistrosDiariosTable"></div>  </div>';
 
-			tableHTML +='		  </div> '; // end Acordeon body
-    		tableHTML +='		  </div> '; // end collapseZero
-  			tableHTML +='		  </div> '; // end Acordeon-item Registros DIARIOS
+		tableHTML +='	</div>	 '; // end Acordeon body
+    	tableHTML +='	</div>	 '; // end collapseZero
+  		tableHTML +='   </div>	 '; // end Acordeon-item Registros DIARIOS
 
-	//	accordion Registros de iniciación		
-  tableHTML +=`
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingTwo">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+		//	accordion Registros de iniciación		
+  		tableHTML +=`
+  		<div class="accordion-item">
+    	<h2 class="accordion-header" id="headingTwo">
+     	<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
         Registros de iniciación
-      </button>
-    </h2>
-    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
+      	</button>
+    	</h2>
+    	<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+      	<div class="accordion-body">
 		<div class="overflow-auto">`;
 
 		let tableE = new DataTable("#TablaEventos");
 
 		tableHTML += `<table id="TablaEventos" class="display""><thead>
-		<th scope="col">UNIDAD</th>
-		<th scope="col">INTERNET</th>
-		<th scope="col">VerCodigo</th>
-		<th scope="col">TipoBat</th>
-		<th scope="col">TIPO</th>
-		<th scope="col">TIMESTAMP</th>
-			
+				<th scope="col">UNIDAD</th>
+				<th scope="col">INTERNET</th>
+				<th scope="col">VerCodigo</th>
+				<th scope="col">TipoBat</th>
+				<th scope="col">TIPO</th>
+				<th scope="col">TIMESTAMP</th>	
 		</thead><tbody>`;
 
 		eventos.forEach(rowE => {
@@ -706,16 +655,16 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 		
 				Tipos.forEach(rowTipo => {
 											
-					 tableHTML += `<option value='${rowTipo["Id"]}'>${rowTipo["Name"]}</option>`;
+					tableHTML += `<option value='${rowTipo["Id"]}'>${rowTipo["Name"]}</option>`;
 								
 				});	
 				
-				 tableHTML += "<option value='NULL'>Unidad Indefinida</option>";
-				 tableHTML += '</select>';
-				 tableHTML += '</div>';
+				tableHTML += "<option value='NULL'>Unidad Indefinida</option>";
+				tableHTML += '</select>';
+				tableHTML += '</div>';
 				
-				 tableHTML += '<div class="subContainer">';
-				 tableHTML += `<button onclick="FunctionNuevoCuartel((${unidad["Id"]})" class="btn btn-secondary">Editar</button>`;
+				tableHTML += '<div class="subContainer">';
+				tableHTML += `<button onclick="FunctionNuevoCuartel((${unidad["Id"]})" class="btn btn-secondary">Editar</button>`;
 				tableHTML += ' <select name="Cuarteles" id="Cuarteles" required>';
 
 				Cuarteles.forEach(rowCuarteles => {
@@ -724,12 +673,12 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 								
 				});	
 				 
-				 tableHTML += '</select>';
-				 tableHTML += '</div>';
+				tableHTML += '</select>';
+				tableHTML += '</div>';
 
-				 tableHTML += '<div class="subContainer">';
-				 tableHTML += `<button onclick="FunctionEliminar('${unidad["tag"]}')" class="btn btn-danger">Eliminar</button> Eliminar unidad...`;
-				 tableHTML += '</div>';   // Función para eliminar unidad.
+				tableHTML += '<div class="subContainer">';
+				tableHTML += `<button onclick="FunctionEliminar('${unidad["tag"]}')" class="btn btn-danger">Eliminar</button> Eliminar unidad...`;
+				tableHTML += '</div>';   // Función para eliminar unidad.
 				
    			tableHTML +='		  </div> '; // end Acordeon body
     		tableHTML +='		  </div> '; // end collapseZero
@@ -745,7 +694,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
       	</button>
     	</h2>
     	<div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-     	 <div class="accordion-body">
+     	<div class="accordion-body">
     	<div class="overflow-auto">`;   
 
 			let table = new DataTable("#TablaChecklist");
@@ -816,7 +765,6 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 		document.getElementById("StatusTable").innerHTML= tableHTML;
 	}	
 
-
 	function GetTituloCuarteles(  )
 	{
 
@@ -836,7 +784,6 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
         </div>`;
 		
 	}	
-
 
 	function IsSirecor( Id_UnidadTipo )
 	{
@@ -926,15 +873,15 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
   			}
 	}
 
-function FunctionNuevaUbicacion(unidad) {
-  let text = "¿Está seguro de cambiar la ubicación de la unidad?";
-  if (confirm(text) == true) {
+	function FunctionNuevaUbicacion(unidad) {
+  		let text = "¿Está seguro de cambiar la ubicación de la unidad?";
+  		if (confirm(text) == true) {
 
-	var URL = "UnidadCambiarNombre.php";
-	var Respuesta;
-	var NuevaUbicacion = document.getElementById("NuevaUbicacion").value;
-	var token = document.getElementById("password").value;
-	$.ajax({
+		var URL = "UnidadCambiarNombre.php";
+		var Respuesta;
+		var NuevaUbicacion = document.getElementById("NuevaUbicacion").value;
+		var token = document.getElementById("password").value;
+		$.ajax({
             url:URL, //the page containing php script
             type: "post", //request
 			dataType: 'text',
@@ -946,14 +893,15 @@ function FunctionNuevaUbicacion(unidad) {
 		    success: function(result){alert(result)}
 		  });
 
-  } else {
-    alert("La operación se ha cancelado.");
-  }
-}
+  		} else {
+   		 alert("La operación se ha cancelado.");
+  		}
+	}
 	
 function FunctionNuevoTipo(unidad) {
-  let text = "¿Está seguro de cambiar el tipo de unidad?";
-  if (confirm(text) == true) {
+
+  	let text = "¿Está seguro de cambiar el tipo de unidad?";
+  	if (confirm(text) == true) {
 
 	var URL = "UnidadCambiarTipo.php";
 	var Respuesta;
@@ -961,21 +909,22 @@ function FunctionNuevoTipo(unidad) {
 	var value = e.value;
 	var NuevoTipo = e.options[e.selectedIndex].text;
 	var token = document.getElementById("password").value;
-	$.ajax({
-            url:URL, //the page containing php script
-            type: "post", //request
-			dataType: 'text',
-			  data: {
-            tag: unidad,
-			NuevoTipo: NuevoTipo,
-			token: token,
-        	},
-		    success: function(result){alert(result)}
-		  });
 
-  } else {
-    alert("La operación se ha cancelado.");
-  }
+	$.ajax({
+        url:URL, //the page containing php script
+        type: "post", //request
+		dataType: 'text',
+		  data: {
+        tag: unidad,
+		NuevoTipo: NuevoTipo,
+		token: token,
+    	},
+	    success: function(result){alert(result)}
+	  });
+  	} else {
+   		alert("La operación se ha cancelado.");
+  	}
+
 }	
 
 function FunctionNuevoCuartel( Id_unidad ) {
