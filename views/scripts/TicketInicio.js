@@ -14,7 +14,7 @@ async function GetMain(  )
 
 		// data table
 		document.getElementById(`main`).innerHTML += `<div id="mainTableTicket" ></div>`;
-
+		GetTicketsMainTable('mainTableTicket');
 		RefreshIntervals_Ids.push(setInterval(GetTicketsMainTable, 5000,`mainTableTicket` ));
 
 	}	
@@ -146,7 +146,7 @@ async function TicketVerPage ( Id_ticket )
 		tableHTML += `</tbody></table>`;
 		tableHTML += `<div class="row">`;
 
-		tableHTML += `<button type="button" class="btn btn-danger" onclick="FunctionDeleteTicket()">Cerrar Ticket</button>`;
+		tableHTML += `<button type="button" class="btn btn-danger" onclick="FunctionDeleteTicket(${ticket["Id"]})">Cerrar Ticket</button>`;
 		tableHTML += `</div>`;
 
 		document.getElementById('main').innerHTML = tableHTML;
@@ -291,7 +291,7 @@ async function TicketVerPage ( Id_ticket )
   				}
 		}
 
-		function FunctionDeleteTicket()
+		function FunctionDeleteTicket(id_ticket)
 		{
 			let text = "¿Está seguro de eliminar el ticket?";
 			if (confirm(text) == true)
@@ -308,10 +308,12 @@ async function TicketVerPage ( Id_ticket )
 							dataType:'text',
 							data:
 								{
+									id_ticket: id_ticket,
         						},
 							success: function(result)
 								{
 									alert (result);
+									window.location.reload();
 								}
 						});
 
