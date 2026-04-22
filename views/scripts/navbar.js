@@ -48,10 +48,10 @@
           <a class="nav-link" href="../views/UnidadVerRowData.php" >RowData</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../views/TicketInicio.php" >Tickets</a>
+          <a class="nav-link" href="../views/Ticket.html" >Tickets</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../views/ChecklistInicio.php" >Checklist</a>
+          <a class="nav-link" href="../views/Checklist.html" >Checklist</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="../views/SprintInicio.php" >Sprint</a>

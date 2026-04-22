@@ -260,6 +260,14 @@ async function GetRegistrosDiarios( id_unidad )
    
 }
 
+	function FieldEstado( Estado ) {
+
+
+			return Estado == 'ON' ? '<div class="bg-danger text-white">ON</div>' : Estado;
+	}
+   
+
+
 function FieldBattery( level ) {
 	  
 	  		var ImgUrl;

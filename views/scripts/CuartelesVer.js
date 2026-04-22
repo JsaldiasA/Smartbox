@@ -237,9 +237,9 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 	{
 			let HTML = '';
 
-			HTML += '	<div class="row pb-3">';
+			HTML += '	<div class="row pb-3" shadow border>';
 			HTML += ' <div class="col p-3 card shadow p-3 card shadow">';
-			HTML += `    <h2><b>${Titulo}</b></h2> `;
+			HTML += `    <h2>${Titulo}</h2> `;
 			HTML += '   <div class="overflow-auto">';
 	
 			// Create table body rows
@@ -311,7 +311,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 			table +='<tr>';
 			table += `<td> ${rowU["cuartel"]["Name"]}</td>`;
 			table += `<td> <button type="button" onclick="unidadVerPage(${rowU['unidad']['Id']})" class="btn btn-primary btn-sm">${rowU['unidad']['Serie']}</button> </td>`;
-			table += `<td>${rowU['ultimoRegistro'] ? rowU["ultimoRegistro"]["ESTADO"] : ''}</td>`;
+			table += `<td>${rowU['ultimoRegistro'] ? FieldEstado(rowU["ultimoRegistro"]["ESTADO"]) : ''}</td>`;
 			table += `<td>${rowU['ultimoRegistro'] ? FieldActivity(rowU['ultimoRegistro']["DATETIME"]) : ''}</td>`;
 			table += `<td>${rowU['ultimoRegistro'] ? FieldBattery(rowU['ultimoRegistro']["VOLTAJE"]) : ''}</td>`;
 			table += `<td>${ rowU['ultimoRegistro'] ? rowU['ultimoRegistro']["CAUDAL"]  : ''}</td>`;
@@ -356,6 +356,8 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 
 		let eventos = await GetEventosBytag(unidad["tag"]);
 
+		let lastEvento = eventos[0]; 
+
 		//buscar cuartel
 
 		Cuarteles.forEach(rowCuarteles => {
@@ -381,33 +383,38 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 
 		if( unidad ) 
 		{
-			// first row
-
-			tableHTML += '	<div class="row pb-3">';
-			tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
-			tableHTML += '<div class="col">';
-			tableHTML += ` <h2><b>${unidad["Serie"]}</b></h2> `;
-			tableHTML += '</div>';
-			tableHTML += '<div class="col align-self-center">';
-			tableHTML += ` <button type="button" class="btn btn-primary" onclick=VolverCuartelesMain() > Volver <i class="bi bi-arrow-left"></i> </button> `;
-			tableHTML += '</div>';
-			    
-			tableHTML += '<table class="table text-nowrap"><thead><tr>';
-			tableHTML += `<th scope="col"> Serie </th>`;
-			tableHTML += `<th scope="col"> Imei </th>`;
-			tableHTML += `<th scope="col"> Cuartel </th>`;
-			tableHTML += `</thead>`;
-
-			tableHTML += `<tbody>`;
-			tableHTML += '<tr>';
-			tableHTML += `<td>${unidad["Serie"]}</td>`;
-			tableHTML += `<td>${unidad["tag"]}</td>`;
-			tableHTML += `<td>${ cuartel ? cuartel["Name"] :'Sin Cuartel' }</td>`;
-			tableHTML += '</tr>';
-			tableHTML += `</tbody>`;
-			tableHTML += `</table>`;
 			
-			tableHTML += '    </div>      ';  // col
+
+			tableHTML += '<div class="row p-3 shadow borde">'; // first row
+
+				tableHTML += '<div class="row">';
+				tableHTML += 	'<div class="col">';
+				tableHTML += 	` <h1>Unidad ${unidad["Serie"]}</h1> `;
+				tableHTML += 	'</div>';
+				tableHTML += 	'<div class="col-1">';
+				tableHTML += 	` <button type="button" class="btn btn-primary" onclick=VolverCuartelesMain() > Volver <i class="bi bi-arrow-left"></i> </button> `;
+				tableHTML += 	'</div>';
+				tableHTML += '</div>';
+				
+				tableHTML += '<div class="row">';
+					tableHTML += '<table class="table text-nowrap"><thead><tr>';
+					tableHTML += `<th scope="col"> Serie </th>`;
+					tableHTML += `<th scope="col"> Imei </th>`;
+					tableHTML += `<th scope="col"> Cuartel </th>`;
+					tableHTML += `<th scope="col"> numero </th>`;
+					tableHTML += `</thead>`;
+
+					tableHTML += `<tbody>`;
+					tableHTML += '<tr>';
+					tableHTML += `<td>${unidad["Serie"]}</td>`;
+					tableHTML += `<td>${unidad["tag"]}</td>`;
+					tableHTML += `<td>${ cuartel ? cuartel["Name"] :'Sin Cuartel' }</td>`;
+					tableHTML += `<td>${ unidad["numero"] == null ? 'Sin numero' : unidad["numero"] }</td>`;
+					tableHTML += '</tr>';
+					tableHTML += `</tbody>`;
+					tableHTML += `</table>`;			
+				tableHTML += '    </div>      ';  
+
 			tableHTML += '</div>'; // end first row
 
 			// row checklist & ultima actualizacion
@@ -423,7 +430,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 				tableHTML += `</div>`;
 				// col ultimo checklits & ultima actualizacion	
 				tableHTML += ' <div class="col p-3">';
-				tableHTML += '<table class="table text-nowrap"><thead><tr>';
+				tableHTML += '<table class="table text-nowrap"><thead>';
 				tableHTML += `<th scope="col"> Ultimo checklist </th>`;
 				tableHTML += `<th scope="col" class="d-flex justify-content-end" ><a href="https://smartbox.eco3.cl/checklistform/checklistform.php?tag=${unidad["tag"]}" class="btn btn-primary" >Nuevo Checklist</a> </th>`;
 				// fecha
@@ -450,9 +457,9 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 			{
 				// col ultimo checklits & ultima actualizacion
 				tableHTML += ' <div class="col p-3">';
-				tableHTML += '<table class="table text-nowrap"><thead><tr>';
+				tableHTML += '<table class="table text-nowrap"><thead>';
 				tableHTML += `<th scope="col"> Ultimo checklist </th>`;
-				tableHTML += `<th scope="col"> </th>`;
+				tableHTML += `<th scope="col"></th>`;
 				tableHTML += `</thead>`;
 				tableHTML += `<tbody>`;
 				tableHTML += '<tr>';
@@ -473,6 +480,31 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 				// inicialize refresh thread every 1 second
 				RefreshIntervals_Ids.push(setInterval(GetStatusTable, 1000, unidad["Id"]));
 			}
+
+			// table configuracion
+
+				tableHTML += '<table class="table text-nowrap">';
+					tableHTML += `<thead>`;
+					tableHTML += `<th scope="col"> Configuracion </th>`;
+					tableHTML += `<th scope="col"></th>`;
+					tableHTML += `</thead>`;
+
+					tableHTML += `<tbody>`;
+						tableHTML += '<tr>';
+						tableHTML += `<td>VerCodigo</td>`;
+						tableHTML += `<td>${lastEvento["VerCodigo"]}</td>`;
+						tableHTML += '</tr>';
+						tableHTML += '<tr>';
+						tableHTML += `<td>INTERNET</td>`;
+						tableHTML += `<td>${lastEvento["INTERNET"]}</td>`;
+						tableHTML += '</tr>';
+						tableHTML += '<tr>';
+						tableHTML += `<td>TipoBat</td>`;
+						tableHTML += `<td>${ lastEvento["TipoBat"] }</td>`;
+						tableHTML += '</tr>';
+					tableHTML += `</tbody>`;
+
+				tableHTML += `</table>`;			
 
 			tableHTML += '    </div>      ';  // col end ultimo checklits & ultima actualizacion	
 			tableHTML += '</div>'; //  end row checklist & ultima actualizacion
@@ -755,12 +787,19 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 
 		var UltimoRegistro =  Registros[0];
 
-		let tableHTML = '	<table class="table" ><thead>';
-       	tableHTML +=  `<tr><td><b>Estado:</b></td><td>${UltimoRegistro['ESTADO']}</td></tr>`;
-		tableHTML +=  `<tr><td><b>Volumen:</b></td><td>${UltimoRegistro['VOLUMEN']}</td></tr>`;
-		tableHTML +=  `<tr><td><b>Caudal:</b></td><td>${UltimoRegistro['CAUDAL']}</td></tr>`;
-		tableHTML +=  `<tr><td><b>Última Registro:</b></td><td>${UltimoRegistro['DATETIME']}</td></tr>`;
-        tableHTML +=  `</tr></tbody></table>`        ;
+		let tableHTML = '	<table class="table" >';
+				tableHTML += `<thead>`;
+					tableHTML += `<th scope="col"> Ultimo registro </th>`;
+					tableHTML += `<th scope="col"></th>`;
+				tableHTML += `</thead>`;
+				tableHTML += `<tbody>`;
+					tableHTML +=  `<tr><td>Estado</td><td>${FieldEstado(UltimoRegistro['ESTADO'])}</td></tr>`;
+					tableHTML +=  `<tr><td>Volumen</td><td>${UltimoRegistro['VOLUMEN']}</td></tr>`;
+					tableHTML +=  `<tr><td>Caudal</td><td>${UltimoRegistro['CAUDAL']}</td></tr>`;
+					tableHTML +=  `<tr><td>Última Registro</td><td>${FieldActivity(UltimoRegistro['DATETIME'])}</td></tr>`;
+				tableHTML += `</tbody>`;
+
+			tableHTML +=  `</table>`        ;
 		
 		document.getElementById("StatusTable").innerHTML= tableHTML;
 	}	

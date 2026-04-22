@@ -32,7 +32,7 @@ $UpdatedTicket->FechaCierre = date("Y-m-d H:i:s");
 
 $model->MYSQLUpdate('ticket',$UpdatedTicket);
 
-echo 'alert(Ticket Eliminado exitosamente)';
-echo '<script>window.location.href = "https://smartbox.eco3.cl/ticketinicio.php"</script>';
+echo 'Ticket Eliminado exitosamente';
+
 
 ?>
