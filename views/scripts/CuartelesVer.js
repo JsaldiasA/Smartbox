@@ -16,7 +16,7 @@ async function GetMain(  )
 
 		// data table
 		document.getElementById('main').innerHTML += `<div id="CuartelesMainTable" > <div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div> </div>`;
-
+		GetCuartelesMainTable('CuartelesMainTable');
 		RefreshIntervals_Ids.push(setInterval(GetCuartelesMainTable, 1000,'CuartelesMainTable' ));
 
 	}	
@@ -281,6 +281,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 			});
 
 			UnidadesFiltradas.sort((a, b) => Date.parse(b["unidad"]["UltimaActualizacion"]) - Date.parse(a["unidad"]["UltimaActualizacion"]) ); 
+			UnidadesFiltradas.sort((a, b) => b["unidad"]["Estado"].localeCompare(a["unidad"]["Estado"]));
 
 			HTML += RenderUnidadTable( UnidadesFiltradas );
 

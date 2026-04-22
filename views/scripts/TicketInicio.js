@@ -13,7 +13,7 @@ async function GetMain(  )
 		document.getElementById(`main`).innerHTML = GetTituloTickets();
 
 		// data table
-		document.getElementById(`main`).innerHTML += `<div id="mainTableTicket" ></div>`;
+		document.getElementById(`main`).innerHTML += `<div id="mainTableTicket" ><div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div></div>`;
 		GetTicketsMainTable('mainTableTicket');
 		RefreshIntervals_Ids.push(setInterval(GetTicketsMainTable, 5000,`mainTableTicket` ));
 
@@ -43,7 +43,7 @@ async function GetTicketsMainTable( HtmlElementId  )
 
 	{
 
-		let [Tickets, TicketStatus, Cuarteles, Unidades] = await Promise.all([GetTicket(), GetTicketStatus(),GetCuarteles(),GetUnidades()]);
+		let [Tickets, TicketStatus, Cuarteles] = await Promise.all([GetTicket(), GetTicketStatus(),GetCuarteles()]);
 
 		let tableHTML = ``;
 		
