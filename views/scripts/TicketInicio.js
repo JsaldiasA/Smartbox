@@ -308,7 +308,7 @@ async function TicketVerPage ( Id_ticket )
 							dataType:'text',
 							data:
 								{
-									id_ticket: id_ticket,
+									Id: id_ticket,
         						},
 							success: function(result)
 								{

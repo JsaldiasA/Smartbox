@@ -15,6 +15,6 @@ $Id_Obj= $_POST['Id'];
 $Obj= $model->MYSQLSelectWHERE($tableName ,'Id',$Id_Obj)[0];
 $result = $model->MYSQLDelete($tableName ,$Obj);
 
-echo 'alert( Eliminado exitosamente)';
+echo 'Eliminado exitosamente';
 
 ?>
