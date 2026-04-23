@@ -10,7 +10,7 @@ require($sitebasepath.'/vendor/autoload.php');
 require_once $sitebasepath."/helpers/JWT.php";
 
 $token;
-isset($_POST['token']) ? $token= $_COOKIE['token'] : $token = null;
+isset($_POST['token']) ? $token= $_POST['token'] : $token = null;
 
 if( $token != null)
 {
