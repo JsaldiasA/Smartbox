@@ -11,7 +11,7 @@ require_once $sitebasepath."/Model/model.php";
 $model = new Model();
 
 $Id_ticket= $_POST['Id'];
-$Obj= $model->MYSQLSelectWHERE('ticket','Id',$Id_ticket)[0];
+$ticket= $model->MYSQLSelectWHERE('ticket','Id',$Id_ticket)[0];
 
 $UpdatedTicket = new ticketDbEntity();
 
