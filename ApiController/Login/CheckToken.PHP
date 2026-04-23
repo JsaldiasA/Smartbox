@@ -10,11 +10,10 @@ require($sitebasepath.'/vendor/autoload.php');
 require_once $sitebasepath."/helpers/JWT.php";
 
 $token;
-isset($_COOKIE['token']) ? $token= $_COOKIE['token'] : $token = null;
+isset($_POST['token']) ? $token= $_COOKIE['token'] : $token = null;
 
 if( $token != null)
 {
-
       $jwtHelper = new JWT();
       $decoded = $jwtHelper->decode($token);
 
