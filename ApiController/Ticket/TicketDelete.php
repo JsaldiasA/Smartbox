@@ -1,8 +1,6 @@
 <?php
 // Create SQL Connection
 
-// Create SQL Connection
-
 header("Access-Control-Allow-Origin: *");
 
 $self=$_SERVER['PHP_SELF'];
@@ -11,13 +9,30 @@ $sitebasepath=$_SERVER['DOCUMENT_ROOT'];
 require_once $sitebasepath."/Model/model.php";
 
 $model = new Model();
-$tableName = 'ticket';
 
-$Id_Obj= $_POST['Id'];
-$Obj= $model->MYSQLSelectWHERE($tableName ,'Id',$Id_Obj)[0];
-$result = $model->MYSQLDelete($tableName ,$Obj);
+$Id_ticket= $_POST['Id'];
+$Obj= $model->MYSQLSelectWHERE('ticket','Id',$Id_ticket)[0];
 
-echo 'Eliminado exitosamente';
+$UpdatedTicket = new ticketDbEntity();
+
+$allKeys = array_keys((array)$UpdatedTicket);
+
+//cloning ticket
+foreach ($allKeys as $key ) 
+{
+	$UpdatedTicket->$key = (($_POST[$key] == null)? $ticket->$key : $_POST[$key]);
+}
+
+// set closed status
+$UpdatedTicket->Id_TicketStatus = '3';
+
+// SET creationtime
+date_default_timezone_set('America/Santiago');
+$UpdatedTicket->FechaCierre = date("Y-m-d H:i:s");
+
+$model->MYSQLUpdate('ticket',$UpdatedTicket);
+
+echo 'Ticket Eliminado exitosamente';
 
 
 ?>
