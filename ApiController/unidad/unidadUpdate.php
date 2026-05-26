@@ -14,7 +14,7 @@ $model = new Model();
 $Id_obj= $_POST['Id'];
 $obj= $model->MYSQLSelectWHERE('unidad','Id',$Id_obj)[0];
 
-$UpdatedObj= new cuartelesDbEntity();
+$UpdatedObj= new unidadDbEntity();
 
 $allKeys = array_keys((array)$UpdatedObj);
 
