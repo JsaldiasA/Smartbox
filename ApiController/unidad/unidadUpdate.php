@@ -12,7 +12,7 @@ $model = new Model();
 
 
 $Id_obj= $_POST['Id'];
-$obj= $model->MYSQLSelectWHERE('cuarteles','Id',$Id_obj)[0];
+$obj= $model->MYSQLSelectWHERE('unidad','Id',$Id_obj)[0];
 
 $UpdatedObj= new cuartelesDbEntity();
 
@@ -23,10 +23,9 @@ foreach ($allKeys as $key )
 	$UpdatedObj->$key = (($_POST[$key] == null)? $obj->$key : $_POST[$key]);
 }
 
+$model->MYSQLUpdate('unidad',$UpdatedObj);
 
-$model->MYSQLUpdate('cuarteles',$UpdatedObj);
-
-echo 'cuarteles Editado exitosamente';
+echo 'unidad Editado exitosamente';
 echo var_dump($UpdatedObj);
 
 ?>
