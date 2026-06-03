@@ -25,6 +25,7 @@ class checklistDbEntity
 		public $agua;
 		public $Toolbox;
 		public $ConduitChoco;
+		public $MetodoDePrueba
 
 	}
 
