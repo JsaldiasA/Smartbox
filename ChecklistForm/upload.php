@@ -1,6 +1,8 @@
 
 <?php
 
+header("Access-Control-Allow-Origin: *");
+
  ini_set('upload_max_filesize', '10M');
  ini_set('post_max_size', '10M');
  ini_set('max_input_time', 300);
