@@ -18,8 +18,8 @@ if ($_FILES["file"]["error"] !== UPLOAD_ERR_OK) {
 
 // Move file from temporary location to target directory
 if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-    echo "The file ". htmlspecialchars(basename($_FILES["file"]["name"])). " has been uploaded.";
+    echo "el archivo ". htmlspecialchars(basename($_FILES["file"]["name"])). " se ha subido exitosamente.";
 } else {
-    echo "Sorry, there was an error moving your file.";
+    echo "Disculpa, Ocurrio un problema al intentar subir la foto.";
 }
 ?>
