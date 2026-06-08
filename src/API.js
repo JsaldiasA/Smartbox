@@ -270,7 +270,7 @@ function FieldActivity( date ) {
 	var pastDate = new Date(date);
 	var now = new Date(new Date().toLocaleString('en', {timeZone: 'America/Santiago'}))
 
-	var minutesAgo = Math.floor((now - pastDate) / 60000) + 15;// 15 min mas que agregea la base de datos a la tabla unidades_lastortolas, se desconoce el porque.
+	var minutesAgo = Math.floor((now - pastDate) / 60000) + 10;// 15 min mas que agregea la base de datos a la tabla unidades_lastortolas, se desconoce el porque.
 
 	if( minutesAgo < 60 )
 	{
@@ -401,10 +401,10 @@ function WarningText( text ){
 	return `<div class="text-warning"><b>${text} </b></div>`
 }
 
-function CreateSelectFromObjArray(Id_name, ObjArray){
+function CreateSelectFromObjArray(Id_name, ObjArray,valueKey,displayKey){
 
 	let HTMLtext = ` <select name="${Id_name}" id="${Id_name}" class="form-select" required>`;
-	ObjArray.forEach(row => {	HTMLtext += `<option value='${row["Id"]}'>${row["Name"]}</option>`;} );	 
+	ObjArray.forEach(row => {	HTMLtext += `<option value='${row[valueKey]}'>${row[displayKey]}</option>`;} );	 
 	HTMLtext += '</select>';
 
 	return HTMLtext;

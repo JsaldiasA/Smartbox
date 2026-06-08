@@ -194,14 +194,15 @@ async function TicketVerPage ( Id_ticket )
 		tableHTML += `<div class="col p-3"><h1><b> ${ticket["Nombre"]}  </b></h1> </div>`;
 		
 		//display data
-		tableHTML += `<table class="table"><tbody>`;
+		tableHTML += `<table class="table border"><tbody>`;
 		tableHTML += `<tr><td><b>ID:</b></td><td>${ticket["Id"]}</td></tr>`;
 		tableHTML += `<tr><td><b>Título:</b></td><td> <input type="text" class="form-control" id="Nombre" value="${ticket["Nombre"]}">  </td></tr>`;
 		tableHTML += `<tr><td><b>Descripcion: </b></td><td><input type="text" class="form-control" style="height: 200px; width: 100%" id="Descripcion" value="${ticket["Descripcion"]}"></td></tr>`;
 		tableHTML += `<tr><td><b>Usuario:</b></td><td>${ticket["Usuario"]}</td></tr>`;
 		tableHTML += `<tr><td><b>Fecha de ingreso:</b></td><td>${ticket["FechaInicio"] +" "+ FieldActivity(ticket["FechaInicio"] ) }</td></tr>`;
 		tableHTML += `<tr><td><b>Estado de la solicitud:</b></td><td>${ticket["Id_TicketStatus"]}</td></tr>`;
-		tableHTML += `<tr><td><b>Prioridad:</b></td><td>${ CreateSelectFromObjArray('TicketPriority',TicketPriorities) }</td></tr>`;
+		tableHTML += `<tr><td><b>Prioridad:</b></td><td>${ CreateSelectFromObjArray('TicketPriority',TicketPriorities,'Id','Name') }</td></tr>`;
+		tableHTML += `<tr><td><b>Cuartel:</b></td><td>${ CreateSelectFromObjArray('cuartel',Cuarteles,'Id_unidad','Name') }</td></tr>`;
 
 		tableHTML += `</tbody></table>`;
 
@@ -230,68 +231,29 @@ async function TicketVerPage ( Id_ticket )
 
 		let tableHTML =``;
 		let [Tickets, TicketStatus, Cuarteles, Unidades] = await Promise.all([GetTicket(), GetTicketStatus(),GetCuarteles(),GetUnidades()]);
+		let TicketPriorities = GetTicketPriority();
 
-		tableHTML += `	<div class="row">
-				<div class="col">
-					<b><h1>Nuevo Ticket: <br></h1></b>
-				</div>`;
-					tableHTML += 	'<div class="col-1">';
-				tableHTML += 	` <button type="button" class="btn btn-primary" onclick=GetMainTickets() > Volver <i class="bi bi-arrow-left"></i> </button> `;
-				tableHTML += 	'</div>';
-			tableHTML += `	</div>
-		</div>
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<b>Asunto: </b>
-				</div>
-				<div class="col">
-					<input type="text" class="form-control" id="Nombre"><br>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col">
-					<b>Cuartel: </b>
-				</div>
-			<div class="col">
-			<select name="cuartel" class="form-select" id="cuartel" required>.`;	
-
-						Cuarteles.forEach(rowCT => {
-					
-						tableHTML += `<option value="${rowCT["Id_unidad"]}">${rowCT["Name"]}</option>`;
-
-					});
+		tableHTML += `<div class="container">`;
+		tableHTML += `<div class="row p-3">`;
+		tableHTML += GetVolverBtn('GetMainTickets()');
+		tableHTML += `<div class="col p-3"><h1><b> Nuevo ticket  </b></h1> </div>`;
 		
-			tableHTML += `</select>
-				<br>  
-				</div>
-			</div>
+		tableHTML += `<div class="row p-3">`;
+			//display data
+			tableHTML += `<table class="table border"><tbody>`;
+			tableHTML += `<tr><td><b>Título:</b></td><td> <input type="text" class="form-control" id="Nombre" >  </td></tr>`;
+			tableHTML += `<tr><td><b>Descripcion: </b></td><td><input type="text" class="form-control" style="height: 200px; width: 100%" id="Descripcion" ></td></tr>`;
+			tableHTML += `<tr><td><b>Usuario:</b></td><td><input type="text" class="form-control" id="Usuario" placeholder="Escriba su nombre."></td></tr>`;
+			tableHTML += `<tr><td><b>Prioridad:</b></td><td>${ CreateSelectFromObjArray('TicketPriority',TicketPriorities,'Id','Name') }</td></tr>`;
+			tableHTML += `<tr><td><b>Cuartel:</b></td><td>${ CreateSelectFromObjArray('cuartel',Cuarteles,'Id_unidad','Name') }</td></tr>`;
+			tableHTML += `</tbody></table>`;
+		tableHTML += `</div>`;
 
-			<div class="row">
-				<div class="col">
-					<b>Descripción: </b>
-				</div>
-				<div class="col">
-					<input type="text" class="form-control" style="height: 200px; width: 100%" id="Descripcion" placeholder="Describa la situación."><br>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col">
-					<b>Usuario: </b>
-				</div>
-				<div class="col">
-					<input type="text" class="form-control" id="Usuario" placeholder="Escriba su nombre."><br>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col">
-					<button type="button" class="btn btn-success" onclick="FunctionNuevoTicketPost()">Enviar ticket</button>
-				</div>
-			</div>
-		</div>`;
+		tableHTML += `<div class="row p-3">`;
+			tableHTML += `<div class="col-sm">`;
+				tableHTML += `<button type="button" class="btn btn-success" onclick="FunctionNuevoTicketPost()">Enviar ticket</button>`;
+			tableHTML += `</div>`;
+		tableHTML += `</div>`;
 
 		document.getElementById('main').innerHTML = tableHTML;
 
@@ -411,7 +373,10 @@ function FunctionUpdateTicketPost( id_ticket )
 					}
 
 				var f = document.getElementById("TicketPriority");
-				var Id_TicketPriority = f.options[f.selectedIndex].value; 	
+				var Id_TicketPriority = f.options[f.selectedIndex].value; 
+				
+				var f = document.getElementById("cuartel");
+				var Id_unidad = f.options[f.selectedIndex].value; 	
 					
 	
 				$.ajax(
@@ -425,6 +390,7 @@ function FunctionUpdateTicketPost( id_ticket )
 								Nombre: Nombre,
 								Descripcion: Descripcion,
 								Id_TicketPriority: Id_TicketPriority,
+								Id_unidad: Id_unidad,
     						},
 						success: function(result)
 							{

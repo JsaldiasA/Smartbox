@@ -582,7 +582,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 				tableHTML += `<tr><td><button type="button" onclick="FunctionCreateSMS( 'ABRIR', ${unidad["Id"]} )" class="btn btn-primary" >ABRIR</button></td>`;
 				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'CERRAR',${unidad["Id"]} )" class="btn btn-primary" >CERRAR</button></td>`;
 				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'RESET',${unidad["Id"]} )" class="btn btn-primary" >RESET</button></td><tr>`;
-				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'INTERNET30' ,${unidad["Id"]})" class="btn btn-primary" >Riego mode ON</button></td><tr>`;
+				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'INTERNET15' ,${unidad["Id"]})" class="btn btn-primary" >Riego mode ON</button></td><tr>`;
 				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'INTERNET75',${unidad["Id"]} )" class="btn btn-primary" >Riego mode OFF</button></td><tr>`;
 				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'INTERNET900',${unidad["Id"]} )" class="btn btn-primary" >Standby mode</button></td><tr>`;
 
@@ -807,7 +807,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 			 <div class="col-sm-auto align-self-center">
                Filtro:
             </div>
-            <div class="col-sm-2 align-self-center">
+            <div class="col-3 align-self-center">
                <select class="form-select" id="filtro">
                 <option value="all" >Por zona</option>
                 <option value="sirecor" selected >Solo Sirecor</option>
