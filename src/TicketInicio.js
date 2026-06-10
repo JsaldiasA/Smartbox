@@ -91,7 +91,7 @@ async function GetTicketsMainTable( HtmlElementId  )
 					tableHTML +=`<tr>`;
 					tableHTML += `<td> ${CuartelName}</td>`;
 					tableHTML += `<td>${rowTK["Nombre"]}</td>`;
-					tableHTML += `<td>${ TicketGRAVE ? DangerText(TicketPriority["Name"]) : WarningText(TicketPriority["Name"]) }</td>`;
+					tableHTML += `<td>${ priorityColorText( TicketPriority['Id'],TicketPriority["Name"]) }</td>`;
 					tableHTML += `<td>${ ( rowTKStatus["Id"] == `3` ? rowTK["FechaCierre"] : (rowTK["FechaInicio"] +" "+ FieldActivity(rowTK["FechaInicio"] )) ) }</td>`;
 					tableHTML += `<td> <a href="url" onclick="TicketVerPage(${rowTK[`Id`]});return false" >ver</a> </td>`;
 					tableHTML +=`<tr>`;
@@ -202,7 +202,7 @@ async function TicketVerPage ( Id_ticket )
 		tableHTML += `<tr><td><b>Fecha de ingreso:</b></td><td>${ticket["FechaInicio"] +" "+ FieldActivity(ticket["FechaInicio"] ) }</td></tr>`;
 		tableHTML += `<tr><td><b>Estado de la solicitud:</b></td><td>${ticket["Id_TicketStatus"]}</td></tr>`;
 		tableHTML += `<tr><td><b>Prioridad:</b></td><td>${ CreateSelectFromObjArray('TicketPriority',TicketPriorities,'Id','Name') }</td></tr>`;
-		tableHTML += `<tr><td><b>Cuartel:</b></td><td>${ CreateSelectFromObjArray('cuartel',Cuarteles,'Id_unidad','Name') }</td></tr>`;
+		//tableHTML += `<tr><td><b>Cuartel:</b></td><td>${ CreateSelectFromObjArray('cuartel',Cuarteles,'Id_unidad','Name') }</td></tr>`;
 
 		tableHTML += `</tbody></table>`;
 
@@ -375,8 +375,8 @@ function FunctionUpdateTicketPost( id_ticket )
 				var f = document.getElementById("TicketPriority");
 				var Id_TicketPriority = f.options[f.selectedIndex].value; 
 				
-				var f = document.getElementById("cuartel");
-				var Id_unidad = f.options[f.selectedIndex].value; 	
+				//var f = document.getElementById("cuartel");
+				//var Id_unidad = f.options[f.selectedIndex].value; 	
 					
 	
 				$.ajax(
@@ -390,7 +390,7 @@ function FunctionUpdateTicketPost( id_ticket )
 								Nombre: Nombre,
 								Descripcion: Descripcion,
 								Id_TicketPriority: Id_TicketPriority,
-								Id_unidad: Id_unidad,
+								//Id_unidad: Id_unidad,
     						},
 						success: function(result)
 							{
@@ -413,13 +413,41 @@ function FunctionUpdateTicketPost( id_ticket )
 		Name: "Alta (Inoperativo)"
 		};
 
-		const PrioridadLeve = {
+		const PrioridadMedia = {
 		Id: "2",
+		Name: "Media"
+		};
+
+		const PrioridadBaja = {
+		Id: "3",
 		Name: "Baja"
 		};
 
-		Priorities = [PrioridadGrave,PrioridadLeve]
+		Priorities = [PrioridadGrave,PrioridadMedia,PrioridadBaja]
 
   	return Priorities;
   
+}
+
+function priorityColorText( Id_TicketPriority, text)
+{
+
+			switch ( Id_TicketPriority ) {
+			
+			case '1':
+				
+				return `<div class="text-danger"><b> ${text} </b></div>`
+
+			case '2':
+				
+				return `<div class="text-warning"><b> ${text} </b></div>`
+			
+			case '3':
+		
+				return `<div class="text-success"><b> ${text} </b></div>`
+			
+			default:
+				// Code to execute if expression matches no cases
+				return text;
+			}
 }

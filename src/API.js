@@ -387,7 +387,7 @@ function GetEditBtn(  OnclickFunction ) {
 
 function GetTitulo(  Titulo ) {
 	  
-	return 	`<div class="col p-3"><h1> ${Titulo}  </h1> </div>`;
+	return 	`<div class="col p-3"><h1><b> ${Titulo}  </b></h1> </div>`;
 
 }
 
@@ -411,4 +411,9 @@ function CreateSelectFromObjArray(Id_name, ObjArray,valueKey,displayKey){
 
 }
 
+function GetLoadingPage(  ) {
+	  
+	return 	` <div class="spinner-border text-success" role="status"></div>`;
+
+}
 	

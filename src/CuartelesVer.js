@@ -33,52 +33,49 @@ async function GetCuartelesMainTable( HtmlElementId  )
 
 			Zonas.forEach(rowZona => {
 			
-			tableHTML += '	<div class="row pb-3">';
-			tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
-			tableHTML += `    <h2><b>${rowZona["Name"]}</b></h2> `;
-			tableHTML += '   <div class="overflow-auto">';
-				
-			tableHTML += '<table class="table text-nowrap"><thead><tr>';
-			tableHTML += `<th scope="col"><i class="bi bi-pin-map"></i></th>`;
-			tableHTML += `<th scope="col"><i class="bi bi-motherboard"></i></i></th>`;
-			tableHTML += `<th scope="col"></th>`;
-			tableHTML += `<th scope="col"><i class="bi bi-activity"></i></th>`;
-			tableHTML += `<th scope="col"><i class="bi bi-lightning-fill"></i></th>`;
-			tableHTML += `<th scope="col"><i class="bi bi-wifi"></i></th>`;
-			tableHTML += `<th scope="col">[L/m]</th>`;
-			tableHTML += `<th scope="col">[L]</th>`;
-			tableHTML += `</thead>`;
+				tableHTML += '	<div class="row pb-3">';
+				tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
+				tableHTML += `    <h2><b>${rowZona["Name"]}</b></h2> `;
+				tableHTML += '   <div class="overflow-auto">';
+					
+				tableHTML += '<table class="table text-nowrap"><thead><tr>';
+				tableHTML += `<th scope="col"><i class="bi bi-pin-map"></i></th>`;
+				tableHTML += `<th scope="col"><i class="bi bi-motherboard"></i></i></th>`;
+				tableHTML += `<th scope="col"></th>`;
+				tableHTML += `<th scope="col"><i class="bi bi-activity"></i></th>`;
+				tableHTML += `<th scope="col"><i class="bi bi-lightning-fill"></i></th>`;
+				tableHTML += `<th scope="col"><i class="bi bi-wifi"></i></th>`;
+				tableHTML += `<th scope="col">[L/m]</th>`;
+				tableHTML += `<th scope="col">[L]</th>`;
+				tableHTML += `</thead>`;
 
-			// Create table body rows
-			Cuarteles.forEach(row => {
+				// Create table body rows
+				Cuarteles.forEach(row => {
 
-				if(row["Id_zona"] == rowZona["Id"])
-				{
+					if(row["Id_zona"] == rowZona["Id"])
+					{
+						if(row["Id_unidad"]!= null )
+						{   
+							let HasRegistrio = false;
+							let UnidadSerie = '';
+							let UnidadTag = ''; 
+							var unidad;
 
-					if(row["Id_unidad"]!= null )
-					{   
-						
-						let HasRegistrio = false;
-						let UnidadSerie = '';
-						let UnidadTag = ''; 
-						var unidad;
+							Unidades.forEach(rowUnidades => {
+								if(row["Id_unidad"] == rowUnidades["Id"])
+								{
+										UnidadSerie = rowUnidades["Serie"];
+										UnidadTag = rowUnidades["tag"];
+										id_unidadTipo = rowUnidades["id_unidadTipo"];
+										unidad = rowUnidades;
+								}
+							});	
 
-						Unidades.forEach(rowUnidades => {
-							if(row["Id_unidad"] == rowUnidades["Id"])
-							{
-									UnidadSerie = rowUnidades["Serie"];
-									UnidadTag = rowUnidades["tag"];
-									id_unidadTipo = rowUnidades["id_unidadTipo"];
-									unidad = rowUnidades;
-							}
-						});	
-
-						UltimosRegistros.forEach(rowUr => {
-							
+							UltimosRegistros.forEach(rowUr => {
+								
 								if(row["Id_unidad"] == rowUr["unidad_id"])
 								{
 									HasRegistrio=true;
-
 									tableHTML +='<tr>';
 									tableHTML += `<td> ${row["Name"]}</td>`;
 									tableHTML += `<td> <button type="button" onclick="unidadVerPage(${unidad['Id']})" class="btn btn-primary btn-sm">${UnidadSerie}</button> </td>`;
@@ -89,7 +86,7 @@ async function GetCuartelesMainTable( HtmlElementId  )
 									tableHTML += `<td>${rowUr["CAUDAL"]}</td>`;
 									tableHTML += `<td>${rowUr["VOLUMEN"]}</td>`;
 								}	
-							
+								
 							})
 
 							if(!HasRegistrio)
@@ -102,31 +99,31 @@ async function GetCuartelesMainTable( HtmlElementId  )
 								tableHTML += `<td></td>`;
 								tableHTML += `<td></td>`;
 								tableHTML += `<td></td>`;
-							}
-								
+							}		
+						}
+						else
+						{
+							tableHTML += '<tr class="bg-danger text-white">';
+							tableHTML += `<td> ${row["Name"]}</td>`;
+							tableHTML += `<td>Sin Dispositivo</td>`;
+							tableHTML += `<td></td>`;
+							tableHTML += `<td></td>`;
+							tableHTML += `<td></td>`;
+							tableHTML += `<td></td>`;
+						}
+
+						tableHTML += '</tr>';
 					}
-					else
-					{
-						tableHTML += '<tr class="bg-danger text-white">';
-						tableHTML += `<td> ${row["Name"]}</td>`;
-						tableHTML += `<td>Sin Dispositivo</td>`;
-						tableHTML += `<td></td>`;
-						tableHTML += `<td></td>`;
-						tableHTML += `<td></td>`;
-						tableHTML += `<td></td>`;
-					}
 
-					tableHTML += '</tr>';
-				}
+				});
 
-			});
-
-			tableHTML += '</tbody></table>';
-			tableHTML += '          </div>';// div overflow
-			tableHTML += '    </div>      ';  // col
-			tableHTML += '</div>'; // row
+				tableHTML += '</tbody></table>';
+				tableHTML += '          </div>';// div overflow
+				tableHTML += '    </div>      ';  // col
+				tableHTML += '</div>'; // row
 			
 			});
+
 			break;
 
 		case 'sirecor':
@@ -496,11 +493,11 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 						tableHTML += '</tr>';
 						tableHTML += '<tr>';
 						tableHTML += `<td>INTERNET</td>`;
-						tableHTML += `<td>${lastEvento["INTERNET"]}</td>`;
+						tableHTML += `<td>cada ${ Number(lastEvento["INTERNET"])*4/60} minutos </td>`;
 						tableHTML += '</tr>';
 						tableHTML += '<tr>';
 						tableHTML += `<td>TipoBat</td>`;
-						tableHTML += `<td>${ lastEvento["TipoBat"] }</td>`;
+						tableHTML += `<td> ${ lastEvento["TipoBat"] }</td>`;
 						tableHTML += '</tr>';
 					tableHTML += `</tbody>`;
 				}
@@ -582,9 +579,9 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 				tableHTML += `<tr><td><button type="button" onclick="FunctionCreateSMS( 'ABRIR', ${unidad["Id"]} )" class="btn btn-primary" >ABRIR</button></td>`;
 				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'CERRAR',${unidad["Id"]} )" class="btn btn-primary" >CERRAR</button></td>`;
 				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'RESET',${unidad["Id"]} )" class="btn btn-primary" >RESET</button></td><tr>`;
-				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'INTERNET15' ,${unidad["Id"]})" class="btn btn-primary" >Riego mode ON</button></td><tr>`;
-				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'INTERNET75',${unidad["Id"]} )" class="btn btn-primary" >Riego mode OFF</button></td><tr>`;
-				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'INTERNET900',${unidad["Id"]} )" class="btn btn-primary" >Standby mode</button></td><tr>`;
+				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'INTERNET15' ,${unidad["Id"]})" class="btn btn-primary" >Internet cada 1 min</button></td><tr>`;
+				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'INTERNET75',${unidad["Id"]} )" class="btn btn-primary" >Internet cada 5 min</button></td><tr>`;
+				tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'INTERNET900',${unidad["Id"]} )" class="btn btn-primary" >Internet cada 2 Horas</button></td><tr>`;
 
 				tableHTML += '</tbody></table>';		
 			}
@@ -801,11 +798,11 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 	{
 
 		return `      <div class="row">
-            <div class="col">
-                <br><h1>Unidades</h1><br>
+            <div class="col p-3">
+				${GetTitulo('Unidades')}
             </div>
 			 <div class="col-sm-auto align-self-center">
-               Filtro:
+              <b> Filtro: </b>
             </div>
             <div class="col-3 align-self-center">
                <select class="form-select" id="filtro">
