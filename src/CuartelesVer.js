@@ -341,48 +341,21 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 		var ultimosRegistro;
 
 		// buscar la unidad
-		Unidades.forEach(rowUnidades => {
-
-			if(Id_unidad == rowUnidades["Id"])
-			{
-				unidad = rowUnidades;
-			}		
-	
-		});	
+		Unidades.forEach(rowUnidades => {	if(Id_unidad == rowUnidades["Id"])	unidad = rowUnidades;});	
 
 		// get eventos
-
 		let eventos = await GetEventosBytag(unidad["tag"]);
-
 		let lastEvento = eventos[0]; 
 
 		//buscar cuartel
-
-		Cuarteles.forEach(rowCuarteles => {
-									
-			if(unidad["Id"] == rowCuarteles["Id_unidad"] )
-			{
-				cuartel = rowCuarteles;
-			} 
-						
-		});	
+		Cuarteles.forEach(rowCuarteles => {	if(unidad["Id"] == rowCuarteles["Id_unidad"] )	cuartel = rowCuarteles;	});	
 
 		// buscar checklist
-
 		ChecklistsNew.sort((a, b) => Date.parse(a["Fecha"]) - Date.parse(b["Fecha"]) ); 
-
-		ChecklistsNew.forEach(rowChecklist => {
-	
-				if(unidad["Id"] == rowChecklist["id_unidad"] )
-				{
-					checklist = rowChecklist;
-				} 
-									
-		});	
+		ChecklistsNew.forEach(rowChecklist => { if(unidad["Id"] == rowChecklist["id_unidad"] ) checklist = rowChecklist; });	
 
 		if( unidad ) 
 		{
-			
 			tableHTML += '<div class="row p-3 shadow borde">'; // first row
 
 				tableHTML += '<div class="row">';
@@ -408,7 +381,6 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 					tableHTML += `</tbody>`;
 					tableHTML += `</table>`;			
 				tableHTML += '    </div>      ';  
-
 			tableHTML += '</div>'; // end first row
 
 			// row checklist & ultima actualizacion
@@ -417,7 +389,6 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 
 			if( checklist )
 			{
-			
 				//col foto
 				tableHTML += `<div class="col-sm-4 p-3" >`;
 				tableHTML += `<img class="img-thumbnail" src="${checklist["URL_foto"]}" "="">`;
@@ -445,11 +416,8 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 				// end table
 				tableHTML += `</tbody>`;
 				tableHTML += `</table>`;
-
 			}
-
 			else
-
 			{
 				// col ultimo checklits & ultima actualizacion
 				tableHTML += ' <div class="col p-3">';
@@ -463,8 +431,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 				tableHTML += `<td></td>`;
 				tableHTML += '</tr>';
 				tableHTML += `</tbody>`;
-				tableHTML += `</table>`;
-				
+				tableHTML += `</table>`;	
 			}
 			//table Ultima actualizacion
 			if( IsSirecor(unidad["id_unidadTipo"]) )
@@ -476,9 +443,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 				// inicialize refresh thread every 1 second
 				RefreshIntervals_Ids.push(setInterval(GetStatusTable, 1000, unidad["Id"]));
 			}
-
 			// table configuracion
-
 				tableHTML += '<table class="table text-nowrap">';
 					tableHTML += `<thead>`;
 					tableHTML += `<th scope="col"> Configuracion </th>`;
@@ -662,44 +627,62 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
     	<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
     	  <div class="accordion-body">`;
 		  
-				 tableHTML += `<div class="subContainer">`;
-				 tableHTML += `Introduzca la contraseña para editar: <input type="text" id="password" name="password" class="form-control">`;
-				 tableHTML += `</div>`;   // Input de contraseña.
-				 tableHTML += `<div class="subContainer">`;
-				 tableHTML += `<button onclick="FunctionNuevaUbicacion(${unidad["Id"]})" class="btn btn-secondary">Editar</button> Nueva ubicación:`;
-				 tableHTML += `<input type="text" id="NuevaUbicacion" name="NuevaUbicacion" class="form-control">`;   // Input cambio de ubicación.
-				 tableHTML += `</div>`;
-				 tableHTML += `<div class="subContainer">`;
-				 tableHTML += `<button onclick="FunctionNuevoNumero('${unidad["Id"]}')" class="btn btn-secondary">Editar</button> Nuevo número:`;
-				 tableHTML += `<input type="text" id="NuevoNumero" name="NuevoNumero" class="form-control">`;   // Input cambio de número.
-				 tableHTML += `</div>`;
-				 tableHTML += `<div class="subContainer">`;
-				 tableHTML += `<button onclick="FunctionCambiarVolMax('${unidad["Id"]}')" class="btn btn-secondary">Editar</button> Nuevo volumen máximo:`;
-				 tableHTML += `<input type="text" id="VolMax" name="VolMax" class="form-control">`;   // Input cambio de volumen máximo.
-				 tableHTML += `</div>`;
-				 tableHTML += `<div class="subContainer">`;
-				 tableHTML += `<button onclick="FunctionNuevoTipo('${unidad["Id"]}')" class="btn btn-secondary">Editar Tipo</button>`;
-
-				tableHTML += ' <select name="NuevoTipo" id="NuevoTipo" required>';
-
-				Tipos.forEach(rowTipo => {	tableHTML += `<option value='${rowTipo["Id"]}'>${rowTipo["Nombre"]}</option>`; });	
-				
-				tableHTML += "<option value='NULL'>Unidad Indefinida</option>";
-				tableHTML += '</select>';
+				tableHTML += '<div class="row border-bottom">';
+					tableHTML += '<div class="col-auto p-3">';
+							tableHTML += `Introduzca la contraseña para editar: <input type="text" id="password" name="password" class="form-control">`;
+					tableHTML += '</div>';
 				tableHTML += '</div>';
-				
-				tableHTML += '<div class="subContainer">';
-				tableHTML += `<button onclick="FunctionNuevoCuartel(${unidad["Id"]})" class="btn btn-secondary">Editar Cuartel</button>`;
-				tableHTML += ' <select name="Cuarteles" id="Cuarteles" required>';
-
-				Cuarteles.forEach(rowCuarteles => {	tableHTML += `<option value='${rowCuarteles["Id"]}'>${rowCuarteles["Name"]}</option>`;});	
 				 
-				tableHTML += '</select>';
+				tableHTML += '<div class="row border-bottom ">';
+					tableHTML += '<div class="col-auto p-3">';
+							 tableHTML += `<button onclick="FunctionNuevaUbicacion(${unidad["Id"]})" class="btn btn-secondary">Editar ubicación</button>`;
+					tableHTML += '</div>';
+					tableHTML += '<div class="col-auto py-3">';
+						tableHTML += `<input type="text" id="NuevaUbicacion" name="NuevaUbicacion" class="form-control" placeholder="Ejemplo: Z1-3">`;   // Input cambio de ubicación.
+					tableHTML += '</div>';
+				tableHTML += '</div>';
+	
+				tableHTML += '<div class="row border-bottom ">';
+					tableHTML += '<div class="col-auto p-3">';
+						tableHTML += `<button onclick="FunctionNuevoNumero('${unidad["Id"]}')" class="btn btn-secondary">Editar número</button> `;
+					tableHTML += '</div>';
+					tableHTML += '<div class="col-auto py-3">';
+						 tableHTML += `<input type="text" id="NuevoNumero" name="NuevoNumero" class="form-control" placeholder="Ejemplo: 99345469">`;   // Input cambio de número.
+					tableHTML += '</div>';
 				tableHTML += '</div>';
 
-				tableHTML += '<div class="subContainer">';
-				tableHTML += `<button onclick="FunctionEliminar('${unidad["Id"]}')" class="btn btn-danger">Eliminar</button> Eliminar unidad...`;
-				tableHTML += '</div>';   // Función para eliminar unidad.
+				tableHTML += '<div class="row border-bottom ">';
+					tableHTML += '<div class="col-auto p-3">';
+						  tableHTML += `<button onclick="FunctionCambiarVolMax('${unidad["Id"]}')" class="btn btn-secondary">Editar volumen máximo</button> `;
+					tableHTML += '</div>';
+					tableHTML += '<div class="col-auto py-3">';
+						tableHTML += `<input type="text" id="VolMax" name="VolMax" class="form-control" placeholder="Ejemplo: 1000">`;   // Input cambio de volumen máximo.
+					tableHTML += '</div>';
+				tableHTML += '</div>';
+
+				tableHTML += '<div class="row border-bottom ">';
+					tableHTML += '<div class="col-auto p-3">';
+						 tableHTML += `<button onclick="FunctionNuevoTipo('${unidad["Id"]}')" class="btn btn-secondary">Editar Tipo</button>`;
+					tableHTML += '</div>';
+					tableHTML += '<div class="col-auto py-3">';
+						tableHTML += CreateSelectFromObjArray('NuevoTipo',Tipos,'Id','Nombre') ;
+					tableHTML += '</div>';
+				tableHTML += '</div>';
+				
+				tableHTML += '<div class="row border-bottom ">';
+					tableHTML += '<div class="col-auto p-3">';
+						tableHTML += `<button onclick="FunctionNuevoCuartel(${unidad["Id"]})" class="btn btn-secondary">Editar Cuartel</button>`;
+					tableHTML += '</div>';
+					tableHTML += '<div class="col-auto py-3">';
+						tableHTML += CreateSelectFromObjArray('Cuarteles',Cuarteles,'Id','Name') ;
+					tableHTML += '</div>';
+				tableHTML += '</div>';
+
+				tableHTML += '<div class="row border-bottom ">';
+					tableHTML += '<div class="col-auto p-3">';
+							tableHTML += `<button onclick="FunctionEliminar('${unidad["Id"]}')" class="btn btn-danger">Eliminar</button>`;
+					tableHTML += '</div>';
+				tableHTML += '</div>';
 				
    			tableHTML +='		  </div> '; // end Acordeon body
     		tableHTML +='		  </div> '; // end collapseZero
@@ -801,10 +784,10 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
             <div class="col p-3">
 				${GetTitulo('Unidades')}
             </div>
-			 <div class="col-sm-auto align-self-center">
+			 <div class="col-sm-auto align-self-center p-2">
               <b> Filtro: </b>
             </div>
-            <div class="col-3 align-self-center">
+            <div class="col-auto align-self-center p-2">
                <select class="form-select" id="filtro">
                 <option value="all" >Por zona</option>
                 <option value="sirecor" selected >Solo Sirecor</option>

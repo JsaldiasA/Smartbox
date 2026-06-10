@@ -2,25 +2,20 @@
 
 async function GetMainChecklist(  )
 	{	
-		RefreshIntervals_Ids.forEach(interval_ID => {
-
-		 clearInterval(interval_ID)
-
-		});	
+		RefreshIntervals_Ids.forEach(interval_ID => { clearInterval(interval_ID) });	
 
 		 document.getElementById('main').innerHTML = `   <div class="row pb-3">
             <div class="col p-3">
 				${GetTitulo('CheckLists')}
             </div>
-			 <div class="col-sm-auto align-self-center">
+			 <div class="col-sm-auto align-self-center p-2">
               <b> Filtro: </b>
             </div>
-            <div class="col-3 align-self-center">
+            <div class="col-auto align-self-center p-2">
                <select class="form-select" id="filtro">
                 <option value="all" selected>Todos</option>
                 <option value="No operativos" >No operativos</option>
                 <option value="No marcan" >No marcan</option>
-
                 </select>
             </div>
 			
@@ -35,9 +30,9 @@ async function GetMainChecklist(  )
 		 </div>
     
         <div id="mainChecklist"> ${GetLoadingPage()}</div>`;
-
-		  await GetTableTableEstadoGeneral();
-		  await GetChecklistTables();
+		  let pageData = await GetPageData();	
+		  await GetTableTableEstadoGeneral( pageData );
+		  await GetChecklistTables( pageData );
 
 		const statusSelect = document.querySelector('#filtro');
 
@@ -45,23 +40,32 @@ async function GetMainChecklist(  )
 		statusSelect.addEventListener('change', (event) => {
 			// Get the newly selected value
 			document.getElementById('mainChecklist').innerHTML=GetLoadingPage();
+		
 			const newStatus = event.target.value;
-			GetChecklistTables();
+			GetChecklistTables(pageData);
 			console.log(`Status changed to: ${newStatus}`);
 		});
 
 	}
 	
+async function GetPageData() {
+
+	let [ Zonas, tickets, cuarteles, Estanqueschecklists,ChecklistsNew, Unidades] = await Promise.all([ GetZonas(),GetTicket(),GetCuarteles(),GetChecklistByZonaName( 'Estanques' ),GetChecklistsNew(),GetUnidades()]);
 	
 
-async function GetChecklistTables( )
+	return [Zonas, tickets, cuarteles, Estanqueschecklists,ChecklistsNew, Unidades];
+}
+
+async function GetChecklistTables( pageData )
 	{
 
-		let [checklists, Zonas, tickets, cuarteles, Estanqueschecklists,ChecklistsNew, Unidades] = await Promise.all([GetChecklists(), GetZonas(),GetTicket(),GetCuarteles(),GetChecklistByZonaName( 'Estanques' ),GetChecklistsNew(),GetUnidades()]);
-	
+		//let [checklists, Zonas, tickets, cuarteles, Estanqueschecklists,ChecklistsNew, Unidades] = await Promise.all([GetChecklists(), GetZonas(),GetTicket(),GetCuarteles(),GetChecklistByZonaName( 'Estanques' ),GetChecklistsNew(),GetUnidades()]);
+		let [ Zonas, tickets, cuarteles, Estanqueschecklists,ChecklistsNew, Unidades] = pageData;
+
 		let tableHTML = '';
 		let ChecklistDataTable = [] ;
-
+		
+		ChecklistsNew.sort((a, b) => Date.parse(a["Fecha"]) - Date.parse(b["Fecha"]) ); 
 
 			// fill datatable
 			cuarteles.forEach(rowCT => {
@@ -72,11 +76,9 @@ async function GetChecklistTables( )
 					let unidad;
 					let rowData;
 
-					checklists.forEach(rowCL => {
-						if(rowCL["Checklist"] != null)
-						{
-							if(rowCL["Checklist"]["id_unidad"] == rowCT["Id_unidad"] )	Checklist = rowCL["Checklist"];
-						}	
+					ChecklistsNew.forEach(rowCL => {
+
+							if(rowCL["id_unidad"] == rowCT["Id_unidad"] )	Checklist = rowCL;
 					});
 
 					tickets.forEach(rowTk => {
@@ -95,7 +97,7 @@ async function GetChecklistTables( )
 		var fil = document.getElementById("filtro");
 		var filtroValue = fil ? fil.options[fil.selectedIndex].value : "";  
 	
-		tableHTML = renderChecklistTable(filtroValue,Zonas,cuarteles,Unidades,checklists,Estanqueschecklists, ChecklistsNew,tickets,ChecklistDataTable);
+		tableHTML = renderChecklistTable(filtroValue,Zonas,cuarteles,Unidades,Estanqueschecklists, ChecklistsNew,tickets,ChecklistDataTable);
 
 		// Select the dropdown element
 
@@ -106,14 +108,13 @@ async function GetChecklistTables( )
 
 	}
 	
- function CountUnidadesOK( Id_zona, checklists,Cuarteles, tickets, Estanqueschecklists, ChecklistsNew,Unidades)
+ function CountUnidadesOK( Id_zona,Cuarteles, tickets, Estanqueschecklists, ChecklistsNew,Unidades)
 	{
 
 	
 		var Count = 0;
 		let unidadesToCount = [];
 
-		
 		Cuarteles.forEach( cuartel => { 
 			
 			if( !Id_zona )
@@ -144,9 +145,8 @@ async function GetChecklistTables( )
 		
 		let hasTicket = '0';
 		let checklist;
-
 		ChecklistsNew.sort((a, b) => Date.parse(a["Fecha"]) - Date.parse(b["Fecha"]) ); 
-		
+
 		ChecklistsNew.forEach( ck => { 
 
 			if(	ck['id_unidad']	== unidad['Id'] )
@@ -218,14 +218,15 @@ async function GetChecklistTables( )
 		return operatibilidad > 80 ? "text-success" : ( operatibilidad > 60 ? ("text-warning") : ("text-danger") );
 	}
 
-	async function GetTableTableEstadoGeneral()
+	async function GetTableTableEstadoGeneral( pageData)
 	{	
 		
-		let [Zonas,checklists,Cuarteles, tickets, Estanqueschecklists,ChecklistsNew, Unidades] = await Promise.all([GetZonas(),GetChecklists(), GetCuarteles(),GetTicket(),GetChecklistByZonaName( 'Estanques' ),GetChecklistsNew(),GetUnidades()]);
+		//let [Zonas,checklists,Cuarteles, tickets, Estanqueschecklists,ChecklistsNew, Unidades] = await Promise.all([GetZonas(),GetChecklists(), GetCuarteles(),GetTicket(),GetChecklistByZonaName( 'Estanques' ),GetChecklistsNew(),GetUnidades()]);
+		
+		let [Zonas, tickets, cuarteles, Estanqueschecklists,ChecklistsNew, Unidades] =	pageData;
 
-
-		var Operativas = await CountUnidadesOK(null,checklists,Cuarteles, tickets, Estanqueschecklists,ChecklistsNew,Unidades);
-		var total = await CountUnidades(null,Cuarteles);
+		var Operativas = await CountUnidadesOK(null,cuarteles, tickets, Estanqueschecklists,ChecklistsNew,Unidades);
+		var total = await CountUnidades(null,cuarteles);
 
 		var operatibilidad = Math.round( (Operativas/total)*100 );
 
@@ -661,18 +662,30 @@ function FunctionUpdateChecklistPost( Id_checklist )
 }
 
 
-function renderChecklistTable(filtroValue, Zonas,cuarteles,Unidades,checklists,Estanqueschecklists, ChecklistsNew,tickets,ChecklistDataTable)
+function renderChecklistTable(filtroValue, Zonas,cuarteles,Unidades,Estanqueschecklists, ChecklistsNew,tickets,ChecklistDataTable)
 {	let tableHTML='';
 
 	switch ( filtroValue ) 
 		{
 		case 'all':
 
+				ChecklistsNew.sort((a, b) => Date.parse(a["Fecha"]) - Date.parse(b["Fecha"]) ); 
+				tableHTML += '<div class="accordion" id="accordionPanelsStayOpenExample"></div>';
+
 				Zonas.forEach(rowZona => {
-				
+
+				tableHTML += `<div class="accordion-item">
+				<h1 class="accordion-header" id="panelsStayOpen-heading${rowZona["Id"]}">
+				<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse${rowZona["Id"]}" aria-expanded="true" aria-controls="panelsStayOpen-collapse${rowZona["Id"]}">
+					<h2>${rowZona["Name"]}</h2>
+				</button>
+				</h1>	
+
+				<div id="panelsStayOpen-collapse${rowZona["Id"]}" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-heading${rowZona["Id"]}">
+      			<div class="accordion-body">`;
+      
 				tableHTML += '	<div class="row pb-3">';
 				tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
-				tableHTML += `    <h2><b>${rowZona["Name"]}</b></h2> `;
 				tableHTML += '   <div class="overflow-auto">';
 				if(rowZona["Name"] != "Estanques")
 				{
@@ -692,7 +705,8 @@ function renderChecklistTable(filtroValue, Zonas,cuarteles,Unidades,checklists,E
 					tableHTML += `<th>Fecha</th>`;
 					tableHTML += `<th>sin ticket</th>`;
 				}
-			
+
+				
 				// Create table body rows
 				cuarteles.forEach(rowCT => {
 
@@ -704,11 +718,9 @@ function renderChecklistTable(filtroValue, Zonas,cuarteles,Unidades,checklists,E
 						let unidad;
 						let rowData;
 
-						checklists.forEach(rowCL => {
-							if(rowCL["Checklist"] != null)
-							{
-								if(rowCL["Checklist"]["id_unidad"] == rowCT["Id_unidad"] )	Checklist = rowCL["Checklist"];
-							}	
+						ChecklistsNew.forEach(rowCL => {
+
+								if(rowCL["id_unidad"] == rowCT["Id_unidad"] )	Checklist = rowCL;
 						});
 
 						tickets.forEach(rowTk => {
@@ -810,7 +822,7 @@ function renderChecklistTable(filtroValue, Zonas,cuarteles,Unidades,checklists,E
 				tableHTML += `</tr>`        ;
 				tableHTML += `</thead><tbody>`        ;
 					
-				Operativas = CountUnidadesOK(rowZona["Id"],checklists,cuarteles, tickets, Estanqueschecklists, ChecklistsNew,Unidades);
+				Operativas = CountUnidadesOK(rowZona["Id"],cuarteles, tickets, Estanqueschecklists, ChecklistsNew,Unidades);
 				total = CountUnidades(rowZona["Id"],cuarteles);
 				operatibilidad = Math.round( (Operativas/total)*100 );
 				Color = ColorOperatibilidar( operatibilidad );
@@ -827,8 +839,12 @@ function renderChecklistTable(filtroValue, Zonas,cuarteles,Unidades,checklists,E
 				tableHTML += '    </div>      ';  // col
 				tableHTML += '</div>'; // row
 
+				tableHTML += '</div>'; // acordeonBody
+				tableHTML += '</div>'; // panelsStayOpen-collapseOne
+				tableHTML += '</div>'; // acordeonItem
 			});
-				
+			tableHTML += '</div>'; // acordeon
+
 			return tableHTML;
 
 			case 'No operativos':
@@ -897,8 +913,7 @@ function renderChecklistTable(filtroValue, Zonas,cuarteles,Unidades,checklists,E
 				if(row.checklist && row.ticket ){
 				
 					if(row.ticket['Id_TicketPriority'] == 2)	{
-
-					
+				
 						tableHTML += `<tr class="bg-warning">`        ;	
 						tableHTML += `<td><a href='url'  onclick="ChecklistVerPage(${row.checklist["Id"]});return false;" >${row.cuartel["Name"]}</a></td>`;
 						tableHTML += `<td>${row.checklist["Fecha"]}</td>`;

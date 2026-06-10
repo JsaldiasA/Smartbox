@@ -21,9 +21,9 @@ async function GetMainTickets(  )
 	{
 
 		return `          <div class="container">
-			<div class="row">
-					<div class="col">
-						<br><h1><b>Tickets</b></h1><br>
+			<div class="row pb-3">
+					<div class="col p-3">
+						${GetTitulo('Tickets')}
 					</div>
 					<div class="col">
 						<tr><td><b></b></td></tr>
