@@ -17,8 +17,7 @@ async function GetMainChecklist(  )
                 <option value="No operativos" >No operativos</option>
                 <option value="No marcan" >No marcan</option>
                 </select>
-            </div>
-			
+            </div>	
 		</div>`;
 
 		 document.getElementById('main').innerHTML +=`<div class="row pb-3">
@@ -30,9 +29,9 @@ async function GetMainChecklist(  )
 		 </div>
     
         <div id="mainChecklist"> ${GetLoadingPage()}</div>`;
-		  let pageData = await GetPageData();	
-		  await GetTableTableEstadoGeneral( pageData );
-		  await GetChecklistTables( pageData );
+		  let DataTable = await GetPageData();	
+		  await GetTableTableEstadoGeneral( DataTable );
+		  await GetChecklistTables( DataTable );
 
 		const statusSelect = document.querySelector('#filtro');
 
@@ -42,7 +41,7 @@ async function GetMainChecklist(  )
 			document.getElementById('mainChecklist').innerHTML=GetLoadingPage();
 		
 			const newStatus = event.target.value;
-			GetChecklistTables(pageData);
+			GetChecklistTables(DataTable);
 			console.log(`Status changed to: ${newStatus}`);
 		});
 
@@ -50,20 +49,9 @@ async function GetMainChecklist(  )
 	
 async function GetPageData() {
 
-	let [ Zonas, tickets, cuarteles, Estanqueschecklists,ChecklistsNew, Unidades] = await Promise.all([ GetZonas(),GetTicket(),GetCuarteles(),GetChecklistByZonaName( 'Estanques' ),GetChecklistsNew(),GetUnidades()]);
-	
-
-	return [Zonas, tickets, cuarteles, Estanqueschecklists,ChecklistsNew, Unidades];
-}
-
-async function GetChecklistTables( pageData )
-	{
-
-		//let [checklists, Zonas, tickets, cuarteles, Estanqueschecklists,ChecklistsNew, Unidades] = await Promise.all([GetChecklists(), GetZonas(),GetTicket(),GetCuarteles(),GetChecklistByZonaName( 'Estanques' ),GetChecklistsNew(),GetUnidades()]);
-		let [ Zonas, tickets, cuarteles, Estanqueschecklists,ChecklistsNew, Unidades] = pageData;
-
-		let tableHTML = '';
-		let ChecklistDataTable = [] ;
+	let [ Zonas, tickets, cuarteles,ChecklistsNew, Unidades] = await Promise.all([ GetZonas(),GetTicket(),GetCuarteles(),GetChecklistsNew(),GetUnidades()]);
+		
+		let DataTable = [] ;
 		
 		ChecklistsNew.sort((a, b) => Date.parse(a["Fecha"]) - Date.parse(b["Fecha"]) ); 
 
@@ -90,124 +78,94 @@ async function GetChecklistTables( pageData )
 					})
 
 					rowData = new checklistTableRowData(rowCT, unidad,Checklist,Ticket);
-					ChecklistDataTable.push(rowData);	
+					DataTable.push(rowData);	
 			});
 
+	return DataTable;
+}
+
+async function GetChecklistTables( DataTable )
+	{
+
+
+		let tableHTML = '';
 		
 		var fil = document.getElementById("filtro");
 		var filtroValue = fil ? fil.options[fil.selectedIndex].value : "";  
-	
-		tableHTML = renderChecklistTable(filtroValue,Zonas,cuarteles,Unidades,Estanqueschecklists, ChecklistsNew,tickets,ChecklistDataTable);
+		
+		tableHTML = await renderChecklistTable(filtroValue,DataTable);
 
 		// Select the dropdown element
-
-
 		document.getElementById("mainChecklist").innerHTML= tableHTML;
 
-	
 
 	}
 	
- function CountUnidadesOK( Id_zona,Cuarteles, tickets, Estanqueschecklists, ChecklistsNew,Unidades)
+ function CountUnidadesOK( Id_zona,ChecklistDataTable)
 	{
 
-	
 		var Count = 0;
 		let unidadesToCount = [];
 
-		Cuarteles.forEach( cuartel => { 
+		ChecklistDataTable.forEach( row => { 
 			
-			if( !Id_zona )
-			{
-				Unidades.forEach( unidad => {	 
-					if( cuartel['Id_unidad'] == unidad['Id'] )
-					{
-						unidadesToCount.push(unidad);
-					}
-				})
-			}
+			if( !Id_zona )	unidadesToCount=ChecklistDataTable;
 			else
 			{
-				if( cuartel['Id_zona'] == Id_zona)
-				{
-					Unidades.forEach( unidad => {	 
-						if( cuartel['Id_unidad'] == unidad['Id'] )
-						{
-							unidadesToCount.push(unidad);
-						}
-					})
-				}	
+				if( row.cuartel['Id_zona'] == Id_zona)	unidadesToCount.push(row);
 			}				
 
 		 })
 		
-		unidadesToCount.forEach( unidad => {
+		unidadesToCount.forEach( row => {
 		
-		let hasTicket = '0';
-		let checklist;
-		ChecklistsNew.sort((a, b) => Date.parse(a["Fecha"]) - Date.parse(b["Fecha"]) ); 
-
-		ChecklistsNew.forEach( ck => { 
-
-			if(	ck['id_unidad']	== unidad['Id'] )
+			let hasTicket = '0';
+			if(row.ticket)
 			{
-				checklist=ck;
-			}	
-		})
-
-		tickets.forEach(rowTk => {
-		
-			if( rowTk["Id_TicketStatus"] == '1' && rowTk["Id_TicketPriority"] == '1')
-			{					
-				if(unidad['Id'] == rowTk["Id_unidad"])
+				if(row.ticket["Id_TicketStatus"] == '1' && row.ticket["Id_TicketPriority"] == '1')
 				{
 					hasTicket = '1';
 				}	
 			}
-		})
 
-
-		if( checklist != null )
-		{
-			if(unidad['id_unidadTipo'] == 1)// si es estanque
+			if( row.checklist != null )
 			{
-				if(  hasTicket == '0' )
+				if(row.unidad['id_unidadTipo'] == 1)// si es estanque
 				{
-					Count ++;			
+					if(  hasTicket == '0' )
+					{
+						Count ++;			
+					}
 				}
+				else
+				{
+					if(  hasTicket == '0' && row.checklist["Solenoide"] == '1' && row.checklist["Flujometro"] == '1'  && row.checklist["agua"] == '1'  )
+					{
+						Count ++;			
+					}
+				}		
 			}
-			else
-			{
-				if(  hasTicket == '0' && checklist["Solenoide"] == '1' && checklist["Flujometro"] == '1'  && checklist["agua"] == '1'  )
-				{
-					Count ++;			
-				}
-			}	
-			
-		}
 
 		});
 
 		return Count; 
 	}	
 
-	 function CountUnidades( Id_zona ,Cuarteles)
+	 function CountUnidades( Id_zona ,ChecklistDataTable)
 	{
 
 		var Count = 0;
 
-		Cuarteles.forEach(rowCT => {
+		ChecklistDataTable.forEach(rowCT => {
 			if( Id_zona )
 			{
-				if( rowCT["Id_zona"] == Id_zona)
+				if( rowCT.cuartel["Id_zona"] == Id_zona)
 				{
 					Count ++; 
 				}								
 			}
-			else
-			{
-				Count ++;
-			}						
+			else	Count ++;
+						
 		});
 			
 		return Count; 
@@ -218,15 +176,11 @@ async function GetChecklistTables( pageData )
 		return operatibilidad > 80 ? "text-success" : ( operatibilidad > 60 ? ("text-warning") : ("text-danger") );
 	}
 
-	async function GetTableTableEstadoGeneral( pageData)
+	async function GetTableTableEstadoGeneral( DataTable)
 	{	
-		
-		//let [Zonas,checklists,Cuarteles, tickets, Estanqueschecklists,ChecklistsNew, Unidades] = await Promise.all([GetZonas(),GetChecklists(), GetCuarteles(),GetTicket(),GetChecklistByZonaName( 'Estanques' ),GetChecklistsNew(),GetUnidades()]);
-		
-		let [Zonas, tickets, cuarteles, Estanqueschecklists,ChecklistsNew, Unidades] =	pageData;
 
-		var Operativas = await CountUnidadesOK(null,cuarteles, tickets, Estanqueschecklists,ChecklistsNew,Unidades);
-		var total = await CountUnidades(null,cuarteles);
+		var Operativas = await CountUnidadesOK(null,DataTable);
+		var total = await CountUnidades(null,DataTable);
 
 		var operatibilidad = Math.round( (Operativas/total)*100 );
 
@@ -260,12 +214,7 @@ async function GetChecklistTables( pageData )
 
 		let [Unidades] = await Promise.all([GetUnidades()]);
 		
-		Unidades.forEach( u => {	 
-			if( Id_unidad == u['Id'] )
-			{
-				unidad = u ;
-			}
-		})
+		Unidades.forEach( u => { if( Id_unidad == u['Id'] )	unidad = u; })
 		
 		let tableHTML = `
 	
@@ -429,7 +378,7 @@ async function EditChecklistPage ( Id_Checklist )
 
 		let [Checklists] = await Promise.all([GetChecklistsNew()]);
 		
-		Checklists.forEach( c => {if( Id_Checklist == c['Id'] ) CheckList = c ;});
+		Checklists.forEach( c => { if( Id_Checklist == c['Id'] ) CheckList = c; });
 		
 		let tableHTML = `
 	
@@ -505,9 +454,7 @@ function FunctionNuevoCheckListPost( Id_unidad )
 					{
 						return alert("Técnico responsable no puede estar vacío, coloque su nombre.");
 					}
-
-						  
-						
+					
 					$.ajax(
 						{
 							url:'https://smartbox.eco3.cl/ApiController/checklist/checklistCreate.php',    //the page containing php script
@@ -547,7 +494,6 @@ function FunctionNuevoCheckListPost( Id_unidad )
 		enviarChecklistBtn.classList.remove('btn-success');
    		 enviarChecklistBtn.classList.add('btn-secondary'); 
 		enviarChecklistBtn.innerHTML= 'Subiendo Foto ' + `<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>`;
-
 
     	var form_data = new FormData();                  
     	form_data.append('file', file_data);                        
@@ -662,14 +608,16 @@ function FunctionUpdateChecklistPost( Id_checklist )
 }
 
 
-function renderChecklistTable(filtroValue, Zonas,cuarteles,Unidades,Estanqueschecklists, ChecklistsNew,tickets,ChecklistDataTable)
-{	let tableHTML='';
+async function renderChecklistTable(filtroValue,ChecklistDataTable)
+{	
+	let tableHTML='';
+	
 
 	switch ( filtroValue ) 
 		{
 		case 'all':
+				Zonas = await GetZonas();
 
-				ChecklistsNew.sort((a, b) => Date.parse(a["Fecha"]) - Date.parse(b["Fecha"]) ); 
 				tableHTML += '<div class="accordion" id="accordionPanelsStayOpenExample"></div>';
 
 				Zonas.forEach(rowZona => {
@@ -705,58 +653,40 @@ function renderChecklistTable(filtroValue, Zonas,cuarteles,Unidades,Estanquesche
 					tableHTML += `<th>Fecha</th>`;
 					tableHTML += `<th>sin ticket</th>`;
 				}
-
-				
 				// Create table body rows
-				cuarteles.forEach(rowCT => {
+				ChecklistDataTable.forEach(rowCT => {
 
-					if( rowCT["Id_zona"] == rowZona["Id"])
+					if( rowCT.cuartel["Id_zona"] == rowZona["Id"])
 					{
-						let Checklist;
 						let badChecklist = true;
-						let Ticket;
-						let unidad;
-						let rowData;
-
-						ChecklistsNew.forEach(rowCL => {
-
-								if(rowCL["id_unidad"] == rowCT["Id_unidad"] )	Checklist = rowCL;
-						});
-
-						tickets.forEach(rowTk => {
-							if(rowCT["Id_unidad"] == rowTk["Id_unidad"] &&  rowTk["Id_TicketStatus"] == '1' )	Ticket = rowTk;																										
-						})
-
-						Unidades.forEach(u => {
-							if(rowCT["Id_unidad"] == u["Id"] )	unidad = u;																										
-						})
-
+					
 						if(rowZona["Name"] == "Estanques")
 						{
 							// Create table body rows
-								if(Checklist != null )
+								if(rowCT.checklist != null )
 								{
 									let ColumnClassColor = 'class=""';
 
-									if(Ticket){
-										switch ( Ticket['Id_TicketPriority'] ) {
-					
-										case '1': ColumnClassColor = `class="bg-danger text-white"`
-										case '2': ColumnClassColor = `class="bg-warning"`										
-										case '3': ColumnClassColor = `class="border border-warning border-5"`
+									if(rowCT.ticket){
+										switch ( rowCT.ticket["Id_TicketPriority"] ) {
+						
+										case '1': ColumnClassColor = `class="bg-danger text-white"`; break;
+										case '2': ColumnClassColor = `class="bg-warning"`; break;									
+										case '3': ColumnClassColor = `class="border border-warning border-5"`; break;
+										default: ColumnClassColor = 'class=""';
 										}
 									} 
 							
 									tableHTML += `<tr ${ColumnClassColor} >` ;
-									tableHTML += `<td><a href='url' onclick="ChecklistVerPage(${Checklist["Id"]});return false;" >${rowCT["Name"]}</a></td>`;
-									tableHTML += `<td>${Checklist["Fecha"]}</td>`;
-									tableHTML += `<td>${Ticket == null ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
+									tableHTML += `<td><a href='url' onclick="ChecklistVerPage(${rowCT.checklist["Id"]});return false;" >${rowCT.cuartel["Name"]}</a></td>`;
+									tableHTML += `<td>${rowCT.checklist["Fecha"]}</td>`;
+									tableHTML += `<td>${rowCT.ticket == null ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
 								}
 								else
 								{
 									tableHTML += '<tr class="bg-danger text-white">';
 									tableHTML +=`<td></td>`;
-									tableHTML += `<td>${rowCT["Name"]}</td>`;
+									tableHTML += `<td>${rowCT.cuartel["Name"]}</td>`;
 									tableHTML += `<td>Sin checklist</td>`;
 									tableHTML += `<td>${hasTicket  == '0' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
 								}	
@@ -765,45 +695,46 @@ function renderChecklistTable(filtroValue, Zonas,cuarteles,Unidades,Estanquesche
 						}	
 						else
 						{				
-							if(Checklist != null )
+							if(rowCT.checklist != null )
 							{
 
-								if( Checklist["Solenoide"] == '1'  && Checklist["Solenoide"] == '1'  && Checklist["Flujometro"] == '1'  && Checklist["agua"] == '1' )
+								if( rowCT.checklist["Solenoide"] == '1'  && rowCT.checklist["Solenoide"] == '1'  && rowCT.checklist["Flujometro"] == '1'  && rowCT.checklist["agua"] == '1' )
 								{
 									badChecklist = false;
 								}
 
 								let ColumnClassColor = 'class=""';
-								if(Ticket){
-									switch ( Ticket['Id_TicketPriority'] ) {
+								if(rowCT.ticket){
+									switch ( rowCT.ticket["Id_TicketPriority"] ) {
 				
-									case '1': ColumnClassColor = `class="bg-danger text-white"`
-									case '2': ColumnClassColor = `class="bg-warning"`										
-									case '3': ColumnClassColor = `class="border border-warning border-5"`
+									case '1': ColumnClassColor = `class="bg-danger text-white"`; break;
+									case '2': ColumnClassColor = `class="bg-warning"`; break;									
+									case '3': ColumnClassColor = `class="border border-warning border-5"`; break;
+									default: ColumnClassColor = 'class=""';
 									}
 								} 
 						
 								if(badChecklist)  ColumnClassColor = `class="bg-danger text-white"`;
 																
 								tableHTML += `<tr ${ColumnClassColor} >` ;
-								tableHTML += `<td><a href='url'  onclick="ChecklistVerPage(${Checklist["Id"]});return false;" >${rowCT["Name"]}</a></td>`;
-								tableHTML += `<td>${Checklist["Fecha"]}</td>`;
-								tableHTML += `<td>${Checklist["Solenoide"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' } </td>`;
-								tableHTML += `<td>${Checklist["Flujometro"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
-								tableHTML += `<td>${Checklist["agua"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
-								tableHTML += `<td>${Checklist["ConduitChoco"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
-								tableHTML += `<td>${Ticket == null ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
+								tableHTML += `<td><a href='url'  onclick="ChecklistVerPage(${rowCT.checklist["Id"]});return false;" >${rowCT.cuartel["Name"]}</a></td>`;
+								tableHTML += `<td>${rowCT.checklist["Fecha"]}</td>`;
+								tableHTML += `<td>${rowCT.checklist["Solenoide"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' } </td>`;
+								tableHTML += `<td>${rowCT.checklist["Flujometro"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
+								tableHTML += `<td>${rowCT.checklist["agua"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
+								tableHTML += `<td>${rowCT.checklist["ConduitChoco"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
+								tableHTML += `<td>${rowCT.ticket == null ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
 							}
 							else
 							{
 								tableHTML += '<tr class="bg-danger text-white">';
-								tableHTML += `<td>${rowCT["Name"]}</td>`;
-								tableHTML += `<td>${rowCT["Id_unidad"] == null ? 'Sin Unidad' : 'Sin Checklist'}</td>`;
+								tableHTML += `<td>${rowCT.cuartel["Name"]}</td>`;
+								tableHTML += `<td>${rowCT.cuartel["Id_unidad"] == null ? 'Sin Unidad' : 'Sin Checklist'}</td>`;
 								tableHTML += `<td></td>`;
 								tableHTML += `<td></td>`;
 								tableHTML += `<td></td>`;
 								tableHTML += `<td></td>`;
-								tableHTML += `<td>${Ticket == null ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
+								tableHTML += `<td>${rowCT.ticket == null ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
 							}	
 
 							tableHTML += '</tr>';		
@@ -813,7 +744,6 @@ function renderChecklistTable(filtroValue, Zonas,cuarteles,Unidades,Estanquesche
 				});
 
 				tableHTML += '</tbody></table>';
-
 				tableHTML += '	<table class="table" ><thead>';
 				tableHTML += `<tr>`    	;
 				tableHTML += `<th scope="col">Total</th>`  	;
@@ -822,8 +752,8 @@ function renderChecklistTable(filtroValue, Zonas,cuarteles,Unidades,Estanquesche
 				tableHTML += `</tr>`        ;
 				tableHTML += `</thead><tbody>`        ;
 					
-				Operativas = CountUnidadesOK(rowZona["Id"],cuarteles, tickets, Estanqueschecklists, ChecklistsNew,Unidades);
-				total = CountUnidades(rowZona["Id"],cuarteles);
+				Operativas = CountUnidadesOK(rowZona["Id"],ChecklistDataTable);
+				total = CountUnidades(rowZona["Id"],ChecklistDataTable);
 				operatibilidad = Math.round( (Operativas/total)*100 );
 				Color = ColorOperatibilidar( operatibilidad );
 
@@ -849,7 +779,7 @@ function renderChecklistTable(filtroValue, Zonas,cuarteles,Unidades,Estanquesche
 
 			case 'No operativos':
 				
-				tableHTML += '	<div class="row pb-3">';
+			tableHTML += '	<div class="row pb-3">';
 			tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
 			tableHTML += `  ${GetTitulo('No operativos')} `;
 			tableHTML += '   <div class="overflow-auto">';
@@ -864,14 +794,11 @@ function renderChecklistTable(filtroValue, Zonas,cuarteles,Unidades,Estanquesche
 			tableHTML += `<th>sin ticket</th></tr>`;
 			tableHTML += `</thead><tbody>`        ;
 
-			
-
 			ChecklistDataTable.forEach(row => {
 				if(row.checklist && row.ticket ){
 				
 					if(row.ticket['Id_TicketPriority'] == 1)	{
 
-					
 						tableHTML += `<tr class="bg-danger text-white">`        ;	
 						tableHTML += `<td><a href='url'  onclick="ChecklistVerPage(${row.checklist["Id"]});return false;" >${row.cuartel["Name"]}</a></td>`;
 						tableHTML += `<td>${row.checklist["Fecha"]}</td>`;
@@ -937,8 +864,6 @@ function renderChecklistTable(filtroValue, Zonas,cuarteles,Unidades,Estanquesche
 		default:
 			// Code to execute if no match is found
 		}	
-
-
 }
 
 class checklistTableRowData
