@@ -133,10 +133,14 @@ async function GetCuartelesMainTable( HtmlElementId  )
 
 			break;
 		case 'milesight':
-			
-			tableHTML+= GetUnidadesTableById_unidadTipo('3','Milesight',Cuarteles,Unidades,UltimosRegistros);
 
+			tableHTML+= GetUnidadesTableById_unidadTipo('3','Milesight',Cuarteles,Unidades,UltimosRegistros);
+			tableHTML+= GetUnidadesTableById_unidadTipo('5','Milesight Energizada',Cuarteles,Unidades,UltimosRegistros);
+				
 			break;
+		
+	
+
 		case 'indefinidas':
 			
 			tableHTML+= GetUnidadesTableById_unidadTipo( null ,'indefinidas',Cuarteles,Unidades,UltimosRegistros);

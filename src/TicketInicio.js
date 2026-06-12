@@ -52,7 +52,6 @@ async function GetTicketsMainTable( HtmlElementId  )
 
 		TicketStatus.forEach(rowTKStatus => {
 
-
 			tableHTML += `	<div class="row pb-3">`;
 			tableHTML += ` <div class="col p-3 card shadow p-3 card shadow">`;
 			tableHTML += `    <h2><b>${rowTKStatus["Estado"]}</b></h2> `;
@@ -113,11 +112,7 @@ async function TicketVerPage ( Id_ticket )
 	{
 		document.getElementById(`main`).innerHTML = `<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>`;
 		// clean an set intervals
-		RefreshIntervals_Ids.forEach(interval_ID => {
-
-		clearInterval(interval_ID)
-
-		});	
+		RefreshIntervals_Ids.forEach(interval_ID => {	clearInterval(interval_ID)	});	
 
 		let tableHTML =``;
 		let [Tickets, TicketStatus, Cuarteles, Unidades] = await Promise.all([GetTicket(), GetTicketStatus(),GetCuarteles(),GetUnidades()]);
@@ -161,6 +156,15 @@ async function TicketVerPage ( Id_ticket )
 		tableHTML += `</div>`;
 
 		document.getElementById('main').innerHTML = tableHTML;
+
+		const selectMetodosDePrueba = document.getElementById('MetodosDePrueba');
+		let MetodosDePrueba = GetMetodosDePrueba();
+
+		MetodosDePrueba.forEach(row => {
+		
+		const NewOption = new Option(row["Name"], row["Id"]);
+		selectMetodosDePrueba.add(NewOption);
+		});
 
 	}
 
@@ -223,11 +227,7 @@ async function TicketVerPage ( Id_ticket )
 	{
 		document.getElementById(`main`).innerHTML = `<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>`;
 		// clean an set intervals
-		RefreshIntervals_Ids.forEach(interval_ID => {
-
-		clearInterval(interval_ID)
-
-		});	
+		RefreshIntervals_Ids.forEach(interval_ID => {	clearInterval(interval_ID)	});	
 
 		let tableHTML =``;
 		let [Tickets, TicketStatus, Cuarteles, Unidades] = await Promise.all([GetTicket(), GetTicketStatus(),GetCuarteles(),GetUnidades()]);
@@ -306,8 +306,6 @@ async function TicketVerPage ( Id_ticket )
 								window.location.reload();
 							}
 						});
-
-					
   				}
 			else
 				{
@@ -377,7 +375,6 @@ function FunctionUpdateTicketPost( id_ticket )
 				
 				//var f = document.getElementById("cuartel");
 				//var Id_unidad = f.options[f.selectedIndex].value; 	
-					
 	
 				$.ajax(
 					{
@@ -410,17 +407,20 @@ function FunctionUpdateTicketPost( id_ticket )
 
 		const PrioridadGrave = {
 		Id: "1",
-		Name: "Alta (Inoperativo)"
+		Name: "Alta (Inoperativo)",
+		Reasons:[{Id: "1",Name:"Desconectado"},{Id: "2",Name:"No Abre"}]
 		};
 
 		const PrioridadMedia = {
 		Id: "2",
-		Name: "Media"
+		Name: "Media",
+		Reasons:[{Id: "1",Name:"No marca"},{Id: "2",Name:"Bateria baja"}]
 		};
 
 		const PrioridadBaja = {
 		Id: "3",
-		Name: "Baja"
+		Name: "Baja",
+		Reasons:["Sin condit","Sin choco","Fuga agua","Caja de energizacion","otro"]
 		};
 
 		Priorities = [PrioridadGrave,PrioridadMedia,PrioridadBaja]

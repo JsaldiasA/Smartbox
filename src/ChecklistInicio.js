@@ -381,33 +381,30 @@ async function EditChecklistPage ( Id_Checklist )
 		Checklists.forEach( c => { if( Id_Checklist == c['Id'] ) CheckList = c; });
 		
 		let tableHTML = `
-	
-	<div class="row p-3">
-		${	GetVolverBtn('VolverCuartelesMain()')}
-		${	GetTitulo(`Editar checklist  ${CheckList["Id"]}`)}
-	</div>
-	<div class="row">
-		<div class="col m-3 p-3 border">
-			<table class="table">
-			<tbody>	
-				<tr><td><b>Metodo de Prueba </b></td><td><select name="MetodosDePrueba" class="form-select" id="MetodosDePrueba" required=""></select></td><td></td></tr>	
-				<tr><td><b>Prueba de agua:</b></td><td><input type="checkbox" class="form-check-input" id="agua" ></td><td></td></tr>
-				<tr><td><b>Solenoide:</b></td><td><input type="checkbox" class="form-check-input" id="Solenoide" ></td><td></td></tr>
-				<tr><td><b>Flujómetro:</b></td><td><input type="checkbox" class="form-check-input" id="Flujometro" value="${CheckList["Flujometro"]}"></td><td></td></tr>	
-				<tr><td><b>Conduit y Choco:</b></td><td><input type="checkbox" class="form-check-input" id="ConduitChoco" value="${CheckList["ConduitChoco"]}"></td><td></td></tr>
-				<tr><td><b>Observaciones:</b></td><td><input type="text" class="form-control" id="Observaciones" value="${CheckList["Observaciones"]}"></td><td></td></tr>
-			</tbody>
-			</table>
+		<div class="row p-3">
+			${	GetVolverBtn('VolverCuartelesMain()')}
+			${	GetTitulo(`Editar checklist  ${CheckList["Id"]}`)}
 		</div>
-	</div>
-	<div class="row">
+		<div class="row">
+			<div class="col m-3 p-3 border">
+				<table class="table">
+				<tbody>	
+					<tr><td><b>Metodo de Prueba </b></td><td><select name="MetodosDePrueba" class="form-select" id="MetodosDePrueba" required=""></select></td><td></td></tr>	
+					<tr><td><b>Prueba de agua:</b></td><td><input type="checkbox" class="form-check-input" id="agua" ></td><td></td></tr>
+					<tr><td><b>Solenoide:</b></td><td><input type="checkbox" class="form-check-input" id="Solenoide" ></td><td></td></tr>
+					<tr><td><b>Flujómetro:</b></td><td><input type="checkbox" class="form-check-input" id="Flujometro" value="${CheckList["Flujometro"]}"></td><td></td></tr>	
+					<tr><td><b>Conduit y Choco:</b></td><td><input type="checkbox" class="form-check-input" id="ConduitChoco" value="${CheckList["ConduitChoco"]}"></td><td></td></tr>
+					<tr><td><b>Observaciones:</b></td><td><input type="text" class="form-control" id="Observaciones" value="${CheckList["Observaciones"]}"></td><td></td></tr>
+				</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
 
-		<div class="col m-3 p-3" >
-			<button id="enviarChecklist"type="button" class="btn btn-success btn-lg" onclick="FunctionUpdateChecklistPost( ${CheckList["Id"]} ) ">Enviar CheckList</button>
-		</div>
-	</div>
-	
-	`;
+			<div class="col m-3 p-3" >
+				<button id="enviarChecklist"type="button" class="btn btn-success btn-lg" onclick="FunctionUpdateChecklistPost( ${CheckList["Id"]} ) ">Enviar CheckList</button>
+			</div>
+		</div>`;
 		
 		document.getElementById('main').innerHTML = tableHTML;
 
