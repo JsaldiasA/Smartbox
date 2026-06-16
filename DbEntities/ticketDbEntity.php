@@ -11,6 +11,7 @@ class ticketDbEntity
     public $Id_TicketPriority;
     public $Id_TicketStatus;
     public $Id_unidad;
+    public $MotivoDeCierre;
 
     function get_Id() {return $this->Id;}
     function get_Nombre() {return $this->Nombre;}
