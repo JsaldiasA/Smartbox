@@ -25,7 +25,7 @@ $FechaActual= date_create(date("Y-m-d H:i:s"));
 $NewTicket->Id = '0';
 $NewTicket->FechaInicio = $FechaActual->format('Y-m-d H:i:s');
 $NewTicket->FechaCierre = 'NULL';
-$NewTicket->Id_TicketPriority = '1';
+//$NewTicket->Id_TicketPriority = '1';
 $NewTicket->Id_TicketStatus = '1';
 
 $Model->create_ticket($NewTicket);
