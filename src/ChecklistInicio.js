@@ -613,7 +613,9 @@ async function renderChecklistTable(filtroValue,ChecklistDataTable)
 	switch ( filtroValue ) 
 		{
 		case 'all':
+			
 				Zonas = await GetZonas();
+				Zonas.sort((a, b) => a["Id"] - b["Id"] ); 
 
 				tableHTML += '<div class="accordion" id="accordionPanelsStayOpenExample"></div>';
 

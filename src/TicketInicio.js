@@ -127,6 +127,9 @@ async function TicketVerPage ( Id_ticket )
 			}	
 		});	
 
+		let StatusCerrado = '3';
+		let StatusAbierto = '1';
+
 		tableHTML += `<div class="container">`;
 		tableHTML += `<div class="row p-3">`;
 
@@ -136,15 +139,20 @@ async function TicketVerPage ( Id_ticket )
 		tableHTML += GetEditBtn(`TicketEditPage(${ticket["Id"]})`);
 		//display data
 		tableHTML += `<table class="table border"><tbody>`;
-		tableHTML += `<tr><td><b>ID:</b></td><td>${ticket["Id"]}</td></tr>`;
-		tableHTML += `<tr><td><b>Título:</b></td><td> ${ticket["Nombre"]} </td></tr>`;
-		tableHTML += `<tr><td><b>Descripcion: </b></td><td>${ticket["Descripcion"]}</td></tr>`;
-		tableHTML += `<tr><td><b>Usuario:</b></td><td>${ticket["Usuario"]}</td></tr>`;
-		tableHTML += `<tr><td><b>Fecha de ingreso:</b></td><td>${ticket["FechaInicio"] +" "+ FieldActivity(ticket["FechaInicio"] ) }</td></tr>`;
-		tableHTML += `<tr><td><b>Estado de la solicitud:</b></td><td>${ticket["Id_TicketStatus"]}</td></tr>`;
+			tableHTML += `<tr><td><b>ID:</b></td><td>${ticket["Id"]}</td></tr>`;
+			tableHTML += `<tr><td><b>Título:</b></td><td> ${ticket["Nombre"]} </td></tr>`;
+			tableHTML += `<tr><td><b>Descripcion: </b></td><td>${ticket["Descripcion"]}</td></tr>`;
+			tableHTML += `<tr><td><b>Usuario:</b></td><td>${ticket["Usuario"]}</td></tr>`;
+			tableHTML += `<tr><td><b>Fecha de ingreso:</b></td><td>${ticket["FechaInicio"] +" "+ FieldActivity(ticket["FechaInicio"] ) }</td></tr>`;
+			tableHTML += `<tr><td><b>Estado de la solicitud:</b></td><td>${ticket["Id_TicketStatus"]}</td></tr>`;
+			if (ticket["Id_TicketStatus"] == StatusCerrado ) tableHTML += `<td><b>Motivo del cierre:</b></td><td>${ticket["MotivoDeCierre"]}</td></tr>`;  // crear columna motivo de cierre si el ticket esta cerrado
+
 		tableHTML += `</tbody></table>`;
 
-		tableHTML += `<div class="row p-3">`;
+		if (ticket["Id_TicketStatus"] == StatusAbierto ) // si el ticke esta abierto crear el boton de cerrar
+		{
+			tableHTML += `<div class="row p-3" >`;
+
 			tableHTML += `<div class="col-sm">`;
 				tableHTML += `<div class="input-group mb-3">
 				<div class="input-group-prepend">
@@ -153,18 +161,16 @@ async function TicketVerPage ( Id_ticket )
 				<input type="text" class="form-control" aria-describedby="basic-addon1" placeholder="Describa motivo del cierre" aria-label="" id="MotivoCierre">
 				</div>`;
 			tableHTML += `</div>`;
+		}
+		
+
 		tableHTML += `</div>`;
 
 		document.getElementById('main').innerHTML = tableHTML;
 
-		const selectMetodosDePrueba = document.getElementById('MetodosDePrueba');
-		let MetodosDePrueba = GetMetodosDePrueba();
-
-		MetodosDePrueba.forEach(row => {
 		
-		const NewOption = new Option(row["Name"], row["Id"]);
-		selectMetodosDePrueba.add(NewOption);
-		});
+
+		
 
 	}
 
@@ -241,10 +247,10 @@ async function TicketVerPage ( Id_ticket )
 		tableHTML += `<div class="row p-3">`;
 			//display data
 			tableHTML += `<table class="table border"><tbody>`;
-			tableHTML += `<tr><td><b>Título:</b></td><td> <input type="text" class="form-control" id="Nombre" >  </td></tr>`;
-			tableHTML += `<tr><td><b>Descripcion: </b></td><td><input type="text" class="form-control" style="height: 200px; width: 100%" id="Descripcion" ></td></tr>`;
-			tableHTML += `<tr><td><b>Usuario:</b></td><td><input type="text" class="form-control" id="Usuario" placeholder="Escriba su nombre."></td></tr>`;
 			tableHTML += `<tr><td><b>Prioridad:</b></td><td>${ CreateSelectFromObjArray('TicketPriority',TicketPriorities,'Id','Name') }</td></tr>`;
+			tableHTML += `<tr><td><b>Título:</b></td><td> <div id="NombreSelectDOM" >  </td></tr>`;
+			tableHTML += `<tr><td><b>Descripcion: </b></td><td><input type="text" class="form-control" style="height: 200px; width: 100%" id="Descripcion" ></td></tr>`;
+			tableHTML += `<tr><td><b>Usuario:</b></td><td><input type="text" class="form-control" id="Usuario" placeholder="Escriba su nombre."></td></tr>`;	
 			tableHTML += `<tr><td><b>Cuartel:</b></td><td>${ CreateSelectFromObjArray('cuartel',Cuarteles,'Id_unidad','Name') }</td></tr>`;
 			tableHTML += `</tbody></table>`;
 		tableHTML += `</div>`;
@@ -257,6 +263,32 @@ async function TicketVerPage ( Id_ticket )
 
 		document.getElementById('main').innerHTML = tableHTML;
 
+		var f = document.getElementById("TicketPriority");
+					var Id_TicketPriority = f.options[f.selectedIndex].value; 
+					let SelectedPriority;
+			 TicketPriorities = GetTicketPriority();
+			TicketPriorities.forEach(Tkp => {	if(Tkp['Id'] == Id_TicketPriority ) SelectedPriority = Tkp;	})
+
+			document.getElementById('NombreSelectDOM').innerHTML= CreateSelectFromObjArray('Nombre',SelectedPriority['Reasons'],'Id','Name');
+
+		const statusSelect = document.querySelector('#TicketPriority');
+
+		// Listen for a change in selection
+		statusSelect.addEventListener('change', (event) => {
+			// Get the newly selected value
+					var f = document.getElementById("TicketPriority");
+					var Id_TicketPriority = f.options[f.selectedIndex].value; 
+					let SelectedPriority;
+			 TicketPriorities = GetTicketPriority();
+			TicketPriorities.forEach(Tkp => {	if(Tkp['Id'] == Id_TicketPriority ) SelectedPriority = Tkp;	})
+
+			document.getElementById('NombreSelectDOM').innerHTML= CreateSelectFromObjArray('Nombre',SelectedPriority['Reasons'],'Id','Name');
+		
+			const newStatus = event.target.value;
+			console.log(`Status changed to: ${newStatus}`);
+		});
+
+
 	}
 
 		function FunctionNuevoTicketPost()
@@ -268,7 +300,10 @@ async function TicketVerPage ( Id_ticket )
 					var URL = "https://smartbox.eco3.cl/ApiController/ticket/TicketCreate.php";
 					var Respuesta;
 
-					var Nombre = document.getElementById("Nombre").value;
+
+					var NombreSelectDOM = document.getElementById("Nombre");
+					var Nombre = NombreSelectDOM.options[ NombreSelectDOM.selectedIndex ].text;
+
 					if (Nombre == "")
 						{
 							return alert ("Debe especificar un dispositivo y/o plataforma.");
@@ -288,6 +323,9 @@ async function TicketVerPage ( Id_ticket )
 					var f = document.getElementById("cuartel");
 					var Id_unidad = f.options[f.selectedIndex].value; 	
 
+					var f = document.getElementById("TicketPriority");
+					var Id_TicketPriority = f.options[f.selectedIndex].value; 
+
 					$.ajax(
 						{
             				url:URL,
@@ -299,6 +337,7 @@ async function TicketVerPage ( Id_ticket )
 									Descripcion: Descripcion,
 									Usuario: Usuario,
 									Id_unidad: Id_unidad,
+									Id_TicketPriority: Id_TicketPriority
         						},
 							success: function(result)
 							{
@@ -337,6 +376,7 @@ function FunctionDeleteTicket(id_ticket)
 			data:
 				{
 					Id: id_ticket,
+					MotivoDeCierre: MotivoCierre
 				},
 			success: function(result)
 				{
@@ -414,13 +454,13 @@ function FunctionUpdateTicketPost( id_ticket )
 		const PrioridadMedia = {
 		Id: "2",
 		Name: "Media",
-		Reasons:[{Id: "1",Name:"No marca"},{Id: "2",Name:"Bateria baja"}]
+		Reasons:[{Id: "10",Name:"No marca"}]
 		};
 
 		const PrioridadBaja = {
 		Id: "3",
 		Name: "Baja",
-		Reasons:["Sin condit","Sin choco","Fuga agua","Caja de energizacion","otro"]
+		Reasons:[{Id: "3",Name:"Bateria baja"},{Id: "4",Name:"Sin condit"},{Id: "6",Name:"Sin choco"},{Id: "7",Name:"Fuga agua"},{Id: "8",Name:"Caja de energizacion"},{Id: "9",Name:"otro"}]
 		};
 
 		Priorities = [PrioridadGrave,PrioridadMedia,PrioridadBaja]
