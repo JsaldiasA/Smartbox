@@ -139,13 +139,67 @@ async function GetCuartelesMainTable( HtmlElementId  )
 				
 			break;
 		
-	
-
 		case 'indefinidas':
 			
-			tableHTML+= GetUnidadesTableById_unidadTipo( null ,'indefinidas',Cuarteles,Unidades,UltimosRegistros);
+				tableHTML += '	<div class="row pb-3">';
+				tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
+				tableHTML += `    <h2><b>indefinidas</b></h2> `;
+				tableHTML += '   <div class="overflow-auto">';
+					
+				tableHTML += '<table class="table text-nowrap"><thead><tr>';
+				tableHTML += `<th scope="col"><i class="bi bi-pin-map"></i></th>`;
+				tableHTML += `<th scope="col"><i class="bi bi-motherboard"></i></i></th>`;
+				tableHTML += `<th scope="col"></th>`;
+				tableHTML += `<th scope="col"><i class="bi bi-activity"></i></th>`;
+				tableHTML += `<th scope="col"><i class="bi bi-lightning-fill"></i></th>`;
+				tableHTML += `<th scope="col"><i class="bi bi-wifi"></i></th>`;
+				tableHTML += `<th scope="col">[L/m]</th>`;
+				tableHTML += `<th scope="col">[L]</th>`;
+				tableHTML += `</thead>`;
 
-			break;	
+				Unidades.forEach(rowUnidades => {
+
+					let HasRegistrio = false;
+					if(   rowUnidades["id_unidadTipo"] == null  )
+					{	
+						UltimosRegistros.forEach(rowUr => {
+						
+							if(rowUnidades["Id"] == rowUr["unidad_id"])
+							{
+								HasRegistrio=true;
+								tableHTML +='<tr>';
+								tableHTML += `<td> ${rowUnidades["tag"]}</td>`;
+								tableHTML += `<td> <button type="button" onclick="unidadVerPage(${rowUnidades["Id"]})" class="btn btn-primary btn-sm">${rowUnidades["Serie"]}</button> </td>`;
+								tableHTML += `<td>${rowUr["ESTADO"]}</td>`;
+								tableHTML += `<td>${FieldActivity(rowUr["DATETIME"])}</td>`;
+								tableHTML += `<td>${FieldBattery(rowUr["VOLTAJE"])}</td>`;
+								tableHTML += `<td>${FieldSignal(rowUr["SENAL"], rowUr["DATETIME"])}</td>`;
+								tableHTML += `<td>${rowUr["CAUDAL"]}</td>`;
+								tableHTML += `<td>${rowUr["VOLUMEN"]}</td>`;
+							}
+						})
+						if(!HasRegistrio)
+						{
+							tableHTML += '<tr >';
+							tableHTML += `<td> </td>`;
+							tableHTML += `<td> <button type="button" onclick="unidadVerPage(${rowUnidades["Id"]})" class="btn btn-primary btn-sm">${rowUnidades["Serie"]}</button> </td>`;
+							tableHTML += `<td>Milesight</td>`;
+							tableHTML += `<td></td>`;
+							tableHTML += `<td></td>`;
+							tableHTML += `<td></td>`;
+							tableHTML += `<td></td>`;
+							tableHTML += '</tr>';
+						}
+					}						
+				});	
+
+				tableHTML += '</tbody></table>';
+				tableHTML += '          </div>';// div overflow
+				tableHTML += '    </div>      ';  // col
+				tableHTML += '</div>'; // row
+
+				break;	
+
 		case 'sin cuartel':
 
 				tableHTML += '	<div class="row pb-3">';
