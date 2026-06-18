@@ -895,7 +895,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
                <select class="form-select" id="filtro">
                 <option value="all" >Por zona</option>
                 <option value="sirecor" selected >Solo Sirecor</option>
-				<option value="AreaExterna" selected >Area Externa</option>
+				<option value="AreaExterna" >Area Externa</option>
                 <option value="milesight" >Solo milesight</option>
                 <option value="sin cuartel" >Sin cuartel</option>
                 <option value="indefinidas" >indefinidas</option>
