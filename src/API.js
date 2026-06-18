@@ -262,7 +262,6 @@ function FunctionDeleteSMS(Id_SMSToUnidades) {
 function VolverCuartelesMain()
 {
 	GetMain();
-
 }
 	
 function FieldActivity( date ) {
@@ -293,6 +292,34 @@ function FieldActivity( date ) {
 	}	
    
 }
+
+function FieldFecha( date ) {
+
+	var pastDate = new Date(date);
+	var now = new Date(new Date().toLocaleString('en', {timeZone: 'America/Santiago'}))
+
+	var hoursAgo = Math.floor((now - pastDate) / 3600000);
+	var DaysAgo = Math.floor((now - pastDate) / (3600000*24));
+	var weeksAgo = Math.floor((now - pastDate) / (3600000*24*7));
+	var monthsAgo = Math.floor((now - pastDate) / (3600000*24*30));
+
+	switch (true) {
+
+		case  hoursAgo < 24:
+			return hoursAgo == 1 ? hoursAgo.toString() + ' Hora' : +hoursAgo.toString() + ' Horas';
+
+		case DaysAgo < 7:
+			return DaysAgo == 1 ? DaysAgo.toString() + ' Dia' :DaysAgo.toString() + ' Dias';
+			
+		case weeksAgo < 10:
+			return weeksAgo == 1 ? weeksAgo.toString() + ' Semana' :weeksAgo.toString() + ' Semanas';
+			
+		default:
+			return monthsAgo == 1 ? monthsAgo.toString() + ' Mes' :monthsAgo.toString() + ' Meses';
+		}
+   
+}
+
 
 function FieldEstado( Estado ) {
 

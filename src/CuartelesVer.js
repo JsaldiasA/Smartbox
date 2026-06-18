@@ -139,6 +139,56 @@ async function GetCuartelesMainTable( HtmlElementId  )
 				
 			break;
 		
+		case 'AreaExterna':
+
+			tableHTML += '	<div class="row pb-3" shadow border>';
+			tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
+			tableHTML += `    <h2>Area Externa</h2> `;
+			tableHTML += '   <div class="overflow-auto">';
+	
+			// Create table body rows
+
+			let UnidadesFiltradas = [];
+
+			Cuarteles.forEach(row => {
+
+				let unidad;
+
+				if(row["Id_unidad"]!= null && row["AreaExterna"] == '1' ) // no considera cuarteles de area externa.
+				{   
+					
+					let HasRegistrio = false;
+
+					Unidades.forEach(rowUnidades => {	if(row["Id_unidad"] == rowUnidades["Id"])	unidad=rowUnidades;	});
+
+					UltimosRegistros.forEach(rowUr => {
+						if(row["Id_unidad"] == rowUr["unidad_id"])
+						{
+							HasRegistrio=true;
+							let UnidadDataTable = {unidad: unidad ,ultimoRegistro: rowUr,cuartel: row };
+							UnidadesFiltradas.push( UnidadDataTable );
+						}	
+					});
+					if(!HasRegistrio)
+					{
+						let UnidadDataTable = {unidad: unidad ,ultimoRegistro: null,cuartel: row };
+						UnidadesFiltradas.push( UnidadDataTable );
+					}	
+				}
+			});
+
+			UnidadesFiltradas.sort((a, b) => Date.parse(b["unidad"]["UltimaActualizacion"]) - Date.parse(a["unidad"]["UltimaActualizacion"]) ); 
+			UnidadesFiltradas.sort((a, b) => b["unidad"]["Estado"].localeCompare(a["unidad"]["Estado"]));
+
+			tableHTML += RenderUnidadTable( UnidadesFiltradas );
+
+			tableHTML += '          </div>';// div overflow
+			tableHTML += '    </div>      ';  // col
+			tableHTML += '</div>'; // row
+
+				
+		break;
+		
 		case 'indefinidas':
 			
 				tableHTML += '	<div class="row pb-3">';
@@ -228,13 +278,8 @@ async function GetCuartelesMainTable( HtmlElementId  )
 						UnidadSerie = rowUnidades["Serie"];
 						UnidadTag = rowUnidades["tag"];
 
-						Cuarteles.forEach(rowCuarteles => {
-										
-							HasCuartel = (rowUnidades["Id"] == rowCuarteles["Id_unidad"] ) ? true : HasCuartel;
-							
-						});	
+						Cuarteles.forEach(rowCuarteles => {	HasCuartel = (rowUnidades["Id"] == rowCuarteles["Id_unidad"] ) ? true : HasCuartel;	});	
 						
-
 						if(!HasCuartel )
 						{	
 							UltimosRegistros.forEach(rowUr => {
@@ -287,7 +332,8 @@ async function GetCuartelesMainTable( HtmlElementId  )
 	}
 
 function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades,UltimosRegistros  )
-	{
+	{		
+			// no considera cuarteles de area externa.
 			let HTML = '';
 
 			HTML += '	<div class="row pb-3" shadow border>';
@@ -303,7 +349,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 
 				let unidad;
 
-				if(row["Id_unidad"]!= null )
+				if(row["Id_unidad"]!= null && row["AreaExterna"] != '1' ) // no considera cuarteles de area externa.
 				{   
 					
 					let HasRegistrio = false;
@@ -849,6 +895,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
                <select class="form-select" id="filtro">
                 <option value="all" >Por zona</option>
                 <option value="sirecor" selected >Solo Sirecor</option>
+				<option value="AreaExterna" selected >Area Externa</option>
                 <option value="milesight" >Solo milesight</option>
                 <option value="sin cuartel" >Sin cuartel</option>
                 <option value="indefinidas" >indefinidas</option>

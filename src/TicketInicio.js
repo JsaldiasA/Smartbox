@@ -60,7 +60,7 @@ async function GetTicketsMainTable( HtmlElementId  )
 			tableHTML += `<th scope="col"><i class="bi bi-pin-map"></i></th>`;
 			tableHTML += `<th scope="col">Nombre</th>`;
 			tableHTML += `<th scope="col">Proridad</th>`;
-			tableHTML += `<th scope="col">${ ( rowTKStatus["Id"] == `3` ? `Fecha Cierre ` : `Fecha Inicio` ) }</th>`;
+			tableHTML += `<th scope="col">${ ( rowTKStatus["Id"] == `3` ? `Fecha Cierre ` : `Hace` ) }</th>`;
 			tableHTML += `<th scope="col"></th>`;
 			tableHTML += `</thead>`;
 
@@ -69,29 +69,20 @@ async function GetTicketsMainTable( HtmlElementId  )
 				if(rowTKStatus["Id"] == rowTK["Id_TicketStatus"])
 				{
 
-					// GETTING cuertel name
-
 					let CuartelName = `no name`;
-					let TicketPriority = `no name`;
-					
+					let TicketPriority = `no name`;			
 
-					Cuarteles.forEach(rowCT => {
-						if(rowCT["Id_unidad"] == rowTK["Id_unidad"])	CuartelName=rowCT["Name"];
-					});
+					Cuarteles.forEach(rowCT => {	if(rowCT["Id_unidad"] == rowTK["Id_unidad"])	CuartelName=rowCT["Name"];	});
 
-					// Getting Priority
-					TicketPriorities.forEach(Tp => {
-						if(Tp["Id"] == rowTK["Id_TicketPriority"])	TicketPriority = Tp;
-					});
+					TicketPriorities.forEach(Tp => {	if(Tp["Id"] == rowTK["Id_TicketPriority"])	TicketPriority = Tp;	});
 
 					let TicketGRAVE = TicketPriority['Id'] == 1 ? true : false;
-
 
 					tableHTML +=`<tr>`;
 					tableHTML += `<td> ${CuartelName}</td>`;
 					tableHTML += `<td>${rowTK["Nombre"]}</td>`;
 					tableHTML += `<td>${ priorityColorText( TicketPriority['Id'],TicketPriority["Name"]) }</td>`;
-					tableHTML += `<td>${ ( rowTKStatus["Id"] == `3` ? rowTK["FechaCierre"] : (rowTK["FechaInicio"] +" "+ FieldActivity(rowTK["FechaInicio"] )) ) }</td>`;
+					tableHTML += `<td>${ ( rowTKStatus["Id"] == `3` ? rowTK["FechaCierre"] : ( FieldFecha(rowTK["FechaInicio"]) ) ) }</td>`;
 					tableHTML += `<td> <a href="url" onclick="TicketVerPage(${rowTK[`Id`]});return false" >ver</a> </td>`;
 					tableHTML +=`<tr>`;
 				}	
@@ -99,7 +90,7 @@ async function GetTicketsMainTable( HtmlElementId  )
 			});
 
 			tableHTML += `</tbody></table>`;
-			tableHTML += `          </div>`;// div overflow
+			tableHTML += `    </div>`;// div overflow
 			tableHTML += `    </div>      `;  // col
 			tableHTML += `</div>`; // row
 		});	
@@ -119,13 +110,7 @@ async function TicketVerPage ( Id_ticket )
 		
 		var ticket;
 
-		Tickets.forEach(rowTK => {
-			
-			if(rowTK["Id"] == Id_ticket)
-			{
-				ticket=rowTK;
-			}	
-		});	
+		Tickets.forEach(rowTK => {	if(rowTK["Id"] == Id_ticket)	ticket=rowTK;	});	
 
 		let StatusCerrado = '3';
 		let StatusAbierto = '1';
@@ -163,14 +148,9 @@ async function TicketVerPage ( Id_ticket )
 			tableHTML += `</div>`;
 		}
 		
-
 		tableHTML += `</div>`;
 
 		document.getElementById('main').innerHTML = tableHTML;
-
-		
-
-		
 
 	}
 
@@ -178,11 +158,7 @@ async function TicketVerPage ( Id_ticket )
 	{
 		document.getElementById(`main`).innerHTML = `<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>`;
 		// clean an set intervals
-		RefreshIntervals_Ids.forEach(interval_ID => {
-
-		clearInterval(interval_ID)
-
-		});	
+		RefreshIntervals_Ids.forEach(interval_ID => {	clearInterval(interval_ID)	});	
 
 		let tableHTML =``;
 		let [Tickets, TicketStatus, Cuarteles, Unidades] = await Promise.all([GetTicket(), GetTicketStatus(),GetCuarteles(),GetUnidades()]);
@@ -190,13 +166,7 @@ async function TicketVerPage ( Id_ticket )
 
 		var ticket;
 
-		Tickets.forEach(rowTK => {
-			
-			if(rowTK["Id"] == Id_ticket)
-			{
-				ticket=rowTK;
-			}	
-		});	
+		Tickets.forEach(rowTK => {	if(rowTK["Id"] == Id_ticket)	ticket=rowTK;	});	
 
 		tableHTML += `<div class="container">`;
 		tableHTML += `<div class="row p-3">`;
@@ -300,26 +270,16 @@ async function TicketVerPage ( Id_ticket )
 					var URL = "https://smartbox.eco3.cl/ApiController/ticket/TicketCreate.php";
 					var Respuesta;
 
-
 					var NombreSelectDOM = document.getElementById("Nombre");
 					var Nombre = NombreSelectDOM.options[ NombreSelectDOM.selectedIndex ].text;
-
-					if (Nombre == "")
-						{
-							return alert ("Debe especificar un dispositivo y/o plataforma.");
-						}
-
+					if (Nombre == "")	return alert ("Debe especificar un dispositivo y/o plataforma.");
+						
 					var Descripcion = document.getElementById("Descripcion").value;
-					if (Descripcion == "" )
-						{
-							return alert ("Debe explicar de que se trata el problema.");
-						}
+					if (Descripcion == "" )	 return alert ("Debe explicar de que se trata el problema.");
 
 					var Usuario = document.getElementById("Usuario").value;
-					if (Usuario == "" )
-						{
-							return alert ("Debe escribir su nombre.");
-						}
+					if (Usuario == "" )		return alert ("Debe escribir su nombre.");
+						
 					var f = document.getElementById("cuartel");
 					var Id_unidad = f.options[f.selectedIndex].value; 	
 
