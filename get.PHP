@@ -138,8 +138,9 @@ if( isset($_GET['Evento']) )
   $LVOLTAJE   = $evento->Factor;
   $TIPO  = $evento->MessageType;
   $TipoBat = $evento->TipoBatt;
+  $UNIDAD = $evento->Tag;
 
-  $sql = "INSERT INTO `eventos` (`UNIDAD`, `USUARIO1`, `USUARIO2`, `USUARIO3`, `USUARIO4`, `ADMIN`, `MANTENCION`, `INTERNET`, `VerCodigo`, `LVOLTAJE`, `INV`, `VOLUMEN MAX`, `TIMESTAMP`, `TIPO`,`TipoBat`) VALUES ('', '', '', '', '', '', '', '{$INTERNET}', '{$VerCodigo}', '{$LVOLTAJE}', '', '', current_timestamp(), '{$TIPO}','{$TipoBat}')";
+  $sql = "INSERT INTO `eventos` (`UNIDAD`, `USUARIO1`, `USUARIO2`, `USUARIO3`, `USUARIO4`, `ADMIN`, `MANTENCION`, `INTERNET`, `VerCodigo`, `LVOLTAJE`, `INV`, `VOLUMEN MAX`, `TIMESTAMP`, `TIPO`,`TipoBat`) VALUES ('{$UNIDAD}', '', '', '', '', '', '', '{$INTERNET}', '{$VerCodigo}', '{$LVOLTAJE}', '', '', current_timestamp(), '{$TIPO}','{$TipoBat}')";
 	
   $result=$model->executeSQL( $sql);
 
