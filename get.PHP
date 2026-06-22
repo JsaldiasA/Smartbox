@@ -132,7 +132,7 @@ if( isset($_GET['Evento']) )
 
  // ejemplo: { "MessageType": "ACT" , "Version": "TestW2" , "Internet": "15" , "TipoBatt": "LI" , "Factor": "45" }
 
-  $evento = json_decode($data);
+  $evento = json_decode('{ "MessageType": "ACT" , "Version": "TestW2" , "Internet": "15" , "TipoBatt": "LI" , "Factor": "45" }');
   $INTERNET =     $evento->Internet;
   $VerCodigo  = $evento->Version;
   $LVOLTAJE   = $evento->Factor;
