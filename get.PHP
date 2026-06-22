@@ -132,14 +132,14 @@ if( isset($_GET['Evento']) )
 
  // ejemplo: { "MessageType": "ACT" , "Version": "TestW2" , "Internet": "15" , "TipoBatt": "LI" , "Factor": "45" }
 
-  $evento = json_decode('{ "MessageType": "ACT" , "Version": "TestW2" , "Internet": "15" , "TipoBatt": "LI" , "Factor": "45" }');
+  $evento = json_decode($data);
   $INTERNET =     $evento->Internet;
   $VerCodigo  = $evento->Version;
   $LVOLTAJE   = $evento->Factor;
   $TIPO  = $evento->MessageType;
   $TipoBat = $evento->TipoBatt;
 
-  echo var_dump($evento);
+  echo var_dump($INTERNET);
 
   $sql = "INSERT INTO `eventos` (`UNIDAD`, `USUARIO1`, `USUARIO2`, `USUARIO3`, `USUARIO4`, `ADMIN`, `MANTENCION`, `INTERNET`, `VerCodigo`, `LVOLTAJE`, `INV`, `VOLUMEN MAX`, `TIMESTAMP`, `TIPO`,`TipoBat`) VALUES ('', '', '', '', '', '', '', '{$INTERNET}', '{$VerCodigo}', '{$LVOLTAJE}', '', '', current_timestamp(), '{$TIPO}','{$TipoBat}')";
 	
