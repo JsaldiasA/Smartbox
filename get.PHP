@@ -14,7 +14,7 @@ $model = new Model();
 
 //Tomando datos desde solicitud HTTP GET
 
-if( $_GET['name'] != null)
+if (isset($_GET['name']) )
 { 
 
   $data= $_GET['name'];
@@ -123,7 +123,7 @@ if( $_GET['name'] != null)
     }
 }
 
-if($_GET['Evento'] != null)
+if( isset($_GET['Evento']) )
 {
   $data= $_GET['Evento'];
    //Insertando En tabla RowData
@@ -142,7 +142,6 @@ if($_GET['Evento'] != null)
   $sql = "INSERT INTO `eventos` (`UNIDAD`, `USUARIO1`, `USUARIO2`, `USUARIO3`, `USUARIO4`, `ADMIN`, `MANTENCION`, `INTERNET`, `VerCodigo`, `LVOLTAJE`, `INV`, `VOLUMEN MAX`, `TIMESTAMP`, `TIPO`,`TipoBat`) VALUES ('', '', '', '', '', '', '', '{$INTERNET}', '{$VerCodigo}', '{$LVOLTAJE}', '', '', current_timestamp(), '{$TIPO}','{$TipoBat}')";
 	
   $result=$model->executeSQL( $sql);
-
 
 }
   
