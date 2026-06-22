@@ -139,8 +139,6 @@ if( isset($_GET['Evento']) )
   $TIPO  = $evento->MessageType;
   $TipoBat = $evento->TipoBatt;
 
-  echo var_dump($INTERNET);
-
   $sql = "INSERT INTO `eventos` (`UNIDAD`, `USUARIO1`, `USUARIO2`, `USUARIO3`, `USUARIO4`, `ADMIN`, `MANTENCION`, `INTERNET`, `VerCodigo`, `LVOLTAJE`, `INV`, `VOLUMEN MAX`, `TIMESTAMP`, `TIPO`,`TipoBat`) VALUES ('', '', '', '', '', '', '', '{$INTERNET}', '{$VerCodigo}', '{$LVOLTAJE}', '', '', current_timestamp(), '{$TIPO}','{$TipoBat}')";
 	
   $result=$model->executeSQL( $sql);
