@@ -11,7 +11,7 @@ require_once $sitebasepath."/Model/model.php";
 $Model = new Model();
 //$EventTypeEstanque = new eventmessagetypeDbEntity();
 
-$EventTypeEstanque =  $model->MYSQLSelect('eventmesagetype')[0];
+$EventTypeEstanque =  $Model->MYSQLSelect('eventmesagetype')[0];
 
 
 $parameters = json_decode($EventTypeEstanque->ParametersArray, true);
