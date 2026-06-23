@@ -39,7 +39,7 @@ $NewObj->Id_unidad		 = '983';
 
 // SET Default values
 
-$model->MYSQLInsertInto('eventmessage' ,$NewObj);
+$Model->MYSQLInsertInto('eventmessage' ,$NewObj);
 
 
 echo var_dump($parameters);
