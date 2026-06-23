@@ -24,7 +24,7 @@ foreach($parameters as $p )
 }	
 
 date_default_timezone_set('America/Santiago');
-$FechaActual= date_create(date("Y-m-d H:i:s"));
+$FechaActual= date("Y-m-d H:i:s");
 
 
 $NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
