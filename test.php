@@ -16,12 +16,6 @@ $EventMesage =  $Model->MYSQLSelect('eventmessage')[0];
 
 $DataJson = json_decode( $EventMesage->MessageText ); 
 
-$parameters = json_decode($EventTypeEstanque->ParametersArray, true);
-
-foreach($parameters as $p )
-{
-	echo "Parametro: ".$p." =" . $DataJson->$p;
-}	
 
 date_default_timezone_set('America/Santiago');
 $FechaActual= date("Y-m-d H:i:s");

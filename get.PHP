@@ -89,6 +89,22 @@ if (isset($_GET['name']) )
     }
     else
     {   
+        if( $unidadObj->Estado != $ESTADO )
+        {
+          date_default_timezone_set('America/Santiago');
+          $FechaActual= date("Y-m-d H:i:s");
+
+          $NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
+
+          $NewObj->Id = '0' ;
+          $NewObj->MessageText = '{  "NewStatus": "'.$unidadObj->Estado'.", "LastStatus": "'.$ESTADO.'"  }';
+          $NewObj->CreationDate = $FechaActual;
+          $NewObj->Id_MessageType = '1';
+          $NewObj->Id_unidad		 = $unidadObj->Id;
+          // SET Default values
+          $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
+        }
+
         $sql = "INSERT INTO unidades_lastortolas
         ( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
         VALUES( ".$unidadObj->get_id().", '{$ESTADO}' ,{$VOLUMEN},{$CAUDAL},{$SENAL},{$VOLTAJE},date_add(NOW(), INTERVAL 15 MINUTE))";
