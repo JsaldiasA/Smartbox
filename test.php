@@ -12,9 +12,16 @@ $Model = new Model();
 //$EventTypeEstanque = new eventmessagetypeDbEntity();
 
 $EventTypeEstanque =  $Model->MYSQLSelect('eventmessagetype')[0];
+$EventMesage =  $Model->MYSQLSelect('eventmessage')[0];
 
+$DataJson = json_decode( $EventMesage->MessageText ); 
 
 $parameters = json_decode($EventTypeEstanque->ParametersArray, true);
+
+foreach($parameters as $p )
+{
+	echo "Parametro: ".$p." =" . $DataJson->$p;
+}	
 
 
 echo var_dump($parameters);
