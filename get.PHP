@@ -97,7 +97,7 @@ if (isset($_GET['name']) )
           $NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
 
           $NewObj->Id = '0' ;
-          $NewObj->MessageText = '{  "NewStatus": "'.$unidadObj->Estado'.", "LastStatus": "'.$ESTADO.'"  }';
+          $NewObj->MessageText = '{  "NewStatus": "'.$unidadObj->Estado.'", "LastStatus": "'.$ESTADO.'"  }';
           $NewObj->CreationDate = $FechaActual;
           $NewObj->Id_MessageType = '1';
           $NewObj->Id_unidad		 = $unidadObj->Id;
