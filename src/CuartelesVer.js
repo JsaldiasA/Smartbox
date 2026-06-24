@@ -437,7 +437,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 		});	
 
 		let tableHTML ='';
-		let [ Zonas, Cuarteles, Unidades, Checklists,Tipos,ChecklistsNew] = await Promise.all([ GetZonas(),GetCuarteles(),GetUnidades(), GetChecklists(),GetUnidaTipo(), GetChecklistsNew()]);
+		let [ Zonas, Cuarteles, Unidades, Checklists,Tipos,ChecklistsNew, eventMessage] = await Promise.all([ GetZonas(),GetCuarteles(),GetUnidades(), GetChecklists(),GetUnidaTipo(), GetChecklistsNew(),GeteventMessages()]);
 
 		var unidad;
 		var cuartel;
@@ -833,6 +833,48 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
  	   		tableHTML +='		  </div> '; // end Acordeon body
     		tableHTML +='		  </div> '; // end collapseZero
   			tableHTML +='		  </div> '; // end Acordeon-item Checklist
+
+					//	accordion Registros de Checklist
+		
+		tableHTML += `
+      	<div class="accordion-item">
+    	<h2 class="accordion-header" id="headingFive">
+      	<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+        Eventos
+      	</button>
+    	</h2>
+    	<div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+     	<div class="accordion-body">
+    	<div class="overflow-auto">`;   
+
+			let tableM = new DataTable("#TablaEventosMessage");
+
+			tableHTML += `<table id="TablaEventosMessage" class="display""><thead>
+			<th scope="col">ID</th>
+			<th scope="col">Message</th>
+			<th scope="col">Fecha</th>
+			<th scope="col"></th>
+			
+			</thead><tbody>`;
+
+			eventMessage.forEach(rowC => {
+				if( rowC["Id_unidad"] == Id_unidad )
+				{
+					tableHTML += `</td> <td>${rowC["Id"]}</td><td>${rowC["MessageText"]}</td> <td>${rowC["CreationDate"]}</td> <td>${rowC["Id_MessageType"]}</td></tr>` ;
+				}	
+				
+			});
+				tableHTML += '</tbody></table>';
+			
+			$(document).ready(function(){
+			$('#TablaEventosMessage').dataTable();
+			});
+			
+
+			tableHTML +='		  </div> '; // end overflow
+ 	   		tableHTML +='		  </div> '; // end Acordeon body
+    		tableHTML +='		  </div> '; // end collapseZero
+  			tableHTML +='		  </div> '; // end Acordeon-item Eventos
 
 			tableHTML += '    </div>      ';  // col
 			tableHTML += '</div>'; //end acordeon row 

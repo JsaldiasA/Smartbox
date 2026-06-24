@@ -145,9 +145,7 @@ if( isset($_GET['Evento']) )
    //Insertando En tabla RowData
   $sql = "INSERT INTO `rowdata`(`RowData`,`IP`) VALUES ('{$data}','{$IP}');";
   $result = $model->executeSQL($sql);
-
- // ejemplo: { "MessageType": "ACT" , "Version": "TestW2" , "Internet": "15" , "TipoBatt": "LI" , "Factor": "45" }
-
+  // ejemplo: { "MessageType": "ACT" , "Version": "TestW2" , "Internet": "15" , "TipoBatt": "LI" , "Factor": "45" }
   $evento = json_decode($data);
   $INTERNET =     $evento->Internet;
   $VerCodigo  = $evento->Version;

@@ -432,22 +432,22 @@ function FunctionUpdateTicketPost( id_ticket )
 function priorityColorText( Id_TicketPriority, text)
 {
 
-			switch ( Id_TicketPriority ) {
-			
-			case '1':
-				
-				return `<div class="text-danger"><b> ${text} </b></div>`
-
-			case '2':
-				
-				return `<div class="text-warning"><b> ${text} </b></div>`
-			
-			case '3':
+	switch ( Id_TicketPriority ) {
+	
+	case '1':
 		
-				return `<div class="text-success"><b> ${text} </b></div>`
-			
-			default:
-				// Code to execute if expression matches no cases
-				return text;
-			}
+		return `<div class="text-danger"><b> ${text} </b></div>`
+		
+	case '2':
+		
+		return `<div class="text-warning"><b> ${text} </b></div>`
+	
+	case '3':
+
+		return `<div class="text-success"><b> ${text} </b></div>`
+	
+	default:
+		// Code to execute if expression matches no cases
+		return text;
+	}
 }

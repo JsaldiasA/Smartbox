@@ -55,6 +55,7 @@ async function GetPageData() {
 		let DataTable = [] ;
 		
 		ChecklistsNew.sort((a, b) => Date.parse(a["Fecha"]) - Date.parse(b["Fecha"]) ); 
+		tickets.sort((a, b) => Date.parse(a["FechaInicio"]) - Date.parse(b["FechaInicio"]) ); 
 
 			// fill datatable
 			cuarteles.forEach(rowCT => {
@@ -534,7 +535,6 @@ function FunctionNuevoCheckListPost( Id_unidad )
 		return true;
 		break;
 	 
-			
 	  default:
 	    return false;
 	}	   
