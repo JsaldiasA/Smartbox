@@ -89,7 +89,7 @@ if (isset($_GET['name']) )
     }
     else
     {   
-        if( $unidadObj->Estado != $ESTADO )
+        if( $unidadObj->Estado != $ESTADO ) // evento cambio de estado.
         {
           date_default_timezone_set('America/Santiago');
           $FechaActual= date("Y-m-d H:i:s");
@@ -103,6 +103,58 @@ if (isset($_GET['name']) )
           $NewObj->Id_unidad		 = $unidadObj->Id;
           // SET Default values
           $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
+        }
+        if( $unidadObj->Id_Last_RegistroDiario != null && $unidadObj->Id_Last_RegistroDiario != ''  )
+        {
+           $LastRegistro = $model->MYSQLSelectWHERE('unidades_lastortolas','Id',$unidadObj->Id_Last_RegistroDiario )[0];
+
+          if( $unidadObj->Estado == "OFF" && (float)$LastRegistro->CAUDAL > 0 ) // evento cambio de estado.  VOF  ( water flow detected while the Valve is Closed )
+          {
+            // Getting the last VOF event
+            
+            $unidadEM = $model->MYSQLSelectWHERE('eventmessage','Id_unidad',$unidadObj->Id );
+            $lastVOFmessage;
+            $VOFmessageTypeId = '2';
+            
+            foreach($unidadEM as $Message){ 
+              if($Message->Id_MessageType == $VOFmessageTypeId ) $lastVOFmessage = $Message;     
+              break;
+            }
+
+            date_default_timezone_set('America/Santiago');
+            $FechaActualStr= date("Y-m-d H:i:s");
+
+            $FechaActual= date_create($FechaActualStr);
+            $FechaLastVOFMessage= date_create($lastVOFmessage->CreationDate);
+            $DateDiff= date_diff($FechaActual,$FechaLastVOFMessage);
+      
+            if ($DateDiff->format("%i") < 30)
+            {
+                $NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
+
+              $NewObj->Id = '0' ;
+              $NewObj->MessageText = '{  "Caudal": "'.$LastRegistro->CAUDAL.'"  }';
+              $NewObj->CreationDate = $FechaActual;
+              $NewObj->Id_MessageType = '2';
+              $NewObj->Id_unidad		 = $unidadObj->Id;
+              // SET Default values
+              $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
+            }  
+
+      
+
+            $NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
+
+            $NewObj->Id = '0' ;
+            $NewObj->MessageText = '{  "NewStatus": "'.$ESTADO.'", "LastStatus": "'.$unidadObj->Estado.'"  }';
+            $NewObj->CreationDate = $FechaActual;
+            $NewObj->Id_MessageType = '1';
+            $NewObj->Id_unidad		 = $unidadObj->Id;
+            // SET Default values
+            $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
+
+          }  
+        
         }
 
         $sql = "INSERT INTO unidades_lastortolas
