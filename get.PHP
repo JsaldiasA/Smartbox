@@ -125,21 +125,39 @@ if (isset($_GET['name']) )
             $FechaActualStr= date("Y-m-d H:i:s");
 
             $FechaActual= date_create($FechaActualStr);
-            $FechaLastVOFMessage= date_create($lastVOFmessage->CreationDate);
-            $DateDiff= date_diff($FechaActual,$FechaLastVOFMessage);
-      
-            if ($DateDiff->format("%i") > 30)
-            {
-                $NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
 
-              $NewObj->Id = '0' ;
-              $NewObj->MessageText = '{  "Caudal": "'.$LastRegistro->CAUDAL.'", "Valvula": "OFF" }';
-              $NewObj->CreationDate = $FechaActualStr;
-              $NewObj->Id_MessageType = '2';
-              $NewObj->Id_unidad		 = $unidadObj->Id;
-              // SET Default values
-              $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
-            }  
+            if($lastVOFmessage)
+            {
+                $FechaLastVOFMessage= date_create($lastVOFmessage->CreationDate);
+              $DateDiff= date_diff($FechaActual,$FechaLastVOFMessage);
+        
+              if ($DateDiff->format("%i") > 30)
+              {
+                  $NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
+
+                $NewObj->Id = '0' ;
+                $NewObj->MessageText = '{  "Caudal": "'.$LastRegistro->CAUDAL.'", "Valvula": "OFF" }';
+                $NewObj->CreationDate = $FechaActualStr;
+                $NewObj->Id_MessageType = '2';
+                $NewObj->Id_unidad		 = $unidadObj->Id;
+                // SET Default values
+                $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
+              } 
+
+            }
+            else
+             {
+                 $NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
+
+                $NewObj->Id = '0' ;
+                $NewObj->MessageText = '{  "Caudal": "'.$LastRegistro->CAUDAL.'", "Valvula": "OFF" }';
+                $NewObj->CreationDate = $FechaActualStr;
+                $NewObj->Id_MessageType = '2';
+                $NewObj->Id_unidad		 = $unidadObj->Id;
+                // SET Default values
+                $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
+             } 
+           
 
           }  
         
