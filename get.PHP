@@ -128,12 +128,12 @@ if (isset($_GET['name']) )
             $FechaLastVOFMessage= date_create($lastVOFmessage->CreationDate);
             $DateDiff= date_diff($FechaActual,$FechaLastVOFMessage);
       
-            if ($DateDiff->format("%i") < 30)
+            if ($DateDiff->format("%i") > 30)
             {
                 $NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
 
               $NewObj->Id = '0' ;
-              $NewObj->MessageText = '{  "Caudal": "'.$LastRegistro->CAUDAL.'"  }';
+              $NewObj->MessageText = '{  "Caudal": "'.$LastRegistro->CAUDAL.'", "Valvula": "OFF" }';
               $NewObj->CreationDate = $FechaActualStr;
               $NewObj->Id_MessageType = '2';
               $NewObj->Id_unidad		 = $unidadObj->Id;
