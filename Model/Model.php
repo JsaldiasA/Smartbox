@@ -34,7 +34,8 @@ class Model
 
 			$sql = $SQLscript;
 			$result = $conn->query($sql);
-
+			$conn->close();
+			
 			return $result;
 		}
 	
