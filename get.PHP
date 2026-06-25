@@ -134,24 +134,12 @@ if (isset($_GET['name']) )
 
               $NewObj->Id = '0' ;
               $NewObj->MessageText = '{  "Caudal": "'.$LastRegistro->CAUDAL.'"  }';
-              $NewObj->CreationDate = $FechaActual;
+              $NewObj->CreationDate = $FechaActualStr;
               $NewObj->Id_MessageType = '2';
               $NewObj->Id_unidad		 = $unidadObj->Id;
               // SET Default values
               $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
             }  
-
-      
-
-            $NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
-
-            $NewObj->Id = '0' ;
-            $NewObj->MessageText = '{  "NewStatus": "'.$ESTADO.'", "LastStatus": "'.$unidadObj->Estado.'"  }';
-            $NewObj->CreationDate = $FechaActualStr;
-            $NewObj->Id_MessageType = '1';
-            $NewObj->Id_unidad		 = $unidadObj->Id;
-            // SET Default values
-            $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
 
           }  
         
