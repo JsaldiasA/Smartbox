@@ -147,7 +147,7 @@ if (isset($_GET['name']) )
 
             $NewObj->Id = '0' ;
             $NewObj->MessageText = '{  "NewStatus": "'.$ESTADO.'", "LastStatus": "'.$unidadObj->Estado.'"  }';
-            $NewObj->CreationDate = $FechaActual;
+            $NewObj->CreationDate = $FechaActualStr;
             $NewObj->Id_MessageType = '1';
             $NewObj->Id_unidad		 = $unidadObj->Id;
             // SET Default values
