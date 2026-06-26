@@ -200,21 +200,36 @@ if (isset($_GET['name']) )
 if( isset($_GET['Evento']) )
 {
   $data= $_GET['Evento'];
-   //Insertando En tabla RowData
+   //Insertando En tabla Ro wData
   $sql = "INSERT INTO `rowdata`(`RowData`,`IP`) VALUES ('{$data}','{$IP}');";
   $result = $model->executeSQL($sql);
-  // ejemplo: { "MessageType": "ACT" , "Version": "TestW2" , "Internet": "15" , "TipoBatt": "LI" , "Factor": "45" }
-  //$evento = json_decode($data);
-  //$INTERNET =     $evento->Internet;
-  //$VerCodigo  = $evento->Version;
-  //$LVOLTAJE   = $evento->Factor;
-  //$TIPO  = $evento->MessageType;
-  //$TipoBat = $evento->TipoBatt;
-  //$UNIDAD = $evento->Tag;
+  // ejemplo: { "MessageType": "ACT" , "Version": "TestW2" , "Internet": "15" , "TipoBatt": "LI" , "Factor": "45" , "tag": "AV-AD-DF-45-45" }
+  $evento = json_decode($data);
+  $INTERNET =     $evento->Internet;
+  $VerCodigo  = $evento->Version;
+  $LVOLTAJE   = $evento->Factor;
+  $TIPO  = $evento->MessageType;
+  $TipoBat = $evento->TipoBatt;
+  $UNIDAD = $evento->tag;
 
-  //$sql = "INSERT INTO `eventos` (`UNIDAD`, `USUARIO1`, `USUARIO2`, `USUARIO3`, `USUARIO4`, `ADMIN`, `MANTENCION`, `INTERNET`, `VerCodigo`, `LVOLTAJE`, `INV`, `VOLUMEN MAX`, `TIMESTAMP`, `TIPO`,`TipoBat`) VALUES ('{$UNIDAD}', '', '', '', '', '', '', '{$INTERNET}', '{$VerCodigo}', '{$LVOLTAJE}', '', '', current_timestamp(), '{$TIPO}','{$TipoBat}')";
+  $sql = "INSERT INTO `eventos` (`UNIDAD`, `USUARIO1`, `USUARIO2`, `USUARIO3`, `USUARIO4`, `ADMIN`, `MANTENCION`, `INTERNET`, `VerCodigo`, `LVOLTAJE`, `INV`, `VOLUMEN MAX`, `TIMESTAMP`, `TIPO`,`TipoBat`) VALUES ('{$UNIDAD}', '', '', '', '', '', '', '{$INTERNET}', '{$VerCodigo}', '{$LVOLTAJE}', '', '', current_timestamp(), '{$TIPO}','{$TipoBat}')";
 	
-  //$result=$model->executeSQL( $sql);
+  $result=$model->executeSQL( $sql);
+
+  date_default_timezone_set('America/Santiago');
+  $FechaActualStr= date("Y-m-d H:i:s");
+
+  $NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
+
+  $NewObj->Id = '0' ;
+  $NewObj->MessageText = $data;
+  $NewObj->CreationDate = $FechaActualStr;
+  $NewObj->Id_MessageType = '3';
+  $NewObj->Id_unidad		 = $unidadObj->Id;
+                // SET Default values
+  $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
+
+
 
 }
   
