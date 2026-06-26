@@ -183,7 +183,7 @@ if (isset($_GET['name']) )
 
             if($lastLBAmessage)
             {
-              $FechaLastLBAMessage= ;
+              
               $DateDiff= date_diff( date_create($FechaActualStr) , date_create($lastLBAmessage->CreationDate) );
         
               if ($DateDiff->format("%i") > 30)
