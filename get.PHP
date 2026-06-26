@@ -104,6 +104,7 @@ if (isset($_GET['name']) )
           // SET Default values
           $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
         }
+
         if( $unidadObj->Id_Last_RegistroDiario != null && $unidadObj->Id_Last_RegistroDiario != ''  )
         {
            $LastRegistro = $model->MYSQLSelectWHERE('unidades_lastortolas','Id',$unidadObj->Id_Last_RegistroDiario )[0];
@@ -133,7 +134,7 @@ if (isset($_GET['name']) )
         
               if ($DateDiff->format("%i") > 30)
               {
-                  $NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
+                  $NewObj = new eventmessageDbEntity();
 
                 $NewObj->Id = '0' ;
                 $NewObj->MessageText = '{  "Caudal": "'.$LastRegistro->CAUDAL.'", "Valvula": "OFF" }';
@@ -147,7 +148,7 @@ if (isset($_GET['name']) )
             }
             else
              {
-                 $NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
+                 $NewObj = new eventmessageDbEntity();
 
                 $NewObj->Id = '0' ;
                 $NewObj->MessageText = '{  "Caudal": "'.$LastRegistro->CAUDAL.'", "Valvula": "OFF" }';
@@ -162,6 +163,56 @@ if (isset($_GET['name']) )
           }  
         
         }
+
+        //Evento bateria baja
+
+        if( (int)$VOLTAJE < 20 )
+        {   
+            $unidadEM = $model->MYSQLSelectWHERE('eventmessage','Id_unidad',$unidadObj->Id );
+
+            $LBAmessageTypeId = '4'; // LBA Low Battery Alert event message type
+            $lastLBAmessage;
+
+            foreach($unidadEM as $Message){ 
+              if($Message->Id_MessageType == $LBAmessageTypeId ) $lastLBAmessage = $Message;     
+              break;
+            }
+            
+            date_default_timezone_set('America/Santiago');
+            $FechaActualStr= date("Y-m-d H:i:s");
+
+            if($lastLBAmessage)
+            {
+              $FechaLastLBAMessage= ;
+              $DateDiff= date_diff( date_create($FechaActualStr) , date_create($lastLBAmessage->CreationDate) );
+        
+              if ($DateDiff->format("%i") > 30)
+              {
+                $NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
+
+                $NewObj->Id = '0' ;
+                $NewObj->MessageText = '{  "BatNivel": "'.$VOLTAJEL.'" }';
+                $NewObj->CreationDate = $FechaActualStr;
+                $NewObj->Id_MessageType = '4';
+                $NewObj->Id_unidad		 = $unidadObj->Id;
+                // SET Default values
+                $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
+              } 
+
+            }
+            else
+             {
+                $NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
+
+                $NewObj->Id = '0' ;
+                $NewObj->MessageText = '{  "BatNivel": "'.$VOLTAJEL.'" }';
+                $NewObj->CreationDate = $FechaActualStr;
+                $NewObj->Id_MessageType = '4';
+                $NewObj->Id_unidad		 = $unidadObj->Id;
+                // SET Default values
+                $model->MYSQLInsertInto('eventmessage' ,$NewObj);   
+             } 
+        }    
 
         $sql = "INSERT INTO unidades_lastortolas
         ( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
