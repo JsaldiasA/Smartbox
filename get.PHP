@@ -199,6 +199,7 @@ if (isset($_GET['name']) )
 
 if( isset($_GET['Evento']) )
 {
+
   $data= $_GET['Evento'];
    //Insertando En tabla Ro wData
   $sql = "INSERT INTO `rowdata`(`RowData`,`IP`) VALUES ('{$data}','{$IP}');";
@@ -215,6 +216,8 @@ if( isset($_GET['Evento']) )
   $sql = "INSERT INTO `eventos` (`UNIDAD`, `USUARIO1`, `USUARIO2`, `USUARIO3`, `USUARIO4`, `ADMIN`, `MANTENCION`, `INTERNET`, `VerCodigo`, `LVOLTAJE`, `INV`, `VOLUMEN MAX`, `TIMESTAMP`, `TIPO`,`TipoBat`) VALUES ('{$UNIDAD}', '', '', '', '', '', '', '{$INTERNET}', '{$VerCodigo}', '{$LVOLTAJE}', '', '', current_timestamp(), '{$TIPO}','{$TipoBat}')";
 	
   $result=$model->executeSQL( $sql);
+
+    $unidadObj = $model->MYSQLSelectWHERE('unidad','tag',$evento->tag)[0];
 
   date_default_timezone_set('America/Santiago');
   $FechaActualStr= date("Y-m-d H:i:s");
