@@ -37,7 +37,9 @@
     <script src="src/TicketInicio.js"></script>
 	<script src="src/Sprint.js"></script>
 	<script src="src/Login.js"></script>
+	<script src="src/EventCenter.js"></script>
     <script type="module" src="/src/main.js"></script>
 
   </body>
 </html>
+

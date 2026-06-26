@@ -437,7 +437,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 		});	
 
 		let tableHTML ='';
-		let [ Zonas, Cuarteles, Unidades, Checklists,Tipos,ChecklistsNew, eventMessage] = await Promise.all([ GetZonas(),GetCuarteles(),GetUnidades(), GetChecklists(),GetUnidaTipo(), GetChecklistsNew(),GeteventMessages()]);
+		let [ Zonas, Cuarteles, Unidades, Checklists,Tipos,ChecklistsNew, eventMessage] = await Promise.all([ GetZonas(),GetCuarteles(),GetUnidades(), GetChecklists(),GetUnidaTipo(), GetChecklistsNew(),GetEventMessages()]);
 
 		var unidad;
 		var cuartel;

@@ -215,7 +215,7 @@ async function GetUnidaTipo( )
 
 	}	
 
-async function GeteventMessages( )
+async function GetEventMessages( )
 	{
 		
 		var URL = "https://smartbox.eco3.cl/ApiController/eventMessage/Get.php"
@@ -230,6 +230,21 @@ async function GeteventMessages( )
   	  });
 
 	}
+async function GetEventMessagesType( )
+	{
+		
+		var URL = "https://smartbox.eco3.cl/ApiController/eventMessageType/Get.php"
+		return $.ajax({
+            url:URL,    //the page containing php script
+            type: "post",    //request 
+			dataType:'json',
+
+		}).then(function(response){
+      console.log("getRecord response: "+JSON.stringify(response));
+      return response;
+  	  });
+
+	}	
 
 
 async function GetRegistrosDiarios( id_unidad )
