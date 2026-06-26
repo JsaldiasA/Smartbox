@@ -222,7 +222,8 @@ async function GetChecklistTables( DataTable )
 				<tr><td><b>IMEI:</b></td><td>${unidad["tag"]}</td><td></td></tr>
 				<tr><td><b>ID de la unidad:</b></td><td>${unidad["Id"]}</td><td></td></tr>
 				<tr><td><b>Motivo </b></td><td><select name="ChecklistMotivo" class="form-select" id="ChecklistMotivo" required=""></select></td><td></td></tr>	
-				<tr><td><b>Metodo de Prueba </b></td><td><select name="MetodosDePrueba" class="form-select" id="MetodosDePrueba" required=""></select></td><td></td></tr>	
+				<!--<tr><td><b>Metodo de Prueba </b></td><td><select name="MetodosDePrueba" class="form-select" id="MetodosDePrueba" required=""></select></td><td></td></tr>-->
+				<tr><td><b>Probado con agua:</b></td><td><input type="checkbox" class="form-check-input" id="agua"></td><td></td></tr>
 				<tr><td><b>Solenoide:</b></td><td><input type="checkbox" class="form-check-input" id="Solenoide"></td><td></td></tr>
 				<tr><td><b>Flujómetro:</b></td><td><input type="checkbox" class="form-check-input" id="Flujometro"></td><td></td></tr>	
 				<tr><td><b>Conduit y Choco:</b></td><td><input type="checkbox" class="form-check-input" id="ConduitChoco" ></td><td></td></tr>
@@ -267,7 +268,7 @@ async function GetChecklistTables( DataTable )
     	 });
 
 		// completando select html
-
+		 /*
 		const selectMetodosDePrueba = document.getElementById('MetodosDePrueba');
 		let MetodosDePrueba = GetMetodosDePrueba();
 
@@ -275,7 +276,7 @@ async function GetChecklistTables( DataTable )
 		
 		const NewOption = new Option(row["Name"], row["Id"]);
 		selectMetodosDePrueba.add(NewOption);
-		});
+		});*/
 
 		const selectChecklistMotivo = document.getElementById('ChecklistMotivo');
 		let ChecklistMotivos = GetChecklistMotivos();
@@ -292,11 +293,7 @@ async function GetChecklistTables( DataTable )
 	{
 		document.getElementById(`main`).innerHTML = `<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>`;
 		// clean an set intervals
-		RefreshIntervals_Ids.forEach(interval_ID => {
-
-		clearInterval(interval_ID)
-
-		});	
+		RefreshIntervals_Ids.forEach(interval_ID => {	clearInterval(interval_ID)	});	
 
 		let tableHTML =``;
 		let unidad;
@@ -308,20 +305,9 @@ async function GetChecklistTables( DataTable )
 
 		ChecklistsNew.sort((a, b) => Date.parse(a["Fecha"]) - Date.parse(b["Fecha"]) ); 
 		
-		ChecklistsNew.forEach( ck => { 
+		ChecklistsNew.forEach( ck => {	if(	ck['Id'] == Id_Checklist )	checklist=ck;	})
 
-			if(	ck['Id']	== Id_Checklist )
-			{
-				checklist=ck;
-			}	
-		})
-
-		Unidades.forEach( u => {	 
-			if( checklist["id_unidad"] == u['Id'] )
-			{
-				unidad = u ;
-			}
-		})
+		Unidades.forEach( u => {	if( checklist["id_unidad"] == u['Id'] )	unidad = u ;	})
 		
 		tableHTML += `
 	
@@ -353,8 +339,7 @@ async function GetChecklistTables( DataTable )
 			</tbody>
 			</table>
 		</div>
-	</div>
-`;
+	</div>`;
 
 		document.getElementById('main').innerHTML = tableHTML;
 
@@ -420,7 +405,7 @@ function FunctionNuevoCheckListPost( Id_unidad )
 			let text = "¿Está seguro de enviar el CheckList?";
 			if (confirm(text) == true)
 				{
-
+					var agua= Number(document.getElementById("agua").checked);
 					var Solenoide= Number(document.getElementById("Solenoide").checked);
 					var Flujometro= Number(document.getElementById("Flujometro").checked);
 					var ConduitChoco = Number(document.getElementById("ConduitChoco").checked);
@@ -430,8 +415,8 @@ function FunctionNuevoCheckListPost( Id_unidad )
 					var ChecklistMotivoSelect = document.getElementById("ChecklistMotivo");
 					var id_checklistMotivo = ChecklistMotivoSelect.options[ChecklistMotivoSelect.selectedIndex].value;  
 
-					let MdpruebaSelect =document.getElementById("MetodosDePrueba"); 
-					let MetodoDePrueba = MdpruebaSelect.options[MdpruebaSelect.selectedIndex].value; 
+					//let MdpruebaSelect =document.getElementById("MetodosDePrueba"); 
+					//let MetodoDePrueba = MdpruebaSelect.options[MdpruebaSelect.selectedIndex].value; 
 					let URL_foto= document.getElementById("NombreDeFoto").innerHTML == "" ? 'nofoto.jpg' : document.getElementById("NombreDeFoto").innerHTML ; 
 					URL_foto='https://smartbox.eco3.cl/checklistform/Fotos/'+URL_foto;
 
@@ -456,7 +441,8 @@ function FunctionNuevoCheckListPost( Id_unidad )
 									Flujometro: Flujometro,
 									Solenoide: Solenoide, 
 									ConduitChoco: ConduitChoco,
-									MetodoDePrueba: MetodoDePrueba, 								  
+									//MetodoDePrueba: MetodoDePrueba,
+									agua: agua, 								  
 									id_checklistMotivo: id_checklistMotivo,
 									Observaciones: Observaciones,
 									TecnicoResponsable: TecnicoResponsable,
