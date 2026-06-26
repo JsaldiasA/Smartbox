@@ -183,7 +183,7 @@ if (isset($_GET['name']) )
 
             if($lastLBAmessage)
             {
-              
+
               $DateDiff= date_diff( date_create($FechaActualStr) , date_create($lastLBAmessage->CreationDate) );
         
               if ($DateDiff->format("%i") > 30)
@@ -191,7 +191,7 @@ if (isset($_GET['name']) )
                 $NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
 
                 $NewObj->Id = '0' ;
-                $NewObj->MessageText = '{  "BatNivel": "'.$VOLTAJEL.'" }';
+                $NewObj->MessageText = '{  "BatNivel": "'.$VOLTAJE.'" }';
                 $NewObj->CreationDate = $FechaActualStr;
                 $NewObj->Id_MessageType = '4';
                 $NewObj->Id_unidad		 = $unidadObj->Id;
