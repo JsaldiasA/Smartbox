@@ -476,3 +476,17 @@ function GetLoadingPage(  ) {
 
 }
 	
+function showNotification( text ) {
+  if (Notification.permission === "granted") {
+    const options = {
+      body: text,
+    };
+
+    const notification = new Notification("Alerta", options);
+
+    // Optional: Handle interaction when the user clicks the banner
+    notification.onclick = () => {
+      window.focus(); 
+    };
+  }
+}

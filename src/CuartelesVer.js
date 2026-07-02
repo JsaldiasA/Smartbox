@@ -6,9 +6,17 @@ async function GetMainCuarteles(  )
 	RefreshIntervals_Ids.forEach(interval_ID => {
 	clearInterval(interval_ID)
 	});	
+	
 	await checkToken();
 
 	document.getElementById('main').innerHTML = GetTituloCuarteles();
+	
+	let [ Zonas, Cuarteles, eventMessage] = await Promise.all([GetZonas(),GetCuarteles(),GetEventMessages()]);
+
+	localStorage.setItem("Zonas", JSON.stringify(Zonas) );
+	localStorage.setItem("Cuarteles", JSON.stringify(Cuarteles) );
+	localStorage.setItem("eventMessages", JSON.stringify(eventMessage) );
+
 	// data table
 	document.getElementById('main').innerHTML += `<div id="CuartelesMainTable" > <div class="spinner-border text-success" role="status"></div> </div>`;
 	GetCuartelesMainTable('CuartelesMainTable');
@@ -17,10 +25,60 @@ async function GetMainCuarteles(  )
 	RefreshIntervals_Ids.push(setInterval(checkToken, 3000));
 }	
 
+async function eventMessageNotificationMonitor( )
+{	
+	let [ IncomingEventMessages ] = await Promise.all([GetEventMessages()]);
+	actualEventMessages = JSON.parse(localStorage.getItem("eventMessages"));
+
+	if(IncomingEventMessages.length != actualEventMessages.length)
+	{
+		let newEvent;
+
+		actualEventMessages.forEach( aM => {
+			
+			IncomingEventMessages.forEach( iM =>{
+			
+				if(iM['Id'] != aM['Id'] ) newEvent = iM;
+
+			});
+		});
+
+		let [ Unidades, eventTypes,Cuarteles ] = await Promise.all([ GetUnidades(),GetEventMessagesType(),GetCuarteles()]);
+
+		let newEventType;
+		let unidadWithNewEvent;
+		let CuartelWithNewEvent;
+
+		Unidades.forEach(element => {
+			if( element['Id'] == newEvent['Id_unidad']) unidadWithNewEvent = element;
+		});
+
+		Cuarteles.forEach(cuartel => {
+			if( unidadWithNewEvent['Id'] == cuartel['Id_unidad']) CuartelWithNewEvent = cuartel;
+		});
+
+		eventTypes.forEach(element => {
+			if( element['Id'] == newEvent['Id_MessageType']) newEventType = element;
+		});
+
+		showNotification( 'Alerta '+ ( newEventType['Name'] ?? 'indef') + ' en '+ ( CuartelWithNewEvent ? CuartelWithNewEvent['Name'] : unidadWithNewEvent['Serie'] ) );
+
+		localStorage.setItem("eventMessages", JSON.stringify(IncomingEventMessages) );
+	}
+
+}	
+
 async function GetCuartelesMainTable( HtmlElementId  )
 	{
+		 
+		let [UltimosRegistros, Unidades] = await Promise.all([GetUltimosRegistros(),GetUnidades()]);
+		//static data
+		Zonas = JSON.parse(localStorage.getItem("Zonas"));
+		Cuarteles = JSON.parse(localStorage.getItem("Cuarteles"));
+
+		RefreshIntervals_Ids.push(setInterval(GetCuartelesMainTable, 3000,'CuartelesMainTable' ));
+		RefreshIntervals_Ids.push(setInterval(eventMessageNotificationMonitor, 3000 ));
 		
-		let [UltimosRegistros, Zonas, Cuarteles, Unidades] = await Promise.all([GetUltimosRegistros(), GetZonas(),GetCuarteles(),GetUnidades()]);
 
 		let tableHTML = '';
 
@@ -430,14 +488,15 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 	{
 		document.getElementById('main').innerHTML = `<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>`;
 		// clean an set intervals
-		RefreshIntervals_Ids.forEach(interval_ID => {
+		RefreshIntervals_Ids.forEach(interval_ID => {	clearInterval(interval_ID)	});
 
-		clearInterval(interval_ID)
+		let tableHTML =''; 
+		let [  Unidades, Checklists,Tipos,ChecklistsNew] = await Promise.all([ GetUnidades(), GetChecklists(),GetUnidaTipo(), GetChecklistsNew()]);
 
-		});	
-
-		let tableHTML ='';
-		let [ Zonas, Cuarteles, Unidades, Checklists,Tipos,ChecklistsNew, eventMessage] = await Promise.all([ GetZonas(),GetCuarteles(),GetUnidades(), GetChecklists(),GetUnidaTipo(), GetChecklistsNew(),GetEventMessages()]);
+		//static data
+		Zonas = JSON.parse(localStorage.getItem("Zonas"));
+		Cuarteles = JSON.parse(localStorage.getItem("Cuarteles"));
+		eventMessage = JSON.parse(localStorage.getItem("eventMessages"));
 
 		var unidad;
 		var cuartel;
@@ -453,7 +512,6 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 
 		//buscar cuartel
 		Cuarteles.forEach(rowCuarteles => {	if(unidad["Id"] == rowCuarteles["Id_unidad"] )	cuartel = rowCuarteles;	});	
-
 		// buscar checklist
 		ChecklistsNew.sort((a, b) => Date.parse(a["Fecha"]) - Date.parse(b["Fecha"]) ); 
 		ChecklistsNew.forEach(rowChecklist => { if(unidad["Id"] == rowChecklist["id_unidad"] ) checklist = rowChecklist; });	

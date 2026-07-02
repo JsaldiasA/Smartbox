@@ -31,7 +31,7 @@
 
     <div id="main" class="container"></div>
 
-    <script src="src/API.js"></script>
+    <script src="src/services.js"></script>
     <script src="src/CuartelesVer.js"></script>
     <script src="src/ChecklistInicio.js"></script>
     <script src="src/TicketInicio.js"></script>
