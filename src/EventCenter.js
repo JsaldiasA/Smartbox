@@ -48,7 +48,10 @@ async function GetEventCenterMainTable( HtmlElementId  )
 			tableHTML += `</thead>`;
 
 			eventMessages.forEach( Message => {
+				if(Message['checked'] == '0')
+				{
 
+				
 				let Unidad ;
 				let Cuartel ;
 				let MessageType;
@@ -66,7 +69,7 @@ async function GetEventCenterMainTable( HtmlElementId  )
 				tableHTML += `<td>${ FieldActivity ( Message['CreationDate'] ) }</td>`;
 				tableHTML += `<td> ${ Message['MessageText'] } </td>`;
 				tableHTML += `<tr>`;
-				
+				}
 			});
 
 			tableHTML += `</tbody></table>`;
