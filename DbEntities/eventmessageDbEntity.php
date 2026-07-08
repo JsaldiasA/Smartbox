@@ -7,6 +7,7 @@ class eventmessageDbEntity
     public $CreationDate;
     public $Id_MessageType;
     public $Id_unidad;
+    public $checked;
 
   }
 
