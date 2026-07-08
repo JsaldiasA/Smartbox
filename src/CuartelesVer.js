@@ -20,12 +20,15 @@ async function GetMainCuarteles(  )
 	// data table
 	document.getElementById('main').innerHTML += `<div id="CuartelesMainTable" > <div class="spinner-border text-success" role="status"></div> </div>`;
 	GetCuartelesMainTable('CuartelesMainTable');
-	RefreshIntervals_Ids.push(setInterval(GetCuartelesMainTable, 3000,'CuartelesMainTable' ));
 
-	RefreshIntervals_Ids.push(setInterval(checkToken, 3000));
+	RefreshIntervals_Ids.push(setInterval(GetCuartelesMainTable, 5000,'CuartelesMainTable' ));
+
+	RefreshIntervals_Ids.push(setInterval(checkToken, 30000));
+
+	//RefreshIntervals_Ids.push(setInterval(eventMessageNotificationMonitor, 3000 ));
 }	
 
-async function eventMessageNotificationMonitor( )
+/*async function eventMessageNotificationMonitor( )
 {	
 	let [ IncomingEventMessages ] = await Promise.all([GetEventMessages()]);
 	actualEventMessages = JSON.parse(localStorage.getItem("eventMessages"));
@@ -34,39 +37,44 @@ async function eventMessageNotificationMonitor( )
 	{
 		let newEvent;
 
-		actualEventMessages.forEach( aM => {
+		IncomingEventMessages.forEach( iM => {
 			
-			IncomingEventMessages.forEach( iM =>{
-			
-				if(iM['Id'] != aM['Id'] ) newEvent = iM;
+			function found(Id_event) {
+  			return Id_event['Id'] == iM['Id'];
+			}
 
-			});
-		});
+			if ( !actualEventMessages.some( found ) )	
+				{ newEvent = iM ; }
+
+		} );
 
 		let [ Unidades, eventTypes,Cuarteles ] = await Promise.all([ GetUnidades(),GetEventMessagesType(),GetCuarteles()]);
 
 		let newEventType;
 		let unidadWithNewEvent;
 		let CuartelWithNewEvent;
+		if(newEvent)
+		{
+			Unidades.forEach(element => {
+				if( element['Id'] == newEvent['Id_unidad']) unidadWithNewEvent = element;
+			});
 
-		Unidades.forEach(element => {
-			if( element['Id'] == newEvent['Id_unidad']) unidadWithNewEvent = element;
-		});
+			Cuarteles.forEach(cuartel => {
+				if( unidadWithNewEvent['Id'] == cuartel['Id_unidad']) CuartelWithNewEvent = cuartel;
+			});
 
-		Cuarteles.forEach(cuartel => {
-			if( unidadWithNewEvent['Id'] == cuartel['Id_unidad']) CuartelWithNewEvent = cuartel;
-		});
+			eventTypes.forEach(element => {
+				if( element['Id'] == newEvent['Id_MessageType']) newEventType = element;
+			});
+		}
 
-		eventTypes.forEach(element => {
-			if( element['Id'] == newEvent['Id_MessageType']) newEventType = element;
-		});
-
-		showNotification( 'Alerta '+ ( newEventType['Name'] ?? 'indef') + ' en '+ ( CuartelWithNewEvent ? CuartelWithNewEvent['Name'] : unidadWithNewEvent['Serie'] ) );
+		pushNotification( 'Alerta '+ ( newEventType ? newEventType['Name'] : 'indef') + ' en '+ ( CuartelWithNewEvent ? CuartelWithNewEvent['Name'] : unidadWithNewEvent['Serie'] ) );
+		//pushNotification( 'Alerta  test' );
 
 		localStorage.setItem("eventMessages", JSON.stringify(IncomingEventMessages) );
 	}
 
-}	
+}	*/
 
 async function GetCuartelesMainTable( HtmlElementId  )
 	{
@@ -75,10 +83,6 @@ async function GetCuartelesMainTable( HtmlElementId  )
 		//static data
 		Zonas = JSON.parse(localStorage.getItem("Zonas"));
 		Cuarteles = JSON.parse(localStorage.getItem("Cuarteles"));
-
-		RefreshIntervals_Ids.push(setInterval(GetCuartelesMainTable, 3000,'CuartelesMainTable' ));
-		RefreshIntervals_Ids.push(setInterval(eventMessageNotificationMonitor, 3000 ));
-		
 
 		let tableHTML = '';
 
@@ -1294,3 +1298,4 @@ function VolverCuartelesMain()
 	GetMainCuarteles();
 
 }
+

@@ -13,7 +13,7 @@ async function checkToken()
 			},
 		    statusCode: {
 				200: function() {
-					console.log("Success: 200 OK");
+					//console.log("Success: 200 OK");
 					pass = true;
 				},
 				404: function() {
@@ -38,7 +38,7 @@ async function GetChecklistByZonaName( ZonaName)
 				returnJson: 1,
 			},
 		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
+      //console.log("getRecord response: "+JSON.stringify(response));
       return response;
   	  });
 	}	
@@ -52,7 +52,7 @@ async function GetUltimosRegistros(  )
             type: "get",    //request 
 			dataType:'json',
 		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
+      //console.log("getRecord response: "+JSON.stringify(response));
       return response;
   	  });
 
@@ -67,7 +67,7 @@ async function GetUnidades(  )
             type: "get",    //request 
 			dataType:'json',
 		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
+      //console.log("getRecord response: "+JSON.stringify(response));
       return response;
   	  });
 
@@ -85,7 +85,7 @@ async function GetChecklists()
 				returnJson: 1,
 			},
 		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
+      //console.log("getRecord response: "+JSON.stringify(response));
       return response;
   	  });
 		
@@ -103,7 +103,7 @@ async function GetChecklistsNew()
 				returnJson: 1,
 			},
 		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
+      //console.log("getRecord response: "+JSON.stringify(response));
       return response;
   	  });
 
@@ -121,7 +121,7 @@ async function GetEventosBytag( tag )
 				tag: tag,
 			},
 		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
+      //console.log("getRecord response: "+JSON.stringify(response));
       return response;
   	  });
 		
@@ -139,7 +139,7 @@ async function GetZonas()
 				returnJson: 1,
 			},
 		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
+      //console.log("getRecord response: "+JSON.stringify(response));
       return response;
   	  });
 		
@@ -156,7 +156,7 @@ async function GetCuarteles( )
             type: "get",    //request 
 			dataType:'json',
 		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
+      //console.log("getRecord response: "+JSON.stringify(response));
       return response;
   	  }  
 	);
@@ -177,7 +177,7 @@ async function GetTicket( )
 			dataType:'json',
 
 		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
+      //console.log("getRecord response: "+JSON.stringify(response));
       return response;
   	  });
 
@@ -193,7 +193,7 @@ async function GetTicketStatus( )
 			dataType:'json',
 
 		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
+      //console.log("getRecord response: "+JSON.stringify(response));
       return response;
   	  });
 
@@ -209,7 +209,7 @@ async function GetUnidaTipo( )
 			dataType:'json',
 
 		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
+      //console.log("getRecord response: "+JSON.stringify(response));
       return response;
   	  });
 
@@ -225,7 +225,7 @@ async function GetEventMessages( )
 			dataType:'json',
 
 		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
+      //console.log("getRecord response: "+JSON.stringify(response));
       return response;
   	  });
 
@@ -240,7 +240,7 @@ async function GetEventMessagesType( )
 			dataType:'json',
 
 		}).then(function(response){
-      console.log("getRecord response: "+JSON.stringify(response));
+      //console.log("getRecord response: "+JSON.stringify(response));
       return response;
   	  });
 
@@ -262,7 +262,7 @@ async function GetRegistrosDiarios( id_unidad )
 				limit: 3,
 			},
 		}).then(function(response){
-      	console.log("getRecord response: "+JSON.stringify(response));
+      	//console.log("getRecord response: "+JSON.stringify(response));
       	return response;
   	  	});
 
@@ -475,18 +475,35 @@ function GetLoadingPage(  ) {
 	return 	` <div class="spinner-border text-success" role="status"></div>`;
 
 }
-	
-function showNotification( text ) {
-  if (Notification.permission === "granted") {
-    const options = {
-      body: text,
-    };
 
-    const notification = new Notification("Alerta", options);
 
-    // Optional: Handle interaction when the user clicks the banner
-    notification.onclick = () => {
-      window.focus(); 
-    };
+async function pushNotification( text )
+{
+	 if (!('serviceWorker' in navigator) || !('Notification' in window)) {
+    console.error('Service Workers or Notifications are not supported.');
+    return;
   }
+
+  try {
+    // Register the background script file
+    const registration = await navigator.serviceWorker.register('sw.js');
+    console.log('Service Worker registered successfully:', registration);
+
+    // Step 2: Request user permission
+    const permission = await Notification.requestPermission();
+    if (permission === 'granted') {
+      console.log('Notification permission granted.');
+      
+     registration.showNotification( 'Alerta', {
+		body: text,
+      icon: "https://eco3.cl/wp-content/uploads/2025/07/cropped-ECO3-Empresa-de-tecnologia-y-gestion-de-recursos-%E2%80%A8naturales-en-Chile-32x32.png",
+      } ) ;
+
+    	} else {
+      console.warn('Notification permission denied.');
+    	}
+ 	 } catch (error) {
+    console.error('Initialization failed:', error);
+  }
+
 }
