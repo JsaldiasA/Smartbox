@@ -26,7 +26,7 @@ foreach ($allKeys as $key )
 
 $model->MYSQLUpdate('cuarteles',$UpdatedObj);
 
-echo 'cuarteles Editado exitosamente';
+echo 'EventMessage Editado exitosamente';
 echo var_dump($UpdatedObj);
 
 ?>
