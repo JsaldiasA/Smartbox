@@ -12,7 +12,7 @@ $model = new Model();
 
 
 $Id_obj= $_POST['Id'];
-$obj= $model->MYSQLSelectWHERE('cuarteles','Id',$Id_obj)[0];
+$obj= $model->MYSQLSelectWHERE('eventmessage','Id',$Id_obj)[0];
 
 $UpdatedObj= new cuartelesDbEntity();
 
