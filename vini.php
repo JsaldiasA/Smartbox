@@ -14,7 +14,7 @@ $TIPO= substr($data,  0, 3);
 $UNIDAD= substr($data,  strpos($data,".V*")+3, strpos($data,".U*")-(strpos($data,".V*")+3) );
 $TipoBat;
 
-$unidadObj = $model->MYSQLSelectWHERE('unidad','tag',$UNIDAD)[0];
+$unidadObj = $Model->MYSQLSelectWHERE('unidad','tag',$UNIDAD)[0];
 date_default_timezone_set('America/Santiago');
   $FechaActualStr= date("Y-m-d H:i:s");
 
@@ -43,7 +43,7 @@ if($StringFinal==".fin*"){
 			$NewObj->Id_unidad		 = $unidadObj->Id;
 			$NewObj->checked = '0';
 							// SET Default values
-			$model->MYSQLInsertInto('eventmessage' ,$NewObj);  
+			$Model->MYSQLInsertInto('eventmessage' ,$NewObj);  
 	}
 }	
 else
