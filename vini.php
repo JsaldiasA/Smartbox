@@ -14,6 +14,9 @@ $TIPO= substr($data,  0, 3);
 $UNIDAD= substr($data,  strpos($data,".V*")+3, strpos($data,".U*")-(strpos($data,".V*")+3) );
 $TipoBat;
 
+$unidadObj = $model->MYSQLSelectWHERE('unidad','tag',$UNIDAD)[0];
+date_default_timezone_set('America/Santiago');
+  $FechaActualStr= date("Y-m-d H:i:s");
 
 if($StringFinal==".fin*"){ 
 	if( $TIPO == "INI" or $TIPO == "ACT" or $TIPO == "ERR"  ){
@@ -30,6 +33,17 @@ if($StringFinal==".fin*"){
 		$INV=substr($data,  strpos($data,".C*")+3, strpos($data,".I*")-(strpos($data,".C*")+3));
 		$TipoBat =substr($data,  strpos($data,".I*")+3, strpos($data,".L*")-(strpos($data,".I*")+3)) ;
 		$LVOLTAJE=substr($data,  (strpos($data,".L*")+3),2);
+
+		  $NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
+
+			$NewObj->Id = '0' ;
+			$NewObj->MessageText = $data;
+			$NewObj->CreationDate = $FechaActualStr;
+			$NewObj->Id_MessageType = ($TIPO == "INI") ? ( '5' ) : (($TIPO == "ACT") ? ('6') : ('7')); // 5 = type iniciar 6 = type actualizar 7 = error
+			$NewObj->Id_unidad		 = $unidadObj->Id;
+			$NewObj->checked = '0';
+							// SET Default values
+			$model->MYSQLInsertInto('eventmessage' ,$NewObj);  
 	}
 }	
 else
