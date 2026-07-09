@@ -21,6 +21,12 @@ async function GetMainEventCenter(  )
 					<div class="col p-3">
 						${GetTitulo('Eventos')}
 					</div>
+					<div class="col">
+						<tr><td><b></b></td></tr>
+					</div>
+					<div class="col">
+						<br><br><button type="button" onclick="SetAllMsgChecked()" class="btn btn-primary btn-sm">Marcar como visto todos <i class="bi bi-check-lg"></i> </button>
+					</div>
 				</div>
 				<div id="main"></div>
 			</div>`;
@@ -31,7 +37,7 @@ async function GetEventCenterMainTable( HtmlElementId  )
 
 	{
 		let [eventMessages, eventMessagesTypes, Unidades,Cuarteles] = await Promise.all([GetEventMessages(), GetEventMessagesType(), GetUnidades(), GetCuarteles()]);
-		
+
 		let tableHTML = ``;
 		
 		eventMessages.sort((a, b) => b.Id - a.Id);
@@ -78,5 +84,23 @@ async function GetEventCenterMainTable( HtmlElementId  )
 			tableHTML += `</div>`; // row
 
 		document.getElementById(HtmlElementId).innerHTML= tableHTML;
+
+	}
+
+	async function SetAllMsgChecked()
+	{
+
+		let eventMessages = JSON.parse(localStorage.getItem("eventMessages"));
+
+		let unCheckedMessages = eventMessages.filter(Msg => Msg.checked == '0');
+
+			
+		 for (const Msg of unCheckedMessages) {
+			Msg.checked = '1';
+   			 await UpdateEventMessage(Msg);
+
+  		}
+
+
 
 	}

@@ -289,6 +289,25 @@ function FunctionDeleteSMS(Id_SMSToUnidades) {
 
 	}
 
+async function UpdateEventMessage( EventMsg ) {
+
+
+
+	var URL = "https://smartbox.eco3.cl/ApiController/eventMessage/update.php";
+
+	$.ajax({
+            url:URL,  //the page containing php script
+            type: "post",  //request
+			dataType: 'text',
+			data: EventMsg,
+
+		    success: function(result){ alert(result) }
+		  });
+
+
+
+}	
+
 
 
 function VolverCuartelesMain()
@@ -507,3 +526,4 @@ async function pushNotification( text )
   }
 
 }
+
