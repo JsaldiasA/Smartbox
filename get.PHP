@@ -101,6 +101,7 @@ if (isset($_GET['name']) )
           $NewObj->CreationDate = $FechaActual;
           $NewObj->Id_MessageType = '1';
           $NewObj->Id_unidad		 = $unidadObj->Id;
+          $NewObj->checked = '0';
           // SET Default values
           $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
         }
@@ -141,6 +142,7 @@ if (isset($_GET['name']) )
                 $NewObj->CreationDate = $FechaActualStr;
                 $NewObj->Id_MessageType = '2';
                 $NewObj->Id_unidad		 = $unidadObj->Id;
+                $NewObj->checked = '0';
                 // SET Default values
                 $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
               } 
@@ -155,6 +157,7 @@ if (isset($_GET['name']) )
                 $NewObj->CreationDate = $FechaActualStr;
                 $NewObj->Id_MessageType = '2';
                 $NewObj->Id_unidad		 = $unidadObj->Id;
+                $NewObj->checked = '0';
                 // SET Default values
                 $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
              } 
@@ -195,6 +198,7 @@ if (isset($_GET['name']) )
                 $NewObj->CreationDate = $FechaActualStr;
                 $NewObj->Id_MessageType = '4';
                 $NewObj->Id_unidad		 = $unidadObj->Id;
+                $NewObj->checked = '0';
                 // SET Default values
                 $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
               } 
@@ -209,6 +213,7 @@ if (isset($_GET['name']) )
                 $NewObj->CreationDate = $FechaActualStr;
                 $NewObj->Id_MessageType = '4';
                 $NewObj->Id_unidad		 = $unidadObj->Id;
+                $NewObj->checked = '0';
                 // SET Default values
                 $model->MYSQLInsertInto('eventmessage' ,$NewObj);   
              } 
@@ -280,6 +285,7 @@ if( isset($_GET['Evento']) )
   $NewObj->CreationDate = $FechaActualStr;
   $NewObj->Id_MessageType = '3';
   $NewObj->Id_unidad		 = $unidadObj->Id;
+  $NewObj->checked = '0';
                 // SET Default values
   $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
 
