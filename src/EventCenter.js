@@ -66,7 +66,7 @@ async function GetEventCenterMainTable( HtmlElementId  )
 				Cuarteles.forEach( cuartel => {	if( cuartel["Id_unidad"] == Message["Id_unidad"])	Cuartel=cuartel;	});
 				eventMessagesTypes.forEach( Mtype => {	if( Message["Id_MessageType"] == Mtype["Id"])	MessageType=Mtype;	});
 
-				let UbicacionName = Cuartel ? (Cuartel['Name']) : ("{Serie}" + Unidad['Serie'] );
+				let UbicacionName = Cuartel ? (Cuartel['Name']) : ( Unidad ? ("{TAG}" + Unidad['tag'] ) : 'NOUNIT');
 				
 				tableHTML += `<tr>`;
 				tableHTML += `<td> ${ Message['Id'] }</td>`;
