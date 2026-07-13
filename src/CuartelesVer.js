@@ -28,53 +28,6 @@ async function GetMainCuarteles(  )
 	//RefreshIntervals_Ids.push(setInterval(eventMessageNotificationMonitor, 3000 ));
 }	
 
-/*async function eventMessageNotificationMonitor( )
-{	
-	let [ IncomingEventMessages ] = await Promise.all([GetEventMessages()]);
-	actualEventMessages = JSON.parse(localStorage.getItem("eventMessages"));
-
-	if(IncomingEventMessages.length != actualEventMessages.length)
-	{
-		let newEvent;
-
-		IncomingEventMessages.forEach( iM => {
-			
-			function found(Id_event) {
-  			return Id_event['Id'] == iM['Id'];
-			}
-
-			if ( !actualEventMessages.some( found ) )	
-				{ newEvent = iM ; }
-
-		} );
-
-		let [ Unidades, eventTypes,Cuarteles ] = await Promise.all([ GetUnidades(),GetEventMessagesType(),GetCuarteles()]);
-
-		let newEventType;
-		let unidadWithNewEvent;
-		let CuartelWithNewEvent;
-		if(newEvent)
-		{
-			Unidades.forEach(element => {
-				if( element['Id'] == newEvent['Id_unidad']) unidadWithNewEvent = element;
-			});
-
-			Cuarteles.forEach(cuartel => {
-				if( unidadWithNewEvent['Id'] == cuartel['Id_unidad']) CuartelWithNewEvent = cuartel;
-			});
-
-			eventTypes.forEach(element => {
-				if( element['Id'] == newEvent['Id_MessageType']) newEventType = element;
-			});
-		}
-
-		pushNotification( 'Alerta '+ ( newEventType ? newEventType['Name'] : 'indef') + ' en '+ ( CuartelWithNewEvent ? CuartelWithNewEvent['Name'] : unidadWithNewEvent['Serie'] ) );
-		//pushNotification( 'Alerta  test' );
-
-		localStorage.setItem("eventMessages", JSON.stringify(IncomingEventMessages) );
-	}
-
-}	*/
 
 async function GetCuartelesMainTable( HtmlElementId  )
 	{
@@ -556,8 +509,8 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 			if( checklist )
 			{
 				//col foto
-				tableHTML += `<div class="col-sm-4 p-3" >`;
-				tableHTML += `<img class="img-thumbnail" src="${checklist["URL_foto"]}" "="">`;
+				tableHTML += `<div class="col-sm-4 p-3" id="checklist_photo">`;
+				//tableHTML += `<img class="img-thumbnail" src="${checklist["URL_foto"]}" "="">`;
 				tableHTML += `</div>`;
 				// col ultimo checklits & ultima actualizacion	
 				tableHTML += ' <div class="col p-3">';
@@ -952,6 +905,13 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 		}	
 
 		document.getElementById('main').innerHTML = tableHTML;
+
+			if( checklist )
+			{
+				//col foto
+				document.getElementById('checklist_photo').innerHTML = `<img class="img-thumbnail" src="${checklist["URL_foto"]}" "="">`;
+			}	
+
 
 		const myCollapsible = document.getElementById('collapseTwo');
 		myCollapsible.addEventListener('shown.bs.collapse', function () {
