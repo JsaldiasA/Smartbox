@@ -40,11 +40,15 @@ function GetMainLogin(  )
 
 function Login() 
 	{
-    		var URL = "https://smartbox.eco3.cl/ApiController/Login/Login.php";
+			
+		DivLoadingState('main');
 
-	var email =  document.getElementById("email").value;
-	var password = document.getElementById("password").value ;
-	$.ajax({
+    	var URL = "https://smartbox.eco3.cl/ApiController/Login/Login.php";
+
+		var email =  document.getElementById("email").value;
+		var password = document.getElementById("password").value ;
+		$.ajax({
+
             url:URL, //the page containing php script
             type: "post", //request
 			dataType: 'text',
@@ -59,7 +63,7 @@ function Login()
                 GetMainCuarteles();
 			}
 
-		  });
+		});
 	}
 	
 

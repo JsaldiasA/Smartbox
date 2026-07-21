@@ -1,4 +1,4 @@
-var  RefreshIntervals_Ids = [];
+
 
 async function GetMainCuarteles(  )
 {	
@@ -6,17 +6,11 @@ async function GetMainCuarteles(  )
 	RefreshIntervals_Ids.forEach(interval_ID => {
 	clearInterval(interval_ID)
 	});	
-	
+
 	await checkToken();
 
 	document.getElementById('main').innerHTML = GetTituloCuarteles();
 	
-	let [ Zonas, Cuarteles, eventMessage] = await Promise.all([GetZonas(),GetCuarteles(),GetEventMessages()]);
-
-	localStorage.setItem("Zonas", JSON.stringify(Zonas) );
-	localStorage.setItem("Cuarteles", JSON.stringify(Cuarteles) );
-	localStorage.setItem("eventMessages", JSON.stringify(eventMessage) );
-
 	// data table
 	document.getElementById('main').innerHTML += `<div id="CuartelesMainTable" > <div class="spinner-border text-success" role="status"></div> </div>`;
 	GetCuartelesMainTable('CuartelesMainTable');
@@ -25,47 +19,56 @@ async function GetMainCuarteles(  )
 
 	RefreshIntervals_Ids.push(setInterval(checkToken, 30000));
 
-	//RefreshIntervals_Ids.push(setInterval(eventMessageNotificationMonitor, 3000 ));
+	const statusSelect = document.querySelector('#filtro');
+
+
+	statusSelect.addEventListener('change', async (event) => {
+	
+		DivLoadingState('CuartelesMainTable');
+
+		await GetCuartelesMainTable('CuartelesMainTable');
+
+	});
+
 }	
 
 
 async function GetCuartelesMainTable( HtmlElementId  )
 	{
-		 
-		let [UltimosRegistros, Unidades] = await Promise.all([GetUltimosRegistros(),GetUnidades()]);
-		//static data
-		Zonas = JSON.parse(localStorage.getItem("Zonas"));
-		Cuarteles = JSON.parse(localStorage.getItem("Cuarteles"));
+		
+		await Promise.all([appModel.RefreshUltimosRegistros(),appModel.RefreshUnidades()]);
 
 		let tableHTML = '';
 
-		var e = document.getElementById("filtro");
-		var filtroValue = e? e.options[e.selectedIndex].value : "";  
+		var FiltroDOM = document.getElementById("filtro");
+		var filtroValue = FiltroDOM ? FiltroDOM.options[FiltroDOM.selectedIndex].value : "";  
+
+		tableHeader = '<table class="table text-nowrap"><thead><tr>';
+		tableHeader += `<th scope="col"><i class="bi bi-pin-map"></i></th>`;
+		tableHeader += `<th scope="col"><i class="bi bi-motherboard"></i></i></th>`;
+		tableHeader += `<th scope="col"></th>`;
+		tableHeader += `<th scope="col"><i class="bi bi-activity"></i></th>`;
+		tableHeader += `<th scope="col"><i class="bi bi-lightning-fill"></i></th>`;
+		tableHeader += `<th scope="col"><i class="bi bi-wifi"></i></th>`;
+		tableHeader += `<th scope="col">[L/m]</th>`;
+		tableHeader += `<th scope="col">[L]</th>`;
+		tableHeader += `</thead>`;
 	
 		switch ( filtroValue ) 
 		{
 		case 'all':
 
-			Zonas.forEach(rowZona => {
+			appModel.Zonas.forEach(rowZona => {
 			
 				tableHTML += '	<div class="row pb-3">';
 				tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
 				tableHTML += `    <h2><b>${rowZona["Name"]}</b></h2> `;
 				tableHTML += '   <div class="overflow-auto">';
 					
-				tableHTML += '<table class="table text-nowrap"><thead><tr>';
-				tableHTML += `<th scope="col"><i class="bi bi-pin-map"></i></th>`;
-				tableHTML += `<th scope="col"><i class="bi bi-motherboard"></i></i></th>`;
-				tableHTML += `<th scope="col"></th>`;
-				tableHTML += `<th scope="col"><i class="bi bi-activity"></i></th>`;
-				tableHTML += `<th scope="col"><i class="bi bi-lightning-fill"></i></th>`;
-				tableHTML += `<th scope="col"><i class="bi bi-wifi"></i></th>`;
-				tableHTML += `<th scope="col">[L/m]</th>`;
-				tableHTML += `<th scope="col">[L]</th>`;
-				tableHTML += `</thead>`;
+				tableHTML += tableHeader;
 
 				// Create table body rows
-				Cuarteles.forEach(row => {
+				appModel.Cuarteles.forEach(row => {
 
 					if(row["Id_zona"] == rowZona["Id"])
 					{
@@ -76,7 +79,7 @@ async function GetCuartelesMainTable( HtmlElementId  )
 							let UnidadTag = ''; 
 							var unidad;
 
-							Unidades.forEach(rowUnidades => {
+							appModel.Unidades.forEach(rowUnidades => {
 								if(row["Id_unidad"] == rowUnidades["Id"])
 								{
 										UnidadSerie = rowUnidades["Serie"];
@@ -86,7 +89,7 @@ async function GetCuartelesMainTable( HtmlElementId  )
 								}
 							});	
 
-							UltimosRegistros.forEach(rowUr => {
+							appModel.UltimosRegistros.forEach(rowUr => {
 								
 								if(row["Id_unidad"] == rowUr["unidad_id"])
 								{
@@ -143,14 +146,14 @@ async function GetCuartelesMainTable( HtmlElementId  )
 
 		case 'sirecor':
 			
-			tableHTML+= GetUnidadesTableById_unidadTipo('1','Estanques',Cuarteles,Unidades,UltimosRegistros);
-			tableHTML+= GetUnidadesTableById_unidadTipo('2','Sirecor',Cuarteles,Unidades,UltimosRegistros);
+			tableHTML+= GetUnidadesTableById_unidadTipo('1','Estanques');
+			tableHTML+= GetUnidadesTableById_unidadTipo('2','Sirecor');
 
 			break;
 		case 'milesight':
 
-			tableHTML+= GetUnidadesTableById_unidadTipo('3','Milesight',Cuarteles,Unidades,UltimosRegistros);
-			tableHTML+= GetUnidadesTableById_unidadTipo('5','Milesight Energizada',Cuarteles,Unidades,UltimosRegistros);
+			tableHTML+= GetUnidadesTableById_unidadTipo('3','Milesight');
+			tableHTML+= GetUnidadesTableById_unidadTipo('5','Milesight Energizada');
 				
 			break;
 		
@@ -165,7 +168,7 @@ async function GetCuartelesMainTable( HtmlElementId  )
 
 			let UnidadesFiltradas = [];
 
-			Cuarteles.forEach(row => {
+			appModel.Cuarteles.forEach(row => {
 
 				let unidad;
 
@@ -174,9 +177,9 @@ async function GetCuartelesMainTable( HtmlElementId  )
 					
 					let HasRegistrio = false;
 
-					Unidades.forEach(rowUnidades => {	if(row["Id_unidad"] == rowUnidades["Id"])	unidad=rowUnidades;	});
+					appModel.Unidades.forEach(rowUnidades => {	if(row["Id_unidad"] == rowUnidades["Id"])	unidad=rowUnidades;	});
 
-					UltimosRegistros.forEach(rowUr => {
+					appModel.UltimosRegistros.forEach(rowUr => {
 						if(row["Id_unidad"] == rowUr["unidad_id"])
 						{
 							HasRegistrio=true;
@@ -211,23 +214,14 @@ async function GetCuartelesMainTable( HtmlElementId  )
 				tableHTML += `    <h2><b>indefinidas</b></h2> `;
 				tableHTML += '   <div class="overflow-auto">';
 					
-				tableHTML += '<table class="table text-nowrap"><thead><tr>';
-				tableHTML += `<th scope="col"><i class="bi bi-pin-map"></i></th>`;
-				tableHTML += `<th scope="col"><i class="bi bi-motherboard"></i></i></th>`;
-				tableHTML += `<th scope="col"></th>`;
-				tableHTML += `<th scope="col"><i class="bi bi-activity"></i></th>`;
-				tableHTML += `<th scope="col"><i class="bi bi-lightning-fill"></i></th>`;
-				tableHTML += `<th scope="col"><i class="bi bi-wifi"></i></th>`;
-				tableHTML += `<th scope="col">[L/m]</th>`;
-				tableHTML += `<th scope="col">[L]</th>`;
-				tableHTML += `</thead>`;
+				tableHTML += tableHeader;
 
-				Unidades.forEach(rowUnidades => {
+				appModel.Unidades.forEach(rowUnidades => {
 
 					let HasRegistrio = false;
 					if(   rowUnidades["id_unidadTipo"] == null  )
 					{	
-						UltimosRegistros.forEach(rowUr => {
+						appModel.UltimosRegistros.forEach(rowUr => {
 						
 							if(rowUnidades["Id"] == rowUr["unidad_id"])
 							{
@@ -272,18 +266,9 @@ async function GetCuartelesMainTable( HtmlElementId  )
 				tableHTML += `    <h2><b>Sin cuartel</b></h2> `;
 				tableHTML += '   <div class="overflow-auto">';
 					
-				tableHTML += '<table class="table text-nowrap"><thead><tr>';
-				tableHTML += `<th scope="col"><i class="bi bi-pin-map"></i></th>`;
-				tableHTML += `<th scope="col"><i class="bi bi-motherboard"></i></i></th>`;
-				tableHTML += `<th scope="col"></th>`;
-				tableHTML += `<th scope="col"><i class="bi bi-activity"></i></th>`;
-				tableHTML += `<th scope="col"><i class="bi bi-lightning-fill"></i></th>`;
-				tableHTML += `<th scope="col"><i class="bi bi-wifi"></i></th>`;
-				tableHTML += `<th scope="col">[L/m]</th>`;
-				tableHTML += `<th scope="col">[L]</th>`;
-				tableHTML += `</thead>`;
-
-					Unidades.forEach(rowUnidades => {
+				tableHTML += tableHeader;
+				
+					appModel.Unidades.forEach(rowUnidades => {
 
 						let HasRegistrio = false;
 						let HasCuartel = false;
@@ -293,11 +278,11 @@ async function GetCuartelesMainTable( HtmlElementId  )
 						UnidadSerie = rowUnidades["Serie"];
 						UnidadTag = rowUnidades["tag"];
 
-						Cuarteles.forEach(rowCuarteles => {	HasCuartel = (rowUnidades["Id"] == rowCuarteles["Id_unidad"] ) ? true : HasCuartel;	});	
+						appModel.Cuarteles.forEach(rowCuarteles => {	HasCuartel = (rowUnidades["Id"] == rowCuarteles["Id_unidad"] ) ? true : HasCuartel;	});	
 						
 						if(!HasCuartel )
 						{	
-							UltimosRegistros.forEach(rowUr => {
+							appModel.UltimosRegistros.forEach(rowUr => {
 							
 								if(rowUnidades["Id"] == rowUr["unidad_id"])
 								{
@@ -346,7 +331,7 @@ async function GetCuartelesMainTable( HtmlElementId  )
 
 	}
 
-function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades,UltimosRegistros  )
+function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo )
 	{		
 			// no considera cuarteles de area externa.
 			let HTML = '';
@@ -360,7 +345,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 
 			let UnidadesFiltradas = [];
 
-			Cuarteles.forEach(row => {
+			appModel.Cuarteles.forEach(row => {
 
 				let unidad;
 
@@ -369,7 +354,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 					
 					let HasRegistrio = false;
 
-					Unidades.forEach(rowUnidades => {
+					appModel.Unidades.forEach(rowUnidades => {
 						if(row["Id_unidad"] == rowUnidades["Id"])
 						{
 							unidad=rowUnidades;	
@@ -377,7 +362,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 					});	
 					if( unidad["id_unidadTipo"] == unidadTipo )
 					{
-						UltimosRegistros.forEach(rowUr => {
+						appModel.UltimosRegistros.forEach(rowUr => {
 							if(row["Id_unidad"] == rowUr["unidad_id"])
 							{
 								HasRegistrio=true;
@@ -448,12 +433,6 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 		RefreshIntervals_Ids.forEach(interval_ID => {	clearInterval(interval_ID)	});
 
 		let tableHTML =''; 
-		let [  Unidades, Checklists,Tipos,ChecklistsNew] = await Promise.all([ GetUnidades(), GetChecklists(),GetUnidaTipo(), GetChecklistsNew()]);
-
-		//static data
-		Zonas = JSON.parse(localStorage.getItem("Zonas"));
-		Cuarteles = JSON.parse(localStorage.getItem("Cuarteles"));
-		eventMessage = JSON.parse(localStorage.getItem("eventMessages"));
 
 		var unidad;
 		var cuartel;
@@ -461,17 +440,17 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 		var ultimosRegistro;
 
 		// buscar la unidad
-		Unidades.forEach(rowUnidades => {	if(Id_unidad == rowUnidades["Id"])	unidad = rowUnidades;});	
+		appModel.Unidades.forEach(rowUnidades => {	if(Id_unidad == rowUnidades["Id"])	unidad = rowUnidades;});	
 
 		// get eventos
 		let eventos = await GetEventosBytag(unidad["tag"]);
 		let lastEvento = eventos[0]; 
 
 		//buscar cuartel
-		Cuarteles.forEach(rowCuarteles => {	if(unidad["Id"] == rowCuarteles["Id_unidad"] )	cuartel = rowCuarteles;	});	
+		appModel.Cuarteles.forEach(rowCuarteles => {	if(unidad["Id"] == rowCuarteles["Id_unidad"] )	cuartel = rowCuarteles;	});	
 		// buscar checklist
-		ChecklistsNew.sort((a, b) => Date.parse(a["Fecha"]) - Date.parse(b["Fecha"]) ); 
-		ChecklistsNew.forEach(rowChecklist => { if(unidad["Id"] == rowChecklist["id_unidad"] ) checklist = rowChecklist; });	
+		appModel.ChecklistsNew.sort((a, b) => Date.parse(a["Fecha"]) - Date.parse(b["Fecha"]) ); 
+		appModel.ChecklistsNew.forEach(rowChecklist => { if(unidad["Id"] == rowChecklist["id_unidad"] ) checklist = rowChecklist; });	
 
 		if( unidad ) 
 		{
@@ -784,7 +763,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 						 tableHTML += `<button onclick="FunctionNuevoTipo('${unidad["Id"]}')" class="btn btn-secondary">Editar Tipo</button>`;
 					tableHTML += '</div>';
 					tableHTML += '<div class="col-auto py-3">';
-						tableHTML += CreateSelectFromObjArray('NuevoTipo',Tipos,'Id','Nombre') ;
+						tableHTML += CreateSelectFromObjArray('NuevoTipo',appModel.UnidadTipo,'Id','Nombre') ;
 					tableHTML += '</div>';
 				tableHTML += '</div>';
 				
@@ -793,7 +772,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 						tableHTML += `<button onclick="FunctionNuevoCuartel(${unidad["Id"]})" class="btn btn-secondary">Editar Cuartel</button>`;
 					tableHTML += '</div>';
 					tableHTML += '<div class="col-auto py-3">';
-						tableHTML += CreateSelectFromObjArray('Cuarteles',Cuarteles,'Id','Name') ;
+						tableHTML += CreateSelectFromObjArray('Cuarteles',appModel.Cuarteles,'Id','Name') ;
 					tableHTML += '</div>';
 				tableHTML += '</div>';
 
@@ -830,7 +809,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 			
 			</thead><tbody>`;
 
-			ChecklistsNew.forEach(rowC => {
+			appModel.ChecklistsNew.forEach(rowC => {
 				if( rowC["id_unidad"] == Id_unidad )
 				{
 					tableHTML += `</td> <td>${rowC["Id"]}</td><td>${rowC["TecnicoResponsable"]}</td> <td>${rowC["Fecha"]}</td> <td><a href='url' onclick="ChecklistVerPage(${rowC["Id"]});return false;">Ver</a></td></tr>` ;
@@ -872,7 +851,7 @@ function GetUnidadesTableById_unidadTipo( unidadTipo ,Titulo ,Cuarteles,Unidades
 			
 			</thead><tbody>`;
 
-			eventMessage.forEach(rowC => {
+			appModel.eventMessage.forEach(rowC => {
 				if( rowC["Id_unidad"] == Id_unidad )
 				{
 					tableHTML += `</td> <td>${rowC["Id"]}</td><td>${rowC["MessageText"]}</td> <td>${rowC["CreationDate"]}</td> <td>${rowC["Id_MessageType"]}</td></tr>` ;

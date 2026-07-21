@@ -527,3 +527,8 @@ async function pushNotification( text )
 
 }
 
+function DivLoadingState( HtmlElementId )
+{
+	document.getElementById(HtmlElementId).innerHTML = `<div class="spinner-border text-success" role="status"></div> `;
+
+}

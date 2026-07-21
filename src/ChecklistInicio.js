@@ -6,12 +6,12 @@ async function GetMainChecklist(  )
 
 		 document.getElementById('main').innerHTML = `   <div class="row pb-3">
             <div class="col p-3">
-				${GetTitulo('CheckLists')}
+				${GetTitulo('Estado de los dispositivos')}
             </div>
-			 <div class="col-sm-auto align-self-center p-2">
+			 <div class="col-sm-auto align-self-center p-2" >
               <b> Filtro: </b>
             </div>
-            <div class="col-auto align-self-center p-2">
+            <div class="col-auto align-self-center p-2" >
                <select class="form-select" id="filtro">
 					<option value="all" selected>Todos</option>
 					<option value="No operativos" >No operativos</option>
@@ -50,15 +50,15 @@ async function GetMainChecklist(  )
 	
 async function GetPageData() {
 
-	let [ Zonas, tickets, cuarteles,ChecklistsNew, Unidades] = await Promise.all([ GetZonas(),GetTicket(),GetCuarteles(),GetChecklistsNew(),GetUnidades()]);
+	//let [ Zonas, tickets, cuarteles,ChecklistsNew, Unidades] = await Promise.all([ GetZonas(),GetTicket(),GetCuarteles(),GetChecklistsNew(),GetUnidades()]);
 		
 		let DataTable = [] ;
 		
-		ChecklistsNew.sort((a, b) => Date.parse(a["Fecha"]) - Date.parse(b["Fecha"]) ); 
-		tickets.sort((a, b) => Date.parse(a["FechaInicio"]) - Date.parse(b["FechaInicio"]) ); 
+		appModel.ChecklistsNew.sort((a, b) => Date.parse(a["Fecha"]) - Date.parse(b["Fecha"]) ); 
+		appModel.Tickets.sort((a, b) => Date.parse(a["FechaInicio"]) - Date.parse(b["FechaInicio"]) ); 
 
 			// fill datatable
-			cuarteles.forEach(rowCT => {
+			appModel.Cuarteles.forEach(rowCT => {
 
 					let Checklist;
 					let badChecklist = true;
@@ -66,9 +66,9 @@ async function GetPageData() {
 					let unidad;
 					let rowData;
 
-					ChecklistsNew.forEach(rowCL => {	if(rowCL["id_unidad"] == rowCT["Id_unidad"] )	Checklist = rowCL;	});
-					tickets.forEach(rowTk => {	if(rowCT["Id_unidad"] == rowTk["Id_unidad"] &&  rowTk["Id_TicketStatus"] == '1' )	Ticket = rowTk;	});
-					Unidades.forEach(u => {	if(rowCT["Id_unidad"] == u["Id"] )	unidad = u;	});
+					appModel.ChecklistsNew.forEach(rowCL => {	if(rowCL["id_unidad"] == rowCT["Id_unidad"] )	Checklist = rowCL;	});
+					appModel.Tickets.forEach(rowTk => {	if(rowCT["Id_unidad"] == rowTk["Id_unidad"] &&  rowTk["Id_TicketStatus"] == '1' )	Ticket = rowTk;	});
+					appModel.Unidades.forEach(u => {	if(rowCT["Id_unidad"] == u["Id"] )	unidad = u;	});
 
 					rowData = new checklistTableRowData(rowCT, unidad,Checklist,Ticket);
 					DataTable.push(rowData);	
@@ -79,19 +79,13 @@ async function GetPageData() {
 
 async function GetChecklistTables( DataTable )
 	{
-
-
 		let tableHTML = '';
 		
 		var fil = document.getElementById("filtro");
 		var filtroValue = fil ? fil.options[fil.selectedIndex].value : "";  
 		
 		tableHTML = await renderChecklistTable(filtroValue,DataTable);
-
-		// Select the dropdown element
 		document.getElementById("mainChecklist").innerHTML= tableHTML;
-
-
 	}
 	
  function CountUnidadesOK( Id_zona,ChecklistDataTable)
@@ -146,7 +140,6 @@ async function GetChecklistTables( DataTable )
 
 	 function CountUnidades( Id_zona ,ChecklistDataTable)
 	{
-
 		var Count = 0;
 
 		ChecklistDataTable.forEach(rowCT => {
@@ -611,6 +604,7 @@ async function renderChecklistTable(filtroValue,ChecklistDataTable)
       
 				tableHTML += '	<div class="row pb-3">';
 				tableHTML += ' <div class="col p-3 card shadow p-3 card shadow">';
+				//tableHTML += `<h1><b>&nbsp;${rowZona["Name"]} </b> </h1>`;
 				tableHTML += '   <div class="overflow-auto">';
 				if(rowZona["Name"] != "Estanques")
 				{

@@ -36,11 +36,9 @@ async function GetMainEventCenter(  )
 async function GetEventCenterMainTable( HtmlElementId  )
 
 	{
-		let [eventMessages, eventMessagesTypes, Unidades,Cuarteles] = await Promise.all([GetEventMessages(), GetEventMessagesType(), GetUnidades(), GetCuarteles()]);
-
 		let tableHTML = ``;
 		
-		eventMessages.sort((a, b) => b.Id - a.Id);
+		appModel.eventMessage.sort((a, b) => b.Id - a.Id);
 
 			tableHTML += `	<div class="row pb-3">`;
 			tableHTML += ` <div class="col p-3 card shadow p-3 card shadow">`;
@@ -53,18 +51,17 @@ async function GetEventCenterMainTable( HtmlElementId  )
 			tableHTML += `<th scope="col">Text</th>`;
 			tableHTML += `</thead>`;
 
-			eventMessages.forEach( Message => {
+			appModel.eventMessage.forEach( Message => {
 				if(Message['checked'] == '0')
 				{
 
-				
 				let Unidad ;
 				let Cuartel ;
 				let MessageType;
 				
-				Unidades.forEach( unidad => {	if( unidad["Id"] == Message["Id_unidad"])	Unidad=unidad;	});
-				Cuarteles.forEach( cuartel => {	if( cuartel["Id_unidad"] == Message["Id_unidad"])	Cuartel=cuartel;	});
-				eventMessagesTypes.forEach( Mtype => {	if( Message["Id_MessageType"] == Mtype["Id"])	MessageType=Mtype;	});
+				appModel.Unidades.forEach( unidad => {	if( unidad["Id"] == Message["Id_unidad"])	Unidad=unidad;	});
+				appModel.Cuarteles.forEach( cuartel => {	if( cuartel["Id_unidad"] == Message["Id_unidad"])	Cuartel=cuartel;	});
+				appModel.eventMessagesTypes.forEach( Mtype => {	if( Message["Id_MessageType"] == Mtype["Id"])	MessageType=Mtype;	});
 
 				let UbicacionName = Cuartel ? (Cuartel['Name']) : ( Unidad ? ("{TAG}" + Unidad['tag'] ) : 'NOUNIT');
 				
@@ -90,17 +87,12 @@ async function GetEventCenterMainTable( HtmlElementId  )
 	async function SetAllMsgChecked()
 	{
 
-		let eventMessages = JSON.parse(localStorage.getItem("eventMessages"));
+		let unCheckedMessages = appModel.eventMessage.filter(Msg => Msg.checked == '0');
 
-		let unCheckedMessages = eventMessages.filter(Msg => Msg.checked == '0');
-
-			
 		 for (const Msg of unCheckedMessages) {
 			Msg.checked = '1';
    			 await UpdateEventMessage(Msg);
 
   		}
-
-
 
 	}

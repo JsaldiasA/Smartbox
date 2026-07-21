@@ -2,11 +2,7 @@
 async function GetMainTickets(  )
 	{	
 		// clean an set intervals
-		RefreshIntervals_Ids.forEach(interval_ID => {
-
-		clearInterval(interval_ID)
-
-		});	
+		RefreshIntervals_Ids.forEach(interval_ID => {	clearInterval(interval_ID)	});	
 
 		document.getElementById(`main`).innerHTML = GetTituloTickets();
 
@@ -20,7 +16,7 @@ async function GetMainTickets(  )
 	function GetTituloTickets(  )
 	{
 
-		return `          <div class="container">
+		return ` <div class="container">
 			<div class="row pb-3">
 					<div class="col p-3">
 						${GetTitulo('Tickets')}
@@ -41,16 +37,12 @@ async function GetTicketsMainTable( HtmlElementId  )
 
 	{
 
-		let [Tickets, TicketStatus, Cuarteles] = await Promise.all([GetTicket(), GetTicketStatus(),GetCuarteles()]);
-		
 		let TicketPriorities = GetTicketPriority();
-
 		let tableHTML = ``;
 		
-		TicketStatus.sort((a, b) => a.Id - b.Id);
+		appModel.TicketStatus.sort((a, b) => a.Id - b.Id);
 
-
-		TicketStatus.forEach(rowTKStatus => {
+		appModel.TicketStatus.forEach(rowTKStatus => {
 
 			tableHTML += `	<div class="row pb-3">`;
 			tableHTML += ` <div class="col p-3 card shadow p-3 card shadow">`;
@@ -64,7 +56,7 @@ async function GetTicketsMainTable( HtmlElementId  )
 			tableHTML += `<th scope="col"></th>`;
 			tableHTML += `</thead>`;
 
-			Tickets.forEach(rowTK => {
+			appModel.Tickets.forEach(rowTK => {
 
 				if(rowTKStatus["Id"] == rowTK["Id_TicketStatus"])
 				{
@@ -72,7 +64,7 @@ async function GetTicketsMainTable( HtmlElementId  )
 					let CuartelName = `no name`;
 					let TicketPriority = `no name`;			
 
-					Cuarteles.forEach(rowCT => {	if(rowCT["Id_unidad"] == rowTK["Id_unidad"])	CuartelName=rowCT["Name"];	});
+					appModel.Cuarteles.forEach(rowCT => {	if(rowCT["Id_unidad"] == rowTK["Id_unidad"])	CuartelName=rowCT["Name"];	});
 
 					TicketPriorities.forEach(Tp => {	if(Tp["Id"] == rowTK["Id_TicketPriority"])	TicketPriority = Tp;	});
 
