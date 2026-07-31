@@ -291,8 +291,6 @@ function FunctionDeleteSMS(Id_SMSToUnidades) {
 
 async function UpdateEventMessage( EventMsg ) {
 
-
-
 	var URL = "https://smartbox.eco3.cl/ApiController/eventMessage/update.php";
 
 	$.ajax({
@@ -303,8 +301,6 @@ async function UpdateEventMessage( EventMsg ) {
 
 		    success: function(result){ alert(result) }
 		  });
-
-
 
 }	
 

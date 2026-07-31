@@ -30,12 +30,12 @@ async function GetMainTickets(  )
 				</div>
 				<div id="main"></div>
 			</div>`;
-		
 	}
 
 async function GetTicketsMainTable( HtmlElementId  )
 
 	{
+		await appModel.RefreshTickets();
 
 		let TicketPriorities = GetTicketPriority();
 		let tableHTML = ``;
@@ -399,7 +399,7 @@ function FunctionUpdateTicketPost( id_ticket )
 
 		const PrioridadGrave = {
 		Id: "1",
-		Name: "Alta (Inoperativo)",
+		Name: "Alta",
 		Reasons:[{Id: "1",Name:"Desconectado"},{Id: "2",Name:"No Abre"}]
 		};
 
