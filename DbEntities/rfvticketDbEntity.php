@@ -8,8 +8,8 @@ class rfvticketDbEntity
     public $Usuario;
     public $FechaInicio;
     public $FechaCierre;
-    public $Id_TicketPriority;
-    public $Id_TicketStatus;
+    public $Id_RfvTicketPriority;
+    public $Id_RfvTicketStatus;
     public $MotivoDeCierre;
 
     function get_Id() {return $this->Id;}
