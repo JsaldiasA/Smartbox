@@ -26,7 +26,7 @@ $NewTicket->Id = '0';
 $NewTicket->FechaInicio = $FechaActual->format('Y-m-d H:i:s');
 $NewTicket->FechaCierre = 'NULL';
 //$NewTicket->Id_TicketPriority = '1';
-$NewTicket->Id_TicketStatus = '1';
+$NewTicket->Id_RFVTicketStatus = '1';
 
 $Model->MYSQLInsertInto('rfvticket',$NewTicket);
 
