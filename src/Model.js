@@ -7,7 +7,7 @@ class Model
 
   async init()
   {
-    let [ Zonas, Cuarteles, eventMessage,UltimosRegistros, Unidades,Checklists,ChecklistsNew,eventMessagesTypes,Tickets,TicketStatus,UnidadTipo,TicketPriorities] = await Promise.all([GetZonas(),GetCuarteles(),GetEventMessages(),GetUltimosRegistros(),GetUnidades(), GetChecklists(), GetChecklistsNew(), GetEventMessagesType(),GetTicket(),GetTicketStatus(),GetUnidaTipo(), GetTicketPriority()]);
+    let [ Zonas, Cuarteles, eventMessage,UltimosRegistros, Unidades,Checklists,ChecklistsNew,eventMessagesTypes,Tickets,TicketStatus,RfvTickets,RfvTicketStatus,UnidadTipo,TicketPriorities] = await Promise.all([GetZonas(),GetCuarteles(),GetEventMessages(),GetUltimosRegistros(),GetUnidades(), GetChecklists(), GetChecklistsNew(), GetEventMessagesType(),GetTicket(),GetTicketStatus(),GetRfvTicket(),GetRfvTicketStatus(),GetUnidaTipo(), GetTicketPriority()]);
 
 	this.Zonas = Zonas;		
 	this.Cuarteles = Cuarteles;
@@ -19,6 +19,8 @@ class Model
     this.eventMessagesTypes = eventMessagesTypes;	
     this.Tickets = Tickets;
     this.TicketStatus = TicketStatus;
+    this.RfvTickets = RfvTickets;
+    this.RfvTicketStatus = RfvTicketStatus;
     this.UnidadTipo = UnidadTipo;
     this.TicketPriorities = TicketPriorities;
 

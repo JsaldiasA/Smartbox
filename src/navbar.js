@@ -12,7 +12,6 @@
 }
     body {
   background-color: #eeeeeeff;
-  
 }	 
   .container {
   background-color: white;
@@ -58,6 +57,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link custom-hover-btn" href="url" onclick="ThisApp.TicketPage.GetMain();return false;" >Tickets</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link custom-hover-btn" href="url" onclick="ThisApp.RFVTicketPage.GetMain();return false;" >RFVTickets</a>
         </li>
         <li class="nav-item">
           <a class="nav-link custom-hover-btn" href="url" onclick="GetMainChecklist();return false;" >Checklist</a>

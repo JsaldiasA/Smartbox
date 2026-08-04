@@ -34,6 +34,7 @@
     <script src="src/services.js"></script>
 	 <script src="src/Views/Page.js"></script>
 	  <script src="src/Views/TicketPage.js"></script>
+	  <script src="src/Views/RfvTicketPage.js"></script>
 	   <script src="src/Views/EventCenterTest.js"></script>
 	   <script src="src/Views/CuartelesPage.js"></script>
 	<script src="src/Model.js"></script>
@@ -53,4 +54,3 @@
 
   </body>
 </html>
-

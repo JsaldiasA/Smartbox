@@ -199,6 +199,38 @@ async function GetTicketStatus( )
 
 	}
 
+async function GetRfvTicket( )
+	{
+		
+		var URL = "https://smartbox.eco3.cl/ApiController/rfvticket/Get.php"
+		return $.ajax({
+            url:URL,    //the page containing php script
+            type: "post",    //request 
+			dataType:'json',
+
+		}).then(function(response){
+      //console.log("getRecord response: "+JSON.stringify(response));
+      return response;
+  	  });
+
+	}
+
+async function GetRfvTicketStatus( )
+	{
+		
+		var URL = "https://smartbox.eco3.cl/ApiController/rfvticket_status/Get.php"
+		return $.ajax({
+            url:URL,    //the page containing php script
+            type: "post",    //request 
+			dataType:'json',
+
+		}).then(function(response){
+      //console.log("getRecord response: "+JSON.stringify(response));
+      return response;
+  	  });
+
+	}	
+
 async function GetUnidaTipo( )
 	{
 		

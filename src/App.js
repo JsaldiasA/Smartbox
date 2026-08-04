@@ -4,8 +4,8 @@ class AppSmartbox
   constructor( ) {
 
     this.TicketPage = new TicketPage();
+    this.RFVTicketPage = new RfvTicketPage();
     this.CuartelPage= new CuartelesPage();
-
   }
 
   async init()
@@ -16,7 +16,8 @@ class AppSmartbox
 
   }
 
-  async   GenerateEventCenterNavbar(){
+  async   GenerateEventCenterNavbar()
+  {
   
       await appModel.RefresheventMessage();
 

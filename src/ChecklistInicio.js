@@ -588,7 +588,7 @@ async function renderChecklistTable(filtroValue,ChecklistDataTable)
 				Zonas = await GetZonas();
 				Zonas.sort((a, b) => a["Id"] - b["Id"] ); 
 
-				tableHTML += '<div class="accordion" id="accordionPanelsStayOpenExample"></div>';
+				tableHTML += '<div class="accordion" id="accordionPanelsStayOpenExample">';
 
 				Zonas.forEach(rowZona => {
 
@@ -615,14 +615,14 @@ async function renderChecklistTable(filtroValue,ChecklistDataTable)
 					tableHTML += `<th>Flujo</th>`;
 					tableHTML += `<th>Test agua</th>`;
 					tableHTML += `<th>Condui Chocko</th>`;
-					tableHTML += `<th>sin ticket</th>`;
+					tableHTML += `<th>sin ticket</th></thead>`;
 				}
 				else
 				{
 					tableHTML += '<table class="table"><thead><tr>';
 					tableHTML += `<th>Ubicacion</th>`;
 					tableHTML += `<th>Fecha</th>`;
-					tableHTML += `<th>sin ticket</th>`;
+					tableHTML += `<th>sin ticket</th></thead>`;
 				}
 				// Create table body rows
 				ChecklistDataTable.forEach(rowCT => {
@@ -641,8 +641,8 @@ async function renderChecklistTable(filtroValue,ChecklistDataTable)
 									if(rowCT.ticket){
 										switch ( rowCT.ticket["Id_TicketPriority"] ) {
 						
-										case '1': ColumnClassColor = `class="bg-danger text-white"`; break;
-										case '2': ColumnClassColor = `class="bg-warning"`; break;									
+										case '1': ColumnClassColor = `class="table-danger" `; break;
+										case '2': ColumnClassColor = `class="table-warning"`; break;									
 										case '3': ColumnClassColor = `class="border border-warning border-5"`; break;
 										default: ColumnClassColor = 'class=""';
 										}
@@ -655,7 +655,7 @@ async function renderChecklistTable(filtroValue,ChecklistDataTable)
 								}
 								else
 								{
-									tableHTML += '<tr class="bg-danger text-white">';
+									tableHTML += '<tr class="table-danger">';
 									tableHTML +=`<td></td>`;
 									tableHTML += `<td>${rowCT.cuartel["Name"]}</td>`;
 									tableHTML += `<td>Sin checklist</td>`;
@@ -676,16 +676,16 @@ async function renderChecklistTable(filtroValue,ChecklistDataTable)
 
 								let ColumnClassColor = 'class=""';
 								if(rowCT.ticket){
-									switch ( rowCT.ticket["Id_TicketPriority"] ) {
-				
-									case '1': ColumnClassColor = `class="bg-danger text-white"`; break;
-									case '2': ColumnClassColor = `class="bg-warning"`; break;									
-									case '3': ColumnClassColor = `class="border border-warning border-5"`; break;
-									default: ColumnClassColor = 'class=""';
-									}
+								switch ( rowCT.ticket["Id_TicketPriority"] ) {
+						
+										case '1': ColumnClassColor = `class="table-danger"`; break;
+										case '2': ColumnClassColor = `class="table-warning"`; break;									
+										case '3': ColumnClassColor = `class="border border-warning border-5"`; break;
+										default: ColumnClassColor = 'class=""';
+										}
 								} 
 						
-								if(badChecklist)  ColumnClassColor = `class="bg-danger text-white"`;
+								if(badChecklist)  ColumnClassColor = `class="table-danger"`;
 																
 								tableHTML += `<tr ${ColumnClassColor} >` ;
 								tableHTML += `<td><a href='url'  onclick="ChecklistVerPage(${rowCT.checklist["Id"]});return false;" >${rowCT.cuartel["Name"]}</a></td>`;
