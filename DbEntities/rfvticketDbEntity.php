@@ -11,6 +11,7 @@ class rfvticketDbEntity
     public $Id_RfvTicketPriority;
     public $Id_RfvTicketStatus;
     public $MotivoDeCierre;
+    public $Ubicacion;
 
     function get_Id() {return $this->Id;}
     function get_Nombre() {return $this->Nombre;}
