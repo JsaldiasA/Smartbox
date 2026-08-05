@@ -24,7 +24,7 @@ foreach ($allKeys as $key )
 }
 
 // set closed status
-$UpdatedTicket->Id_TicketStatus = '2';
+$UpdatedTicket->Id_RfvTicketStatus = '2';
 
 // SET creationtime
 date_default_timezone_set('America/Santiago');
