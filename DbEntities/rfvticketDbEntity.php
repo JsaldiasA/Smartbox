@@ -12,6 +12,7 @@ class rfvticketDbEntity
     public $Id_RfvTicketStatus;
     public $MotivoDeCierre;
     public $Ubicacion;
+    public $URL_foto;
 
     function get_Id() {return $this->Id;}
     function get_Nombre() {return $this->Nombre;}
