@@ -37,6 +37,7 @@
 	  <script src="src/Views/RfvTicketPage.js"></script>
 	   <script src="src/Views/EventCenterTest.js"></script>
 	   <script src="src/Views/CuartelesPage.js"></script>
+	   <script src="src/Controllers/RfvTicketController.js"></script>
 	<script src="src/Model.js"></script>
 	<script src="src/App.js"></script>
     <script src="src/CuartelesVer.js"></script>
@@ -54,3 +55,4 @@
 
   </body>
 </html>
+
