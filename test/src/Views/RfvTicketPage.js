@@ -4,6 +4,7 @@ class RfvTicketPage extends Page
 	{
 		super();
 		this.Titulo = 'Rfv Tickets';
+		this.Id_modaVerImg = 'VerImg';
 		this.Id_modalNewTicket = 'NewTk';
 		this.Id_modalVerTicket = 'VerTk';
 		this.Controller = new RfvTicketController();
@@ -13,13 +14,14 @@ class RfvTicketPage extends Page
 	{
 		super.GetMain();
 
+		this.CreateVerImgenModal( this.Id_modaVerImg );
 		this.CreateNewTicketModal( this.Id_modalNewTicket );
 		this.CreateVerTicketModal( this.Id_modalVerTicket );
 		
 		let rightElement = document.createElement('div');
 
 		let buttonRightElement = document.createElement('button');
-		buttonRightElement.className ='btn btn-primary';
+		buttonRightElement.className ='btn btn-success';
 		buttonRightElement.type = 'button';
 		buttonRightElement.textContent = ' Ingresar nuevo Ticket';
 		buttonRightElement.setAttribute('data-bs-toggle', 'modal') ;
@@ -35,6 +37,54 @@ class RfvTicketPage extends Page
 		mainTableDiv.id= 'TicketTable';
 		this.mainDiv.appendChild(mainTableDiv);
 		await this.GetMainTable(mainTableDiv);
+
+		
+	}
+
+	CreateVerImgenModal( Id_modal )
+	{
+			this.mainDiv.appendChild(this.CreateModalComponent( Id_modal ));
+
+			const verModal = document.getElementById(Id_modal);
+			const dialogModal =  document.querySelector('.modal-dialog');
+			dialogModal.className = 'modal-dialog modal-xl';
+
+			let ModalLabel = document.getElementById(Id_modal+'_ModalLabel');
+			let ModalBody = document.getElementById(Id_modal+'_ModalBody');
+			let ModalFooter = document.getElementById(Id_modal+'_ModalFooter');
+	
+			verModal.addEventListener('show.bs.modal', event => {
+
+				const button = event.relatedTarget;
+				const Id_ticket = button.getAttribute('data-bs-RfvTicketId');
+				let thisTicket = appModel.RfvTickets.find(t => t.Id == Id_ticket) ;
+
+				ModalLabel.replaceChildren();
+				ModalBody.replaceChildren();
+				ModalFooter.replaceChildren();
+							
+				if (verModal) { 
+
+					ModalLabel.textContent =  'foto de ' + thisTicket.Nombre  ;
+
+					let foto = document.createElement('img');
+					foto.src = thisTicket.URL_foto;
+					foto.className = 'img-thumbnail';
+
+					ModalBody.appendChild(foto);
+
+					let ModalBtn = document.createElement('button');
+					ModalBtn.type = "button";
+					ModalBtn.id = 'EnviarTicketBtn'
+					ModalBtn.className = 'btn btn-success';
+					ModalBtn.innerHTML = '<i class="bi bi-arrow-left"> Atras</i>';
+					ModalBtn.setAttribute('data-bs-RfvTicketId', thisTicket.Id );
+					ModalBtn.setAttribute('data-bs-target','#'+this.Id_modalVerTicket );
+					ModalBtn.setAttribute('data-bs-toggle', "modal" );
+
+					ModalFooter.appendChild(ModalBtn);
+				}
+			});
 	}
 
 	CreateVerTicketModal( Id_modal )
@@ -83,9 +133,8 @@ class RfvTicketPage extends Page
 					dataTable.push( new newtkROW( 'Usuario', thisTicket["Usuario"] ));
 					dataTable.push( new newtkROW( 'Fecha de ingreso',  thisTicket["FechaInicio"] +" "+ FieldActivity(thisTicket["FechaInicio"])  ));
 					dataTable.push( new newtkROW( 'Estado de la solicitud', thisTicketStatus.Descripcion ));
-					dataTable.push( new newtkROW( 'Imagen', `<a href="${thisTicket.URL_foto}"> ver </a>`  ));
+					dataTable.push( new newtkROW( 'Imagen', `<img id="preview" src="${thisTicket.URL_foto}" alt="Image Preview" class="img-thumbnail"  data-bs-toggle="modal" data-bs-target="#${this.Id_modaVerImg}" data-bs-RfvTicketId="${thisTicket.Id}"  > `  ));
 
-		
 					if ( thisTicket["Id_RfvTicketStatus"] == StatusCerrado ) dataTable.push( new newtkROW( 'Motivo del cierre', thisTicket["MotivoDeCierre"] ));
 					
 					ModalBody.appendChild( this.RenderTable(null , dataTable));
@@ -102,7 +151,7 @@ class RfvTicketPage extends Page
 					MotivoCierreInput.setAttribute("aria-describedby", "basic-addon1");
 					MotivoCierreInput.placeholder="Describa motivo del cierre";
 					MotivoCierreInput.id = "MotivoCierre";
-
+					
 					let ModalBtn = document.createElement('button');
 					ModalBtn.type = "button";
 					ModalBtn.className = 'btn btn-danger';
@@ -157,16 +206,13 @@ class RfvTicketPage extends Page
 		// 1. Forward the custom button click to the hidden file input
 		upload.addEventListener('click', () => {
 			sortpicture.click(); 
-		
 		});
 
 		// 2. Catch the exact moment a file is selected and upload it
 		sortpicture.addEventListener('change', async () => {
-			
 			if (sortpicture.files.length === 0)  alert("archivo no encontrado");
 			else  this.Controller.uploadPicture(sortpicture.files[0]);
-	
-    	 });
+    	});
 		
 		ModalBtn.addEventListener("click", () => {
 			this.Controller.CreateTicket();

@@ -80,17 +80,11 @@ class Page
 				});
     
 				tbody.appendChild(rowDiv);
-		
 			});
-
-			const overflowTableContainer = document.createElement('div');
-			overflowTableContainer.className = 'overflow-auto';
-
 			
 			table.appendChild(tbody);
-			overflowTableContainer.appendChild(table);
 		
-			return overflowTableContainer;
+			return table;
 	}	
 	
 
