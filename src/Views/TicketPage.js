@@ -80,7 +80,7 @@ class TicketPage extends Page
 				let dataTable =[];
 				dataTable.push( new newtkROW( 'ID', thisTicket["Id"] ));
 				dataTable.push( new newtkROW( 'Título',	thisTicket["Nombre"]	));
-				dataTable.push( new newtkROW( 'Descripcion', thisTicket["Descripcion"] ));
+				dataTable.push( new newtkROW( 'Descripcion', `<div class="text-wrap"> ${thisTicket["Descripcion"]} </div>` ));
 				dataTable.push( new newtkROW( 'Usuario', thisTicket["Usuario"] ));
 				dataTable.push( new newtkROW( 'Fecha de ingreso',  thisTicket["FechaInicio"] +" "+ FieldActivity(thisTicket["FechaInicio"])  ));
 				dataTable.push( new newtkROW( 'Estado de la solicitud', thisTicketStatus.Descripcion ));
