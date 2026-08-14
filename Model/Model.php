@@ -142,7 +142,7 @@ class Model
 
 	function get_UltimoRegistroDiarioDeCadaUnidad()
 		{ 			
-			$sql = "SELECT * FROM unidades_lastortolas WHERE id in (SELECT max(id) FROM unidades_lastortolas GROUP BY unidad_id);";
+			$sql = "SELECT * FROM unidades_lastortolas WHERE id in (SELECT Id_Last_RegistroDiario  FROM unidad );";
 		    return $this->MYSQLfetchObj($sql, 'unidades_lastortolasDbEntity');
 		}
 
