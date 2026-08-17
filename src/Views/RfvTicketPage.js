@@ -122,7 +122,7 @@ class RfvTicketPage extends Page
 						}
 					}
 
-					let StatusCerrado = '2';
+					let StatusCerrado = '10';
 					let StatusAbierto = '1';
 
 					let dataTable =[];
@@ -205,13 +205,17 @@ class RfvTicketPage extends Page
 
 		// 1. Forward the custom button click to the hidden file input
 		upload.addEventListener('click', () => {
+			
 			sortpicture.click(); 
 		});
 
 		// 2. Catch the exact moment a file is selected and upload it
 		sortpicture.addEventListener('change', async () => {
+		
 			if (sortpicture.files.length === 0)  alert("archivo no encontrado");
-			else  this.Controller.uploadPicture(sortpicture.files[0]);
+			else this.Controller.uploadPicture(sortpicture.files[0]);
+
+
     	});
 		
 		ModalBtn.addEventListener("click", () => {

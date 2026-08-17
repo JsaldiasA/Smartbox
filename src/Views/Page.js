@@ -6,6 +6,7 @@ class Page
 	this.TituloRighElementEnable = true;
 	this.TituloRighElement = document.createElement('div');
 	this.mainDiv = document.getElementById(`main`);
+
   }
 
  async  GetMain(  )
@@ -51,7 +52,7 @@ class Page
 	RenderTable(headers,dataTable)
 	{
 			const table = document.createElement("table");
-			table.className="table border table-striped table-hover text-nowrap";
+			table.className="table border table-striped table-hover";
 			
 			if(headers)
 			{
@@ -139,6 +140,23 @@ class Page
 
 	}
 
+	
+	BtnWaitingStauts( HtmlBtnElement , textContent)
+	{	
+
+		const Spinner = document.createElement('span');
+		Spinner.className = 'spinner-border spinner-border-sm';
+	
+		const status = document.createElement('span');
+		status.role = "status";
+		status.textContent = " " + ( (textContent !== undefined) ? textContent : "Loading..." );
+		
+		HtmlBtnElement.disabled = true;
+
+		HtmlBtnElement.appendChild(Spinner);
+		HtmlBtnElement.appendChild(status);
+
+	}
 
 }
 

@@ -1,5 +1,4 @@
 
-
 async function GetMainCuarteles(  )
 {	
 	// clean an set intervals
@@ -21,15 +20,11 @@ async function GetMainCuarteles(  )
 
 	const statusSelect = document.querySelector('#filtro');
 
-
 	statusSelect.addEventListener('change', async (event) => {
 	
 		DivLoadingState('CuartelesMainTable');
-
 		await GetCuartelesMainTable('CuartelesMainTable');
-
 	});
-
 }	
 
 

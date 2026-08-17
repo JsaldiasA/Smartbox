@@ -2,7 +2,6 @@ class Model
 {
 
   constructor( ) {
-    this.init();
   }
 
   async init()
@@ -23,6 +22,7 @@ class Model
     this.RfvTicketStatus = RfvTicketStatus;
     this.UnidadTipo = UnidadTipo;
     this.TicketPriorities = TicketPriorities;
+    
 
   }
 

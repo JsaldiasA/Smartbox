@@ -114,6 +114,14 @@ class RfvTicketController {
 		var file_data = inputFile;  
 
 		const enviarChecklistBtn = document.getElementById('EnviarTicketBtn');
+		const uploadBtn = document.getElementById('upload');
+		
+		uploadBtn.disabled = true;
+		uploadBtn.classList.remove('btn-success');
+   		uploadBtn.classList.add('btn-secondary'); 
+		uploadBtn.innerHTML= `<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>`;
+
+		
 		enviarChecklistBtn.disabled = true;
 		enviarChecklistBtn.classList.remove('btn-success');
    		 enviarChecklistBtn.classList.add('btn-secondary'); 
@@ -137,6 +145,11 @@ class RfvTicketController {
 			enviarChecklistBtn.innerHTML= 'Enviar CheckList' ;
 			enviarChecklistBtn.classList.remove('btn-secondary');
 			enviarChecklistBtn.classList.add('btn-success');
+
+			uploadBtn.className = 'btn btn-success';
+			uploadBtn.textContent = 'Subir Foto';
+			uploadBtn.disabled = false;
+
    		
         }
      });

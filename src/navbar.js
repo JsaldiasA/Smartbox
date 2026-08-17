@@ -53,7 +53,7 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link custom-hover-btn"  href="url" onclick="GetMainCuarteles();return false;" >Cuarteles</a>
+          <a class="nav-link custom-hover-btn"  href="url" onclick="ThisApp.CuartelesPage.GetMain();return false;" >Cuarteles</a>
         </li>
         <li class="nav-item">
           <a class="nav-link custom-hover-btn" href="url" onclick="ThisApp.TicketPage.GetMain();return false;" >Tickets</a>

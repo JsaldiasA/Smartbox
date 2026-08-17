@@ -12,7 +12,7 @@ class AppSmartbox
   {
     await this.GenerateEventCenterNavbar();
     setInterval(this.GenerateEventCenterNavbar, 10000);
-    GetMainCuarteles();
+    this.CuartelPage.GetMain();
 
   }
 
