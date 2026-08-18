@@ -313,8 +313,7 @@ async function GetChecklistTables( DataTable )
 		<div class="col m-3 p-3 border">
 			<table class="table">
 			<tbody>	
-			<tr><td><b>IMEI:</b></td><td>${unidad["tag"]}</td><td></td></tr>
-			<tr><td><b>ID de la unidad:</b></td><td>${unidad["Id"]}</td><td></td></tr>
+			<tr><td><b>Fecha:</b></td><td>${checklist["Fecha"]}</td><td></td></tr>
 			
 			<tr><td><b>Voltaje regulador de batería:</b></td><td>${checklist["VoltajeReguladorBat"]} </td><td>(V)</td></tr>
 			<tr><td><b>Voltaje regulador de MCU:</b></td><td>${checklist["VoltajeReguladorMCU"]}</td><td>(V)</td></tr>
