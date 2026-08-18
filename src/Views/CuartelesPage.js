@@ -5,6 +5,7 @@ class CuartelesPage extends Page
 		super();
 
 		this.Id_modalUnidadVer = 'VerUnidad';
+		this.Id_modalNewChecklist = 'NewChecklist';
 
 		this.Titulo = 'Unidades';
 
@@ -27,6 +28,7 @@ class CuartelesPage extends Page
 	{
 		super.GetMain();
 		await this.CreateVerUnidadModal( this.Id_modalUnidadVer );
+		await this.CreateNewChecklistModal( this.Id_modalNewChecklist );
 		 
 		let mainTableDiv = document.createElement('div');
 		mainTableDiv.id= 'CuartelesTable';
@@ -223,8 +225,8 @@ class CuartelesPage extends Page
 					// col ultimo checklits & ultima actualizacion	
 					tableHTML += ' <div class="col p-3">';
 					tableHTML += '<table class="table text-nowrap"><thead>';
-					tableHTML += `<th scope="col"> Ultimo checklist </th>`;
-					tableHTML += `<th scope="col" class="d-flex justify-content-end" ><a onclick="NewChecklistPage(${unidad["Id"]})" class="btn btn-primary" >Nuevo Checklist</a> </th>`;
+					tableHTML += `<th scope="col"> Ultimo checklist </th>`; 
+					tableHTML += `<th scope="col" class="d-flex justify-content-end" ><button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#${this.Id_modalNewChecklist}" data-bs-unidadid="${ unidad.Id }" >Nuevo Checklist </button> </th>`;
 					// fecha
 					tableHTML += '<tr>';
 					tableHTML += `<td>Fecha</td>`;
@@ -629,8 +631,134 @@ class CuartelesPage extends Page
 			}
 
 		});
-		
+	}
 
+	async CreateNewChecklistModal( Id_modal )
+	{
+			this.mainDiv.appendChild(this.CreateModalComponent( Id_modal ));
+
+			const verModal = document.getElementById(Id_modal);
+			const dialogModal =  document.querySelector('.modal-dialog');
+			dialogModal.className = 'modal-dialog modal-xl';
+
+			let ModalLabel = document.getElementById(Id_modal+'_ModalLabel');
+			let ModalBody = document.getElementById(Id_modal+'_ModalBody');
+			let ModalFooter = document.getElementById(Id_modal+'_ModalFooter');
+	
+			verModal.addEventListener('show.bs.modal', async(event) => {
+
+			const button = event.relatedTarget;
+			const Id_Unidad = button.getAttribute('data-bs-unidadid');
+			let thisUnidad = appModel.Unidades.find(t => t.Id == Id_Unidad) ;
+			let thisCuartel = appModel.Cuarteles.find( c => c.Id_unidad == thisUnidad.Id )
+			let thisChecklist = appModel.ChecklistsNew.find( ts => ts.id_unidad == thisUnidad.Id )
+
+			ModalLabel.replaceChildren();
+			ModalBody.replaceChildren();
+			ModalFooter.replaceChildren();
+						
+			if (verModal) { 
+				
+				ModalBody.innerHTML = `<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>`;
+				// clean an set intervals
+				RefreshIntervals_Ids.forEach(interval_ID => {	clearInterval(interval_ID)	});
+
+				var unidad = thisUnidad;
+				var cuartel;
+				var checklist;
+				var ultimosRegistro;
+
+				// buscar la unidad	
+
+				if( unidad ) 
+				{
+					ModalLabel.textContent = `Nuevo Checklist` ;
+				}
+					
+					let tableHTML = `
+				
+				<div class="row">
+					<div class="col m-3 p-3 border">
+						<table class="table">
+						<tbody>	
+							<tr><td><b>IMEI:</b></td><td>${unidad["tag"]}</td><td></td></tr>
+							<tr><td><b>ID de la unidad:</b></td><td>${unidad["Id"]}</td><td></td></tr>
+							<tr><td><b>Motivo </b></td><td><select name="ChecklistMotivo" class="form-select" id="ChecklistMotivo" required=""></select></td><td></td></tr>	
+							<!--<tr><td><b>Metodo de Prueba </b></td><td><select name="MetodosDePrueba" class="form-select" id="MetodosDePrueba" required=""></select></td><td></td></tr>-->
+							<tr><td><b>Probado con agua:</b></td><td><input type="checkbox" class="form-check-input" id="agua"></td><td></td></tr>
+							<tr><td><b>Solenoide:</b></td><td><input type="checkbox" class="form-check-input" id="Solenoide"></td><td></td></tr>
+							<tr><td><b>Flujómetro:</b></td><td><input type="checkbox" class="form-check-input" id="Flujometro"></td><td></td></tr>	
+							<tr><td><b>Conduit y Choco:</b></td><td><input type="checkbox" class="form-check-input" id="ConduitChoco" ></td><td></td></tr>
+							<tr><td><b>Observaciones:</b></td><td><input type="text" class="form-control" id="Observaciones" placeholder="Si no tiene comentarios, coloque OK."></td><td></td></tr>
+							<tr><td><b>Técnico responsable:</b></td><td><input type="text" class="form-control" id="TecnicoResponsable" placeholder="Nombre"></td><td></td></tr>
+							<tr><td><b>Imagen:</b></td><td><div id="NombreDeFoto"></div></td><td><div id="StatusFoto"></div></td></tr>
+						</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col m-3 p-3" >
+						<button id="upload" class="btn btn-success btn-lg" >Seleccionar y Subir Foto</button>
+					</div>
+					<div class="col m-3 p-3" >
+						<input id="sortpicture" type="file" name="sortpic" style="display: none;" />
+					</div>	
+					<div class="col m-3 p-3" >
+						<button id="enviarChecklist"type="button" class="btn btn-success btn-lg" onclick="FunctionNuevoCheckListPost(${unidad["Id"]})">Enviar CheckList</button>
+					</div>
+				</div>
+				
+				`;
+
+					const BtnClose =  document.getElementById(this.Id_modalNewChecklist+'_BtnClose');
+					BtnClose.removeAttribute('data-bs-dismiss');
+					BtnClose.setAttribute('data-bs-target','#'+this.Id_modalUnidadVer);
+					BtnClose.setAttribute('data-bs-unidadid',unidad.Id);
+					BtnClose.setAttribute('data-bs-toggle','modal');
+					
+					ModalBody.innerHTML = tableHTML;
+				
+			
+
+					const upload = document.getElementById('upload');
+					const sortpicture = document.getElementById('sortpicture');
+				
+					// 1. Forward the custom button click to the hidden file input
+					upload.addEventListener('click', () => {
+						sortpicture.click(); 
+					
+					});
+
+					// 2. Catch the exact moment a file is selected and upload it
+					sortpicture.addEventListener('change', async () => {
+						
+						if (sortpicture.files.length === 0)  alert("archivo no encontrado");
+						else  uploadPicture(sortpicture.files[0]);
+				
+					});
+
+					// completando select html
+					/*
+					const selectMetodosDePrueba = document.getElementById('MetodosDePrueba');
+					let MetodosDePrueba = GetMetodosDePrueba();
+
+					MetodosDePrueba.forEach(row => {
+					
+					const NewOption = new Option(row["Name"], row["Id"]);
+					selectMetodosDePrueba.add(NewOption);
+					});*/
+
+					const selectChecklistMotivo = document.getElementById('ChecklistMotivo');
+
+					appModel.ChecklistMotivos.forEach(row => {
+					
+					const NewOption = new Option(row["Name"], row["Id"]);
+					selectChecklistMotivo.add(NewOption);
+					});
+				
+			}
+
+		});
 	}
 
 	GetUnidadesDataTableById_unidadTipo( unidadTipo  )

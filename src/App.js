@@ -5,14 +5,14 @@ class AppSmartbox
 
     this.TicketPage = new TicketPage();
     this.RFVTicketPage = new RfvTicketPage();
-    this.CuartelPage= new CuartelesPage();
+    this.CuartelesPage= new CuartelesPage();
   }
 
   async init()
   {
     await this.GenerateEventCenterNavbar();
     setInterval(this.GenerateEventCenterNavbar, 10000);
-    this.CuartelPage.GetMain();
+    this.CuartelesPage.GetMain();
 
   }
 
