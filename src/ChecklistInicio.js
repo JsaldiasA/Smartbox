@@ -650,7 +650,7 @@ async function renderChecklistTable(filtroValue,ChecklistDataTable)
 							
 									tableHTML += `<tr ${ColumnClassColor} >` ;
 									tableHTML += `<td><a href='url' onclick="ChecklistVerPage(${rowCT.checklist["Id"]});return false;" >${rowCT.cuartel["Name"]}</a></td>`;
-									tableHTML += `<td>${FieldFecha(rowCT.checklist["Fecha"])}</td>`;
+									tableHTML += `<td>${rowCT.checklist["Fecha"]}</td>`;
 									tableHTML += `<td>${rowCT.ticket == null ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
 								}
 								else
@@ -689,7 +689,7 @@ async function renderChecklistTable(filtroValue,ChecklistDataTable)
 																
 								tableHTML += `<tr ${ColumnClassColor} >` ;
 								tableHTML += `<td><a href='url'  onclick="ChecklistVerPage(${rowCT.checklist["Id"]});return false;" >${rowCT.cuartel["Name"]}</a></td>`;
-								tableHTML += `<td>${FieldFecha(rowCT.checklist["Fecha"])}</td>`;
+								tableHTML += `<td>${rowCT.checklist["Fecha"]}</td>`;
 								tableHTML += `<td>${rowCT.checklist["Solenoide"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' } </td>`;
 								tableHTML += `<td>${rowCT.checklist["Flujometro"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
 								tableHTML += `<td>${rowCT.checklist["agua"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
@@ -772,7 +772,7 @@ async function renderChecklistTable(filtroValue,ChecklistDataTable)
 
 						tableHTML += `<tr class="bg-danger text-white">`        ;	
 						tableHTML += `<td><a href='url'  onclick="ChecklistVerPage(${row.checklist["Id"]});return false;" >${row.cuartel["Name"]}</a></td>`;
-						tableHTML += `<td>${FieldFecha(row.checklist["Fecha"])}</td>`;
+						tableHTML += `<td>${row.checklist["Fecha"]}</td>`;
 						tableHTML += `<td>${row.checklist["Solenoide"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' } </td>`;
 						tableHTML += `<td>${row.checklist["Flujometro"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
 						tableHTML += `<td>${row.checklist["agua"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
@@ -814,7 +814,7 @@ async function renderChecklistTable(filtroValue,ChecklistDataTable)
 				
 						tableHTML += `<tr class="bg-warning">`        ;	
 						tableHTML += `<td><a href='url'  onclick="ChecklistVerPage(${row.checklist["Id"]});return false;" >${row.cuartel["Name"]}</a></td>`;
-						tableHTML += `<td>${FieldFecha(row.checklist["Fecha"])}</td>`;
+						tableHTML += `<td>${row.checklist["Fecha"]}</td>`;
 						tableHTML += `<td>${row.checklist["Solenoide"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' } </td>`;
 						tableHTML += `<td>${row.checklist["Flujometro"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
 						tableHTML += `<td>${row.checklist["agua"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
@@ -857,7 +857,7 @@ async function renderChecklistTable(filtroValue,ChecklistDataTable)
 				
 						tableHTML += `<tr class="bg-warning">`        ;	
 						tableHTML += `<td><a href='url'  onclick="ChecklistVerPage(${row.checklist["Id"]});return false;" >${row.cuartel["Name"]}</a></td>`;
-						tableHTML += `<td>${FieldFecha(row.checklist["Fecha"])}</td>`;
+						tableHTML += `<td>${row.checklist["Fecha"]}</td>`;
 						tableHTML += `<td>${row.checklist["Solenoide"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' } </td>`;
 						tableHTML += `<td>${row.checklist["Flujometro"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
 						tableHTML += `<td>${row.checklist["agua"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;

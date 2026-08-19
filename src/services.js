@@ -373,7 +373,7 @@ function FieldActivity( date ) {
 }
 
 function FieldFecha( date ) {
-
+	
 	var pastDate = new Date(date);
 	var now = new Date(new Date().toLocaleString('en', {timeZone: 'America/Santiago'}))
 

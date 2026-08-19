@@ -138,8 +138,8 @@ class CuartelesPage extends Page
 
 	async refreshMainTable( containerDiv )
 	{	
-		let lastUltimosRigistros = appModel.RefreshUltimosRegistros(); 
-		let lastUnidades = appModel.RefreshUnidades();
+		let lastUltimosRigistros = appModel.UltimosRegistros; 
+		let lastUnidades = appModel.Unidades;
 		await Promise.all([appModel.RefreshUltimosRegistros(),appModel.RefreshUnidades()]);
 
 		if( lastUnidades != appModel.Unidades && lastUltimosRigistros != appModel.UltimosRegistros )
