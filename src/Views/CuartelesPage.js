@@ -29,6 +29,8 @@ class CuartelesPage extends Page
 		super.GetMain();
 		await this.CreateVerUnidadModal( this.Id_modalUnidadVer );
 		await this.CreateNewChecklistModal( this.Id_modalNewChecklist );
+
+	
 		 
 		let mainTableDiv = document.createElement('div');
 		mainTableDiv.id= 'CuartelesTable';
@@ -48,6 +50,16 @@ class CuartelesPage extends Page
 		});	
 
 		RefreshIntervals_Ids.push( setInterval(() => this.refreshMainTable(mainTableDiv), 5000));
+
+		$(`#${this.Id_modalUnidadVer}`).on('hidden.bs.modal', function (e) {
+		// clean an set intervals
+		RefreshIntervals_Ids.forEach(interval_ID => {
+		clearInterval(interval_ID)
+		});	
+
+		RefreshIntervals_Ids.push( setInterval(() => ThisApp.CuartelesPage.refreshMainTable(mainTableDiv), 5000));
+
+		})
 	}
 
  	async GetMainTable( containerDiv  )

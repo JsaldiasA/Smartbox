@@ -327,7 +327,8 @@ async function GetChecklistTables( DataTable )
 			<tr><td><b>Probado con agua:</b></td><td>${checklist["agua"]} </td><td></td></tr>
 			<tr><td><b>Observaciones:</b></td><td>${checklist["Observaciones"]} </td><td></td></tr>
 			<tr><td><b>Técnico responsable:</b></td><td>${checklist["TecnicoResponsable"]} </td><td></td></tr>
-			<tr><td><b>Imagen:</b></td><td><img src='${checklist["URL_foto"]}' class='img-fluid' > </td><td></td></tr>
+			<tr><td><b>Imagen:</b></td><td class='col-4'><img src='${checklist["URL_foto"]}' class='img-thumbnail' > </td><td></td></tr>
+
 			</tbody>
 			</table>
 		</div>
