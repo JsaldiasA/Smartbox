@@ -6,6 +6,7 @@ class CuartelesPage extends Page
 
 		this.Id_modalUnidadVer = 'VerUnidad';
 		this.Id_modalNewChecklist = 'NewChecklist';
+		this.Id_modalVerChecklist = 'VerChecklist';
 
 		this.Titulo = 'Unidades';
 
@@ -29,6 +30,7 @@ class CuartelesPage extends Page
 		super.GetMain();
 		await this.CreateVerUnidadModal( this.Id_modalUnidadVer );
 		await this.CreateNewChecklistModal( this.Id_modalNewChecklist );
+		await this.CreateVerChecklistModal( this.Id_modalVerChecklist );
 
 	
 		 
@@ -555,7 +557,7 @@ class CuartelesPage extends Page
 				appModel.ChecklistsNew.forEach(rowC => {
 					if( rowC["id_unidad"] == unidad.Id )
 					{
-						tableHTML += `</td> <td>${rowC["Id"]}</td><td>${rowC["TecnicoResponsable"]}</td> <td>${rowC["Fecha"]}</td> <td><a href='url' onclick="ChecklistVerPage(${rowC["Id"]});return false;">Ver</a></td></tr>` ;
+						tableHTML += `</td> <td>${rowC["Id"]}</td><td>${rowC["TecnicoResponsable"]}</td> <td>${rowC["Fecha"]}</td> <td><button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#${this.Id_modalVerChecklist}" data-bs-checklistid="${ rowC.Id }" >ver</button></td></tr>` ;
 					}	
 					
 				});
@@ -767,6 +769,85 @@ class CuartelesPage extends Page
 					const NewOption = new Option(row["Name"], row["Id"]);
 					selectChecklistMotivo.add(NewOption);
 					});
+				
+			}
+
+		});
+	}
+	async CreateVerChecklistModal( Id_modal )
+	{
+			this.mainDiv.appendChild(this.CreateModalComponent( Id_modal ));
+
+			const verModal = document.getElementById(Id_modal);
+
+			let ModalLabel = document.getElementById(Id_modal+'_ModalLabel');
+			let ModalBody = document.getElementById(Id_modal+'_ModalBody');
+			let ModalFooter = document.getElementById(Id_modal+'_ModalFooter');
+	
+			verModal.addEventListener('show.bs.modal', async(event) => {
+
+			ModalLabel.replaceChildren();
+			ModalBody.replaceChildren();
+			ModalFooter.replaceChildren();
+
+			const button = event.relatedTarget;
+			const Id_checklist = button.getAttribute('data-bs-checklistid');
+	
+			var checklist = appModel.ChecklistsNew.find( checklist => checklist.Id == Id_checklist );
+			var unidad = appModel.Unidades.find( u => u.Id = checklist.id_unidad  );
+						
+			if (verModal) { 
+				
+				ModalBody.innerHTML = `<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>`;
+				// clean an set intervals
+				RefreshIntervals_Ids.forEach(interval_ID => {	clearInterval(interval_ID)	});
+
+				// buscar la unidad	
+
+				if( unidad ) 
+				{
+					ModalLabel.textContent = `checklist de ${unidad["Serie"]}` ;
+				}
+					
+			// clean an set intervals
+			RefreshIntervals_Ids.forEach(interval_ID => {	clearInterval(interval_ID)	});	
+
+		
+			let tableHTML = `
+	
+			<div class="row">
+			<div class="col m-3 p-3 border">
+				<table class="table">
+				<tbody>	
+				<tr><td><b>Fecha:</b></td><td>${checklist["Fecha"]}</td><td></td></tr>
+				
+				<tr><td><b>Voltaje regulador de batería:</b></td><td>${checklist["VoltajeReguladorBat"]} </td><td>(V)</td></tr>
+				<tr><td><b>Voltaje regulador de MCU:</b></td><td>${checklist["VoltajeReguladorMCU"]}</td><td>(V)</td></tr>
+				<tr><td><b>Voltaje MCU:</b></td><td>${checklist["VoltajeMCU"]} </td><td>(V)</td></tr>
+
+				<tr><td><b>Solenoide:</b></td><td>${checklist["Solenoide"]} </td><td></td></tr>
+				<tr><td><b>Flujómetro:</b></td><td>${checklist["Flujometro"]} </td><td></td></tr>
+
+				<tr><td><b>Voltaje de la batería:</b></td><td>${checklist["VoltajeBateria"]} </td><td>(V)</td></tr>
+				<tr><td><b>Conduit y Choco:</b></td><td>${checklist["Flujometro"]} </td><td></td></tr>
+				<tr><td><b>Probado con agua:</b></td><td>${checklist["agua"]} </td><td></td></tr>
+				<tr><td><b>Observaciones:</b></td><td>${checklist["Observaciones"]} </td><td></td></tr>
+				<tr><td><b>Técnico responsable:</b></td><td>${checklist["TecnicoResponsable"]} </td><td></td></tr>
+				<tr><td><b>Imagen:</b></td><td class='col-4'><img src='${checklist["URL_foto"]}' class='img-thumbnail' > </td><td></td></tr>
+
+				</tbody>
+				</table>
+			</div>
+			</div>`;
+
+				const BtnClose =  document.getElementById(this.Id_modalVerChecklist+'_BtnClose');
+					BtnClose.removeAttribute('data-bs-dismiss');
+					BtnClose.setAttribute('data-bs-target','#'+this.Id_modalUnidadVer);
+					BtnClose.setAttribute('data-bs-unidadid',unidad.Id);
+					BtnClose.setAttribute('data-bs-toggle','modal');
+					
+
+			ModalBody.innerHTML = tableHTML;
 				
 			}
 

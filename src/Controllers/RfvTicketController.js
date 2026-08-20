@@ -3,6 +3,31 @@ class RfvTicketController {
 	constructor( )	{
 	}
 
+	SetTicketEnRevisionStatus(Id_ticket)
+	{
+			let text = "¿Está seguro de poner el ticket en revision?";
+		if (confirm(text) == true)
+		{
+			var URL = "https://smartbox.eco3.cl/ApiController/Rfvticket/Update.php";
+
+			$.ajax( {
+        		url:URL,
+        		type:"post",
+				dataType:'text',
+				data: {
+					Id: Id_ticket,
+					Id_RfvTicketStatus: 2,
+    			},
+				success: function(result) {
+					alert (result);
+					window.location.reload();
+				}
+			});
+  		}
+		else	alert ("La operación se ha cancelado.");
+
+	}
+
 	CreateTicket()	{
 
 		let text = "¿Está seguro de enviar el ticket?";

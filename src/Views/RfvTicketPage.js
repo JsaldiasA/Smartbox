@@ -123,6 +123,7 @@ class RfvTicketPage extends Page
 					}
 
 					let StatusCerrado = '10';
+					let StatusEnRevision = '2';
 					let StatusAbierto = '1';
 
 					let dataTable =[];
@@ -138,33 +139,62 @@ class RfvTicketPage extends Page
 					if ( thisTicket["Id_RfvTicketStatus"] == StatusCerrado ) dataTable.push( new newtkROW( 'Motivo del cierre', thisTicket["MotivoDeCierre"] ));
 					
 					ModalBody.appendChild( this.RenderTable(null , dataTable));
-
-					let inpGropPrependEliminar = document.createElement('div');
-					inpGropPrependEliminar.className = 'input-group-prepend'; 
-
-					let InputGroupEliminar = document.createElement('div');
-					InputGroupEliminar.className = 'input-group mb-3';
-
-					let MotivoCierreInput = document.createElement('input');
-					MotivoCierreInput.type = 'text';
-					MotivoCierreInput.className =  "form-control";
-					MotivoCierreInput.setAttribute("aria-describedby", "basic-addon1");
-					MotivoCierreInput.placeholder="Describa motivo del cierre";
-					MotivoCierreInput.id = "MotivoCierre";
 					
-					let ModalBtn = document.createElement('button');
-					ModalBtn.type = "button";
-					ModalBtn.className = 'btn btn-danger';
-					ModalBtn.textContent = 'Eliminar ticket';
-					ModalBtn.addEventListener("click", () => {
-					this.Controller.FunctionDeleteTicket(thisTicket["Id"]);
-					});
+					// footer btn
+					switch (thisTicket["Id_RfvTicketStatus"]) {
 
-					inpGropPrependEliminar.appendChild(ModalBtn);
-					InputGroupEliminar.appendChild(inpGropPrependEliminar);
-					InputGroupEliminar.appendChild(MotivoCierreInput);
+						case StatusAbierto:
+							
+							let EnRevisionBtn = document.createElement('button');
+							EnRevisionBtn.type = "button";
+							EnRevisionBtn.className = 'btn btn-danger';
+							EnRevisionBtn.textContent = 'Poner en revision';
+							EnRevisionBtn.addEventListener("click", () => {
+							this.Controller.SetTicketEnRevisionStatus(thisTicket["Id"]);
+							});
 
-					if ( thisTicket["Id_RfvTicketStatus"] == StatusAbierto ) ModalFooter.appendChild(InputGroupEliminar);
+							ModalFooter.appendChild(EnRevisionBtn);
+							
+							break;
+							
+						case StatusEnRevision:
+
+						let inpGropPrependEliminar = document.createElement('div');
+						inpGropPrependEliminar.className = 'input-group-prepend'; 
+
+						let InputGroupEliminar = document.createElement('div');
+						InputGroupEliminar.className = 'input-group mb-3';
+
+						let MotivoCierreInput = document.createElement('input');
+						MotivoCierreInput.type = 'text';
+						MotivoCierreInput.className =  "form-control";
+						MotivoCierreInput.setAttribute("aria-describedby", "basic-addon1");
+						MotivoCierreInput.placeholder="Describa motivo del cierre";
+						MotivoCierreInput.id = "MotivoCierre";
+						
+						let ModalBtn = document.createElement('button');
+						ModalBtn.type = "button";
+						ModalBtn.className = 'btn btn-danger';
+						ModalBtn.textContent = 'Cerrar ticket';
+						ModalBtn.addEventListener("click", () => {
+						this.Controller.FunctionDeleteTicket(thisTicket["Id"]);
+						});
+
+						inpGropPrependEliminar.appendChild(ModalBtn);
+						InputGroupEliminar.appendChild(inpGropPrependEliminar);
+						InputGroupEliminar.appendChild(MotivoCierreInput);
+
+						ModalFooter.appendChild(InputGroupEliminar);
+							
+						break;
+						
+		
+					
+						default:
+							break;
+					}
+
+					
 
 				}
 			});
