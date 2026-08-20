@@ -12,7 +12,7 @@ $model = new Model();
 
 
 $Id_ticket= $_POST['Id'];
-$ticket= $model->MYSQLSelectWHERE('rfvticket','Id', $Id_ticket);
+$ticket= $model->MYSQLSelectWHERE('rfvticket','Id', $Id_ticket)[0];
 
 $UpdatedTicket = new rfvticketDbEntity();
 
