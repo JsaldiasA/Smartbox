@@ -43,6 +43,73 @@ async function GetChecklistByZonaName( ZonaName)
   	  });
 	}	
 
+ function GetMetodosDePrueba( )
+{
+	
+	let Json = `[{"Id":"1","Name":"Sin Probar"},{"Id":"2","Name":"Soplado de flujometro"},{"Id":"3","Name":"Prueba Con agua"}]`;
+
+  	return JSON.parse(Json);
+  
+}
+
+ function GetChecklistMotivos( )
+{
+
+	let Json = `[{"Id":"1","Name":"Fabricación"},{"Id":"2","Name":"Pre-instalación"},{"Id":"3","Name":"Instalación"},{"Id":"4","Name":"Revisión preventiva"}]`;
+
+  	return JSON.parse(Json);
+  
+}
+
+function GetTicketPriority( )
+{
+
+		const PrioridadGrave = {
+		Id: "1",
+		Name: "Alta",
+		Reasons:[{Id: "1",Name:"Desconectado"},{Id: "2",Name:"No Abre"}]
+		};
+
+		const PrioridadMedia = {
+		Id: "2",
+		Name: "Media",
+		Reasons:[{Id: "10",Name:"No marca"}]
+		};
+
+		const PrioridadBaja = {
+		Id: "3",
+		Name: "Baja",
+		Reasons:[{Id: "3",Name:"Bateria baja"},{Id: "4",Name:"Sin condit"},{Id: "6",Name:"Sin choco"},{Id: "7",Name:"Fuga agua"},{Id: "8",Name:"Caja de energizacion"},{Id: "9",Name:"otro"}]
+		};
+
+		Priorities = [PrioridadGrave,PrioridadMedia,PrioridadBaja]
+
+  	return Priorities;
+  
+}
+
+function GetBateriaTipos()
+{
+		const Afel1800 = {
+		Id: "1",
+		Name: "Afel1800",
+		};
+
+		const Afel2600 = {
+		Id: "2",
+		Name: "Afel2600",
+		};
+
+		const PlomasHobby = {
+		Id: "3",
+		Name: "PlomasHobby",
+		};
+
+		const BateriaTipos = [Afel1800,Afel2600,PlomasHobby];
+
+  	return BateriaTipos;
+
+}
 async function GetUltimosRegistros(  )
 	{
 

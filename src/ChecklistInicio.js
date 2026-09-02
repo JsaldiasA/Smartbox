@@ -408,6 +408,10 @@ function FunctionNuevoCheckListPost( Id_unidad )
 					var ChecklistMotivoSelect = document.getElementById("ChecklistMotivo");
 					var id_checklistMotivo = ChecklistMotivoSelect.options[ChecklistMotivoSelect.selectedIndex].value;  
 
+					var reemplazoBateria= Number(document.getElementById("chBox_reemplazoBateria").checked);
+					var BateriaTipoSelect = document.getElementById("BateriaTipo");
+					var Id_bateriaTipo = reemplazoBateria ? BateriaTipoSelect.options[BateriaTipoSelect.selectedIndex].value : "";  
+
 					//let MdpruebaSelect =document.getElementById("MetodosDePrueba"); 
 					//let MetodoDePrueba = MdpruebaSelect.options[MdpruebaSelect.selectedIndex].value; 
 					let URL_foto= document.getElementById("NombreDeFoto").innerHTML == "" ? 'nofoto.jpg' : document.getElementById("NombreDeFoto").innerHTML ; 
@@ -439,7 +443,8 @@ function FunctionNuevoCheckListPost( Id_unidad )
 									id_checklistMotivo: id_checklistMotivo,
 									Observaciones: Observaciones,
 									TecnicoResponsable: TecnicoResponsable,
-									URL_foto: URL_foto,	    
+									URL_foto: URL_foto,
+									Id_bateriaTipo: Id_bateriaTipo,	    
 								},
 							success: function(result)
 								{
@@ -557,23 +562,7 @@ function FunctionUpdateChecklistPost( Id_checklist )
 		}
 
 
- function GetMetodosDePrueba( )
-{
-	
-	let Json = `[{"Id":"1","Name":"Sin Probar"},{"Id":"2","Name":"Soplado de flujometro"},{"Id":"3","Name":"Prueba Con agua"}]`;
 
-  	return JSON.parse(Json);
-  
-}
-
- function GetChecklistMotivos( )
-{
-
-	let Json = `[{"Id":"1","Name":"Fabricación"},{"Id":"2","Name":"Pre-instalación"},{"Id":"3","Name":"Instalación"},{"Id":"4","Name":"Revisión preventiva"}]`;
-
-  	return JSON.parse(Json);
-  
-}
 
 
 async function renderChecklistTable(filtroValue,ChecklistDataTable)

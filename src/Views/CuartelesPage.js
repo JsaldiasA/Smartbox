@@ -169,6 +169,8 @@ class CuartelesPage extends Page
 			let thisUnidad = appModel.Unidades.find(t => t.Id == Id_Unidad) ;
 			let thisCuartel = appModel.Cuarteles.find( c => c.Id_unidad == thisUnidad.Id )
 			let thisChecklist = appModel.ChecklistsNew.find( ts => ts.id_unidad == thisUnidad.Id )
+			
+			
 
 			ModalLabel.replaceChildren();
 			ModalBody.replaceChildren();
@@ -307,6 +309,13 @@ class CuartelesPage extends Page
 							tableHTML += `<td>TipoBat</td>`;
 							tableHTML += `<td> ${ lastEvento["TipoBat"] }</td>`;
 							tableHTML += '</tr>';
+							tableHTML += `<td>Bateria</td>`;
+							tableHTML += `<td> ${ unidad["Id_bateriaTipo"] ? appModel.BateriaTipos.find(bt => bt.Id == thisUnidad.Id_bateriaTipo).Name : 'No registrada' }</td>`;
+							tableHTML += '</tr>';
+							tableHTML += `<td>Fecha de bateria</td>`;
+							tableHTML += `<td> ${ unidad["BateriaDate"] ?? 'No registrada'  }</td>`;
+							tableHTML += '</tr>';
+
 						tableHTML += `</tbody>`;
 					}
 					tableHTML += `</table>`;			
@@ -703,6 +712,8 @@ class CuartelesPage extends Page
 							<tr><td><b>Solenoide:</b></td><td><input type="checkbox" class="form-check-input" id="Solenoide"></td><td></td></tr>
 							<tr><td><b>Flujómetro:</b></td><td><input type="checkbox" class="form-check-input" id="Flujometro"></td><td></td></tr>	
 							<tr><td><b>Conduit y Choco:</b></td><td><input type="checkbox" class="form-check-input" id="ConduitChoco" ></td><td></td></tr>
+							<tr><td><b>Reemplazo Bateria:</b></td><td><input type="checkbox" class="form-check-input" id="chBox_reemplazoBateria" ></td><td></td></tr>
+							<tr><td><b>Tipo de bateria </b></td><td><select name="BateriaTipo" class="form-select" id="BateriaTipo" disabled></select></td><td></td></tr>	
 							<tr><td><b>Observaciones:</b></td><td><input type="text" class="form-control" id="Observaciones" placeholder="Si no tiene comentarios, coloque OK."></td><td></td></tr>
 							<tr><td><b>Técnico responsable:</b></td><td><input type="text" class="form-control" id="TecnicoResponsable" placeholder="Nombre"></td><td></td></tr>
 							<tr><td><b>Imagen:</b></td><td><div id="NombreDeFoto"></div></td><td><div id="StatusFoto"></div></td></tr>
@@ -731,7 +742,29 @@ class CuartelesPage extends Page
 					BtnClose.setAttribute('data-bs-toggle','modal');
 					
 					ModalBody.innerHTML = tableHTML;
-				
+
+					// Si hace click en reemplazo de bateria, desplegar select de opciones de bateria tipo.
+					
+					const chBox_reemplazoBateria = document.getElementById('chBox_reemplazoBateria');
+					const BateriaTipo = document.getElementById('BateriaTipo');
+
+					appModel.BateriaTipos.forEach(row => {
+					
+					const NewOption = new Option(row["Name"], row["Id"]);
+					BateriaTipo.add(NewOption);
+					});
+
+					chBox_reemplazoBateria.addEventListener('click', () => {
+						
+						if( chBox_reemplazoBateria.checked )
+						{
+							BateriaTipo.disabled = false;
+						}	
+						else
+						{
+							BateriaTipo.disabled = true;
+						}				
+					});
 			
 
 					const upload = document.getElementById('upload');
@@ -769,6 +802,10 @@ class CuartelesPage extends Page
 					const NewOption = new Option(row["Name"], row["Id"]);
 					selectChecklistMotivo.add(NewOption);
 					});
+
+		
+
+					
 				
 			}
 

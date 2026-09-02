@@ -6,8 +6,6 @@ class TicketPage extends Page
 		this.Titulo = 'Tickets';
 		this.Id_modalNewTicket = 'NewTk';
 		this.Id_modalVerTicket = 'VerTk';
-
-		
 	}
 
 	async GetMain( )
