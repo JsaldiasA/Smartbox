@@ -30,12 +30,12 @@ $model->MYSQLInsertInto('checklist',$newRow);
 //Si se reemplazo bateria agregar a la tabla unidad
 if( $_POST['Id_bateriaTipo'] != "" )
 {
-	$Unidad= $_POST['id_unidad'];
-	$Unidad= $model->MYSQLSelectWHERE('unidad','Id',$Id_obj)[0];
+	$Id_unidad= $_POST['id_unidad'];
+	$Unidad= $model->MYSQLSelectWHERE('unidad','Id',$Id_unidad)[0];
 
 	$Unidad->Id_bateriaTipo = $_POST['Id_bateriaTipo'];
 	$Unidad->BateriaDate = date("Y-m-d H:i:s");
-	
+
 	$model->MYSQLUpdate('unidad',$Unidad);
 }	
 
