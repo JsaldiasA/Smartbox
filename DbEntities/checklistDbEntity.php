@@ -26,6 +26,7 @@ class checklistDbEntity
 		public $Toolbox;
 		public $ConduitChoco;
 		public $MetodoDePrueba;
+		public $Id_bateriaTipo;
 
 	}
 

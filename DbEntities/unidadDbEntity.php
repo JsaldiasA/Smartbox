@@ -18,6 +18,8 @@ public $EC;
 public $VolMax;
 public $FactorFlujometro;
 public $Id_Last_RegistroDiario;
+public $Id_bateriaTipo;
+public $BatariaDate;
 	    
 
   function get_id() { return $this->Id; }
