@@ -176,10 +176,13 @@ async function GetChecklistTables( DataTable )
 		var operatibilidad = Math.round( (Operativas/total)*100 );
 
 		var Color = ColorOperatibilidar( operatibilidad );
+
+		let OperativasGrafico=Operativas;
+		let totalGrafico=total;
 		
 		var tableHTML = '<div class="row p-3"><h1>Total</h1></div>';
 	
-		tableHTML += `<div class="row justify-content-center"><div class="col-4"><canvas id="GraficoEstadoGeneral" width="400" height="100"></canvas></div></div>		`        ;
+		tableHTML += `<div class="row pb-3 justify-content-center"><div class="col-4"><canvas id="GraficoEstadoGeneral" width="400" height="100"></canvas></div></div>		`        ;
 	   	
 		tableHTML += '	<table class="table" ><thead>';
         tableHTML += `<tr>`    	;
@@ -238,7 +241,7 @@ async function GetChecklistTables( DataTable )
 				labels: ['Operativas', 'No operativas'],
 				datasets: [{
 					label: 'Unidades',
-					data: [Operativas, (total-Operativas)],
+					data: [OperativasGrafico, (totalGrafico-OperativasGrafico)],
 				}]
 				}
 
