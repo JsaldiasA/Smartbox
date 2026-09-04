@@ -23,13 +23,18 @@ async function GetMainChecklist(  )
 
 		 document.getElementById('main').innerHTML +=`<div class="row pb-3">
 			<div class="col p-3 card shadow p-3 card shadow">
-				<div class="overflow-auto">
+				
 					<div id="TableEstadoGeneral"></div>
-				</div>
+			
 			</div>
 		 </div>
     
-        <div id="mainChecklist"> ${GetLoadingPage()}</div>`;
+        <div id="mainChecklist"> ${GetLoadingPage()}</div>
+		`;
+
+		
+	
+
 		  let DataTable = await GetPageData();	
 		  await GetTableTableEstadoGeneral( DataTable );
 		  await GetChecklistTables( DataTable );
@@ -171,9 +176,12 @@ async function GetChecklistTables( DataTable )
 		var operatibilidad = Math.round( (Operativas/total)*100 );
 
 		var Color = ColorOperatibilidar( operatibilidad );
-
-		let tableHTML = ``        ;
-	   	 tableHTML += '	<table class="table" ><thead>';
+		
+		var tableHTML = '<div class="row p-3"><h1>Total</h1></div>';
+	
+		tableHTML += `<div class="row justify-content-center"><div class="col-4"><canvas id="GraficoEstadoGeneral" width="400" height="100"></canvas></div></div>		`        ;
+	   	
+		tableHTML += '	<table class="table" ><thead>';
         tableHTML += `<tr>`    	;
         tableHTML += `<th scope="col">Total</th>`  	;
         tableHTML += `<th scope="col">Operativas</th>`       ;
@@ -184,9 +192,58 @@ async function GetChecklistTables( DataTable )
         tableHTML += `<td><b> ${total} </b></td>`        ;
         tableHTML += `<td><b> ${Operativas} </b></td>`        ;
         tableHTML += `<td class="${Color}"><b> ${operatibilidad} %</b></td>`        ;
-        tableHTML += `</tr></tbody></table>`        ;
+        tableHTML += `</tr></tbody></table>`        ; 
+
+		tableHTML += `<div class="row p-3"><h1>Zonas</h1></div>`        ; 
+
+		tableHTML += '	<table class="table" ><thead>';
+        tableHTML += `<tr>`    	;
+		tableHTML += `<th scope="col">Zona</th>`  	;
+        tableHTML += `<th scope="col">Total</th>`  	;
+        tableHTML += `<th scope="col">Operativas</th>`       ;
+        tableHTML += `<th scope="col">Operatibilidad</th>`        ;
+        tableHTML += `</tr>`        ;
+        tableHTML += `</thead><tbody>`        ;
+
+		appModel.Zonas.forEach( zona => { 
+		
+		Operativas =  CountUnidadesOK(zona.Id , DataTable);
+		total =  CountUnidades(zona.Id , DataTable);
+
+		operatibilidad = Math.round( (Operativas/total)*100 );
+
+		Color = ColorOperatibilidar( operatibilidad );
+
+        tableHTML += `<tr>`        ;
+		 tableHTML += `<td> ${zona.Name} </td>`        ;
+        tableHTML += `<td><b> ${total} </b></td>`        ;
+        tableHTML += `<td><b> ${Operativas} </b></td>`        ;
+        tableHTML += `<td class="${Color}"><b> ${operatibilidad} %</b></td>`        ;
+		tableHTML += `</tr>`  
+
+		});
+
+        tableHTML += `</tbody></table>`        ; 
+
 
 		document.getElementById("TableEstadoGeneral").innerHTML= tableHTML;
+
+
+
+		const ctx = document.getElementById('GraficoEstadoGeneral');
+
+			new Chart(ctx, {
+				type: 'doughnut',
+				data: {
+				labels: ['Operativas', 'No operativas'],
+				datasets: [{
+					label: 'Unidades',
+					data: [Operativas, (total-Operativas)],
+				}]
+				}
+
+
+			});
 	}	
 
 

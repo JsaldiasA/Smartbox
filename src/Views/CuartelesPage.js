@@ -108,7 +108,7 @@ class CuartelesPage extends Page
 
 		case 'milesight':
 
-			unidadesDataTable = this.GetUnidadesDataTableById_unidadTipo('2');
+			unidadesDataTable = this.GetUnidadesDataTableById_unidadTipo('5');
 			containerDiv.appendChild( this.RenderRowContainer( 'Milesight',  this.RenderCuartelesTable( unidadesDataTable) ) );
 
 			unidadesDataTable = this.GetUnidadesDataTableById_unidadTipo('6');
