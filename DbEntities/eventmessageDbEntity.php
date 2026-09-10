@@ -8,6 +8,7 @@ class eventmessageDbEntity
     public $Id_MessageType;
     public $Id_unidad;
     public $checked;
+    public $EmailSended;
 
   }
 

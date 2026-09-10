@@ -7,6 +7,7 @@ class eventmessagetypeDbEntity
     public $Description;
     public $ParametersArray;
     public $Alias;
+    public $SendEmail;
   }
 
 ?>
