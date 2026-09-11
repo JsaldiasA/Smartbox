@@ -88,9 +88,11 @@ if (isset($_GET['name']) )
 
     }
     else
-    {   
-        if( $unidadObj->Estado != $ESTADO ) // evento cambio de estado.
+    {   // evento cambio de estado.
+        if( $unidadObj->Estado != $ESTADO ) 
         {
+           $messageType = $model->MYSQLSelectWHERE('eventmessagetype','Id','1')[0];
+
           date_default_timezone_set('America/Santiago');
           $FechaActual= date("Y-m-d H:i:s");
 
@@ -102,22 +104,28 @@ if (isset($_GET['name']) )
           $NewObj->Id_MessageType = '1';
           $NewObj->Id_unidad		 = $unidadObj->Id;
           $NewObj->checked = '0';
+          $NewObj->EmailSended = '0';
+          $NewObj->DontSend  =  $messageType->SendEmail == "1" ? "0" : "1";  
           // SET Default values
           $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
         }
+        //EVENTO  VOF  ( water flow detected while the Valve is Closed )
 
         if( $unidadObj->Id_Last_RegistroDiario != null && $unidadObj->Id_Last_RegistroDiario != ''  )
         {
            $LastRegistro = $model->MYSQLSelectWHERE('unidades_lastortolas','Id',$unidadObj->Id_Last_RegistroDiario )[0];
 
-          if( $unidadObj->Estado == "OFF" && (float)$LastRegistro->CAUDAL > 0 ) // evento cambio de estado.  VOF  ( water flow detected while the Valve is Closed )
+          if( $unidadObj->Estado == "OFF" && (float)$LastRegistro->CAUDAL > 0 ) // 
           {
             // Getting the last VOF event
             
             $unidadEM = $model->MYSQLSelectWHERE('eventmessage','Id_unidad',$unidadObj->Id );
+            
             $lastVOFmessage;
             $VOFmessageTypeId = '2';
-            
+            $VOFmessageType = $model->MYSQLSelectWHERE('eventmessagetype','Id',$VOFmessageTypeId)[0];
+
+
             foreach($unidadEM as $Message){ 
               if($Message->Id_MessageType == $VOFmessageTypeId ) $lastVOFmessage = $Message;     
               break;
@@ -130,39 +138,30 @@ if (isset($_GET['name']) )
 
             if($lastVOFmessage)
             {
-                $FechaLastVOFMessage= date_create($lastVOFmessage->CreationDate);
+              $FechaLastVOFMessage= date_create($lastVOFmessage->CreationDate);
               $DateDiff= date_diff($FechaActual,$FechaLastVOFMessage);
         
-              if ($DateDiff->format("%i") > 30)
-              {
+              if ($DateDiff->format("%i") > 30) {
                   $NewObj = new eventmessageDbEntity();
-
-                $NewObj->Id = '0' ;
-                $NewObj->MessageText = '{  "Caudal": "'.$LastRegistro->CAUDAL.'", "Valvula": "OFF" }';
-                $NewObj->CreationDate = $FechaActualStr;
-                $NewObj->Id_MessageType = '2';
-                $NewObj->Id_unidad		 = $unidadObj->Id;
-                $NewObj->checked = '0';
-                // SET Default values
-                $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
               } 
-
             }
-            else
-             {
+            else  {
                  $NewObj = new eventmessageDbEntity();
-
-                $NewObj->Id = '0' ;
-                $NewObj->MessageText = '{  "Caudal": "'.$LastRegistro->CAUDAL.'", "Valvula": "OFF" }';
-                $NewObj->CreationDate = $FechaActualStr;
-                $NewObj->Id_MessageType = '2';
-                $NewObj->Id_unidad		 = $unidadObj->Id;
-                $NewObj->checked = '0';
-                // SET Default values
-                $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
              } 
-           
 
+              if (isset($NewObj)) {
+
+              $NewObj->Id = '0' ;
+              $NewObj->MessageText = '{  "Caudal": "'.$LastRegistro->CAUDAL.'", "Valvula": "OFF" }';
+              $NewObj->CreationDate = $FechaActualStr;
+              $NewObj->Id_MessageType = '2';
+              $NewObj->Id_unidad		 = $unidadObj->Id;
+              $NewObj->checked = '0';
+              $NewObj->EmailSended = '0';
+              $NewObj->DontSend  =  $VOFmessageType->SendEmail == "1" ? "0" : "1";  
+       
+              $model->MYSQLInsertInto('eventmessage' ,$NewObj);   
+            }
           }  
         
         }
@@ -174,6 +173,7 @@ if (isset($_GET['name']) )
             $unidadEM = $model->MYSQLSelectWHERE('eventmessage','Id_unidad',$unidadObj->Id );
 
             $LBAmessageTypeId = '4'; // LBA Low Battery Alert event message type
+            $LBAMessageType = $model->MYSQLSelectWHERE('eventmessagetype','Id',$LBAmessageTypeId)[0];
             $lastLBAmessage;
 
             foreach($unidadEM as $Message){ 
@@ -189,34 +189,29 @@ if (isset($_GET['name']) )
 
               $DateDiff= date_diff( date_create($FechaActualStr) , date_create($lastLBAmessage->CreationDate) );
         
-              if ($DateDiff->format("%i") > 30)
+              if ($DateDiff->format("%i") > 30) // if the new register is older than 30 min CREATE message 
               {
-                $NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
-
-                $NewObj->Id = '0' ;
-                $NewObj->MessageText = '{  "BatNivel": "'.$VOLTAJE.'" }';
-                $NewObj->CreationDate = $FechaActualStr;
-                $NewObj->Id_MessageType = '4';
-                $NewObj->Id_unidad		 = $unidadObj->Id;
-                $NewObj->checked = '0';
-                // SET Default values
-                $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
+                $NewObj = new eventmessageDbEntity();// CREATE MESSAGE
               } 
 
             }
-            else
-             {
-                $NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
+            else  {// if is the first LBA Message for the unit Create Message
+                $NewObj = new eventmessageDbEntity();// CREATE MESSAGE       
+            } 
+            
+            if (isset($NewObj)) {
 
-                $NewObj->Id = '0' ;
-                $NewObj->MessageText = '{  "BatNivel": "'.$VOLTAJE.'" }';
-                $NewObj->CreationDate = $FechaActualStr;
-                $NewObj->Id_MessageType = '4';
-                $NewObj->Id_unidad		 = $unidadObj->Id;
-                $NewObj->checked = '0';
-                // SET Default values
-                $model->MYSQLInsertInto('eventmessage' ,$NewObj);   
-             } 
+              $NewObj->Id = '0' ;
+              $NewObj->MessageText = '{  "BatNivel": "'.$VOLTAJE.'" }';
+              $NewObj->CreationDate = $FechaActualStr;
+              $NewObj->Id_MessageType = $LBAMessageType->Id;
+              $NewObj->Id_unidad		 = $unidadObj->Id;
+              $NewObj->checked = '0';
+              $NewObj->EmailSended = '0';
+              $NewObj->DontSend  =  $LBAMessageType->SendEmail == "1" ? "0" : "1";  
+       
+              $model->MYSQLInsertInto('eventmessage' ,$NewObj);   
+            }
         }    
 
         $sql = "INSERT INTO unidades_lastortolas

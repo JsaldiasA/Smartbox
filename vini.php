@@ -33,17 +33,22 @@ if($StringFinal==".fin*"){
 		$INV=substr($data,  strpos($data,".C*")+3, strpos($data,".I*")-(strpos($data,".C*")+3));
 		$TipoBat =substr($data,  strpos($data,".I*")+3, strpos($data,".L*")-(strpos($data,".I*")+3)) ;
 		$LVOLTAJE=substr($data,  (strpos($data,".L*")+3),2);
+		
+		$messageTypeId = ($TIPO == "INI") ? ( '5' ) : (($TIPO == "ACT") ? ('6') : ('7')); // 5 = type iniciar 6 = type actualizar 7 = error; // LBA Low Battery Alert event message type
+        $messageType = $model->MYSQLSelectWHERE('eventmessagetype','Id',$messageTypeId)[0];
+		
+		$NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
 
-		  $NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
-
-			$NewObj->Id = '0' ;
-			$NewObj->MessageText = $data;
-			$NewObj->CreationDate = $FechaActualStr;
-			$NewObj->Id_MessageType = ($TIPO == "INI") ? ( '5' ) : (($TIPO == "ACT") ? ('6') : ('7')); // 5 = type iniciar 6 = type actualizar 7 = error
-			$NewObj->Id_unidad		 = $unidadObj->Id;
-			$NewObj->checked = '0';
-							// SET Default values
-			$Model->MYSQLInsertInto('eventmessage' ,$NewObj);  
+		$NewObj->Id = '0' ;
+		$NewObj->MessageText = $data;
+		$NewObj->CreationDate = $FechaActualStr;
+		$NewObj->Id_MessageType = $messageTypeId;
+		$NewObj->Id_unidad		 = $unidadObj->Id;
+		$NewObj->checked = '0';
+		$NewObj->EmailSended = '0';
+        $NewObj->DontSend  =  $messageType->SendEmail == "1" ? "0" : "1";  
+						// SET Default values
+		$Model->MYSQLInsertInto('eventmessage' ,$NewObj);  
 	}
 }	
 else

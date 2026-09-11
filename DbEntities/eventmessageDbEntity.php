@@ -9,6 +9,7 @@ class eventmessageDbEntity
     public $Id_unidad;
     public $checked;
     public $EmailSended;
+    public $DontSend;
 
   }
 
