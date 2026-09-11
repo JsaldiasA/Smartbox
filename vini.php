@@ -35,7 +35,7 @@ if($StringFinal==".fin*"){
 		$LVOLTAJE=substr($data,  (strpos($data,".L*")+3),2);
 		
 		$messageTypeId = ($TIPO == "INI") ? ( '5' ) : (($TIPO == "ACT") ? ('6') : ('7')); // 5 = type iniciar 6 = type actualizar 7 = error; // LBA Low Battery Alert event message type
-        $messageType = $model->MYSQLSelectWHERE('eventmessagetype','Id',$messageTypeId)[0];
+        $messageType = $Model->MYSQLSelectWHERE('eventmessagetype','Id',$messageTypeId)[0];
 		
 		$NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
 
