@@ -11,7 +11,7 @@ class EventCenterPage extends Page
 		buttonRightElement.type = 'button';
 		buttonRightElement.textContent = 'borrar Todos';
 		buttonRightElement.onclick = function() {
-		NewTicketPage();
+		ThisApp.EventCenterPage.SetAllMsgChecked();
 		};
 
 		this.TituloRighElement.appendChild(buttonRightElement);
@@ -77,6 +77,20 @@ class EventCenterPage extends Page
 			
 		containerDiv.replaceChildren(); 
 		containerDiv.appendChild( this.RenderTable(headers,dataTable) )
+
+	}
+
+
+	async  SetAllMsgChecked()
+	{
+
+		let unCheckedMessages = appModel.eventMessage.filter(Msg => Msg.checked == '0');
+
+		 for (const Msg of unCheckedMessages) {
+			Msg.checked = '1';
+   			 await UpdateEventMessage(Msg);
+
+  		}
 
 	}
 

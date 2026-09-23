@@ -31,25 +31,17 @@ class CuartelesPage extends Page
 		await this.CreateVerUnidadModal( this.Id_modalUnidadVer );
 		await this.CreateNewChecklistModal( this.Id_modalNewChecklist );
 		await this.CreateVerChecklistModal( this.Id_modalVerChecklist );
-
-	
-		 
+ 
 		let mainTableDiv = document.createElement('div');
 		mainTableDiv.id= 'CuartelesTable';
 
-		this.SelectFiltro.addEventListener('change', async (event) => {
-
-		await this.GetMainTable(mainTableDiv);
-		});
+		this.SelectFiltro.removeEventListener('change', this.HandleFilterChange);
+		this.SelectFiltro.addEventListener('change',this.HandleFilterChange);
 
 		this.mainDiv.appendChild(mainTableDiv);
 
 		await this.GetMainTable(mainTableDiv);
 
-		// clean an set intervals
-		RefreshIntervals_Ids.forEach(interval_ID => {
-		clearInterval(interval_ID)
-		});	
 
 		RefreshIntervals_Ids.push( setInterval(() => this.refreshMainTable(mainTableDiv), 5000));
 
@@ -63,6 +55,36 @@ class CuartelesPage extends Page
 
 		})
 	}
+
+	async HandleFilterChange()
+	{
+		await this.GetMainTable(mainTableDiv);
+	}
+
+		async  GetStatusTable( unidad_id )
+		{
+			var Registros = await GetRegistrosDiarios( unidad_id );
+
+			var UltimoRegistro =  Registros[0];
+
+			let tableHTML = '	<table class="table" >';
+					tableHTML += `<thead>`;
+						tableHTML += `<th scope="col"> Ultimo registro </th>`;
+						tableHTML += `<th scope="col"></th>`;
+					tableHTML += `</thead>`;
+					tableHTML += `<tbody>`;
+						tableHTML +=  `<tr><td>Estado</td><td>${FieldEstado(UltimoRegistro['ESTADO'])}</td></tr>`;
+						tableHTML +=  `<tr><td>Volumen</td><td>${UltimoRegistro['VOLUMEN']}</td></tr>`;
+						tableHTML +=  `<tr><td>Caudal</td><td>${UltimoRegistro['CAUDAL']}</td></tr>`;
+						tableHTML +=  `<tr><td>Senal</td><td>${UltimoRegistro['SENAL']}</td></tr>`;
+						tableHTML +=  `<tr><td>Última Registro</td><td>${FieldActivity(UltimoRegistro['DATETIME'])}</td></tr>`;
+					tableHTML += `</tbody>`;
+
+				tableHTML +=  `</table>`        ;
+			
+			document.getElementById("StatusTable").innerHTML= tableHTML;
+		}	
+
 
  	async GetMainTable( containerDiv  )
 	{
@@ -170,8 +192,6 @@ class CuartelesPage extends Page
 			let thisCuartel = appModel.Cuarteles.find( c => c.Id_unidad == thisUnidad.Id )
 			let thisChecklist = appModel.ChecklistsNew.find( ts => ts.id_unidad == thisUnidad.Id )
 			
-			
-
 			ModalLabel.replaceChildren();
 			ModalBody.replaceChildren();
 			ModalFooter.replaceChildren();
@@ -268,7 +288,7 @@ class CuartelesPage extends Page
 					tableHTML += ' <div class="col p-3">';
 					tableHTML += '<table class="table text-nowrap"><thead>';
 					tableHTML += `<th scope="col"> Ultimo checklist </th>`;
-					tableHTML += `<th scope="col" class="d-flex justify-content-end" ><a onclick="NewChecklistPage(${unidad["Id"]})" class="btn btn-primary" >Nuevo Checklist</a> </th>`;
+					tableHTML += `<th scope="col" class="d-flex justify-content-end" ><button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#${this.Id_modalNewChecklist}" data-bs-unidadid="${ unidad.Id }" >Nuevo Checklist </button></th>`;
 					tableHTML += `</thead>`;
 					tableHTML += `<tbody>`;
 					tableHTML += '<tr>';
@@ -279,14 +299,14 @@ class CuartelesPage extends Page
 					tableHTML += `</table>`;	
 				}
 				//table Ultima actualizacion
-				if( IsSirecor(unidad["id_unidadTipo"]) )
+				if( this.IsSirecor(unidad["id_unidadTipo"]) )
 				{
 					tableHTML += '<div id="StatusTable" >  ';
 					tableHTML += '<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>';
 					tableHTML += '</div>';
 
 					// inicialize refresh thread every 1 second
-					RefreshIntervals_Ids.push(setInterval(GetStatusTable, 1000, unidad["Id"]));
+					RefreshIntervals_Ids.push(setInterval(ThisApp.CuartelesPage.GetStatusTable, 1000, unidad["Id"]));
 				}
 				// table configuracion
 					tableHTML += '<table class="table text-nowrap">';
@@ -337,7 +357,7 @@ class CuartelesPage extends Page
 				tableHTML += '<div class="accordion-body">'; // accordion body
 				tableHTML += '<div class="overflow-auto">'; // overflow
 
-				if( !IsSirecor(unidad["id_unidadTipo"]) )
+				if( !this.IsSirecor(unidad["id_unidadTipo"]) )
 				{
 
 				//	tableHTML += '<table class="table" > <thead >';
@@ -1040,6 +1060,19 @@ class CuartelesPage extends Page
 		return this.RenderTable( headers, dataTable);
 
 	}
+
+	IsSirecor( Id_UnidadTipo )
+	{
+		if( Id_UnidadTipo == '1' ||  Id_UnidadTipo == '2' ) // Sirecor7600 or EStanque7600
+		{
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	
 
 }
 

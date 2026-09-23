@@ -1,27 +1,33 @@
+class ChecklistPage extends Page
+{
+	constructor( )
+	{
+		super();
 
+		this.dataTable;
+		this.Titulo = 'Estado de los dispositivos';
 
-async function GetMainChecklist(  )
-	{	
-		RefreshIntervals_Ids.forEach(interval_ID => { clearInterval(interval_ID) });	
+		this.FilterOptions = [ 'all', 'No operativos', 'No marcan','Falta test agua'];
 
-		 document.getElementById('main').innerHTML = `   <div class="row pb-3">
-            <div class="col p-3">
-				${GetTitulo('Estado de los dispositivos')}
-            </div>
-			 <div class="col-sm-auto align-self-center p-2" >
-              <b> Filtro: </b>
-            </div>
-            <div class="col-auto align-self-center p-2" >
-               <select class="form-select" id="filtro">
-					<option value="all" selected>Todos</option>
-					<option value="No operativos" >No operativos</option>
-					<option value="No marcan" >No marcan</option>
-					<option value="Falta test agua" >Falta test agua</option>
-                </select>
-            </div>	
-		</div>`;
+		this.SelectFiltro = document.createElement('select');
+		this.SelectFiltro.className = 'form-select';
+		this.SelectFiltro.id = 'filtroChecklist';
+		this.FilterOptions.forEach(text => {
 
-		 document.getElementById('main').innerHTML +=`<div class="row pb-3">
+		const option = document.createElement('option');
+		option.textContent = text;
+		this.SelectFiltro.appendChild(option);
+
+		});
+
+		this.TituloRighElement.appendChild( this.SelectFiltro ) ;
+	}
+
+	async GetMain( )
+	{
+		super.GetMain();
+
+		this.mainDiv.innerHTML +=`<div class="row pb-3">
 			<div class="col p-3 card shadow p-3 card shadow">
 				
 					<div id="TableEstadoGeneral"></div>
@@ -32,31 +38,27 @@ async function GetMainChecklist(  )
         <div id="mainChecklist"> ${GetLoadingPage()}</div>
 		`;
 
-		
-	
+		  this.DataTable = await this.GetPageData();	
+		  await this.GetTableTableEstadoGeneral( this.DataTable );
+		  await this.GetChecklistTables( this.DataTable );
 
-		  let DataTable = await GetPageData();	
-		  await GetTableTableEstadoGeneral( DataTable );
-		  await GetChecklistTables( DataTable );
 
-		const statusSelect = document.querySelector('#filtro');
+		let filtro = document.getElementById('filtroChecklist');
 
-		// Listen for a change in selection
-		statusSelect.addEventListener('change', (event) => {
-			// Get the newly selected value
+		filtro.removeEventListener('change', ThisApp.ChecklistPage.HandleFilterChange);
+		filtro.addEventListener('change',ThisApp.ChecklistPage.HandleFilterChange);
+	}
+
+	async HandleFilterChange()
+	{
 			document.getElementById('mainChecklist').innerHTML=GetLoadingPage();
 		
 			const newStatus = event.target.value;
-			GetChecklistTables(DataTable);
-			console.log(`Status changed to: ${newStatus}`);
-		});
-
+			ThisApp.ChecklistPage.GetChecklistTables(ThisApp.ChecklistPage.DataTable,newStatus);
 	}
 	
-async function GetPageData() {
-
-	//let [ Zonas, tickets, cuarteles,ChecklistsNew, Unidades] = await Promise.all([ GetZonas(),GetTicket(),GetCuarteles(),GetChecklistsNew(),GetUnidades()]);
-		
+async  GetPageData() {
+	
 		let DataTable = [] ;
 		
 		appModel.ChecklistsNew.sort((a, b) => Date.parse(a["Fecha"]) - Date.parse(b["Fecha"]) ); 
@@ -82,18 +84,14 @@ async function GetPageData() {
 	return DataTable;
 }
 
-async function GetChecklistTables( DataTable )
+async  GetChecklistTables( DataTable, filtroValue )
 	{
-		let tableHTML = '';
-		
-		var fil = document.getElementById("filtro");
-		var filtroValue = fil ? fil.options[fil.selectedIndex].value : "";  
-		
-		tableHTML = await renderChecklistTable(filtroValue,DataTable);
+	
+		let tableHTML = await this.renderChecklistTable(filtroValue?? 'all',DataTable);
 		document.getElementById("mainChecklist").innerHTML= tableHTML;
 	}
 	
- function CountUnidadesOK( Id_zona,ChecklistDataTable)
+  CountUnidadesOK( Id_zona,ChecklistDataTable)
 	{
 
 		var Count = 0;
@@ -143,7 +141,7 @@ async function GetChecklistTables( DataTable )
 		return Count; 
 	}	
 
-	 function CountUnidades( Id_zona ,ChecklistDataTable)
+	  CountUnidades( Id_zona ,ChecklistDataTable)
 	{
 		var Count = 0;
 
@@ -162,20 +160,20 @@ async function GetChecklistTables( DataTable )
 		return Count; 
 	}	
 
-	function ColorOperatibilidar( operatibilidad )
+	 ColorOperatibilidar( operatibilidad )
 	{
 		return operatibilidad > 80 ? "text-success" : ( operatibilidad > 60 ? ("text-warning") : ("text-danger") );
 	}
 
-	async function GetTableTableEstadoGeneral( DataTable)
+	async  GetTableTableEstadoGeneral( DataTable)
 	{	
 
-		var Operativas = await CountUnidadesOK(null,DataTable);
-		var total = await CountUnidades(null,DataTable);
+		var Operativas = await this.CountUnidadesOK(null,DataTable);
+		var total = await this.CountUnidades(null,DataTable);
 
 		var operatibilidad = Math.round( (Operativas/total)*100 );
 
-		var Color = ColorOperatibilidar( operatibilidad );
+		var Color = this.ColorOperatibilidar( operatibilidad );
 
 		let OperativasGrafico=Operativas;
 		let totalGrafico=total;
@@ -210,12 +208,12 @@ async function GetChecklistTables( DataTable )
 
 		appModel.Zonas.forEach( zona => { 
 		
-		Operativas =  CountUnidadesOK(zona.Id , DataTable);
-		total =  CountUnidades(zona.Id , DataTable);
+		Operativas =  this.CountUnidadesOK(zona.Id , DataTable);
+		total =  this.CountUnidades(zona.Id , DataTable);
 
 		operatibilidad = Math.round( (Operativas/total)*100 );
 
-		Color = ColorOperatibilidar( operatibilidad );
+		Color = this.ColorOperatibilidar( operatibilidad );
 
         tableHTML += `<tr>`        ;
 		 tableHTML += `<td> ${zona.Name} </td>`        ;
@@ -248,101 +246,9 @@ async function GetChecklistTables( DataTable )
 
 			});
 	}	
-
-
-	async function NewChecklistPage ( Id_unidad )
-	{
-		document.getElementById(`main`).innerHTML = `<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>`;
-		// clean an set intervals
-		RefreshIntervals_Ids.forEach( interval_ID => { clearInterval(interval_ID) });	
-
-		let unidad;
-
-		let [Unidades] = await Promise.all([GetUnidades()]);
-		
-		Unidades.forEach( u => { if( Id_unidad == u['Id'] )	unidad = u; })
-		
-		let tableHTML = `
 	
-	<div class="row p-3">
-		${	GetVolverBtn('VolverCuartelesMain()')}
-		${	GetTitulo(`Nuevo checklist para ${unidad["Serie"]}`)}
-	</div>
-	<div class="row">
-		<div class="col m-3 p-3 border">
-			<table class="table">
-			<tbody>	
-				<tr><td><b>IMEI:</b></td><td>${unidad["tag"]}</td><td></td></tr>
-				<tr><td><b>ID de la unidad:</b></td><td>${unidad["Id"]}</td><td></td></tr>
-				<tr><td><b>Motivo </b></td><td><select name="ChecklistMotivo" class="form-select" id="ChecklistMotivo" required=""></select></td><td></td></tr>	
-				<!--<tr><td><b>Metodo de Prueba </b></td><td><select name="MetodosDePrueba" class="form-select" id="MetodosDePrueba" required=""></select></td><td></td></tr>-->
-				<tr><td><b>Probado con agua:</b></td><td><input type="checkbox" class="form-check-input" id="agua"></td><td></td></tr>
-				<tr><td><b>Solenoide:</b></td><td><input type="checkbox" class="form-check-input" id="Solenoide"></td><td></td></tr>
-				<tr><td><b>Flujómetro:</b></td><td><input type="checkbox" class="form-check-input" id="Flujometro"></td><td></td></tr>	
-				<tr><td><b>Conduit y Choco:</b></td><td><input type="checkbox" class="form-check-input" id="ConduitChoco" ></td><td></td></tr>
-				<tr><td><b>Observaciones:</b></td><td><input type="text" class="form-control" id="Observaciones" placeholder="Si no tiene comentarios, coloque OK."></td><td></td></tr>
-				<tr><td><b>Técnico responsable:</b></td><td><input type="text" class="form-control" id="TecnicoResponsable" placeholder="Nombre"></td><td></td></tr>
-				<tr><td><b>Imagen:</b></td><td><div id="NombreDeFoto"></div></td><td><div id="StatusFoto"></div></td></tr>
-			</tbody>
-			</table>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col m-3 p-3" >
-			<button id="upload" class="btn btn-success btn-lg" >Seleccionar y Subir Foto</button>
-		</div>
-		<div class="col m-3 p-3" >
-			<input id="sortpicture" type="file" name="sortpic" style="display: none;" />
-		</div>	
-		<div class="col m-3 p-3" >
-			<button id="enviarChecklist"type="button" class="btn btn-success btn-lg" onclick="FunctionNuevoCheckListPost(${unidad["Id"]})">Enviar CheckList</button>
-		</div>
-	</div>
-	
-	`;
-		
-		document.getElementById('main').innerHTML = tableHTML;
 
-		const upload = document.getElementById('upload');
-		const sortpicture = document.getElementById('sortpicture');
-	
-		// 1. Forward the custom button click to the hidden file input
-		upload.addEventListener('click', () => {
-			sortpicture.click(); 
-		
-		});
-
-		// 2. Catch the exact moment a file is selected and upload it
-		sortpicture.addEventListener('change', async () => {
-			
-			if (sortpicture.files.length === 0)  alert("archivo no encontrado");
-			else  uploadPicture(sortpicture.files[0]);
-	
-    	 });
-
-		// completando select html
-		 /*
-		const selectMetodosDePrueba = document.getElementById('MetodosDePrueba');
-		let MetodosDePrueba = GetMetodosDePrueba();
-
-		MetodosDePrueba.forEach(row => {
-		
-		const NewOption = new Option(row["Name"], row["Id"]);
-		selectMetodosDePrueba.add(NewOption);
-		});*/
-
-		const selectChecklistMotivo = document.getElementById('ChecklistMotivo');
-		let ChecklistMotivos = GetChecklistMotivos();
-
-		ChecklistMotivos.forEach(row => {
-		
-		const NewOption = new Option(row["Name"], row["Id"]);
-		selectChecklistMotivo.add(NewOption);
-		});
-
-	}
-
-	async function ChecklistVerPage ( Id_Checklist )
+	async  ChecklistVerPage ( Id_Checklist )
 	{
 		document.getElementById(`main`).innerHTML = `<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>`;
 		// clean an set intervals
@@ -365,9 +271,9 @@ async function GetChecklistTables( DataTable )
 		tableHTML += `
 	
 	<div class="row p-3">
-		${	GetVolverBtn('VolverCuartelesMain()')}
+		${	GetVolverBtn('ThisApp.ChecklistPage.GetMain()')}
 			${GetTitulo( `checklist de ${unidad["Serie"]}`)}
-			${GetEditBtn(`EditChecklistPage(${checklist["Id"]})`)}
+			${GetEditBtn(`ThisApp.ChecklistPage.EditChecklistPage(${checklist["Id"]})`)}
 	</div>
 	<div class="row">
 		<div class="col m-3 p-3 border">
@@ -398,8 +304,7 @@ async function GetChecklistTables( DataTable )
 
 	}
 
-
-async function EditChecklistPage ( Id_Checklist )
+async  EditChecklistPage ( Id_Checklist )
 	{
 		document.getElementById(`main`).innerHTML = `<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>`;
 		// clean an set intervals
@@ -413,7 +318,7 @@ async function EditChecklistPage ( Id_Checklist )
 		
 		let tableHTML = `
 		<div class="row p-3">
-			${	GetVolverBtn('VolverCuartelesMain()')}
+			${	GetVolverBtn('ThisApp.ChecklistPage.GetMain()')}
 			${	GetTitulo(`Editar checklist  ${CheckList["Id"]}`)}
 		</div>
 		<div class="row">
@@ -453,179 +358,8 @@ async function EditChecklistPage ( Id_Checklist )
 	}
 
 
-function FunctionNuevoCheckListPost( Id_unidad )
-		{
-			let text = "¿Está seguro de enviar el CheckList?";
-			if (confirm(text) == true)
-				{
-					var agua= Number(document.getElementById("agua").checked);
-					var Solenoide= Number(document.getElementById("Solenoide").checked);
-					var Flujometro= Number(document.getElementById("Flujometro").checked);
-					var ConduitChoco = Number(document.getElementById("ConduitChoco").checked);
-					var Observaciones= document.getElementById("Observaciones").value;
-					var TecnicoResponsable= document.getElementById("TecnicoResponsable").value;
 
-					var ChecklistMotivoSelect = document.getElementById("ChecklistMotivo");
-					var id_checklistMotivo = ChecklistMotivoSelect.options[ChecklistMotivoSelect.selectedIndex].value;  
-
-					var reemplazoBateria= Number(document.getElementById("chBox_reemplazoBateria").checked);
-					var BateriaTipoSelect = document.getElementById("BateriaTipo");
-					var Id_bateriaTipo = reemplazoBateria ? BateriaTipoSelect.options[BateriaTipoSelect.selectedIndex].value : "";  
-
-					//let MdpruebaSelect =document.getElementById("MetodosDePrueba"); 
-					//let MetodoDePrueba = MdpruebaSelect.options[MdpruebaSelect.selectedIndex].value; 
-					let URL_foto= document.getElementById("NombreDeFoto").innerHTML == "" ? 'nofoto.jpg' : document.getElementById("NombreDeFoto").innerHTML ; 
-					URL_foto='https://smartbox.eco3.cl/checklistform/Fotos/'+URL_foto;
-
-					if(Observaciones == "" )
-					{
-						return alert("Observaciones no puede estar vacío, coloque alguna observación. Si no tiene coloque OK");
-					}
-					
-					if(TecnicoResponsable == "" )
-					{
-						return alert("Técnico responsable no puede estar vacío, coloque su nombre.");
-					}
-					
-					$.ajax(
-						{
-							url:'https://smartbox.eco3.cl/ApiController/checklist/checklistCreate.php',    //the page containing php script
-							type: "post",    //request 
-							dataType: 'text',
-							data:
-								{
-									id_unidad: Id_unidad,
-									Flujometro: Flujometro,
-									Solenoide: Solenoide, 
-									ConduitChoco: ConduitChoco,
-									//MetodoDePrueba: MetodoDePrueba,
-									agua: agua, 								  
-									id_checklistMotivo: id_checklistMotivo,
-									Observaciones: Observaciones,
-									TecnicoResponsable: TecnicoResponsable,
-									URL_foto: URL_foto,
-									Id_bateriaTipo: Id_bateriaTipo,	    
-								},
-							success: function(result)
-								{
-									alert(result);
-									window.location.reload();
-								}    
-						});
-				}
-			else
-				{
-					alert("La operación se ha cancelado.");
-				}
-		}
-
-	async function uploadPicture( inputFile ) {
-	
-		var file_data = inputFile;  
-
-		const enviarChecklistBtn = document.getElementById('enviarChecklist');
-		enviarChecklistBtn.disabled = true;
-		enviarChecklistBtn.classList.remove('btn-success');
-   		 enviarChecklistBtn.classList.add('btn-secondary'); 
-		enviarChecklistBtn.innerHTML= 'Subiendo Foto ' + `<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>`;
-
-    	var form_data = new FormData();                  
-    	form_data.append('file', file_data);                        
-		$.ajax({
-        url: 'https://smartbox.eco3.cl/ChecklistForm/upload.php', // <-- point to server-side PHP script 
-        dataType: 'text',  // <-- what to expect back from the PHP script, if anything
-        cache: false,
-        contentType: false,
-        processData: false,
-        data: form_data,                         
-        type: 'post',
-        success: function(php_script_response){
-            alert(php_script_response); // <-- display response from the PHP script, if any
-			document.querySelector("#StatusFoto").innerHTML = '<i class="bi bi-check-circle-fill text-success"></i>';
-			document.querySelector("#NombreDeFoto").innerHTML = file_data.name;
-			enviarChecklistBtn.disabled = false;
-			enviarChecklistBtn.innerHTML= 'Enviar CheckList' ;
-			enviarChecklistBtn.classList.remove('btn-secondary');
-			enviarChecklistBtn.classList.add('btn-success');
-   		
-        }
-     });
-	
-	}
-	
-    		function NumericParameterHasError(Parameter,highLimit,lowLimit) {
-		let pattern = /(^\d+\.\d+$)|(^\d+$)/; 
-	var noAjustarMsg = " ,vuelva a ajustarlo. SI NO PUEDE AJUSTARLO NO UTILICE ESTA PLACA EN TERRENO, póngase en contacto con la oficina técnica.";
-			  
-	switch (true) {
-	  case (Parameter.value == ""):
-		Parameter.value = 0;
-		return false;
-		break;
-	  case (Parameter.value == null):
-		Parameter.value = 0;
-		return false;
-		break;
-	  case (Parameter.value < lowLimit):
-		alert(Parameter.id+" no puede ser menor a "+lowLimit+" "+noAjustarMsg);		  
-		return true;
-		break;
-	  case (Parameter.value > highLimit ):
-		alert(Parameter.id+" no puede ser mayor a "+highLimit+" "+noAjustarMsg);
-		return true;
-		break;
-	  case (!pattern.test(Parameter.value)):
-		alert("Error en " +Parameter.id+". Ingrese solo valores numéricos, no se aceptan letras o caracteres en este campo. Ej: 1 ,13 ,14.2 ,13.5");
-		return true;
-		break;
-	 
-	  default:
-	    return false;
-	}	   
-}
-
-function FunctionUpdateChecklistPost( Id_checklist ) 
-		{
-			let text = "¿Está seguro de editar el checklist?";
-			if (confirm(text) == true)
-			{
-					
-				var Solenoide 	= Number(document.getElementById("Solenoide").checked);
-				var Flujometro         = Number(document.getElementById("Flujometro").checked);	
-				var ConduitChoco = Number(document.getElementById("ConduitChoco").checked);
-				var agua         = Number(document.getElementById("agua").checked);
-				var Observaciones= document.getElementById("Observaciones").value;
-				if(Observaciones == "" )	return alert("Observaciones no puede estar vacío, coloque alguna observación. Si no tiene coloque OK");
-					
-				$.ajax(
-					{
-            			url:`https://smartbox.eco3.cl/ApiController/checklist/checklistUpdate.php`,
-            			type:"post",
-						dataType:'text',
-						data:
-							{
-								Id_checklist:Id_checklist,
-								Solenoide 	: Solenoide,
-								ConduitChoco: ConduitChoco,
-								Flujometro : Flujometro,
-								agua: agua,       
-								Observaciones: Observaciones,
-        					},
-						success: function(result)
-							{
-								alert (result);
-								window.location.reload();
-							}
-					});
-  			}
-			else		alert ("La operación se ha cancelado.");
-		}
-
-
-
-
-
-async function renderChecklistTable(filtroValue,ChecklistDataTable)
+async  renderChecklistTable(filtroValue,ChecklistDataTable)
 {	
 	let tableHTML='';
 	
@@ -634,7 +368,7 @@ async function renderChecklistTable(filtroValue,ChecklistDataTable)
 		{
 		case 'all':
 			
-				Zonas = await GetZonas();
+				let Zonas = appModel.Zonas;
 				Zonas.sort((a, b) => a["Id"] - b["Id"] ); 
 
 				tableHTML += '<div class="accordion" id="accordionPanelsStayOpenExample">';
@@ -698,7 +432,7 @@ async function renderChecklistTable(filtroValue,ChecklistDataTable)
 									} 
 							
 									tableHTML += `<tr ${ColumnClassColor} >` ;
-									tableHTML += `<td><a href='url' onclick="ChecklistVerPage(${rowCT.checklist["Id"]});return false;" >${rowCT.cuartel["Name"]}</a></td>`;
+									tableHTML += `<td><a href='url' onclick="ThisApp.ChecklistPage.ChecklistVerPage(${rowCT.checklist["Id"]});return false;" >${rowCT.cuartel["Name"]}</a></td>`;
 									tableHTML += `<td>${rowCT.checklist["Fecha"]}</td>`;
 									tableHTML += `<td>${rowCT.ticket == null ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
 								}
@@ -737,7 +471,7 @@ async function renderChecklistTable(filtroValue,ChecklistDataTable)
 								if(badChecklist)  ColumnClassColor = `class="table-danger"`;
 																
 								tableHTML += `<tr ${ColumnClassColor} >` ;
-								tableHTML += `<td><a href='url'  onclick="ChecklistVerPage(${rowCT.checklist["Id"]});return false;" >${rowCT.cuartel["Name"]}</a></td>`;
+								tableHTML += `<td><a href='url'  onclick="ThisApp.ChecklistPage.ChecklistVerPage(${rowCT.checklist["Id"]});return false;" >${rowCT.cuartel["Name"]}</a></td>`;
 								tableHTML += `<td>${rowCT.checklist["Fecha"]}</td>`;
 								tableHTML += `<td>${rowCT.checklist["Solenoide"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' } </td>`;
 								tableHTML += `<td>${rowCT.checklist["Flujometro"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
@@ -772,10 +506,10 @@ async function renderChecklistTable(filtroValue,ChecklistDataTable)
 				tableHTML += `</tr>`        ;
 				tableHTML += `</thead><tbody>`        ;
 					
-				Operativas = CountUnidadesOK(rowZona["Id"],ChecklistDataTable);
-				total = CountUnidades(rowZona["Id"],ChecklistDataTable);
-				operatibilidad = Math.round( (Operativas/total)*100 );
-				Color = ColorOperatibilidar( operatibilidad );
+				let Operativas = this.CountUnidadesOK(rowZona["Id"],ChecklistDataTable);
+				let total = this.CountUnidades(rowZona["Id"],ChecklistDataTable);
+				let operatibilidad = Math.round( (Operativas/total)*100 );
+				let Color = this.ColorOperatibilidar( operatibilidad );
 
 				tableHTML += `<tr>`        ;
 				tableHTML += `<td><b> ${total} </b></td>`        ;
@@ -820,7 +554,7 @@ async function renderChecklistTable(filtroValue,ChecklistDataTable)
 					if(row.ticket['Id_TicketPriority'] == 1)	{
 
 						tableHTML += `<tr class="bg-danger text-white">`        ;	
-						tableHTML += `<td><a href='url'  onclick="ChecklistVerPage(${row.checklist["Id"]});return false;" >${row.cuartel["Name"]}</a></td>`;
+						tableHTML += `<td><a href='url'  onclick="ThisApp.ChecklistPage.ChecklistVerPage(${row.checklist["Id"]});return false;" >${row.cuartel["Name"]}</a></td>`;
 						tableHTML += `<td>${row.checklist["Fecha"]}</td>`;
 						tableHTML += `<td>${row.checklist["Solenoide"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' } </td>`;
 						tableHTML += `<td>${row.checklist["Flujometro"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
@@ -862,7 +596,7 @@ async function renderChecklistTable(filtroValue,ChecklistDataTable)
 					if(row.ticket['Id_TicketPriority'] == 2)	{
 				
 						tableHTML += `<tr class="bg-warning">`        ;	
-						tableHTML += `<td><a href='url'  onclick="ChecklistVerPage(${row.checklist["Id"]});return false;" >${row.cuartel["Name"]}</a></td>`;
+						tableHTML += `<td><a href='url'  onclick="ThisApp.ChecklistPage.ChecklistVerPage(${row.checklist["Id"]});return false;" >${row.cuartel["Name"]}</a></td>`;
 						tableHTML += `<td>${row.checklist["Fecha"]}</td>`;
 						tableHTML += `<td>${row.checklist["Solenoide"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' } </td>`;
 						tableHTML += `<td>${row.checklist["Flujometro"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
@@ -905,7 +639,7 @@ async function renderChecklistTable(filtroValue,ChecklistDataTable)
 					if( row.checklist["agua"] == '0' &&  row.checklist["Solenoide"] == '1' && row.checklist["Flujometro"] == '1' )	{
 				
 						tableHTML += `<tr class="bg-warning">`        ;	
-						tableHTML += `<td><a href='url'  onclick="ChecklistVerPage(${row.checklist["Id"]});return false;" >${row.cuartel["Name"]}</a></td>`;
+						tableHTML += `<td><a href='url'  onclick="ThisApp.ChecklistPage.ChecklistVerPage(${row.checklist["Id"]});return false;" >${row.cuartel["Name"]}</a></td>`;
 						tableHTML += `<td>${row.checklist["Fecha"]}</td>`;
 						tableHTML += `<td>${row.checklist["Solenoide"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' } </td>`;
 						tableHTML += `<td>${row.checklist["Flujometro"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
@@ -929,6 +663,19 @@ async function renderChecklistTable(filtroValue,ChecklistDataTable)
 		}	
 }
 
+
+
+
+
+
+
+
+	
+
+}
+
+
+
 class checklistTableRowData
  {
   // Constructor method initializes properties
@@ -940,10 +687,3 @@ class checklistTableRowData
   }
 
 }
-
-
-
-
-
-
-	

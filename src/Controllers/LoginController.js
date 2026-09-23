@@ -1,13 +1,45 @@
+class LoginController {
+	
+	constructor( )	{
+	}
 
+	async checkToken()
+	{
+    	let URL = "https://smartbox.eco3.cl/ApiController/Login/CheckToken.php"
+		let pass = false;
+		$.ajax({
+            url:URL,    //the page containing php script
+            type: "post",    //request 
+			data:				
+			{     		
+				token: localStorage.getItem('token') ?? "",
+			},
+		    statusCode: {
+				200: function() {
+					//console.log("Success: 200 OK");
+					pass = true;
+				},
+				404: function() {
+					console.log("Error: 404 Not Found - The PHP file was not found at this URL.");
+					ThisApp.LoginController.GetMainLogin();
+				}
+    		}
+		})
+	  
+	}
 
-
-function GetMainLogin(  )
-{	
+	 GetMainLogin(  )
+	{	
 		RefreshIntervals_Ids.forEach(interval_ID => {
 
 		 clearInterval(interval_ID)
 
 		});	
+
+		clearInterval( ThisApp.GenerateEventCenterNavbar_IntervalId );
+
+
+		 document.getElementById('navbar').innerHTML = "";
 
 
 		 document.getElementById('main').innerHTML = `    
@@ -29,7 +61,7 @@ function GetMainLogin(  )
 								<input type="password" class="form-control" id="password" placeholder="Password">
 							</div>
 							<div class="">
-								<button type="button" class="btn shadow btn-primary w-100" onclick="Login();return false;">Sign in</button>
+								<button type="button" class="btn shadow btn-primary w-100" onclick="ThisApp.LoginController.Login();return false;">Sign in</button>
 							</div>
 						</form>
 					</div>
@@ -38,10 +70,8 @@ function GetMainLogin(  )
 
 }
 
-function Login() 
+	 Login() 
 	{
-			
-	
 
     	var URL = "https://smartbox.eco3.cl/ApiController/Login/Login.php";
 
@@ -62,10 +92,18 @@ function Login()
 		    success: function(result){
 				window.localStorage.setItem("token", result);
 				document.cookie = 'token='+result;
-                GetMainCuarteles();
+                ThisApp.init();
 			}
 
 		});
 	}
 	
+}
+
+
+
+
+
+
+  
 
