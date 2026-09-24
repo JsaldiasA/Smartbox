@@ -187,9 +187,7 @@ class RfvTicketPage extends Page
 						ModalFooter.appendChild(InputGroupEliminar);
 							
 						break;
-						
-		
-					
+							
 						default:
 							break;
 					}
@@ -244,8 +242,6 @@ class RfvTicketPage extends Page
 		
 			if (sortpicture.files.length === 0)  alert("archivo no encontrado");
 			else this.Controller.uploadPicture(sortpicture.files[0]);
-
-
     	});
 		
 		ModalBtn.addEventListener("click", () => {

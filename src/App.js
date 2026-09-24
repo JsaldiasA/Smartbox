@@ -10,6 +10,7 @@ class AppSmartbox
     this.EventCenterPage = new EventCenterPage();
     this.ChecklistPage = new ChecklistPage();
     this.GenerateEventCenterNavbar_IntervalId = 0;
+    this.CheckToken_IntervalId = 0;
   }
 
   async init()
@@ -20,7 +21,7 @@ class AppSmartbox
     await this.GenerateEventCenterNavbar();
     this.GenerateEventCenterNavbar_IntervalId = setInterval(this.GenerateEventCenterNavbar, 10000);
     await this.LoginController.checkToken();
-    setInterval(this.LoginController.checkToken, 15000);
+    this.CheckToken_IntervalId = setInterval(this.LoginController.checkToken, 15000);
 
     this.CuartelesPage.GetMain();
 

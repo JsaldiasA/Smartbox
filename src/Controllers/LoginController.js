@@ -37,6 +37,7 @@ class LoginController {
 		});	
 
 		clearInterval( ThisApp.GenerateEventCenterNavbar_IntervalId );
+		clearInterval( ThisApp.CheckToken_IntervalId );
 
 
 		 document.getElementById('navbar').innerHTML = "";
