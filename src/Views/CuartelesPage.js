@@ -1038,7 +1038,7 @@ class CuartelesPage extends Page
 					dataTableRow.Activity = FieldActivity(rowU.ultimoRegistro.DATETIME);
 					dataTableRow.BateryLevel =	FieldBattery(rowU.ultimoRegistro.VOLTAJE);
 					dataTableRow.Signal = FieldSignal(rowU.ultimoRegistro.SENAL, rowU.ultimoRegistro.DATETIME);		
-					dataTableRow.Caudal = rowU.ultimoRegistro.CAUDAL;
+					dataTableRow.Caudal = FieldCaudal(rowU.ultimoRegistro.CAUDAL);
 					dataTableRow.Volumen = rowU.ultimoRegistro.VOLUMEN;	
 				}	
 				else

@@ -5,7 +5,7 @@ class LoginController {
 
 	async checkToken()
 	{
-    	let URL = "https://smartbox.eco3.cl/ApiController/Login/CheckToken.php"
+    	let URL = UrlBase +"/ApiController/Login/CheckToken.php"
 		let pass = false;
 		$.ajax({
             url:URL,    //the page containing php script
@@ -74,7 +74,7 @@ class LoginController {
 	 Login() 
 	{
 
-    	var URL = "https://smartbox.eco3.cl/ApiController/Login/Login.php";
+    	var URL = UrlBase +"/ApiController/Login/Login.php";
 
 		var email =  document.getElementById("email").value;
 		var password = document.getElementById("password").value ;

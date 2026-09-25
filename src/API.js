@@ -4,7 +4,7 @@
 
 		document.getElementById("RegistrosDiariosTable").innerHTML= '<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>';	
 
-		var URL = "https://smartbox.eco3.cl/ApiController/RegistrosDiarios/RegistrosDiariosGet.php"
+		var URL = UrlBase +"/ApiController/RegistrosDiarios/RegistrosDiariosGet.php"
 
 		$.ajax({
             url:URL,    //the page containing php script
@@ -30,7 +30,7 @@
 
 	function GetSMSTable(id_unidad)
 	{
-    	var URL = "https://smartbox.eco3.cl/ApiController/SMSToUnidades/SMSToUnidadesGet.php"
+    	var URL = UrlBase +"/ApiController/SMSToUnidades/SMSToUnidadesGet.php"
 		$.ajax({
             url:URL,    //the page containing php script
             type: "post",    //request 
@@ -49,7 +49,7 @@
   		let text = "¿Está seguro de cambiar el número de la unidad?";
  		if (confirm(text) == true)
 			{
-				var URL = "https://smartbox.eco3.cl/ApiController/unidad/UnidadUpdate.php";
+				var URL = UrlBase +"/ApiController/unidad/UnidadUpdate.php";
 				
 				var NuevoNumero = document.getElementById("NuevoNumero").value;
 		
@@ -78,7 +78,7 @@
   		let text = "¿Está seguro de cambiar la ubicación de la unidad?";
   		if (confirm(text) == true) {
 
-		var URL = "https://smartbox.eco3.cl/ApiController/unidad/UnidadUpdate.php";
+		var URL = UrlBase +"/ApiController/unidad/UnidadUpdate.php";
 
 		var NuevaUbicacion = document.getElementById("NuevaUbicacion").value;
 
@@ -103,7 +103,7 @@ function FunctionNuevoTipo(Id_unidad) {
   	let text = "¿Está seguro de cambiar el tipo de unidad?";
   	if (confirm(text) == true) {
 
-	var URL = "https://smartbox.eco3.cl/ApiController/unidad/UnidadUpdate.php";
+	var URL = UrlBase +"/ApiController/unidad/UnidadUpdate.php";
 	var Respuesta;
 	var e = document.getElementById("NuevoTipo");
 	var id_unidadTipo = e.value;
@@ -133,7 +133,7 @@ function FunctionNuevoCuartel( Id_unidad ) {
 	var Id_cuartel = e.value;
 
 	$.ajax({
-            url:"https://smartbox.eco3.cl/ApiController/cuarteles/cuartelesUpdate.php", 
+            url:UrlBase +"/ApiController/cuarteles/cuartelesUpdate.php", 
             type: "post", 
 			dataType: 'text',
 			  data: {
@@ -177,7 +177,7 @@ function FunctionComandosMilesight(ComandoNombre, tag_unidad ) {
   let text = "¿Está seguro de accionar la unidad?";
   if (confirm(text) == true) {
 
-	var URL = "https://smartbox.eco3.cl/ApiController/Postcomandos_milesight.php";
+	var URL = UrlBase +"/ApiController/Postcomandos_milesight.php";
 	var token = document.getElementById("password").value;
 	$.ajax({
             url:URL, //the page containing php script
@@ -201,7 +201,7 @@ function FunctionCambiarVolMax(Id_unidad) {
   let text = "¿Está seguro de cambiar el volumen máximo de la unidad?";
   if (confirm(text) == true) {
 
-	var URL = "https://smartbox.eco3.cl/ApiController/unidad/UnidadUpdate.php";
+	var URL = UrlBase +"/ApiController/unidad/UnidadUpdate.php";
 	var NuevoVolMax = document.getElementById("VolMax").value;
 
 	$.ajax({
@@ -224,7 +224,7 @@ function FunctionCreateSMS(SMS,id_unidad) {
   let text = "¿Está seguro de enviar un SMS?";
   if (confirm(text) == true) {
 
-	var URL = "https://smartbox.eco3.cl/Apicontroller/SMSToUnidades/SMSToUnidadesCreate.php";
+	var URL = UrlBase +"/Apicontroller/SMSToUnidades/SMSToUnidadesCreate.php";
 	var Respuesta;
 	var NuevoVolMax = document.getElementById("VolMax").value;
 	var token = document.getElementById("password").value;
@@ -252,7 +252,7 @@ function FunctionDeleteSMS(Id_SMSToUnidades) {
   let text = "¿Está seguro de eliminar un SMS?";
   if (confirm(text) == true) {
 
-	var URL = "https://smartbox.eco3.cl/Apicontroller/SMSToUnidades/SMSToUnidadesDelete.php";
+	var URL = UrlBase +"/Apicontroller/SMSToUnidades/SMSToUnidadesDelete.php";
 	var Respuesta;
 	var token = document.getElementById("password").value;
 
@@ -280,7 +280,7 @@ function VolverCuartelesMain()
 	
 async function GetChecklistByZonaName( ZonaName)
 	{
-		var URL = "https://smartbox.eco3.cl/ApiController/Checklist/ChecklistGet.php"
+		var URL = UrlBase +"/ApiController/Checklist/ChecklistGet.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
@@ -371,7 +371,7 @@ function GetBateriaTipos()
 async function GetUltimosRegistros(  )
 	{
 
-		var URL = "https://smartbox.eco3.cl/ApiController/RegistrosDiarios/UltimosRegistros.php"
+		var URL = UrlBase +"/ApiController/RegistrosDiarios/UltimosRegistros.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
@@ -386,7 +386,7 @@ async function GetUltimosRegistros(  )
 async function GetUnidades(  )
 	{
 
-		var URL = "https://smartbox.eco3.cl/ApiController/unidad/unidadGet.php"
+		var URL = UrlBase +"/ApiController/unidad/unidadGet.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
@@ -400,7 +400,7 @@ async function GetUnidades(  )
 	
 async function GetChecklists()
 	{
-		var URL = "https://smartbox.eco3.cl/ApiController/Checklist/ChecklistGet.php"
+		var URL = UrlBase +"/ApiController/Checklist/ChecklistGet.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
@@ -418,7 +418,7 @@ async function GetChecklists()
 
 async function GetChecklistsNew()
 	{
-		var URL = "https://smartbox.eco3.cl/apiController/checklist/get.php"
+		var URL = UrlBase +"/apiController/checklist/get.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
@@ -436,7 +436,7 @@ async function GetChecklistsNew()
 
 async function GetEventosBytag( tag )
 	{
-		var URL = "https://smartbox.eco3.cl/apiController/eventos/get.php"
+		var URL = UrlBase +"/apiController/eventos/get.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
@@ -454,7 +454,7 @@ async function GetEventosBytag( tag )
 	
 async function GetZonas()
 	{
-		var URL = "https://smartbox.eco3.cl/ApiController/zona/zonaGet.php"
+		var URL = UrlBase +"/ApiController/zona/zonaGet.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
@@ -472,7 +472,7 @@ async function GetZonas()
 
 async function GetCuarteles( )
 	{
-		var URL = "https://smartbox.eco3.cl/ApiController/Cuarteles/CuartelesGet.php"
+		var URL = UrlBase +"/ApiController/Cuarteles/CuartelesGet.php"
 	
 	try {
 
@@ -495,7 +495,7 @@ async function GetCuarteles( )
 async function GetTicket( )
 	{
 		
-		var URL = "https://smartbox.eco3.cl/ApiController/ticket/ticketGet.php"
+		var URL = UrlBase +"/ApiController/ticket/ticketGet.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "post",    //request 
@@ -511,7 +511,7 @@ async function GetTicket( )
 async function GetTicketStatus( )
 	{
 		
-		var URL = "https://smartbox.eco3.cl/ApiController/ticket_status/ticket_statusGet.php"
+		var URL = UrlBase +"/ApiController/ticket_status/ticket_statusGet.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "post",    //request 
@@ -527,7 +527,7 @@ async function GetTicketStatus( )
 async function GetRfvTicket( )
 	{
 		
-		var URL = "https://smartbox.eco3.cl/ApiController/rfvticket/Get.php"
+		var URL = UrlBase +"/ApiController/rfvticket/Get.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "post",    //request 
@@ -543,7 +543,7 @@ async function GetRfvTicket( )
 async function GetRfvTicketStatus( )
 	{
 		
-		var URL = "https://smartbox.eco3.cl/ApiController/rfvticket_status/Get.php"
+		var URL = UrlBase +"/ApiController/rfvticket_status/Get.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "post",    //request 
@@ -559,7 +559,7 @@ async function GetRfvTicketStatus( )
 async function GetUnidaTipo( )
 	{
 		
-		var URL = "https://smartbox.eco3.cl/ApiController/unidadtipo/Get.php"
+		var URL = UrlBase +"/ApiController/unidadtipo/Get.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "post",    //request 
@@ -575,7 +575,7 @@ async function GetUnidaTipo( )
 async function GetEventMessages( )
 	{
 		
-		var URL = "https://smartbox.eco3.cl/ApiController/eventMessage/Get.php"
+		var URL = UrlBase +"/ApiController/eventMessage/Get.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "post",    //request 
@@ -590,7 +590,7 @@ async function GetEventMessages( )
 async function GetEventMessagesType( )
 	{
 		
-		var URL = "https://smartbox.eco3.cl/ApiController/eventMessageType/Get.php"
+		var URL = UrlBase +"/ApiController/eventMessageType/Get.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "post",    //request 
@@ -607,7 +607,7 @@ async function GetEventMessagesType( )
 async function GetRegistrosDiarios( id_unidad )
 	{
 
-		var URL = "https://smartbox.eco3.cl/ApiController/RegistrosDiarios/RegistrosDiariosGet.php"
+		var URL = UrlBase +"/ApiController/RegistrosDiarios/RegistrosDiariosGet.php"
 		return $.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
@@ -629,7 +629,7 @@ function FunctionDeleteSMS(Id_SMSToUnidades) {
   	let text = "¿Está seguro de eliminar un SMS?";
   if (confirm(text) == true) {
 
-	var URL = "https://smartbox.eco3.cl/Apicontroller/Login/CheckToken.php";
+	var URL = UrlBase +"/Apicontroller/Login/CheckToken.php";
 
 	$.ajax({
             url:URL, //the page containing php script
@@ -648,7 +648,7 @@ function FunctionDeleteSMS(Id_SMSToUnidades) {
 
 async function UpdateEventMessage( EventMsg ) {
 
-	var URL = "https://smartbox.eco3.cl/ApiController/eventMessage/update.php";
+	var URL = UrlBase +"/ApiController/eventMessage/update.php";
 
 	$.ajax({
             url:URL,  //the page containing php script
@@ -673,7 +673,7 @@ function FieldActivity( date ) {
 	var pastDate = new Date(date);
 	var now = new Date(new Date().toLocaleString('en', {timeZone: 'America/Santiago'}))
 
-	var minutesAgo = Math.floor((now - pastDate) / 60000) + 5;// 15 min mas que agregea la base de datos a la tabla unidades_lastortolas, se desconoce el porque.
+	var minutesAgo = Math.floor((now - pastDate) / 60000) ;// 15 min mas que agregea la base de datos a la tabla unidades_lastortolas, se desconoce el porque.
 
 	if( minutesAgo < 60 )
 	{
@@ -731,6 +731,27 @@ function FieldEstado( Estado ) {
 	
 }
    
+
+function FieldCaudal( Caudal ) {
+	  
+
+			switch (Caudal) {
+
+			case '999':
+				// Code to execute if expression === value1
+				return  ' <div class="bg-danger text-white">Mayor a 140!</div>  ';
+			
+			case '-999':
+				// Code to execute if expression === value2
+				return  ' <div class="bg-danger text-white">Menor a 5!</div>  ';
+			
+			default:
+				// Code to execute if expression matches no cases
+				return Caudal;
+			}
+
+}
+
 function FieldBattery( level ) {
 	  
 	  		var ImgUrl;
@@ -896,7 +917,7 @@ function DivLoadingState( HtmlElementId )
 			if (confirm(text) == true)
 				{
 					let pattern = /(^\d+\.\d+$)|(^\d+$)/;
-					var URL = "https://smartbox.eco3.cl/ApiController/ticket/TicketCreate.php";
+					var URL = UrlBase +"/ApiController/ticket/TicketCreate.php";
 					var Respuesta;
 
 					var NombreSelectDOM = document.getElementById("Nombre");
@@ -954,7 +975,7 @@ function FunctionDeleteTicket(id_ticket)
 		}
 
 		let pattern = /(^\d+\.\d+$)|(^\d+$)/;
-		var URL = "https://smartbox.eco3.cl/ApiController/ticket/TicketDelete.php";
+		var URL = UrlBase +"/ApiController/ticket/TicketDelete.php";
 		var Respuesta;
 	
 		$.ajax(
@@ -984,7 +1005,7 @@ function FunctionUpdateTicketPost( id_ticket )
 		let text = "¿Está seguro de enviar el ticket?";
 		if (confirm(text) == true)
 			{
-				var URL = "https://smartbox.eco3.cl/ApiController/ticket/TicketUpdate.php";
+				var URL = UrlBase +"/ApiController/ticket/TicketUpdate.php";
 
 				var Nombre = document.getElementById("Nombre").value;
 				

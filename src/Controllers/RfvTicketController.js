@@ -8,7 +8,7 @@ class RfvTicketController {
 			let text = "¿Está seguro de poner el ticket en revision?";
 		if (confirm(text) == true)
 		{
-			var URL = "https://smartbox.eco3.cl/ApiController/Rfvticket/Update.php";
+			var URL = UrlBase +"/ApiController/Rfvticket/Update.php";
 
 			$.ajax( {
         		url:URL,
@@ -33,7 +33,7 @@ class RfvTicketController {
 		let text = "¿Está seguro de enviar el ticket?";
 		if (confirm(text) == true)
 		{
-			var URL = "https://smartbox.eco3.cl/ApiController/Rfvticket/Create.php";
+			var URL = UrlBase +"/ApiController/Rfvticket/Create.php";
 			var Nombre = document.getElementById("Nombre").value;
 			if (Nombre == "")	return alert ("Debe especificar un dispositivo y/o plataforma.");
 			var Descripcion = document.getElementById("Descripcion").value;
@@ -109,7 +109,7 @@ class RfvTicketController {
 			}
 
 			let pattern = /(^\d+\.\d+$)|(^\d+$)/;
-			var URL = "https://smartbox.eco3.cl/ApiController/rfvticket/Delete.php";
+			var URL = UrlBase +"/ApiController/rfvticket/Delete.php";
 			var Respuesta;
 		
 			$.ajax(
