@@ -11,7 +11,7 @@ require_once $sitebasepath."/Model/model.php";
 $model = new Model();
 
 
-$Id_checklist= $_POST['Id_checklist'];
+$Id_checklist= $_POST['Id'];
 $checklist= $model->MYSQLSelectWHERE('checklist','Id',$Id_checklist)[0];
 
 $Updatedchecklist= new checklistDbEntity();
