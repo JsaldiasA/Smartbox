@@ -419,7 +419,7 @@ async function GetChecklists()
 async function GetChecklistsNew()
 	{
 		var URL = UrlBase +"/apiController/checklist/get.php"
-		return $.ajax({
+		return await $.ajax({
             url:URL,    //the page containing php script
             type: "get",    //request 
 			dataType:'json',

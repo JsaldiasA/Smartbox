@@ -6,14 +6,13 @@ class Model
 
   async init()
   {
-    let [ Zonas, Cuarteles, eventMessage,UltimosRegistros, Unidades,Checklists,ChecklistsNew,eventMessagesTypes,Tickets,TicketStatus,RfvTickets,RfvTicketStatus,UnidadTipo,TicketPriorities,ChecklistMotivos,BateriaTipos] = await Promise.all([GetZonas(),GetCuarteles(),GetEventMessages(),GetUltimosRegistros(),GetUnidades(), GetChecklists(), GetChecklistsNew(), GetEventMessagesType(),GetTicket(),GetTicketStatus(),GetRfvTicket(),GetRfvTicketStatus(),GetUnidaTipo(), GetTicketPriority(),GetChecklistMotivos(),GetBateriaTipos()]);
+    let [ Zonas, Cuarteles, eventMessage,UltimosRegistros, Unidades,ChecklistsNew,eventMessagesTypes,Tickets,TicketStatus,RfvTickets,RfvTicketStatus,UnidadTipo,TicketPriorities,ChecklistMotivos,BateriaTipos] = await Promise.all([GetZonas(),GetCuarteles(),GetEventMessages(),GetUltimosRegistros(),GetUnidades(), GetChecklistsNew(), GetEventMessagesType(),GetTicket(),GetTicketStatus(),GetRfvTicket(),GetRfvTicketStatus(),GetUnidaTipo(), GetTicketPriority(),GetChecklistMotivos(),GetBateriaTipos()]);
 
-	this.Zonas = Zonas;		
-	this.Cuarteles = Cuarteles;
-	this.eventMessage		= eventMessage;
-	this.UltimosRegistros = UltimosRegistros;
-	this.Unidades =  Unidades;
-    this.Checklists = Checklists;	
+	 this.Zonas = Zonas;		
+	 this.Cuarteles = Cuarteles;
+	 this.eventMessage		= eventMessage;
+	 this.UltimosRegistros = UltimosRegistros;
+	 this.Unidades =  Unidades;
     this.ChecklistsNew = ChecklistsNew;	
     this.eventMessagesTypes = eventMessagesTypes;	
     this.Tickets = Tickets;
@@ -30,6 +29,14 @@ class Model
   {
 	let Tickets = await GetTicket();
 	this.Tickets	= Tickets;
+  }
+
+
+      async RefreshChecklists()
+  {
+
+  let ChecklistsNew = await GetChecklistsNew();
+	this.ChecklistsNew	= ChecklistsNew;
   }
 
   async RefresheventMessage()

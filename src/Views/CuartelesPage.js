@@ -804,16 +804,6 @@ class CuartelesPage extends Page
 				
 					});
 
-					// completando select html
-					/*
-					const selectMetodosDePrueba = document.getElementById('MetodosDePrueba');
-					let MetodosDePrueba = GetMetodosDePrueba();
-
-					MetodosDePrueba.forEach(row => {
-					
-					const NewOption = new Option(row["Name"], row["Id"]);
-					selectMetodosDePrueba.add(NewOption);
-					});*/
 
 					const selectChecklistMotivo = document.getElementById('ChecklistMotivo');
 
@@ -821,11 +811,7 @@ class CuartelesPage extends Page
 					
 					const NewOption = new Option(row["Name"], row["Id"]);
 					selectChecklistMotivo.add(NewOption);
-					});
-
-		
-
-					
+					});	
 				
 			}
 

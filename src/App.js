@@ -19,9 +19,9 @@ class AppSmartbox
     this.navbar();
     
     await this.GenerateEventCenterNavbar();
-    this.GenerateEventCenterNavbar_IntervalId = setInterval(this.GenerateEventCenterNavbar, 10000);
+    this.GenerateEventCenterNavbar_IntervalId = setInterval(this.GenerateEventCenterNavbar, 30000);
     await this.LoginController.checkToken();
-    this.CheckToken_IntervalId = setInterval(this.LoginController.checkToken, 15000);
+    this.CheckToken_IntervalId = setInterval(this.LoginController.checkToken, 30000);
 
     this.CuartelesPage.GetMain();
 
@@ -43,8 +43,6 @@ class AppSmartbox
         document.getElementById('EventCenterNavbar').innerHTML = ` EventCenter `;
       }
     }
-
-
 
   navbar( )
 	{

@@ -34,6 +34,7 @@
 		<script src="src/Views/CuartelesPage.js"></script>
 		<script src="src/Views/ChecklistPage.js"></script>
 		<script src="src/Controllers/RfvTicketController.js"></script>
+		<script src="src/Controllers/ChecklistController.js"></script>
 		<script src="src/Controllers/LoginController.js"></script>
 		<script src="src/Model.js"></script>
 		<script src="src/App.js"></script>

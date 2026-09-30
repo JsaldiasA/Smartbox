@@ -158,6 +158,16 @@ class Page
 
 	}
 
+	FieldBoolString( bool )
+	{
+		return	bool == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>'
+	}
+
+	EditBoolBtn( bool, Btn_Id )
+	{
+		return	bool != '1' ? `<button id="${Btn_Id}" type="button" class="btn btn-outline-primary btn-sm">Marcar <i class="bi bi-check-circle-fill"></i> </button>` : '' 
+	}
+
 }
 
 

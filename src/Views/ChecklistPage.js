@@ -3,9 +3,11 @@ class ChecklistPage extends Page
 	constructor( )
 	{
 		super();
-
+			this.Controller = new ChecklistController();
 		this.dataTable;
 		this.Titulo = 'Estado de los dispositivos';
+		this.Id_modalVerChecklist = 'VerChecklistInPage';
+
 
 		this.FilterOptions = [ 'all', 'No operativos', 'No marcan','Falta test agua'];
 
@@ -21,32 +23,31 @@ class ChecklistPage extends Page
 		});
 
 		this.TituloRighElement.appendChild( this.SelectFiltro ) ;
+
 	}
 
 	async GetMain( )
 	{
 		super.GetMain();
-
+		
+	
 		this.mainDiv.innerHTML +=`<div class="row pb-3">
 			<div class="col p-3 card shadow p-3 card shadow">
-				
-					<div id="TableEstadoGeneral"></div>
-			
+				<div id="TableEstadoGeneral"></div>
 			</div>
 		 </div>
-    
-        <div id="mainChecklist"> ${GetLoadingPage()}</div>
-		`;
+        <div id="mainChecklist"> ${GetLoadingPage()}</div>`;
 
 		  this.DataTable = await this.GetPageData();	
 		  await this.GetTableTableEstadoGeneral( this.DataTable );
 		  await this.GetChecklistTables( this.DataTable );
 
-
 		let filtro = document.getElementById('filtroChecklist');
 
 		filtro.removeEventListener('change', ThisApp.ChecklistPage.HandleFilterChange);
 		filtro.addEventListener('change',ThisApp.ChecklistPage.HandleFilterChange);
+
+		await this.CreateVerChecklistModal( this.Id_modalVerChecklist );
 	}
 
 	async HandleFilterChange()
@@ -55,6 +56,13 @@ class ChecklistPage extends Page
 		
 			const newStatus = event.target.value;
 			ThisApp.ChecklistPage.GetChecklistTables(ThisApp.ChecklistPage.DataTable,newStatus);
+	}
+
+	async RefreshMain(){
+		 await appModel.RefreshChecklists();
+		 this.DataTable = await this.GetPageData();	
+		  await this.GetTableTableEstadoGeneral( this.DataTable );
+		  await this.GetChecklistTables( this.DataTable );
 	}
 	
 async  GetPageData() {
@@ -120,20 +128,24 @@ async  GetChecklistTables( DataTable, filtroValue )
 
 			if( row.checklist != null )
 			{
-				if(row.unidad['id_unidadTipo'] == 1)// si es estanque
+				if(typeof row.unidad  !== "undefined" && row.unidad !== null)
 				{
-					if(  hasTicket == '0' )
+					if(row.unidad['id_unidadTipo'] == 1)// si es estanque
 					{
-						Count ++;			
+						if(  hasTicket == '0' )
+						{
+							Count ++;			
+						}
 					}
+					else
+					{
+						if(  hasTicket == '0' && row.checklist["Solenoide"] == '1' && row.checklist["Flujometro"] == '1'  && row.checklist["agua"] == '1'  )
+						{
+							Count ++;			
+						}
+					}	
 				}
-				else
-				{
-					if(  hasTicket == '0' && row.checklist["Solenoide"] == '1' && row.checklist["Flujometro"] == '1'  && row.checklist["agua"] == '1'  )
-					{
-						Count ++;			
-					}
-				}		
+				
 			}
 
 		});
@@ -165,9 +177,135 @@ async  GetChecklistTables( DataTable, filtroValue )
 		return operatibilidad > 80 ? "text-success" : ( operatibilidad > 60 ? ("text-warning") : ("text-danger") );
 	}
 
+	async CreateVerChecklistModal( Id_modal )
+	{
+			this.mainDiv.appendChild(this.CreateModalComponent( Id_modal ));
+
+			const verModal = document.getElementById(Id_modal);
+			const ThismodalInstance = bootstrap.Modal.getOrCreateInstance(verModal);
+
+			let ModalLabel = document.getElementById(Id_modal+'_ModalLabel');
+			let ModalBody = document.getElementById(Id_modal+'_ModalBody');
+			let ModalFooter = document.getElementById(Id_modal+'_ModalFooter');
+	
+			verModal.addEventListener('show.bs.modal', async(event) => {
+
+			ModalLabel.replaceChildren();
+			ModalBody.replaceChildren();
+			ModalFooter.replaceChildren();
+
+			const button = event.relatedTarget;
+			const Id_checklist = button.getAttribute('data-bs-checklistid');
+	
+			var checklist = appModel.ChecklistsNew.find( checklist => checklist.Id == Id_checklist );
+			var unidad = appModel.Unidades.find( u => u.Id = checklist.id_unidad  );
+						
+			if (verModal) { 
+				
+				ModalBody.innerHTML = `<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>`;
+				// clean an set intervals
+				RefreshIntervals_Ids.forEach(interval_ID => {	clearInterval(interval_ID)	});
+
+				// buscar la unidad	
+
+				if( unidad ) 
+				{
+					ModalLabel.textContent = `checklist de ${unidad["Serie"]}` ;
+				}
+					
+				// clean an set intervals
+				RefreshIntervals_Ids.forEach(interval_ID => {	clearInterval(interval_ID)	});	
+
+				let tableHTML = `
+		
+				<div class="row">
+					<div class="col m-3 p-3 border">
+						<table class="table">
+							<tbody>	
+								<tr><td><b>Fecha:</b></td><td>${checklist["Fecha"]}</td><td></td></tr>
+								<tr><td><b>Solenoide:</b></td><td>${this.FieldBoolString(checklist["Solenoide"])} </td><td> ${this.EditBoolBtn(checklist["Solenoide"] , "Solenoide") } </td></tr>
+								<tr><td><b>Flujómetro:</b></td><td>${this.FieldBoolString(checklist["Flujometro"])} </td><td> ${this.EditBoolBtn(checklist["Flujometro"] , "Flujometro" ) } </td></tr>
+								<tr><td><b>Conduit y Choco:</b></td><td>${this.FieldBoolString(checklist["ConduitChoco"])} </td><td> ${this.EditBoolBtn(checklist["ConduitChoco"] , "ConduitChoco") } </td></tr>
+								<tr><td><b>Probado con agua:</b></td><td>${this.FieldBoolString(checklist["agua"])} </td><td>${this.EditBoolBtn(checklist["agua"], "agua") }</td></tr>
+								<tr><td><b>Observaciones:</b></td><td>${checklist["Observaciones"]} </td><td></td></tr>
+								<tr><td><b>Técnico responsable:</b></td><td>${checklist["TecnicoResponsable"]} </td><td></td></tr>
+								<tr><td><b>Imagen:</b></td><td class='col-4'><div id="ImagenDiv"><button Id="VerImagenBtn" type="button" class="btn btn-outline-primary btn-sm" >Ver Imagen</button></div></td><td></td></tr>
+							
+							</tbody>
+						</table>
+					</div>
+				</div>`;
+
+				//<tr><td><b>Imagen:</b></td><td class='col-4'><img src='${checklist["URL_foto"]}' class='img-thumbnail' > </td><td></td></tr>
+				ModalBody.innerHTML = tableHTML;
+				const	VerImagenBtn 		 = document.getElementById('VerImagenBtn');	
+				const	aguaModalBtn 		 = document.getElementById('agua');
+				const 	SolenoideModalBtn    = document.getElementById('Solenoide');
+				const	ConduitChocoModalBtn = document.getElementById('ConduitChoco');
+				const	FlujometroModalBtn   = document.getElementById('Flujometro');
+
+				VerImagenBtn.addEventListener('click', ()  => {
+					VerImagenBtn.hidden = true;
+					const	ImagenDiv = document.getElementById('ImagenDiv');	
+					ImagenDiv.innerHTML = `<img src='${checklist["URL_foto"]}' class='img-thumbnail' ></img>`;
+
+				});
+
+
+				if(typeof aguaModalBtn  !== "undefined" && aguaModalBtn !== null){
+					
+					aguaModalBtn.addEventListener('click',async ()  => {
+					this.BtnWaitingStauts(aguaModalBtn) ;
+					await this.Controller.AguaEditModalBtn( true,checklist.Id ) ;
+					ThismodalInstance.hide();
+					this.RefreshMain();
+					});
+
+				}
+
+				if( typeof SolenoideModalBtn  !== "undefined" && SolenoideModalBtn !== null ){
+					
+					SolenoideModalBtn.addEventListener('click', async (event) => {
+
+					this.BtnWaitingStauts(SolenoideModalBtn) ;
+					await this.Controller.SolenoideEditModalBtn( true,checklist.Id ) ;
+					ThismodalInstance.hide();
+					this.RefreshMain();	
+
+				});
+				}
+
+				if( typeof ConduitChocoModalBtn  !== "undefined" && ConduitChocoModalBtn !== null){
+
+					ConduitChocoModalBtn.addEventListener('click', async (event) => {
+					
+					this.BtnWaitingStauts(ConduitChocoModalBtn) ;
+					await this.Controller.ConduitChocoEditModalBtn( true,checklist.Id ) ;
+					ThismodalInstance.hide();
+					this.RefreshMain();
+
+				});
+				}
+
+				if(typeof FlujometroModalBtn  !== "undefined" && FlujometroModalBtn !== null){
+					
+					FlujometroModalBtn.addEventListener('click',  async (event) => {
+
+					this.BtnWaitingStauts(FlujometroModalBtn) ;
+					await this.Controller.FlujometroEditModalBtn( true,checklist.Id ) ;
+					ThismodalInstance.hide();
+					this.RefreshMain();	
+
+					});
+				}
+			}
+
+		});
+	}
+
+
 	async  GetTableTableEstadoGeneral( DataTable)
 	{	
-
 		var Operativas = await this.CountUnidadesOK(null,DataTable);
 		var total = await this.CountUnidades(null,DataTable);
 
@@ -242,120 +380,11 @@ async  GetChecklistTables( DataTable, filtroValue )
 					data: [OperativasGrafico, (totalGrafico-OperativasGrafico)],
 				}]
 				}
-
-
 			});
 	}	
 	
-
-	async  ChecklistVerPage ( Id_Checklist )
-	{
-		document.getElementById(`main`).innerHTML = `<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>`;
-		// clean an set intervals
-		RefreshIntervals_Ids.forEach(interval_ID => {	clearInterval(interval_ID)	});	
-
-		let tableHTML =``;
-		let unidad;
-		let Unidadtipo;
-		let checklist;
-
-		let [Tickets, TicketStatus, Cuarteles, Unidades,Tipos,ChecklistsNew] = await Promise.all([GetTicket(), GetTicketStatus(),GetCuarteles(),GetUnidades(),GetUnidaTipo(),GetChecklistsNew()]);
-		
-
-		ChecklistsNew.sort((a, b) => Date.parse(a["Fecha"]) - Date.parse(b["Fecha"]) ); 
-		
-		ChecklistsNew.forEach( ck => {	if(	ck['Id'] == Id_Checklist )	checklist=ck;	})
-
-		Unidades.forEach( u => {	if( checklist["id_unidad"] == u['Id'] )	unidad = u ;	})
-		
-		tableHTML += `
 	
-	<div class="row p-3">
-		${	GetVolverBtn('ThisApp.ChecklistPage.GetMain()')}
-			${GetTitulo( `checklist de ${unidad["Serie"]}`)}
-			${GetEditBtn(`ThisApp.ChecklistPage.EditChecklistPage(${checklist["Id"]})`)}
-	</div>
-	<div class="row">
-		<div class="col m-3 p-3 border">
-			<table class="table">
-			<tbody>	
-			<tr><td><b>Fecha:</b></td><td>${checklist["Fecha"]}</td><td></td></tr>
-			
-			<tr><td><b>Voltaje regulador de batería:</b></td><td>${checklist["VoltajeReguladorBat"]} </td><td>(V)</td></tr>
-			<tr><td><b>Voltaje regulador de MCU:</b></td><td>${checklist["VoltajeReguladorMCU"]}</td><td>(V)</td></tr>
-			<tr><td><b>Voltaje MCU:</b></td><td>${checklist["VoltajeMCU"]} </td><td>(V)</td></tr>
 
-			<tr><td><b>Solenoide:</b></td><td>${checklist["Solenoide"]} </td><td></td></tr>
-			<tr><td><b>Flujómetro:</b></td><td>${checklist["Flujometro"]} </td><td></td></tr>
-
-			<tr><td><b>Voltaje de la batería:</b></td><td>${checklist["VoltajeBateria"]} </td><td>(V)</td></tr>
-			<tr><td><b>Conduit y Choco:</b></td><td>${checklist["Flujometro"]} </td><td></td></tr>
-			<tr><td><b>Probado con agua:</b></td><td>${checklist["agua"]} </td><td></td></tr>
-			<tr><td><b>Observaciones:</b></td><td>${checklist["Observaciones"]} </td><td></td></tr>
-			<tr><td><b>Técnico responsable:</b></td><td>${checklist["TecnicoResponsable"]} </td><td></td></tr>
-			<tr><td><b>Imagen:</b></td><td class='col-4'><img src='${checklist["URL_foto"]}' class='img-thumbnail' > </td><td></td></tr>
-
-			</tbody>
-			</table>
-		</div>
-	</div>`;
-
-		document.getElementById('main').innerHTML = tableHTML;
-
-	}
-
-async  EditChecklistPage ( Id_Checklist )
-	{
-		document.getElementById(`main`).innerHTML = `<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>`;
-		// clean an set intervals
-		RefreshIntervals_Ids.forEach( interval_ID => { clearInterval(interval_ID) });	
-
-		let CheckList;
-
-		let [Checklists] = await Promise.all([GetChecklistsNew()]);
-		
-		Checklists.forEach( c => { if( Id_Checklist == c['Id'] ) CheckList = c; });
-		
-		let tableHTML = `
-		<div class="row p-3">
-			${	GetVolverBtn('ThisApp.ChecklistPage.GetMain()')}
-			${	GetTitulo(`Editar checklist  ${CheckList["Id"]}`)}
-		</div>
-		<div class="row">
-			<div class="col m-3 p-3 border">
-				<table class="table">
-				<tbody>	
-					<tr><td><b>Metodo de Prueba </b></td><td><select name="MetodosDePrueba" class="form-select" id="MetodosDePrueba" required=""></select></td><td></td></tr>	
-					<tr><td><b>Prueba de agua:</b></td><td><input type="checkbox" class="form-check-input" id="agua" ></td><td></td></tr>
-					<tr><td><b>Solenoide:</b></td><td><input type="checkbox" class="form-check-input" id="Solenoide" ></td><td></td></tr>
-					<tr><td><b>Flujómetro:</b></td><td><input type="checkbox" class="form-check-input" id="Flujometro" value="${CheckList["Flujometro"]}"></td><td></td></tr>	
-					<tr><td><b>Conduit y Choco:</b></td><td><input type="checkbox" class="form-check-input" id="ConduitChoco" value="${CheckList["ConduitChoco"]}"></td><td></td></tr>
-					<tr><td><b>Observaciones:</b></td><td><input type="text" class="form-control" id="Observaciones" value="${CheckList["Observaciones"]}"></td><td></td></tr>
-				</tbody>
-				</table>
-			</div>
-		</div>
-		<div class="row">
-
-			<div class="col m-3 p-3" >
-				<button id="enviarChecklist"type="button" class="btn btn-success btn-lg" onclick="FunctionUpdateChecklistPost( ${CheckList["Id"]} ) ">Enviar CheckList</button>
-			</div>
-		</div>`;
-		
-		document.getElementById('main').innerHTML = tableHTML;
-
-		// completando select html
-
-		const selectMetodosDePrueba = document.getElementById('MetodosDePrueba');
-		let MetodosDePrueba = GetMetodosDePrueba();
-
-		MetodosDePrueba.forEach(row => {
-		
-		const NewOption = new Option(row["Name"], row["Id"]);
-		selectMetodosDePrueba.add(NewOption);
-		});
-
-	}
 
 
 
@@ -432,7 +461,8 @@ async  renderChecklistTable(filtroValue,ChecklistDataTable)
 									} 
 							
 									tableHTML += `<tr ${ColumnClassColor} >` ;
-									tableHTML += `<td><a href='url' onclick="ThisApp.ChecklistPage.ChecklistVerPage(${rowCT.checklist["Id"]});return false;" >${rowCT.cuartel["Name"]}</a></td>`;
+									tableHTML += `<td><button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#${this.Id_modalVerChecklist}" data-bs-checklistid="${ rowCT.checklist["Id"]}" >${rowCT.cuartel["Name"]}</button></td>` ;
+	
 									tableHTML += `<td>${rowCT.checklist["Fecha"]}</td>`;
 									tableHTML += `<td>${rowCT.ticket == null ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>'}</td>`;
 								}
@@ -471,7 +501,7 @@ async  renderChecklistTable(filtroValue,ChecklistDataTable)
 								if(badChecklist)  ColumnClassColor = `class="table-danger"`;
 																
 								tableHTML += `<tr ${ColumnClassColor} >` ;
-								tableHTML += `<td><a href='url'  onclick="ThisApp.ChecklistPage.ChecklistVerPage(${rowCT.checklist["Id"]});return false;" >${rowCT.cuartel["Name"]}</a></td>`;
+								tableHTML += `<td><button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#${this.Id_modalVerChecklist}" data-bs-checklistid="${ rowCT.checklist["Id"]}" >${rowCT.cuartel["Name"]}</button></td>` ;
 								tableHTML += `<td>${rowCT.checklist["Fecha"]}</td>`;
 								tableHTML += `<td>${rowCT.checklist["Solenoide"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' } </td>`;
 								tableHTML += `<td>${rowCT.checklist["Flujometro"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
@@ -554,7 +584,7 @@ async  renderChecklistTable(filtroValue,ChecklistDataTable)
 					if(row.ticket['Id_TicketPriority'] == 1)	{
 
 						tableHTML += `<tr class="bg-danger text-white">`        ;	
-						tableHTML += `<td><a href='url'  onclick="ThisApp.ChecklistPage.ChecklistVerPage(${row.checklist["Id"]});return false;" >${row.cuartel["Name"]}</a></td>`;
+						tableHTML += `<td><button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#${this.Id_modalVerChecklist}" data-bs-checklistid="${ row.checklist["Id"]}" >${row.cuartel["Name"]}</button></td></tr>` ;
 						tableHTML += `<td>${row.checklist["Fecha"]}</td>`;
 						tableHTML += `<td>${row.checklist["Solenoide"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' } </td>`;
 						tableHTML += `<td>${row.checklist["Flujometro"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
@@ -596,7 +626,7 @@ async  renderChecklistTable(filtroValue,ChecklistDataTable)
 					if(row.ticket['Id_TicketPriority'] == 2)	{
 				
 						tableHTML += `<tr class="bg-warning">`        ;	
-						tableHTML += `<td><a href='url'  onclick="ThisApp.ChecklistPage.ChecklistVerPage(${row.checklist["Id"]});return false;" >${row.cuartel["Name"]}</a></td>`;
+						tableHTML += `<td><button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#${this.Id_modalVerChecklist}" data-bs-checklistid="${ row.checklist["Id"]}" >${row.cuartel["Name"]}</button></td>` ;
 						tableHTML += `<td>${row.checklist["Fecha"]}</td>`;
 						tableHTML += `<td>${row.checklist["Solenoide"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' } </td>`;
 						tableHTML += `<td>${row.checklist["Flujometro"] == '1' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle"></i>' }</td>`;
@@ -662,15 +692,6 @@ async  renderChecklistTable(filtroValue,ChecklistDataTable)
 	
 		}	
 }
-
-
-
-
-
-
-
-
-	
 
 }
 
