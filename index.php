@@ -21,9 +21,7 @@
 </head>
 
 <div id="navbar"></div>
-
   <body>
-
 		<div id="main" class="container"></div>
 
 		<script src="src/API.js"></script>

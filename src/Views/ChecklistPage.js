@@ -197,8 +197,10 @@ async  GetChecklistTables( DataTable, filtroValue )
 			const button = event.relatedTarget;
 			const Id_checklist = button.getAttribute('data-bs-checklistid');
 	
-			var checklist = appModel.ChecklistsNew.find( checklist => checklist.Id == Id_checklist );
-			var unidad = appModel.Unidades.find( u => u.Id = checklist.id_unidad  );
+			const checklist = appModel.ChecklistsNew.find( checklist => checklist.Id == Id_checklist );
+			const unidad = appModel.Unidades.find( u => u.Id == checklist.id_unidad  );
+			const cuartel = appModel.Cuarteles.find( u => u.Id_unidad == unidad.Id  );
+			const UnidadTipo = appModel.UnidadTipo.find( u => u.Id == unidad.id_unidadTipo  );
 						
 			if (verModal) { 
 				
@@ -210,7 +212,7 @@ async  GetChecklistTables( DataTable, filtroValue )
 
 				if( unidad ) 
 				{
-					ModalLabel.textContent = `checklist de ${unidad["Serie"]}` ;
+					ModalLabel.textContent = `checklist de ${cuartel.Name}` ;
 				}
 					
 				// clean an set intervals
@@ -222,7 +224,9 @@ async  GetChecklistTables( DataTable, filtroValue )
 					<div class="col m-3 p-3 border">
 						<table class="table">
 							<tbody>	
-								<tr><td><b>Fecha:</b></td><td>${checklist["Fecha"]}</td><td></td></tr>
+								<tr><td><b>Unidad:</b></td><td>${unidad["tag"]}</td><td></td></tr>
+								<tr><td><b>Tipo:</b></td><td>${UnidadTipo.Nombre}</td><td></td></tr>
+								<tr><td><b>Fecha:</b></td><td>${checklist["Fecha"]}</td><td>( Hace ${FieldFecha(checklist.Fecha)} )</td></tr>
 								<tr><td><b>Solenoide:</b></td><td>${this.FieldBoolString(checklist["Solenoide"])} </td><td> ${this.EditBoolBtn(checklist["Solenoide"] , "Solenoide") } </td></tr>
 								<tr><td><b>Flujómetro:</b></td><td>${this.FieldBoolString(checklist["Flujometro"])} </td><td> ${this.EditBoolBtn(checklist["Flujometro"] , "Flujometro" ) } </td></tr>
 								<tr><td><b>Conduit y Choco:</b></td><td>${this.FieldBoolString(checklist["ConduitChoco"])} </td><td> ${this.EditBoolBtn(checklist["ConduitChoco"] , "ConduitChoco") } </td></tr>
@@ -236,7 +240,6 @@ async  GetChecklistTables( DataTable, filtroValue )
 					</div>
 				</div>`;
 
-				//<tr><td><b>Imagen:</b></td><td class='col-4'><img src='${checklist["URL_foto"]}' class='img-thumbnail' > </td><td></td></tr>
 				ModalBody.innerHTML = tableHTML;
 				const	VerImagenBtn 		 = document.getElementById('VerImagenBtn');	
 				const	aguaModalBtn 		 = document.getElementById('agua');
