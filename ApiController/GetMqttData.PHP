@@ -36,15 +36,32 @@ else // si es caja u511 soleniod valve controller
 	// si la unidad se esta registrando por primera vez
 	if( is_null($UnidadExistente) ) 
 	{
-		$NOMBRE = $obj->deviceName;
-		$UNIDAD = $obj->devEUI;
-		$ESTADO = $obj->valve_1;
-		$VOLUMEN = $obj->valve_2_pulse ?? "0";
-		$BATNIVEL = $obj->battery ?? "0";
-		$CAUDAL = "0";
-		$Temperatura = 0;
-		$Humedad = 0;
-		$EC = 0;
+		$NewUnidad= new unidadDbEntity();
+		
+		$NewUnidad->Id = "0";
+		$NewUnidad->Serie = $obj->deviceName;
+		$NewUnidad->tag = $obj->devEUI;
+		$NewUnidad->ESTADO = $obj->valve_1;
+		$NewUnidad->Volumen = $obj->valve_2_pulse ?? "0";
+		$NewUnidad->BatNivel = $obj->battery ?? "0";
+
+		$Model->MYSQLInsertInto('unidad',$NewUnidad);
+
+		$NewUnidadCreada = $Model->MYSQLSelectWHERE('unidad','tag',$obj->devEUI)[0];
+
+		$RegistroDiario= new unidades_lastortolasDbEntity();
+
+		$RegistroDiario->Id = "0";
+		$RegistroDiario->unidad_id = $NewUnidadCreada->Id;
+		$RegistroDiario->ESTADO = $obj->valve_1;
+		$RegistroDiario->VOLUMEN = $obj->valve_2_pulse ?? "0";
+		$RegistroDiario->CAUDAL =  "0";
+		$RegistroDiario->VOLTAJE =  $obj->battery ?? "0";
+		$RegistroDiario->SENAL = "0";
+
+		$Model->MYSQLInsertInto('unidades_lastortolas',$RegistroDiario);
+
+
 	}
 	else
 	{
@@ -57,26 +74,28 @@ else // si es caja u511 soleniod valve controller
 		$Temperatura = 0;
 		$Humedad = 0;
 		$EC = 0;
+
+		echo var_dump($UnidadExistente);
+
+		$sql = "INSERT INTO unidades_lastortolas
+		( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
+		VALUES( ".$UnidadExistente->get_id().", '{$ESTADO}' ,{$VOLUMEN},{$CAUDAL},0,{$BATNIVEL},current_timestamp())";
+
+		echo $sql; 
+
+		$result = $Model->executeSQL($sql);
+
+		$sql = "UPDATE sirecor.unidad
+		SET    UltimaActualizacion=current_timestamp(), Volumen={$VOLUMEN}, Estado='{$ESTADO}', BatNivel={$BATNIVEL}
+		WHERE id= ".$UnidadExistente->get_id();
+
+		echo $sql; 
+
+		$result = $Model->executeSQL($sql);
+
 	}
 }
 
 
-echo var_dump($UnidadExistente);
-
-$sql = "INSERT INTO unidades_lastortolas
-( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
-VALUES( ".$UnidadExistente->get_id().", '{$ESTADO}' ,{$VOLUMEN},{$CAUDAL},0,{$BATNIVEL},current_timestamp())";
-
-echo $sql; 
-
-$result = $Model->executeSQL($sql);
-
-$sql = "UPDATE sirecor.unidad
-SET    UltimaActualizacion=current_timestamp(), Volumen={$VOLUMEN}, Estado='{$ESTADO}', BatNivel={$BATNIVEL}
-WHERE id= ".$UnidadExistente->get_id();
-
-echo $sql; 
-
-$result = $Model->executeSQL($sql);
 
 ?>
