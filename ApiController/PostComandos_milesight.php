@@ -55,7 +55,7 @@ $payload = array(
 
 $mqtt->publish('downlink/'.$tag, json_encode($payload), 0);
 
-echo "Operación realizada con éxito. tag: ".$tag." nombre:".$ComandoNombre." token:".$token;
+echo "Operacion realizada con exito. tag: ".$tag." nombre:".$ComandoNombre." token:".$token;
 }
 
 //catch exception
