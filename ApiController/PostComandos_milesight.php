@@ -22,8 +22,8 @@ try {
 $server   = 'h1811c6e.ala.us-east-1.emqxsl.com';
 $port     = 8883;
 $clientId = rand(5, 15);
-$username = 'bridge_eco3';
-$password = 'bridge_pass';
+$username = 'eco3_command';
+$password = 'eco3spa';
 $clean_session = false;
 
 $connectionSettings  = (new ConnectionSettings)

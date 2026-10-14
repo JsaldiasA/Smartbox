@@ -61,7 +61,6 @@ else // si es caja u511 soleniod valve controller
 
 		$Model->MYSQLInsertInto('unidades_lastortolas',$RegistroDiario);
 
-
 	}
 	else
 	{
@@ -95,7 +94,5 @@ else // si es caja u511 soleniod valve controller
 
 	}
 }
-
-
 
 ?>
