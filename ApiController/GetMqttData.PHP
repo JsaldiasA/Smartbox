@@ -11,7 +11,7 @@ require_once $sitebasepath."/Model/model.php";
 
 $Model = new model();
 
-$UnidadExistente = $Model->MYSQLSelectWHERE('unidad','tag',$obj->devEUI);
+$UnidadExistente = $Model->MYSQLSelectWHERE('unidad','tag',$obj->devEUI)[0];
 
 
 //Insertando En tabla RowData
