@@ -41,7 +41,7 @@ else // si es caja u511 soleniod valve controller
 		$NewUnidad->Id = "0";
 		$NewUnidad->Serie = $obj->deviceName;
 		$NewUnidad->tag = $obj->devEUI;
-		$NewUnidad->ESTADO = $obj->valve_1;
+		$NewUnidad->Estado = $obj->valve_1;
 		$NewUnidad->Volumen = $obj->valve_2_pulse ?? "0";
 		$NewUnidad->BatNivel = $obj->battery ?? "0";
 
