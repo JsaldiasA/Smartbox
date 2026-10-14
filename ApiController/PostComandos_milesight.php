@@ -1,5 +1,7 @@
 <?php
 
+header("Access-Control-Allow-Origin: *");
+
 $self=$_SERVER['PHP_SELF']; 
 $thispath=dirname($_SERVER['PHP_SELF']);
 $sitebasepath=$_SERVER['DOCUMENT_ROOT'];
@@ -17,11 +19,11 @@ use \PhpMqtt\Client\MqttClient;
 use \PhpMqtt\Client\ConnectionSettings;
 
 try {
-$server   = 'i707fd0d.ala.us-east-1.emqxsl.com';
+$server   = 'h1811c6e.ala.us-east-1.emqxsl.com';
 $port     = 8883;
 $clientId = rand(5, 15);
-$username = 'Bridge_Eco3';
-$password = 'Bridge_Pass';
+$username = 'bridge_eco3';
+$password = 'bridge_pass';
 $clean_session = false;
 
 $connectionSettings  = (new ConnectionSettings)
