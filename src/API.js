@@ -1,48 +1,7 @@
 
-	function GetRegistrosDiariosTable( id_unidad )
-	{
+	
 
-		document.getElementById("RegistrosDiariosTable").innerHTML= '<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>';	
 
-		var URL = UrlBase +"/ApiController/RegistrosDiarios/RegistrosDiariosGet.php"
-
-		$.ajax({
-            url:URL,    //the page containing php script
-            type: "get",    //request 
-			dataType:'text',
-			data:
-				{
-            		Id_unidad: id_unidad,
-        		},
-			
-		    	success: 
-				function(result){
-
-				let table = new DataTable("#TablaRegistros");
-				document.getElementById("RegistrosDiariosTable").innerHTML= result;
-				$(document).ready(function(){
-				$('#TablaRegistros').dataTable();
-				});
-			
-			}
-		});	
-	}	
-
-	function GetSMSTable(id_unidad)
-	{
-    	var URL = UrlBase +"/ApiController/SMSToUnidades/SMSToUnidadesGet.php"
-		$.ajax({
-            url:URL,    //the page containing php script
-            type: "post",    //request 
-			dataType:'text',
-			data:
-				{
-            		Id_unidad: id_unidad,
-        		},
-			
-		    success: function(result){document.getElementById("SMSTable").innerHTML= result;}
-		});	
- 	}
 
 	function FunctionNuevoNumero(Id_unidad)
 	{
@@ -272,11 +231,6 @@ function FunctionDeleteSMS(Id_SMSToUnidades) {
   }
 }
 
-function VolverCuartelesMain()
-{
-	GetMainCuarteles();
-
-}
 	
 async function GetChecklistByZonaName( ZonaName)
 	{
@@ -662,18 +616,12 @@ async function UpdateEventMessage( EventMsg ) {
 }	
 
 
-
-function VolverCuartelesMain()
-{
-	GetMain();
-}
-	
 function FieldActivity( date ) {
 
 	var pastDate = new Date(date);
 	var now = new Date(new Date().toLocaleString('en', {timeZone: 'America/Santiago'}))
 
-	var minutesAgo = Math.floor((now - pastDate) / 60000) ;// 15 min mas que agregea la base de datos a la tabla unidades_lastortolas, se desconoce el porque.
+	var minutesAgo = Math.floor((now - pastDate) / 60000) + 15;// 15 min mas que agregea la base de datos a la tabla unidades_lastortolas, se desconoce el porque.
 
 	if( minutesAgo < 60 )
 	{
@@ -727,7 +675,24 @@ function FieldFecha( date ) {
 
 function FieldEstado( Estado ) {
 
-	return Estado == 'ON' ? '<div class="bg-danger text-white">ON</div>' : Estado;
+
+	switch (Estado) {
+		case 'ON':
+		case '1':
+			return  '<div class="bg-danger text-white">ON</div>' ;
+		
+		case '0':
+			return  'OFF';
+		case null:
+		case '':
+			return  '<i class="bi bi-arrow-clockwise text-success fs-3"></i>';
+	
+		default:
+			
+			return Estado;
+	}
+
+	
 	
 }
    

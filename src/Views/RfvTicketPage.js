@@ -38,7 +38,6 @@ class RfvTicketPage extends Page
 		this.mainDiv.appendChild(mainTableDiv);
 		await this.GetMainTable(mainTableDiv);
 
-		
 	}
 
 	CreateVerImgenModal( Id_modal )

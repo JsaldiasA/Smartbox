@@ -3,6 +3,7 @@ class CuartelesPage extends Page
 	constructor( )
 	{
 		super();
+		this.Controller = new CuartelesController();
 
 		this.Id_modalUnidadVer = 'VerUnidad';
 		this.Id_modalNewChecklist = 'NewChecklist';
@@ -63,7 +64,7 @@ class CuartelesPage extends Page
 
 		async  GetStatusTable( unidad_id )
 		{
-			var Registros = await GetRegistrosDiarios( unidad_id );
+			var Registros = await ThisApp.CuartelesPage.Controller.GetRegistrosDiarios( unidad_id );
 
 			var UltimoRegistro =  Registros[0];
 
@@ -298,24 +299,23 @@ class CuartelesPage extends Page
 					tableHTML += `</tbody>`;
 					tableHTML += `</table>`;	
 				}
-				//table Ultima actualizacion
-				if( this.IsSirecor(unidad["id_unidadTipo"]) )
-				{
+
 					tableHTML += '<div id="StatusTable" >  ';
 					tableHTML += '<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>';
 					tableHTML += '</div>';
 
 					// inicialize refresh thread every 1 second
 					RefreshIntervals_Ids.push(setInterval(ThisApp.CuartelesPage.GetStatusTable, 1000, unidad["Id"]));
-				}
+				
 				// table configuracion
+					if(this.IsSirecor(unidad["id_unidadTipo"]) && lastEvento )
+					{	
 					tableHTML += '<table class="table text-nowrap">';
 						tableHTML += `<thead>`;
 						tableHTML += `<th scope="col"> Configuracion </th>`;
 						tableHTML += `<th scope="col"></th>`;
 						tableHTML += `</thead>`;
-					if(lastEvento)
-					{	
+					
 						tableHTML += `<tbody>`;
 							tableHTML += '<tr>';
 							tableHTML += `<td>VerCodigo</td>`;
@@ -337,8 +337,9 @@ class CuartelesPage extends Page
 							tableHTML += '</tr>';
 
 						tableHTML += `</tbody>`;
+						tableHTML += `</table>`;
 					}
-					tableHTML += `</table>`;			
+								
 
 				tableHTML += '    </div>      ';  // col end ultimo checklits & ultima actualizacion	
 				tableHTML += '</div>'; //  end row checklist & ultima actualizacion
@@ -360,34 +361,26 @@ class CuartelesPage extends Page
 				if( !this.IsSirecor(unidad["id_unidadTipo"]) )
 				{
 
-				//	tableHTML += '<table class="table" > <thead >';
-				//	tableHTML += '<th scope="col">Control</th>';
-				//	tableHTML += '<th scope="col"></th>';
-				//	tableHTML += '<th scope="col"></th>';
-				//	tableHTML += '</thead><tbody>';
-				//	let DisabledAbrir = "";
-				//	let DisabledCerrar = "";
+					tableHTML += '<table class="table" > <thead >';
+					tableHTML += '<th scope="col">Control</th>';
+					tableHTML += '<th scope="col"></th>';
+					tableHTML += '<th scope="col"></th>';
+					tableHTML += '</thead><tbody>';
 
-				//	if ($unidadDbEntity->get_Estado() == "1")
-				//	{	
-				//		DisabledAbrir = "disabled";
-				//	}
-				//	else
-				//	{
-				//		DisabledCerrar = "disabled";
-				//	}
+					let DisabledAbrir =  unidad.Estado == "1" ? "disabled" : "";
+					let DisabledCerrar = unidad.Estado != "1" ? "disabled" : "";
 
-				//	tableHTML += `<tr><td><button type="button" onclick="FunctionComandosMilesight('Abrir V1','${unidad["tag"]}')" class="btn btn-primary" ${DisabledAbrir} >Abrir</button></td>`;
-				//	tableHTML += `<td><button type="button" onclick="FunctionComandosMilesight('Cerrar V1','${unidad["tag"]}')" class="btn btn-primary" ${DisabledCerrar}  >Cerrar</button></td>`;
-				//	tableHTML += `<td><button type="button" onclick="FunctionComandosMilesight('Reset Count','${unidad["tag"]}')" class="btn btn-primary">Reiniciar Contador</button></td><tr>`;
-				//	tableHTML += '</tbody></table>';
+					tableHTML += `<tr><td><button type="button" onclick="FunctionComandosMilesight('Abrir V1','${unidad["tag"]}')" class="btn btn-primary" ${DisabledAbrir} >Abrir</button></td>`;
+					tableHTML += `<td><button type="button" onclick="FunctionComandosMilesight('Cerrar V1','${unidad["tag"]}')" class="btn btn-primary" ${DisabledCerrar}  >Cerrar</button></td>`;
+					tableHTML += `<td><button type="button" onclick="FunctionComandosMilesight('Reset Count','${unidad["tag"]}')" class="btn btn-primary">Reiniciar Contador</button></td><tr>`;
+					tableHTML += '</tbody></table>';
 
 				}
 
 				else{
 		
 					tableHTML +='<div id="SMSTable" ></div>'; // sms table from post javascript 
-					RefreshIntervals_Ids.push(setInterval(GetSMSTable, 1000, unidad["Id"] ));
+					RefreshIntervals_Ids.push(setInterval(this.Controller.GetSMSTable, 1000, unidad["Id"] ));
 
 					tableHTML += '<table class="table" > <thead >';
 					tableHTML += '<th scope="col">SMS</th>';
@@ -398,7 +391,7 @@ class CuartelesPage extends Page
 					tableHTML += '<td  ><div class="input-group" >';
 					tableHTML += '		<input type="text" class="form-control" placeholder="Escriba el SMS en mayusculas" id="InputSMS" >';
 					tableHTML += '		<div class="input-group-append">';
-					tableHTML += `			<button class="btn btn-outline-secondary" type="button" onclick="FunctionCreateSMS(\'InputSMS\',${unidad["Id"]})" >Enviar</button>`;
+					tableHTML += `			<button class="btn btn-outline-secondary" type="button" onclick="ThisApp.CuartelesPage.Controller.FunctionCreateSMS(\'InputSMS\',${unidad["Id"]})" >Enviar</button>`;
 					tableHTML += '		</div>';
 					tableHTML += '	</div>';
 					tableHTML += '</td><tr>';
@@ -413,12 +406,12 @@ class CuartelesPage extends Page
 					tableHTML += '<th scope="col"></th>';
 					tableHTML += '</thead><tbody>';
 
-					tableHTML += `<tr><td><button type="button" onclick="FunctionCreateSMS( 'ABRIR', ${unidad["Id"]} )" class="btn btn-primary" >ABRIR</button></td>`;
-					tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'CERRAR',${unidad["Id"]} )" class="btn btn-primary" >CERRAR</button></td>`;
-					tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'RESET',${unidad["Id"]} )" class="btn btn-primary" >RESET</button></td><tr>`;
-					tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'INTERNET15' ,${unidad["Id"]})" class="btn btn-primary" >Internet cada 1 min</button></td><tr>`;
-					tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'INTERNET75',${unidad["Id"]} )" class="btn btn-primary" >Internet cada 5 min</button></td><tr>`;
-					tableHTML += `	<td><button type="button" onclick="FunctionCreateSMS( 'INTERNET900',${unidad["Id"]} )" class="btn btn-primary" >Internet cada 2 Horas</button></td><tr>`;
+					tableHTML += `<tr><td><button type="button" onclick="ThisApp.CuartelesPage.Controller.FunctionCreateSMS( 'ABRIR', ${unidad["Id"]} )" class="btn btn-primary" >ABRIR</button></td>`;
+					tableHTML += `	<td><button type="button" onclick="ThisApp.CuartelesPage.Controller.FunctionCreateSMS( 'CERRAR',${unidad["Id"]} )" class="btn btn-primary" >CERRAR</button></td>`;
+					tableHTML += `	<td><button type="button" onclick="ThisApp.CuartelesPage.Controller.FunctionCreateSMS( 'RESET',${unidad["Id"]} )" class="btn btn-primary" >RESET</button></td><tr>`;
+					tableHTML += `	<td><button type="button" onclick="ThisApp.CuartelesPage.Controller.FunctionCreateSMS( 'INTERNET15' ,${unidad["Id"]})" class="btn btn-primary" >Internet cada 1 min</button></td><tr>`;
+					tableHTML += `	<td><button type="button" onclick="ThisApp.CuartelesPage.Controller.FunctionCreateSMS( 'INTERNET75',${unidad["Id"]} )" class="btn btn-primary" >Internet cada 5 min</button></td><tr>`;
+					tableHTML += `	<td><button type="button" onclick="ThisApp.CuartelesPage.Controller.FunctionCreateSMS( 'INTERNET900',${unidad["Id"]} )" class="btn btn-primary" >Internet cada 2 Horas</button></td><tr>`;
 
 					tableHTML += '</tbody></table>';		
 				}
@@ -441,7 +434,7 @@ class CuartelesPage extends Page
 
 			// TABLA REGISTROS DIARIOS
 
-			tableHTML += `<button type="button" onclick="GetRegistrosDiariosTable(${unidad["Id"]})" class="btn btn-primary" >Refrescar</button>`;
+			tableHTML += `<button type="button" onclick="ThisApp.CuartelesPage.Controller.GetRegistrosDiariosTable(${unidad["Id"]})" class="btn btn-primary" >Refrescar</button>`;
 			tableHTML += '<div class="overflow-auto"> <div id="RegistrosDiariosTable"></div>  </div>';
 
 			tableHTML +='	</div>	 '; // end Acordeon body
@@ -668,7 +661,7 @@ class CuartelesPage extends Page
 			const myCollapsible = document.getElementById('collapseTwo');
 			myCollapsible.addEventListener('shown.bs.collapse', function () {
 		
-				GetRegistrosDiariosTable(unidad["Id"]);
+				ThisApp.CuartelesPage.Controller.GetRegistrosDiariosTable(unidad["Id"]);
 			});
 
 			}

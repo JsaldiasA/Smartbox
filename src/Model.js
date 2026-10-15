@@ -25,14 +25,13 @@ class Model
     this.BateriaTipos = BateriaTipos;
   }
 
-    async RefreshTickets()
+  async RefreshTickets()
   {
 	let Tickets = await GetTicket();
 	this.Tickets	= Tickets;
   }
 
-
-      async RefreshChecklists()
+  async RefreshChecklists()
   {
 
   let ChecklistsNew = await GetChecklistsNew();
