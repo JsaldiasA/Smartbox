@@ -19,10 +19,10 @@ use \PhpMqtt\Client\MqttClient;
 use \PhpMqtt\Client\ConnectionSettings;
 
 try {
-$server   = 'h1811c6e.ala.us-east-1.emqxsl.com';
-$port     = 8883;
+$server   = '170.239.87.82';
+$port     = 18830;
 $clientId = rand(5, 15);
-$username = 'eco3_command';
+$username = 'smartbox';
 $password = 'eco3spa';
 $clean_session = false;
 
@@ -31,8 +31,7 @@ $connectionSettings  = (new ConnectionSettings)
   ->setPassword($password)
   ->setKeepAliveInterval(60)
   ->setConnectTimeout(3)
-  ->setUseTls(true)
-  ->setTlsSelfSignedAllowed(true);
+
 
 $mqtt = new MqttClient($server, $port, $clientId, MqttClient::MQTT_3_1_1);
 
