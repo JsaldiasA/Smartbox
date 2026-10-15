@@ -30,7 +30,7 @@ $connectionSettings  = (new ConnectionSettings)
   ->setUsername($username)
   ->setPassword($password)
   ->setKeepAliveInterval(60)
-  ->setConnectTimeout(3)
+  ->setConnectTimeout(3);
 
 
 $mqtt = new MqttClient($server, $port, $clientId, MqttClient::MQTT_3_1_1);
