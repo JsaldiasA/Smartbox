@@ -69,7 +69,7 @@ else // si es caja u511 soleniod valve controller
 		$ESTADO = $obj->valve_1;
 		$VOLUMEN = $obj->valve_2_pulse ?? $UnidadExistente->get_Volumen();
 		$BATNIVEL = $obj->battery ?? $UnidadExistente->get_BatNivel();
-		$CAUDAL = $VOLUMEN - $UnidadExistente->get_Volumen();
+		$CAUDAL = ( ($VOLUMEN - $UnidadExistente->get_Volumen()) < 0 ) ? 0 : ($VOLUMEN - $UnidadExistente->get_Volumen()) ;
 		$Temperatura = 0;
 		$Humedad = 0;
 		$EC = 0;
