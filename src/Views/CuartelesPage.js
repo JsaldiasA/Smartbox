@@ -189,8 +189,10 @@ class CuartelesPage extends Page
 
 			const button = event.relatedTarget;
 			const Id_Unidad = button.getAttribute('data-bs-unidadid');
+			const Id_cuartel = button.getAttribute('data-bs-Id_cuartelid') ?? null;
+
 			let thisUnidad = appModel.Unidades.find(t => t.Id == Id_Unidad) ;
-			let thisCuartel = appModel.Cuarteles.find( c => c.Id_unidad == thisUnidad.Id )
+			let thisCuartel = Id_cuartel != null ? appModel.Cuarteles.find( c => c.Id == Id_cuartel) : appModel.Cuarteles.find( c => c.Id_unidad == thisUnidad.Id )
 			let thisChecklist = appModel.ChecklistsNew.find( ts => ts.id_unidad == thisUnidad.Id )
 			
 			ModalLabel.replaceChildren();
@@ -206,7 +208,7 @@ class CuartelesPage extends Page
 			let tableHTML =''; 
 
 			var unidad = thisUnidad;
-			var cuartel;
+			var cuartel = thisCuartel;
 			var checklist;
 			var ultimosRegistro;
 
@@ -216,8 +218,7 @@ class CuartelesPage extends Page
 			let eventos = await GetEventosBytag(unidad["tag"]);
 			let lastEvento = eventos[0]; 
 
-			//buscar cuartel
-			appModel.Cuarteles.forEach(rowCuarteles => {	if(unidad["Id"] == rowCuarteles["Id_unidad"] )	cuartel = rowCuarteles;	});	
+	
 			// buscar checklist
 			appModel.ChecklistsNew.sort((a, b) => Date.parse(a["Fecha"]) - Date.parse(b["Fecha"]) ); 
 			appModel.ChecklistsNew.forEach(rowChecklist => { if(unidad["Id"] == rowChecklist["id_unidad"] ) checklist = rowChecklist; });	
@@ -360,9 +361,9 @@ class CuartelesPage extends Page
 
 				if( !this.IsSirecor(unidad["id_unidadTipo"]) )
 				{
-
+							// TODO cambiar los comandos segun inteface 
 					tableHTML += '<table class="table" > <thead >';
-					tableHTML += '<th scope="col">Control</th>';
+					tableHTML += `<th scope="col">Control ${ cuartel.Interface != null ? 'Interface '+ cuartel.Interface  : '' }</th>`;
 					tableHTML += '<th scope="col"></th>';
 					tableHTML += '<th scope="col"></th>';
 					tableHTML += '</thead><tbody>';
@@ -1010,7 +1011,7 @@ class CuartelesPage extends Page
 			if( rowU.unidad )
 			{  
 				dataTableRow.Ubicacion = rowU.cuartel ? rowU.cuartel.Name : 'Sin cuartel' ;
-				dataTableRow.Serie = `<button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#${this.Id_modalUnidadVer}" data-bs-unidadid="${ rowU.unidad.Id }" >${rowU.unidad['Serie']}</button>`;
+				dataTableRow.Serie = `<button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#${this.Id_modalUnidadVer}" data-bs-unidadid="${ rowU.unidad.Id }"  ${ rowU.cuartel ? ( "data-bs-cuartelid=" +rowU.cuartel.Id+'"') : "" } >${rowU.unidad['Serie']}</button>`;
 
 				if(rowU.ultimoRegistro)
 				{	dataTableRow.Estado = FieldEstado(rowU.ultimoRegistro.ESTADO)
@@ -1050,8 +1051,6 @@ class CuartelesPage extends Page
 			return false;
 		}
 	}
-
-	
 
 }
 

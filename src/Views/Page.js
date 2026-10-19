@@ -114,6 +114,26 @@ class Page
 		
 	}
 
+	 FieldCaudal( Caudal ) {
+	  
+
+			switch (Caudal) {
+
+			case '999':
+				// Code to execute if expression === value1
+				return  ' <div class="bg-danger text-white">Mayor a 140!</div>  ';
+			
+			case '-999':
+				// Code to execute if expression === value2
+				return  ' <div class="bg-danger text-white">Menor a 5!</div>  ';
+			
+			default:
+				// Code to execute if expression matches no cases
+				return Caudal;
+			}
+
+	}
+
 	CreateModalComponent( id )
 	{
 		let modal = document.createElement('div');
