@@ -7,6 +7,7 @@ class cuartelesDbEntity
     public $Id_unidad;
     public $Id_zona;
     public $AreaExterna;
+    public $Interface;
+    
   }
-
 ?>
