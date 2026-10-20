@@ -6,9 +6,10 @@ public $Nombre;
 public $Comando_HEX;
 public $Comando_Base64;
 public $Descripcion;
+public $Interface;
 	    
 
- function get_Id() { return $this->Id; }
+function get_Id() { return $this->Id; }
 function get_Nombre() { return $this->Nombre; }
 function get_Comando_HEX() { return $this->Comando_HEX; }
 function get_Comando_Base64() { return $this->Comando_Base64; }
