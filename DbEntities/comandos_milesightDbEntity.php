@@ -7,6 +7,8 @@ public $Comando_HEX;
 public $Comando_Base64;
 public $Descripcion;
 public $Interface;
+public $Default;
+
 	    
 
 function get_Id() { return $this->Id; }
