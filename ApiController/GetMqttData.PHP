@@ -70,6 +70,9 @@ else // si es caja u511 soleniod valve controller
 		$NewCAUDAL = ( ($NewVOLUMEN - $UnidadExistente->get_Volumen()) < 0 ) ? 0 : ($NewVOLUMEN - $UnidadExistente->get_Volumen()) ;
 		$NewBATNIVEL = isset($obj->battery) ? $obj->battery : $UnidadExistente->BatNivel;
 
+		date_default_timezone_set('America/Santiago');
+  		$FechaActualStr= date("Y-m-d H:i:s");
+
 		$RegistroDiario= new unidades_lastortolasDbEntity();
 
 		$RegistroDiario->Id = "0";
@@ -86,6 +89,7 @@ else // si es caja u511 soleniod valve controller
 		$UnidadExistente->Estado = $NewESTADO;
 		$UnidadExistente->BatNivel = $NewBATNIVEL ;
 		$UnidadExistente->Volumen = $NewVOLUMEN;
+		$UnidadExistente->UltimaActualizacion = $FechaActualStr;
 
 		$Model->MYSQLUpdate('unidad',$UnidadExistente);
 	
