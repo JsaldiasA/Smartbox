@@ -64,34 +64,32 @@ else // si es caja u511 soleniod valve controller
 	}
 	else
 	{
-		$NOMBRE = $obj->deviceName;
-		$UNIDAD = $obj->devEUI;
-		$ESTADO = $obj->valve_1;
-		$VOLUMEN = $obj->valve_2_pulse ?? $UnidadExistente->get_Volumen();
-		$BATNIVEL = $obj->battery ?? $UnidadExistente->get_BatNivel();
-		$CAUDAL = ( ($VOLUMEN - $UnidadExistente->get_Volumen()) < 0 ) ? 0 : ($VOLUMEN - $UnidadExistente->get_Volumen()) ;
-		$Temperatura = 0;
-		$Humedad = 0;
-		$EC = 0;
+		
+		$NewESTADO = isset($obj->valve_1) ? $obj->valve_1 : '' ;
+		$NewVOLUMEN = isset($obj->valve_2_pulse) ? $obj->valve_2_pulse : $UnidadExistente->get_Volumen();
+		$NewBATNIVEL = $obj->battery ?? $UnidadExistente->get_BatNivel();
+		$NewCAUDAL = ( ($VOLUMEN - $UnidadExistente->get_Volumen()) < 0 ) ? 0 : ($VOLUMEN - $UnidadExistente->get_Volumen()) ;
+		$NewBATNIVEL = isset($obj->battery) ? $obj->battery : $UnidadExistente->BatNivel;
 
-		echo var_dump($UnidadExistente);
+		$RegistroDiario= new unidades_lastortolasDbEntity();
 
-		$sql = "INSERT INTO unidades_lastortolas
-		( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
-		VALUES( ".$UnidadExistente->get_id().", '{$ESTADO}' ,{$VOLUMEN},{$CAUDAL},0,{$BATNIVEL},current_timestamp())";
+		$RegistroDiario->Id = "0";
+		$RegistroDiario->unidad_id = $UnidadExistente->Id;
+		$RegistroDiario->ESTADO =  $NewESTADO;
+		$RegistroDiario->VOLUMEN = $NewVOLUMEN;
+		$RegistroDiario->CAUDAL =  $NewCAUDAL;
+		$RegistroDiario->VOLTAJE =  $NewBATNIVEL;
+		$RegistroDiario->SENAL = "0";
 
-		echo $sql; 
 
-		$result = $Model->executeSQL($sql);
+		$Model->MYSQLInsertInto('unidades_lastortolas',$RegistroDiario);
 
-		$sql = "UPDATE sirecor.unidad
-		SET    UltimaActualizacion=current_timestamp(), Volumen={$VOLUMEN}, Estado='{$ESTADO}', BatNivel={$BATNIVEL}
-		WHERE id= ".$UnidadExistente->get_id();
+		$UnidadExistente->Estado = $NewESTADO;
+		$UnidadExistente->BatNivel = $NewBATNIVEL ;
+		$UnidadExistente->Volumen = $NewVOLUMEN;
 
-		echo $sql; 
-
-		$result = $Model->executeSQL($sql);
-
+		$Model->MYSQLUpdate('unidad',$UnidadExistente);
+	
 	}
 }
 
