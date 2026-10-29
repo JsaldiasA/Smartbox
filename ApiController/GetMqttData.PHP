@@ -68,7 +68,7 @@ else // si es caja u511 soleniod valve controller
 		$NewESTADO = isset($obj->valve_1) ? $obj->valve_1 : '' ;
 		$NewVOLUMEN = isset($obj->valve_2_pulse) ? $obj->valve_2_pulse : $UnidadExistente->get_Volumen();
 		$NewBATNIVEL = $obj->battery ?? $UnidadExistente->get_BatNivel();
-		$NewCAUDAL = ( ($VOLUMEN - $UnidadExistente->get_Volumen()) < 0 ) ? 0 : ($VOLUMEN - $UnidadExistente->get_Volumen()) ;
+		$NewCAUDAL = ( ($NewVOLUMEN - $UnidadExistente->get_Volumen()) < 0 ) ? 0 : ($NewVOLUMEN - $UnidadExistente->get_Volumen()) ;
 		$NewBATNIVEL = isset($obj->battery) ? $obj->battery : $UnidadExistente->BatNivel;
 
 		$RegistroDiario= new unidades_lastortolasDbEntity();
