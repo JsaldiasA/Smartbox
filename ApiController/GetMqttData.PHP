@@ -65,10 +65,10 @@ else // si es caja u511 soleniod valve controller
 	else
 	{
 		
-		$NewESTADO = isset($obj->valve_1) ? $obj->valve_1 : '' ;
-		$NewVOLUMEN = isset($obj->valve_2_pulse) ? $obj->valve_2_pulse : $UnidadExistente->get_Volumen();
+		$NewESTADO = (property_exists($obj,'valve_1') && isset($obj->valve_1) ) ? $obj->valve_1 : '' ;
+		$NewVOLUMEN = (property_exists($obj,'valve_2_pulse') && isset($obj->valve_2_pulse) ) ? $obj->valve_2_pulse : $UnidadExistente->get_Volumen();
 		$NewCAUDAL = ( ($NewVOLUMEN - $UnidadExistente->get_Volumen()) < 0 ) ? 0 : ($NewVOLUMEN - $UnidadExistente->get_Volumen()) ;
-		$NewBATNIVEL = isset($obj->battery) ? $obj->battery : $UnidadExistente->BatNivel;
+		$NewBATNIVEL =  (property_exists($obj,'battery') && isset($obj->battery) ) ? $obj->battery : $UnidadExistente->BatNivel;
 
 		date_default_timezone_set('America/Santiago');
   		$FechaActualStr= date("Y-m-d H:i:s");
@@ -82,6 +82,7 @@ else // si es caja u511 soleniod valve controller
 		$RegistroDiario->CAUDAL =  $NewCAUDAL;
 		$RegistroDiario->VOLTAJE =  $NewBATNIVEL;
 		$RegistroDiario->SENAL = "0";
+		$RegistroDiario->DATETIME = $FechaActualStr;
 
 
 		$Model->MYSQLInsertInto('unidades_lastortolas',$RegistroDiario);
