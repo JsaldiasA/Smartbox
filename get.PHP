@@ -121,7 +121,7 @@ if (isset($_GET['name']) )
             
             $unidadEM = $model->MYSQLSelectWHERE('eventmessage','Id_unidad',$unidadObj->Id );
             
-            $lastVOFmessage;
+            $lastVOFmessage = null;
             $VOFmessageTypeId = '2';
             $VOFmessageType = $model->MYSQLSelectWHERE('eventmessagetype','Id',$VOFmessageTypeId)[0];
 
@@ -174,7 +174,7 @@ if (isset($_GET['name']) )
 
             $LBAmessageTypeId = '4'; // LBA Low Battery Alert event message type
             $LBAMessageType = $model->MYSQLSelectWHERE('eventmessagetype','Id',$LBAmessageTypeId)[0];
-            $lastLBAmessage;
+            $lastLBAmessage = null;
 
             foreach($unidadEM as $Message){ 
               if($Message->Id_MessageType == $LBAmessageTypeId ) $lastLBAmessage = $Message;     
