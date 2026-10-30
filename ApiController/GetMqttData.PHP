@@ -79,7 +79,7 @@ else // si es caja u511 soleniod valve controller
 		$RegistroDiario->unidad_id = $UnidadExistente->Id;
 		$RegistroDiario->ESTADO =  $NewESTADO;
 		$RegistroDiario->VOLUMEN = $NewVOLUMEN;
-		$RegistroDiario->CAUDAL =  $NewCAUDAL;
+		$RegistroDiario->CAUDAL =  999;
 		$RegistroDiario->VOLTAJE =  $NewBATNIVEL;
 		$RegistroDiario->SENAL = "0";
 		$RegistroDiario->DATETIME = $FechaActualStr;
