@@ -82,13 +82,13 @@ else // si es caja u511 soleniod valve controller
 
 		$result = $Model->executeSQL($sql);
 
-
+/*
 		$UnidadExistente->Estado = $NewESTADO;
 		$UnidadExistente->BatNivel = $NewBATNIVEL ;
 		$UnidadExistente->Volumen = $NewVOLUMEN;
 		$UnidadExistente->UltimaActualizacion = $FechaActualStr;
 
-		$Model->MYSQLUpdate('unidad',$UnidadExistente);
+		$Model->MYSQLUpdate('unidad',$UnidadExistente);*/
 	
 	}
 }
