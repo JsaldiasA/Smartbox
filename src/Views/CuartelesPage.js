@@ -68,7 +68,8 @@ class CuartelesPage extends Page
 
 			var UltimoRegistro =  Registros[0];
 
-			let tableHTML = '	<table class="table" >';
+			if(UltimoRegistro){
+				let tableHTML = '	<table class="table" >';
 					tableHTML += `<thead>`;
 						tableHTML += `<th scope="col"> Ultimo registro </th>`;
 						tableHTML += `<th scope="col"></th>`;
@@ -84,6 +85,8 @@ class CuartelesPage extends Page
 				tableHTML +=  `</table>`        ;
 			
 			document.getElementById("StatusTable").innerHTML= tableHTML;
+			}
+			
 		}	
 
 
@@ -189,7 +192,7 @@ class CuartelesPage extends Page
 
 			const button = event.relatedTarget;
 			const Id_Unidad = button.getAttribute('data-bs-unidadid');
-			const Id_cuartel = button.getAttribute('data-bs-Id_cuartelid') ?? null;
+			const Id_cuartel = button.getAttribute('data-bs-cuartelid') ?? null;
 
 			let thisUnidad = appModel.Unidades.find(t => t.Id == Id_Unidad) ;
 			let thisCuartel = Id_cuartel != null ? appModel.Cuarteles.find( c => c.Id == Id_cuartel) : appModel.Cuarteles.find( c => c.Id_unidad == thisUnidad.Id )
@@ -370,12 +373,61 @@ class CuartelesPage extends Page
 
 					let DisabledAbrir =  unidad.Estado == "1" ? "disabled" : "";
 					let DisabledCerrar = unidad.Estado != "1" ? "disabled" : "";
+					let ComandosMilesightDefault;
 
-					tableHTML += `<tr><td><button type="button" onclick="FunctionComandosMilesight('Abrir V1','${unidad["tag"]}')" class="btn btn-primary" ${DisabledAbrir} >Abrir</button></td>`;
-					tableHTML += `<td><button type="button" onclick="FunctionComandosMilesight('Cerrar V1','${unidad["tag"]}')" class="btn btn-primary" ${DisabledCerrar}  >Cerrar</button></td>`;
-					tableHTML += `<td><button type="button" onclick="FunctionComandosMilesight('Reset Count','${unidad["tag"]}')" class="btn btn-primary">Reiniciar Contador</button></td><tr>`;
-					tableHTML += '</tbody></table>';
+					switch (cuartel.Interface) {
+						case null:
+						ComandosMilesightDefault = appModel.Comandos_Milesight.filter(C => C.Default == 1 || C.Default == null);
+						tableHTML += `<tr><td><button type="button" onclick="FunctionComandosMilesight('Abrir V0','${unidad["tag"]}')" class="btn btn-primary" ${DisabledAbrir} >Abrir</button></td>`;
+						tableHTML += `<td><button type="button" onclick="FunctionComandosMilesight('Cerrar V0','${unidad["tag"]}')" class="btn btn-primary" ${DisabledCerrar}  >Cerrar</button></td>`;
+						tableHTML += '</tbody></table>';
 
+						tableHTML += '<div class="row border-bottom ">';
+						tableHTML += '<div class="col-auto p-3">';
+						tableHTML += `<button onclick="FunctionComandosMilesightDesdeSelect('${unidad["tag"]}')" class="btn btn-secondary">Enviar Comando</button>`;
+						tableHTML += '</div>';
+						tableHTML += '<div class="col-auto py-3">';
+						tableHTML += CreateSelectFromObjArray('SelectComandosMilesight',ComandosMilesightDefault,'Nombre','Nombre') ;
+						tableHTML += '</div>';
+						tableHTML += '</div>';
+
+						break;
+
+						case "0":
+						ComandosMilesightDefault = appModel.Comandos_Milesight.filter(C => C.Interface == 0 || C.Interface == null);
+						tableHTML += `<tr><td><button type="button" onclick="FunctionComandosMilesight('Abrir V0','${unidad["tag"]}')" class="btn btn-primary" ${DisabledAbrir} >Abrir</button></td>`;
+						tableHTML += `<td><button type="button" onclick="FunctionComandosMilesight('Cerrar V0','${unidad["tag"]}')" class="btn btn-primary" ${DisabledCerrar}  >Cerrar</button></td>`;
+						tableHTML += '</tbody></table>';
+
+						tableHTML += '<div class="row border-bottom ">';
+						tableHTML += '<div class="col-auto p-3">';
+						tableHTML += `<button onclick="FunctionComandosMilesightDesdeSelect('${unidad["tag"]}')" class="btn btn-secondary">Enviar Comando</button>`;
+						tableHTML += '</div>';
+						tableHTML += '<div class="col-auto py-3">';
+						tableHTML += CreateSelectFromObjArray('SelectComandosMilesight',ComandosMilesightDefault,'Nombre','Nombre') ;
+						tableHTML += '</div>';
+						tableHTML += '</div>';
+
+						break;
+
+						case "1":
+						ComandosMilesightDefault = appModel.Comandos_Milesight.filter(C => C.Interface == 1 || C.Interface == null);
+						tableHTML += `<tr><td><button type="button" onclick="FunctionComandosMilesight('Abrir V1','${unidad["tag"]}')" class="btn btn-primary" ${DisabledAbrir} >Abrir</button></td>`;
+						tableHTML += `<td><button type="button" onclick="FunctionComandosMilesight('Cerrar V1','${unidad["tag"]}')" class="btn btn-primary" ${DisabledCerrar}  >Cerrar</button></td>`;
+						tableHTML += '</tbody></table>';
+
+										tableHTML += '<div class="row border-bottom ">';
+						tableHTML += '<div class="col-auto p-3">';
+							tableHTML += `<button onclick="FunctionComandosMilesightDesdeSelect('${unidad["tag"]}')" class="btn btn-secondary">Enviar Comando</button>`;
+						tableHTML += '</div>';
+						tableHTML += '<div class="col-auto py-3">';
+							tableHTML += CreateSelectFromObjArray('SelectComandosMilesight',ComandosMilesightDefault,'Nombre','Nombre') ;
+						tableHTML += '</div>';
+						tableHTML += '</div>';
+
+						break;
+								
+					}
 				}
 
 				else{
@@ -1011,7 +1063,7 @@ class CuartelesPage extends Page
 			if( rowU.unidad )
 			{  
 				dataTableRow.Ubicacion = rowU.cuartel ? rowU.cuartel.Name : 'Sin cuartel' ;
-				dataTableRow.Serie = `<button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#${this.Id_modalUnidadVer}" data-bs-unidadid="${ rowU.unidad.Id }"  ${ rowU.cuartel ? ( "data-bs-cuartelid=" +rowU.cuartel.Id+'"') : "" } >${rowU.unidad['Serie']}</button>`;
+				dataTableRow.Serie = `<button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#${this.Id_modalUnidadVer}" data-bs-unidadid="${ rowU.unidad.Id }"  ${ rowU.cuartel ? ( "data-bs-cuartelid=" +rowU.cuartel.Id) : "" } >${rowU.unidad['Serie']}</button>`;
 
 				if(rowU.ultimoRegistro)
 				{	dataTableRow.Estado = FieldEstado(rowU.ultimoRegistro.ESTADO)
