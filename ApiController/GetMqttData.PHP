@@ -73,19 +73,15 @@ else // si es caja u511 soleniod valve controller
 		date_default_timezone_set('America/Santiago');
   		$FechaActualStr= date("Y-m-d H:i:s");
 
-		$RegistroDiario= new unidades_lastortolasDbEntity();
 
-		$RegistroDiario->Id = "0";
-		$RegistroDiario->unidad_id = (string)$UnidadExistente->Id;
-		$RegistroDiario->ESTADO =  (string)$NewESTADO;
-		$RegistroDiario->VOLUMEN = (string)$NewVOLUMEN;
-		$RegistroDiario->CAUDAL =  (string)$NewCAUDAL;
-		$RegistroDiario->VOLTAJE = (string)$NewBATNIVEL;
-		$RegistroDiario->SENAL = "0";
-		$RegistroDiario->DATETIME = $FechaActualStr;
+		$sql = "INSERT INTO unidades_lastortolas
+		( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
+		VALUES( ".$UnidadExistente->get_id().", '{$NewESTADO}' ,{$NewVOLUMEN},{$NewCAUDAL},0,{$NewBATNIVEL},current_timestamp())";
 
+		echo $sql; 
 
-		$Model->MYSQLInsertInto('unidades_lastortolas',$RegistroDiario);
+		$result = $Model->executeSQL($sql);
+
 
 		$UnidadExistente->Estado = $NewESTADO;
 		$UnidadExistente->BatNivel = $NewBATNIVEL ;
