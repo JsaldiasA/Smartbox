@@ -67,7 +67,7 @@ else // si es caja u511 soleniod valve controller
 		
 		$NewESTADO = (property_exists($obj,'valve_1') && isset($obj->valve_1) ) ? $obj->valve_1 : '' ;
 		$NewVOLUMEN = (property_exists($obj,'valve_2_pulse') && isset($obj->valve_2_pulse) ) ? $obj->valve_2_pulse : $UnidadExistente->get_Volumen();
-		$NewCAUDAL = ( ($NewVOLUMEN - $UnidadExistente->get_Volumen()) < 0 ) ? 0.0 : ($NewVOLUMEN - $UnidadExistente->get_Volumen()) ;
+		$NewCAUDAL = ( ($NewVOLUMEN - $UnidadExistente->get_Volumen()) < 0 ) ? 0 : ($NewVOLUMEN - $UnidadExistente->get_Volumen()) ;
 		$NewBATNIVEL =  (property_exists($obj,'battery') && isset($obj->battery) ) ? $obj->battery : $UnidadExistente->BatNivel;
 
 		date_default_timezone_set('America/Santiago');
@@ -76,7 +76,7 @@ else // si es caja u511 soleniod valve controller
 		$RegistroDiario= new unidades_lastortolasDbEntity();
 
 		$RegistroDiario->Id = "0";
-		$RegistroDiario->unidad_id = (string)$UnidadExistente->Id;
+		$RegistroDiario->unidad_id = '"'.(string)$UnidadExistente->Id.'"';
 		$RegistroDiario->ESTADO =  (string)$NewESTADO;
 		$RegistroDiario->VOLUMEN = (string)$NewVOLUMEN;
 		$RegistroDiario->CAUDAL =  (string)$NewCAUDAL;
