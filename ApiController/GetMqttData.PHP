@@ -65,34 +65,30 @@ else // si es caja u511 soleniod valve controller
 	else
 	{
 		
-		$NewESTADO = (property_exists($obj,'valve_1') && isset($obj->valve_1) ) ? (string)$obj->valve_1 : '' ;
+		$NewESTADO = (property_exists($obj,'valve_1') && isset($obj->valve_1) ) ? $obj->valve_1 : 'NosSET' ;
 		$NewVOLUMEN = (property_exists($obj,'valve_2_pulse') && isset($obj->valve_2_pulse) ) ? $obj->valve_2_pulse : $UnidadExistente->get_Volumen();
-		$NewCAUDAL = 0 ;
+		$NewCAUDAL = ( ($NewVOLUMEN - $UnidadExistente->get_Volumen()) < 0 ) ? 0 : ($NewVOLUMEN - $UnidadExistente->get_Volumen()) ;
 		$NewBATNIVEL =  (property_exists($obj,'battery') && isset($obj->battery) ) ? $obj->battery : $UnidadExistente->BatNivel;
 
 		date_default_timezone_set('America/Santiago');
   		$FechaActualStr= date("Y-m-d H:i:s");
 
-		$RegistroDiario= new unidades_lastortolasDbEntity();
 
-		$RegistroDiario->Id = "0";
-		$RegistroDiario->unidad_id = $UnidadExistente->Id;
-		$RegistroDiario->ESTADO =  $NewESTADO;
-		$RegistroDiario->VOLUMEN = $NewVOLUMEN;
-		$RegistroDiario->CAUDAL =  999;
-		$RegistroDiario->VOLTAJE =  $NewBATNIVEL;
-		$RegistroDiario->SENAL = 0;
-		$RegistroDiario->DATETIME = $FechaActualStr;
+		$sql = "INSERT INTO unidades_lastortolas
+		( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
+		VALUES( ".$UnidadExistente->get_id().", '{$NewESTADO}' ,{$NewVOLUMEN},{$NewCAUDAL},0,{$NewBATNIVEL},current_timestamp());";
 
+		echo $sql; 
 
-		$Model->MYSQLInsertInto('unidades_lastortolas',$RegistroDiario);
+		$result = $Model->executeSQL($sql);
 
+/*
 		$UnidadExistente->Estado = $NewESTADO;
 		$UnidadExistente->BatNivel = $NewBATNIVEL ;
 		$UnidadExistente->Volumen = $NewVOLUMEN;
 		$UnidadExistente->UltimaActualizacion = $FechaActualStr;
 
-		$Model->MYSQLUpdate('unidad',$UnidadExistente);
+		$Model->MYSQLUpdate('unidad',$UnidadExistente);*/
 	
 	}
 }
