@@ -122,7 +122,7 @@ class Model
 			}
 		}
 		$sql = substr($sql, 0, -2); // removing extra ', '
-		$sql = $sql." )";
+		$sql = $sql." );";
 
 		$this->executeSQL($sql);
 		}
