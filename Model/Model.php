@@ -118,11 +118,11 @@ class Model
 			}
 			else
 			{
-				$sql = $sql.'"'.$value .'", ';
+				$sql = $sql."'".$value ."', ";
 			}
 		}
 		$sql = substr($sql, 0, -2); // removing extra ', '
-		$sql = $sql." );";
+		$sql = $sql." )";
 
 		$this->executeSQL($sql);
 		}
