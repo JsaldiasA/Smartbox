@@ -23,6 +23,25 @@ class CuartelesController {
   	  	});
 
 	}	
+
+	async  GetDiarioById( Id_registroDiario )
+	{
+
+		var URL = UrlBase +"/ApiController/RegistrosDiarios/RegistrosDiariosbyid.php"
+		return $.ajax({
+            url:URL,    //the page containing php script
+            type: "get",    //request 
+			dataType:'json',
+			data:				
+			{     		
+				Id: Id_registroDiario,
+			},
+		}).then(function(response){
+      	//console.log("getRecord response: "+JSON.stringify(response));
+      	return response;
+  	  	});
+
+	}	
 	
 	 GetRegistrosDiariosTable( id_unidad )
 	{
