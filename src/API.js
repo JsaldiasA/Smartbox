@@ -615,6 +615,31 @@ async function UpdateEventMessage( EventMsg ) {
 
 }	
 
+function FunctionComandosMilesightDesdeSelect(tag_unidad) {
+	let ComandoNombre;
+	var SelectComandosMilesight = document.getElementById("SelectComandosMilesight");
+	ComandoNombre = SelectComandosMilesight.value;
+	FunctionComandosMilesight(ComandoNombre,tag_unidad);
+
+}
+
+async function GetComandos_Milesight( )
+	{
+		
+		var URL = UrlBase +"/ApiController/Comandos_Milesight/Get.php"
+		return $.ajax({
+            url:URL,    //the page containing php script
+            type: "post",    //request 
+			dataType:'json',
+
+		}).then(function(response){
+      //console.log("getRecord response: "+JSON.stringify(response));
+      return response;
+  	  });
+
+	}
+
+
 
 function FieldActivity( date ) {
 

@@ -65,27 +65,20 @@ class CuartelesPage extends Page
 		async  GetStatusTable( unidad_id )
 		{
 			let thisUnidad = appModel.Unidades.find(t => t.Id == unidad_id) ;
+			let UltimoRegistro = await ThisApp.CuartelesPage.Controller.GetDiarioById( thisUnidad.Id_Last_RegistroDiario );
 
-			var Registros = await ThisApp.CuartelesPage.Controller.GetDiarioById( thisUnidad.Id_Last_RegistroDiario );
+			let headers = [ 'Ultimo registro' , ' '];
+			let DataTable = [];
+	
+			DataTable.push( { Item: "Estado",  Value: FieldEstado(UltimoRegistro['ESTADO']) } );
+			DataTable.push( { Item: "Caudal",  Value: UltimoRegistro['CAUDAL']} );
+			DataTable.push( { Item: "Senal",  Value: UltimoRegistro['SENAL']} );
+			DataTable.push( { Item: "Volumen",  Value: UltimoRegistro['VOLUMEN']} );
+			DataTable.push( { Item: "Último Registro", Value:  FieldActivity(UltimoRegistro['DATETIME']) } );
 
-			var UltimoRegistro =  Registros[0];
+			let statusTableDiv = document.getElementById("StatusTable");
+			statusTableDiv.replaceChildren(  ThisApp.CuartelesPage.RenderTable( headers, DataTable) )
 
-			let tableHTML = '	<table class="table" >';
-					tableHTML += `<thead>`;
-						tableHTML += `<th scope="col"> Ultimo registro </th>`;
-						tableHTML += `<th scope="col"></th>`;
-					tableHTML += `</thead>`;
-					tableHTML += `<tbody>`;
-						tableHTML +=  `<tr><td>Estado</td><td>${FieldEstado(UltimoRegistro['ESTADO'])}</td></tr>`;
-						tableHTML +=  `<tr><td>Volumen</td><td>${UltimoRegistro['VOLUMEN']}</td></tr>`;
-						tableHTML +=  `<tr><td>Caudal</td><td>${UltimoRegistro['CAUDAL']}</td></tr>`;
-						tableHTML +=  `<tr><td>Senal</td><td>${UltimoRegistro['SENAL']}</td></tr>`;
-						tableHTML +=  `<tr><td>Última Registro</td><td>${FieldActivity(UltimoRegistro['DATETIME'])}</td></tr>`;
-					tableHTML += `</tbody>`;
-
-				tableHTML +=  `</table>`        ;
-			
-			document.getElementById("StatusTable").innerHTML= tableHTML;
 		}	
 
 
@@ -191,12 +184,12 @@ class CuartelesPage extends Page
 
 			const button = event.relatedTarget;
 			const Id_Unidad = button.getAttribute('data-bs-unidadid');
-			const Id_cuartel = button.getAttribute('data-bs-Id_cuartelid') ?? null;
+			const Id_cuartel = button.getAttribute('data-bs-cuartelid') ?? null;
 
-			let thisUnidad = appModel.Unidades.find(t => t.Id == Id_Unidad) ;
-			let thisCuartel = Id_cuartel != null ? appModel.Cuarteles.find( c => c.Id == Id_cuartel) : appModel.Cuarteles.find( c => c.Id_unidad == thisUnidad.Id )
-			let thisChecklist = appModel.ChecklistsNew.find( ts => ts.id_unidad == thisUnidad.Id )
-			
+
+			let unidad = appModel.Unidades.find(t => t.Id == Id_Unidad) ;
+			let cuartel = Id_cuartel != null ? appModel.Cuarteles.find( c => c.Id == Id_cuartel) : appModel.Cuarteles.find( c => c.Id_unidad == unidad.Id )
+		
 			ModalLabel.replaceChildren();
 			ModalBody.replaceChildren();
 			ModalFooter.replaceChildren();
@@ -208,22 +201,13 @@ class CuartelesPage extends Page
 			RefreshIntervals_Ids.forEach(interval_ID => {	clearInterval(interval_ID)	});
 
 			let tableHTML =''; 
-
-			var unidad = thisUnidad;
-			var cuartel = thisCuartel;
-			var checklist;
-			var ultimosRegistro;
-
-			// buscar la unidad	
-
 			// get eventos
 			let eventos = await GetEventosBytag(unidad["tag"]);
 			let lastEvento = eventos[0]; 
-
 	
 			// buscar checklist
 			appModel.ChecklistsNew.sort((a, b) => Date.parse(a["Fecha"]) - Date.parse(b["Fecha"]) ); 
-			appModel.ChecklistsNew.forEach(rowChecklist => { if(unidad["Id"] == rowChecklist["id_unidad"] ) checklist = rowChecklist; });	
+			let checklist = appModel.ChecklistsNew.find( ts => ts.id_unidad == unidad.Id )
 
 			if( unidad ) 
 			{
@@ -333,7 +317,7 @@ class CuartelesPage extends Page
 							tableHTML += `<td> ${ lastEvento["TipoBat"] }</td>`;
 							tableHTML += '</tr>';
 							tableHTML += `<td>Bateria</td>`;
-							tableHTML += `<td> ${ unidad["Id_bateriaTipo"] ? appModel.BateriaTipos.find(bt => bt.Id == thisUnidad.Id_bateriaTipo).Name : 'No registrada' }</td>`;
+							tableHTML += `<td> ${ unidad["Id_bateriaTipo"] ? appModel.BateriaTipos.find(bt => bt.Id == unidad.Id_bateriaTipo).Name : 'No registrada' }</td>`;
 							tableHTML += '</tr>';
 							tableHTML += `<td>Fecha de bateria</td>`;
 							tableHTML += `<td> ${ unidad["BateriaDate"] ?? 'No registrada'  }</td>`;
@@ -372,12 +356,61 @@ class CuartelesPage extends Page
 
 					let DisabledAbrir =  unidad.Estado == "1" ? "disabled" : "";
 					let DisabledCerrar = unidad.Estado != "1" ? "disabled" : "";
+					let ComandosMilesightDefault;
 
-					tableHTML += `<tr><td><button type="button" onclick="FunctionComandosMilesight('Abrir V0','${unidad["tag"]}')" class="btn btn-primary" ${DisabledAbrir} >Abrir</button></td>`;
-					tableHTML += `<td><button type="button" onclick="FunctionComandosMilesight('Cerrar V0','${unidad["tag"]}')" class="btn btn-primary" ${DisabledCerrar}  >Cerrar</button></td>`;
-					tableHTML += `<td><button type="button" onclick="FunctionComandosMilesight('Reset Count','${unidad["tag"]}')" class="btn btn-primary">Reiniciar Contador</button></td><tr>`;
-					tableHTML += '</tbody></table>';
+					switch (cuartel.Interface) {
+						case null:
+						ComandosMilesightDefault = appModel.Comandos_Milesight.filter(C => C.Default == 1 || C.Default == null);
+						tableHTML += `<tr><td><button type="button" onclick="FunctionComandosMilesight('Abrir V0','${unidad["tag"]}')" class="btn btn-primary" ${DisabledAbrir} >Abrir</button></td>`;
+						tableHTML += `<td><button type="button" onclick="FunctionComandosMilesight('Cerrar V0','${unidad["tag"]}')" class="btn btn-primary" ${DisabledCerrar}  >Cerrar</button></td>`;
+						tableHTML += '</tbody></table>';
 
+						tableHTML += '<div class="row border-bottom ">';
+						tableHTML += '<div class="col-auto p-3">';
+						tableHTML += `<button onclick="FunctionComandosMilesightDesdeSelect('${unidad["tag"]}')" class="btn btn-secondary">Enviar Comando</button>`;
+						tableHTML += '</div>';
+						tableHTML += '<div class="col-auto py-3">';
+						tableHTML += CreateSelectFromObjArray('SelectComandosMilesight',ComandosMilesightDefault,'Nombre','Nombre') ;
+						tableHTML += '</div>';
+						tableHTML += '</div>';
+
+						break;
+
+						case "0":
+						ComandosMilesightDefault = appModel.Comandos_Milesight.filter(C => C.Interface == 0 || C.Interface == null);
+						tableHTML += `<tr><td><button type="button" onclick="FunctionComandosMilesight('Abrir V0','${unidad["tag"]}')" class="btn btn-primary" ${DisabledAbrir} >Abrir</button></td>`;
+						tableHTML += `<td><button type="button" onclick="FunctionComandosMilesight('Cerrar V0','${unidad["tag"]}')" class="btn btn-primary" ${DisabledCerrar}  >Cerrar</button></td>`;
+						tableHTML += '</tbody></table>';
+
+						tableHTML += '<div class="row border-bottom ">';
+						tableHTML += '<div class="col-auto p-3">';
+						tableHTML += `<button onclick="FunctionComandosMilesightDesdeSelect('${unidad["tag"]}')" class="btn btn-secondary">Enviar Comando</button>`;
+						tableHTML += '</div>';
+						tableHTML += '<div class="col-auto py-3">';
+						tableHTML += CreateSelectFromObjArray('SelectComandosMilesight',ComandosMilesightDefault,'Nombre','Nombre') ;
+						tableHTML += '</div>';
+						tableHTML += '</div>';
+
+						break;
+
+						case "1":
+						ComandosMilesightDefault = appModel.Comandos_Milesight.filter(C => C.Interface == 1 || C.Interface == null);
+						tableHTML += `<tr><td><button type="button" onclick="FunctionComandosMilesight('Abrir V1','${unidad["tag"]}')" class="btn btn-primary" ${DisabledAbrir} >Abrir</button></td>`;
+						tableHTML += `<td><button type="button" onclick="FunctionComandosMilesight('Cerrar V1','${unidad["tag"]}')" class="btn btn-primary" ${DisabledCerrar}  >Cerrar</button></td>`;
+						tableHTML += '</tbody></table>';
+
+										tableHTML += '<div class="row border-bottom ">';
+						tableHTML += '<div class="col-auto p-3">';
+							tableHTML += `<button onclick="FunctionComandosMilesightDesdeSelect('${unidad["tag"]}')" class="btn btn-secondary">Enviar Comando</button>`;
+						tableHTML += '</div>';
+						tableHTML += '<div class="col-auto py-3">';
+							tableHTML += CreateSelectFromObjArray('SelectComandosMilesight',ComandosMilesightDefault,'Nombre','Nombre') ;
+						tableHTML += '</div>';
+						tableHTML += '</div>';
+
+						break;
+								
+					}
 				}
 
 				else{
@@ -989,69 +1022,52 @@ class CuartelesPage extends Page
 	RenderCuartelesTable(  CuartelesDataTable )
 	{
 		let dataTable =[];
-		const headers = ['<i class="bi bi-pin-map">','<i class="bi bi-motherboard"></i>','','<i class="bi bi-activity"></i>','<i class="bi bi-lightning-fill"></i>', '<i class="bi bi-wifi"></i>','[L/m]','[L]' ];
 
-		class dTRow
-		{
-			constructor()
-			{
-				this.Ubicacion;
-				this.Serie;
-				this.Estado;
-				this.Activity;
-				this.BateryLevel;
-				this.Signal;
-				this.Caudal;
-				this.Volumen;
-			}
-		}
+		let HeaderUbicacion 	=  '<i class="bi bi-pin-map">';
+		let HeaderSerie			=  '<i class="bi bi-motherboard"></i>';
+		let HeaderEstado		=  '';		
+		let HeaderActivity		=  '<i class="bi bi-activity"></i>';	
+		let HeaderBateryLevel	=  '<i class="bi bi-lightning-fill"></i>';
+		let HeaderSignal		=  '<i class="bi bi-wifi"></i>';			
+		let HeaderCaudal		=  '[L/m]';			
+		let HeaderVolumen		=  '[L]' ;
+			
+		const headers = [HeaderUbicacion,HeaderSerie,HeaderEstado,HeaderActivity,HeaderBateryLevel,HeaderSignal,HeaderCaudal,HeaderVolumen];
 				
 		CuartelesDataTable.forEach(rowU => {
-				
-			let dataTableRow = new dTRow();		
-		
-			if( rowU.unidad )
-			{  
-				dataTableRow.Ubicacion = rowU.cuartel ? rowU.cuartel.Name : 'Sin cuartel' ;
-				dataTableRow.Serie = `<button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#${this.Id_modalUnidadVer}" data-bs-unidadid="${ rowU.unidad.Id }"  ${ rowU.cuartel ? ( "data-bs-cuartelid=" +rowU.cuartel.Id+'"') : "" } >${rowU.unidad['Serie']}</button>`;
+			
+			let	Ubicacion = '',Serie = '' ,Estado= '' ,Activity = '',BateryLevel = '',Signal = '',Caudal = '',Volumen = '' ;	
+			
+			Ubicacion = rowU.cuartel ? rowU.cuartel.Name : 'Sin cuartel' ;
+			if( rowU.unidad ) {  
+
+				Serie = `<button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#${this.Id_modalUnidadVer}" data-bs-unidadid="${ rowU.unidad.Id }"  ${ rowU.cuartel ? ( "data-bs-cuartelid=" +rowU.cuartel.Id) : "" } >${rowU.unidad['Serie']}</button>`;
 
 				if(rowU.ultimoRegistro)
-				{	dataTableRow.Estado = FieldEstado(rowU.ultimoRegistro.ESTADO)
-					dataTableRow.Activity = FieldActivity(rowU.unidad.UltimaActualizacion);
-					dataTableRow.BateryLevel =	FieldBattery(rowU.ultimoRegistro.VOLTAJE);
-					dataTableRow.Signal = FieldSignal(rowU.ultimoRegistro.SENAL, rowU.ultimoRegistro.DATETIME);		
-					dataTableRow.Caudal = FieldCaudal(rowU.ultimoRegistro.CAUDAL);
-					dataTableRow.Volumen = rowU.ultimoRegistro.VOLUMEN;	
+				{	
+					Estado = FieldEstado(rowU.ultimoRegistro.ESTADO)
+					Activity = FieldActivity(rowU.unidad.UltimaActualizacion);
+					BateryLevel =	FieldBattery(rowU.ultimoRegistro.VOLTAJE);
+					Signal = FieldSignal(rowU.ultimoRegistro.SENAL, rowU.ultimoRegistro.DATETIME);		
+					Caudal = FieldCaudal(rowU.ultimoRegistro.CAUDAL);
+					Volumen = rowU.ultimoRegistro.VOLUMEN;	
 				}	
-				else
-				{
-					dataTableRow.Estado = 'Milesight';
+				else{
+					Estado = 'Sin Registros';
 				}		
 			}
-			else
-			{
-				dataTableRow.Ubicacion = rowU.cuartel.Name;
-				dataTableRow.Serie = ``;
-				dataTableRow.Estado = 'Sin Dispositivo';
+			else {
+				Estado = 'Sin Dispositivo';
 			}
 
-			dataTable.push(dataTableRow);
-
+			dataTable.push({Ubicacion: Ubicacion ,Serie: Serie,Estado: Estado,Activity: Activity,BateryLevel: BateryLevel, Signal: Signal,Caudal: Caudal,Volumen: Volumen});
 		});
 
 		return this.RenderTable( headers, dataTable);
-
 	}
 
-	IsSirecor( Id_UnidadTipo )
-	{
-		if( Id_UnidadTipo == '1' ||  Id_UnidadTipo == '2' ) // Sirecor7600 or EStanque7600
-		{
-			return true;
-		}
-		else{
-			return false;
-		}
+	IsSirecor( Id_UnidadTipo ) {
+		return ( Id_UnidadTipo == '1' ||  Id_UnidadTipo == '2' ) ? true : false; // Sirecor7600 or EStanque7600
 	}
 
 }

@@ -38,7 +38,7 @@ class CuartelesController {
 			},
 		}).then(function(response){
       	//console.log("getRecord response: "+JSON.stringify(response));
-      	return response;
+      	return response[0];
   	  	});
 
 	}	
