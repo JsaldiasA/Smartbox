@@ -12,20 +12,22 @@ $model = new Model();
 
  $IP = $_SERVER['REMOTE_ADDR'];
 
+ // date time actual santiago chile
+
+  date_default_timezone_set('America/Santiago');
+  $FechaActualStr= date("Y-m-d H:i:s");
+  $FechaActual= date_create($FechaActualStr);
+
 //Tomando datos desde solicitud HTTP GET
 
 if (isset($_GET['name']) )
 { 
-
   $data= $_GET['name'];
-
   //Insertando En tabla RowData
   $sql = "INSERT INTO `rowdata`(`RowData`,`IP`) VALUES ('{$data}','{$IP}');";
   $result = $model->executeSQL($sql);
 
-
   //Parseando la data del String que viene desde Sirecor
-
   $UNIDAD= substr($data,  0, strpos($data,":"));
   $data= substr($data, (strpos($data,":")+1), strlen($data));
   // Extrayendo Estado
@@ -74,7 +76,7 @@ if (isset($_GET['name']) )
     {
     $sql =  "INSERT INTO sirecor.unidad
       (Id, Serie, tag, Ubicacion, numero, UltimaActualizacion, Volumen, Estado, id_unidadTipo, InvertirEntrada, BatNivel, Temperatura, Humedad, EC, VolMax, FactorFlujometro)
-      VALUES(0, NULL, '{$UNIDAD}', NULL, NULL, current_timestamp(), NULL, '{$ESTADO}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)";
+      VALUES(0, NULL, '{$UNIDAD}', NULL, NULL,'{$FechaActualStr}', NULL, '{$ESTADO}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)";
 
         $result = $model->executeSQL($sql);
 
@@ -82,21 +84,18 @@ if (isset($_GET['name']) )
 
   $sql = "INSERT INTO unidades_lastortolas
         ( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
-        VALUES( ".$unidadObj->get_id().", '{$ESTADO}' ,{$VOLUMEN},{$CAUDAL},{$SENAL},{$VOLTAJE},date_add(NOW(), INTERVAL 15 MINUTE))";
+        VALUES( ".$unidadObj->get_id().", '{$ESTADO}' ,{$VOLUMEN},{$CAUDAL},{$SENAL},{$VOLTAJE},'{$FechaActualStr}')";
 
         $result = $model->executeSQL($sql);
 
     }
     else
-    {   // evento cambio de estado.
-        if( $unidadObj->Estado != $ESTADO ) 
+    {   
+        if( $unidadObj->Estado != $ESTADO )  // evento cambio de estado.
         {
-           $messageType = $model->MYSQLSelectWHERE('eventmessagetype','Id','1')[0];
+          $messageType = $model->MYSQLSelectWHERE('eventmessagetype','Id','1')[0];
 
-          date_default_timezone_set('America/Santiago');
-          $FechaActual= date("Y-m-d H:i:s");
-
-          $NewObj = new eventmessageDbEntity();// use the name of the table related to the db entity
+          $NewObj = new eventmessageDbEntity();
 
           $NewObj->Id = '0' ;
           $NewObj->MessageText = '{  "NewStatus": "'.$ESTADO.'", "LastStatus": "'.$unidadObj->Estado.'"  }';
@@ -109,9 +108,8 @@ if (isset($_GET['name']) )
           // SET Default values
           $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
         }
-        //EVENTO  VOF  ( water flow detected while the Valve is Closed )
 
-        if( $unidadObj->Id_Last_RegistroDiario != null && $unidadObj->Id_Last_RegistroDiario != ''  )
+        if( $unidadObj->Id_Last_RegistroDiario != null && $unidadObj->Id_Last_RegistroDiario != '' ) //EVENTO  VOF  ( water flow detected while the Valve is Closed )
         {
            $LastRegistro = $model->MYSQLSelectWHERE('unidades_lastortolas','Id',$unidadObj->Id_Last_RegistroDiario )[0];
 
@@ -130,11 +128,6 @@ if (isset($_GET['name']) )
               if($Message->Id_MessageType == $VOFmessageTypeId ) $lastVOFmessage = $Message;     
               break;
             }
-
-            date_default_timezone_set('America/Santiago');
-            $FechaActualStr= date("Y-m-d H:i:s");
-
-            $FechaActual= date_create($FechaActualStr);
 
             if($lastVOFmessage)
             {
@@ -164,11 +157,9 @@ if (isset($_GET['name']) )
             }
           }  
         
-        }
+        }   
 
-        //Evento bateria baja
-
-        if( (int)$VOLTAJE < 20 )
+        if( (int)$VOLTAJE < 20 ) //Evento bateria baja
         {   
             $unidadEM = $model->MYSQLSelectWHERE('eventmessage','Id_unidad',$unidadObj->Id );
 
@@ -181,9 +172,6 @@ if (isset($_GET['name']) )
               break;
             }
             
-            date_default_timezone_set('America/Santiago');
-            $FechaActualStr= date("Y-m-d H:i:s");
-
             if($lastLBAmessage)
             {
 
@@ -213,27 +201,21 @@ if (isset($_GET['name']) )
               $model->MYSQLInsertInto('eventmessage' ,$NewObj);   
             }
         }    
-
+        // Agregar registro diario a db
         $sql = "INSERT INTO unidades_lastortolas
         ( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
-        VALUES( ".$unidadObj->get_id().", '{$ESTADO}' ,{$VOLUMEN},{$CAUDAL},{$SENAL},{$VOLTAJE},date_add(NOW(), INTERVAL 15 MINUTE))";
+        VALUES( ".$unidadObj->get_id().", '{$ESTADO}' ,{$VOLUMEN},{$CAUDAL},{$SENAL},{$VOLTAJE},'{$FechaActualStr}')";
 
         $result = $model->executeSQL($sql);
 
-        $sql = "UPDATE sirecor.unidad
-        SET UltimaActualizacion=current_timestamp(), Volumen={$VOLUMEN}, Estado='{$ESTADO}', BatNivel={$VOLTAJE}
-        WHERE Id = ".$unidadObj->get_id();
-
-        $result = $model->executeSQL($sql);
-
+        // verificar si la unidad tiene un mensaje tipo sms para enviar
         $SMSToUnidades = $model->MYSQLSelectWHERE('smstounidades','Id_unidad',$unidadObj->get_id());
         
         $smstounit = NULL;
 
         foreach ($SMSToUnidades as $su)
         {
-          if ($su->Recibido == '0')
-          {
+          if ($su->Recibido == '0') {
             $smstounit = $su;
           }
         } 
@@ -242,7 +224,7 @@ if (isset($_GET['name']) )
         {
             $smstounit->Recibido = '1';
             $result = $model->MYSQLUpdate('smstounidades',$smstounit);
-            echo '#'.$smstounit->SMS.'$'; 
+            echo '#'.$smstounit->SMS.'$'; // enviado mesaje al dispositivo #Mensaje$
         }
 
     }
@@ -264,7 +246,7 @@ if( isset($_GET['Evento']) )
   $TipoBat = $evento->TipoBatt;
   $UNIDAD = $evento->tag;
 
-  $sql = "INSERT INTO `eventos` (`UNIDAD`, `USUARIO1`, `USUARIO2`, `USUARIO3`, `USUARIO4`, `ADMIN`, `MANTENCION`, `INTERNET`, `VerCodigo`, `LVOLTAJE`, `INV`, `VOLUMEN MAX`, `TIMESTAMP`, `TIPO`,`TipoBat`) VALUES ('{$UNIDAD}', '', '', '', '', '', '', '{$INTERNET}', '{$VerCodigo}', '{$LVOLTAJE}', '', '', current_timestamp(), '{$TIPO}','{$TipoBat}')";
+  $sql = "INSERT INTO `eventos` (`UNIDAD`, `USUARIO1`, `USUARIO2`, `USUARIO3`, `USUARIO4`, `ADMIN`, `MANTENCION`, `INTERNET`, `VerCodigo`, `LVOLTAJE`, `INV`, `VOLUMEN MAX`, `TIMESTAMP`, `TIPO`,`TipoBat`) VALUES ('{$UNIDAD}', '', '', '', '', '', '', '{$INTERNET}', '{$VerCodigo}', '{$LVOLTAJE}', '', '', '{$FechaActualStr}', '{$TIPO}','{$TipoBat}')";
 	
   $result=$model->executeSQL( $sql);
 
@@ -283,8 +265,6 @@ if( isset($_GET['Evento']) )
   $NewObj->checked = '0';
                 // SET Default values
   $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
-
-
 
 }
   
