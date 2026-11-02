@@ -1017,7 +1017,7 @@ class CuartelesPage extends Page
 
 				if(rowU.ultimoRegistro)
 				{	dataTableRow.Estado = FieldEstado(rowU.ultimoRegistro.ESTADO)
-					dataTableRow.Activity = FieldActivity(rowU.ultimoRegistro.DATETIME);
+					dataTableRow.Activity = FieldActivity(rowU.unidad.UltimaActualizacion);
 					dataTableRow.BateryLevel =	FieldBattery(rowU.ultimoRegistro.VOLTAJE);
 					dataTableRow.Signal = FieldSignal(rowU.ultimoRegistro.SENAL, rowU.ultimoRegistro.DATETIME);		
 					dataTableRow.Caudal = FieldCaudal(rowU.ultimoRegistro.CAUDAL);

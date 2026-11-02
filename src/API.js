@@ -621,7 +621,7 @@ function FieldActivity( date ) {
 	var pastDate = new Date(date);
 	var now = new Date(new Date().toLocaleString('en', {timeZone: 'America/Santiago'}))
 
-	var minutesAgo = Math.floor((now - pastDate) / 60000) + 15;// 15 min mas que agregea la base de datos a la tabla unidades_lastortolas, se desconoce el porque.
+	var minutesAgo = Math.floor((now - pastDate) / 60000) ;// 15 min mas que agregea la base de datos a la tabla unidades_lastortolas, se desconoce el porque.
 
 	if( minutesAgo < 60 )
 	{
@@ -692,8 +692,6 @@ function FieldEstado( Estado ) {
 			return Estado;
 	}
 
-	
-	
 }
    
 
@@ -871,10 +869,6 @@ function DivLoadingState( HtmlElementId )
 	document.getElementById(HtmlElementId).innerHTML = `<div class="spinner-border text-success" role="status"></div> `;
 
 }
-
-
-
-
 
 		function FunctionNuevoTicketPost()
 		{
