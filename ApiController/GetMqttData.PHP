@@ -76,7 +76,7 @@ else // si es caja u511 soleniod valve controller
 
 		$sql = "INSERT INTO unidades_lastortolas
 		( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
-		VALUES( ".$UnidadExistente->get_id().", '{$NewESTADO}' ,'{$NewVOLUMEN}','{$NewCAUDAL}','0','{$NewBATNIVEL}',current_timestamp());";
+		VALUES( ".$UnidadExistente->get_id().", '{$NewESTADO}' ,'{$NewVOLUMEN}','{$NewCAUDAL}','0','{$NewBATNIVEL}',date_add(NOW(), INTERVAL 15 MINUTE)));";
 
 		echo $sql; 
 
