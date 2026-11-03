@@ -67,18 +67,15 @@ else // si es caja u511 soleniod valve controller
 		
 		$NewESTADO = (property_exists($obj,'valve_1') && isset($obj->valve_1) ) ? $obj->valve_1 : 'NosSET' ;
 		$NewVOLUMEN = (property_exists($obj,'valve_2_pulse') && isset($obj->valve_2_pulse) ) ? $obj->valve_2_pulse : $UnidadExistente->get_Volumen();
-		$NewCAUDAL = ( ($NewVOLUMEN - $UnidadExistente->get_Volumen()) < 0 ) ? 0 : ($NewVOLUMEN - $UnidadExistente->get_Volumen()) ;
+		$NewCAUDAL = ( ($NewVOLUMEN - $UnidadExistente->get_Volumen()) < 2 ) ? '0' : ($NewVOLUMEN - $UnidadExistente->get_Volumen()) ; // si la diferencia es menor a 2 para no contar caudal de un solo pulso 
 		$NewBATNIVEL =  (property_exists($obj,'battery') && isset($obj->battery) ) ? $obj->battery : ($UnidadExistente->BatNivel ?? '0');
 
 		date_default_timezone_set('America/Santiago');
   		$FechaActualStr= date("Y-m-d H:i:s");
 
-
 		$sql = "INSERT INTO unidades_lastortolas
 		( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
 		VALUES( ".$UnidadExistente->get_id().", '{$NewESTADO}' ,'{$NewVOLUMEN}','{$NewCAUDAL}','0','{$NewBATNIVEL}','{$FechaActualStr}');";
-
-		echo $sql; 
 
 		$result = $Model->executeSQL($sql);
 	
