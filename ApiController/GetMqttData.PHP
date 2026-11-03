@@ -67,7 +67,7 @@ else // si es caja u511 soleniod valve controller
 		
 		$NewESTADO = (property_exists($obj,'valve_1') && isset($obj->valve_1) ) ? $obj->valve_1 : 'NosSET' ;
 		$NewVOLUMEN = (property_exists($obj,'valve_2_pulse') && isset($obj->valve_2_pulse) ) ? $obj->valve_2_pulse : $UnidadExistente->get_Volumen();
-		$NewCAUDAL = ( ($NewVOLUMEN - $UnidadExistente->get_Volumen()) < 2 ) ? '0' : ($NewVOLUMEN - $UnidadExistente->get_Volumen()) ; // si la diferencia es menor a 2 para no contar caudal de un solo pulso 
+		$NewCAUDAL = ( ((int)$NewVOLUMEN - (int)$UnidadExistente->get_Volumen()) < 2 ) ? '0' : ((int)$NewVOLUMEN - (int)$UnidadExistente->get_Volumen()) ; // si la diferencia es menor a 2 para no contar caudal de un solo pulso 
 		$NewBATNIVEL =  (property_exists($obj,'battery') && isset($obj->battery) ) ? $obj->battery : ($UnidadExistente->BatNivel ?? '0');
 
 		date_default_timezone_set('America/Santiago');
