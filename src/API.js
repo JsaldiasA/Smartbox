@@ -1,5 +1,33 @@
 
-	
+	function FunctionFactorFlujometro(Id_unidad)
+	{
+  		let text = "¿Está seguro de cambiar el FactorFlujometro de la unidad?";
+ 		if (confirm(text) == true)
+			{
+				var URL = UrlBase +"/ApiController/unidad/UnidadUpdate.php";
+				
+				var FactorFlujometro = document.getElementById("FactorFlujometro").value;
+		
+				$.ajax({
+        			url:URL,
+            		type:"post",
+					dataType:'text',
+					data:
+						{
+            				Id: Id_unidad,
+							FactorFlujometro: FactorFlujometro,
+        				},
+					success: function(result)
+						{
+							alert(result)
+						}
+		  		});
+  			}
+		else
+			{
+    			alert("La operación se ha cancelado.");
+  			}
+	}
 
 
 
@@ -382,8 +410,9 @@ async function GetChecklistsNew()
 				returnJson: 1,
 			},
 		}).then(function(response){
-      //console.log("getRecord response: "+JSON.stringify(response));
-      return response;
+    
+     	response.sort((a, b) => Date.parse(b["Fecha"]) - Date.parse(a["Fecha"]) );  
+	  	return response;
   	  });
 
 	}	
@@ -769,6 +798,23 @@ function FieldBattery( level ) {
 			}
 
 			return '<div  class="d-inline" >'+level+'%</div><img  src="'+ImgUrl+'" width="30" height="20">';
+}
+
+function FieldVolumen( Unidad ) {
+	if(Unidad) {
+
+		switch ( Unidad.id_unidadTipo ) {
+		case '2': //SIRECOR7600
+			return Unidad.Volumen;
+			break;
+		case '3': // milesight
+			return Unidad.FactorFlujometro != null ? (Unidad.Volumen*Unidad.FactorFlujometro) : (Unidad.Volumen +'(Pulsos)')
+		default:
+			// Code to execute if expression matches no cases
+			return '';
+		}
+	}
+	else return '';		
 }
 
 function FieldSignal( level , FechaUltimaActualizacion ) {

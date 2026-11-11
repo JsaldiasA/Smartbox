@@ -91,20 +91,28 @@ class LoginController {
         	},
 
 		    success: function(result){
+				
 				window.localStorage.setItem("token", result);
 				document.cookie = 'token='+result;
                 ThisApp.init();
+			
+				switch(result) {
+					case "Usuario desconocido":
+						console.log('Usuario Desconocido');
+						break;
+					case "password Incorrecta":
+						console.log('password Incorrecta');
+						break;
+					default:
+						window.localStorage.setItem("token", result);
+						document.cookie = 'token='+result;
+						ThisApp.init();
+						break;
+				}
 			}
-
 		});
 	}
-	
 }
-
-
-
-
-
-
-  
-
+				
+			
+			

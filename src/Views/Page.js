@@ -191,6 +191,54 @@ class Page
 
 
 
+class BootstrapGrid
+{
+	
+	constructor(){
+		this.headers = [];
+		this.rows = []; 
+	}
 
+	RenderGrid(){
+
+		const Grid = document.createElement("div");
+		Grid.className = 'p-3';
+			
+			if(this.headers)
+			{
+				const headerRow = document.createElement("div");
+				headerRow.className = 'row h2';
+
+				this.headers.forEach(headerText => {
+					const HeaderCol = document.createElement("div");
+					HeaderCol.className = 'col';
+
+					HeaderCol.innerHTML = headerText;
+					headerRow.appendChild(HeaderCol);
+				});
+				
+				Grid.appendChild(headerRow);
+			}
+	
+			this.rows.forEach(row => {
+
+				const rowDiv = document.createElement("div");
+				rowDiv.className = 'row';
+
+				row.forEach(col => {
+				const columnDiv = document.createElement("div");
+				columnDiv.className = 'col m-1 border-bottom';
+				columnDiv.innerHTML = col; 
+				rowDiv.appendChild(columnDiv);
+				});
+    
+				Grid.appendChild(rowDiv);
+			});
+			
+			return Grid;
+
+	}
+
+}
   
 
