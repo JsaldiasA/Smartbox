@@ -808,13 +808,13 @@ function FieldVolumen( Unidad ) {
 			return Unidad.Volumen;
 			break;
 		case '3': // milesight
-			return Unidad.FactorFlujometro != null ? (Unidad.Volumen*Unidad.FactorFlujometro) : (Unidad.Volumen +'(Pulsos)')
+			return Unidad.FactorFlujometro != null ? (Math.round(Unidad.Volumen*Unidad.FactorFlujometro)) : (Unidad.Volumen +'(Pulsos)')
 		default:
 			// Code to execute if expression matches no cases
 			return '';
 		}
 	}
-	else return '';		
+	else return '';
 }
 
 function FieldSignal( level , FechaUltimaActualizacion ) {

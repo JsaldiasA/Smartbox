@@ -11,7 +11,7 @@ class CuartelesPage extends Page
 
 		this.Titulo = 'Unidades';
 
-		this.FilterOptions = [ 'sirecor','all', 'milesight', 'Area externa','indefinidas','sin cuartel'];
+		this.FilterOptions = [ 'all','sirecor','milesight', 'Area externa','indefinidas','sin cuartel'];
 
 		this.SelectFiltro = document.createElement('select');
 		this.SelectFiltro.className = 'form-select';
@@ -78,7 +78,7 @@ class CuartelesPage extends Page
 	{
 		containerDiv.replaceChildren();
 
-		var filtroValue =  this.SelectFiltro.options[ this.SelectFiltro.selectedIndex ].value ;  
+		var filtroValue =  this.SelectFiltro.options[ this.SelectFiltro.selectedIndex ].value ;
 		let unidadesDataTable = [];
 
 		switch ( filtroValue ) {
@@ -784,6 +784,15 @@ class CuartelesPage extends Page
 	}
 }
 
+class BootstrapAccordeon
+{
+	constructor( ItemsTitles, Id   ) {
+		this.ItemsTitles  = ItemsTitles;
+		this.accordionElement = document.createElement('div');
+		this.accordionElement.className = 'accordion';
+		this.AcordionItems;
+	}
 
+}
 
 

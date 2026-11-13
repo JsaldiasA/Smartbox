@@ -61,25 +61,49 @@ class LoginController {
 								<label class="form-label">Password</label>
 								<input type="password" class="form-control" id="password" placeholder="Password">
 							</div>
-							<div class="">
-								<button type="button" class="btn shadow btn-primary w-100" onclick="ThisApp.LoginController.Login();return false;">Sign in</button>
-							</div>
-						</form>
-					</div>
-			</div>
-	</div>`;
+							<div class="">							
+								<div class="toast-container position-fixed middle-0 top-0 p-1">
+  									<div id="liveToastUsuarioIncorrecto" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    									<div class="toast-header">
+     										<img src="..." class="rounded me-2" alt="">
+    										<strong class="me-auto">Error de login.</strong>
+    										<small> </small>
+    										<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    									</div>
+    									<div class="toast-body">
+     										Usuario incorrecto.
+   										</div>
+  									</div>
+								</div>
+								<div class="toast-container position-fixed middle-0 top-0 p-1">
+  									<div id="liveToastClaveIncorrecta" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    									<div class="toast-header">
+     										<img src="..." class="rounded me-2" alt="">
+    										<strong class="me-auto">Error de login.</strong>
+    										<small> </small>
+    										<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    									</div>
+    									<div class="toast-body">
+     										Clave incorrecta.
+   										</div>
+  									</div>
+								</div>
 
+									<button type="button" class="btn shadow btn-primary w-100" onclick="ThisApp.LoginController.Login();return false;">Sign in</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>`;
 }
 
 	 Login() 
 	{
 
     	var URL = UrlBase +"/ApiController/Login/Login.php";
-
 		var email =  document.getElementById("email").value;
 		var password = document.getElementById("password").value ;
 
-			DivLoadingState('main');
 		$.ajax({
 
             url:URL, //the page containing php script
@@ -94,13 +118,18 @@ class LoginController {
 				
 				window.localStorage.setItem("token", result);
 				document.cookie = 'token='+result;
-                ThisApp.init();
 			
 				switch(result) {
 					case "Usuario desconocido":
+						const toastLiveExample = document.getElementById("liveToastUsuarioIncorrecto");
+						const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+						toastBootstrap.show();
 						console.log('Usuario Desconocido');
 						break;
 					case "password Incorrecta":
+						const toastLiveExample2 = document.getElementById("liveToastClaveIncorrecta");
+						const toastBootstrap2 = bootstrap.Toast.getOrCreateInstance(toastLiveExample2);
+						toastBootstrap2.show();
 						console.log('password Incorrecta');
 						break;
 					default:
