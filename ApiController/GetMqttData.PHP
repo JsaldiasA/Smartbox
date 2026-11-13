@@ -64,21 +64,25 @@ else // si es caja u511 soleniod valve controller
 	}
 	else
 	{
-		
+		date_default_timezone_set('America/Santiago');
+  		$FechaActualStr = date("Y-m-d H:i:s");
+
+		$Actual = new Datetime ($FechaActualStr);
+		$Anterior = new Datetime ($UnidadExistente->get_UltimaActualizacion());
+		$DiferenciaTiempo = ($Actual->getTimestamp() - $Anterior->getTimestamp())/60; // diferencia en minutos
+
 		$NewESTADO = (property_exists($obj,'valve_1') && isset($obj->valve_1) ) ? $obj->valve_1 : 'NosSET' ;
 		$NewVOLUMEN = (property_exists($obj,'valve_2_pulse') && isset($obj->valve_2_pulse) ) ? $obj->valve_2_pulse : $UnidadExistente->get_Volumen();
-		$NewCAUDAL = ( ((int)$NewVOLUMEN - (int)$UnidadExistente->get_Volumen()) < 2 ) ? '0' : ((int)$NewVOLUMEN - (int)$UnidadExistente->get_Volumen()) ; // si la diferencia es menor a 2 para no contar caudal de un solo pulso 
-		$NewBATNIVEL =  (property_exists($obj,'battery') && isset($obj->battery) ) ? $obj->battery : ($UnidadExistente->BatNivel ?? '0');
+		$DiferenciaVolumen = (int)$NewVOLUMEN - (int)$UnidadExistente->get_Volumen();
+		$NewCAUDAL = ( $DiferenciaVolumen < 2 ) ? '0' : ($DiferenciaVolumen/$DiferenciaTiempo); // si la diferencia es menor a 2 para no contar caudal de un solo pulso
 
-		date_default_timezone_set('America/Santiago');
-  		$FechaActualStr= date("Y-m-d H:i:s");
+		$NewBATNIVEL =  (property_exists($obj,'battery') && isset($obj->battery) ) ? $obj->battery : ($UnidadExistente->BatNivel ?? '0');
 
 		$sql = "INSERT INTO unidades_lastortolas
 		( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
 		VALUES( ".$UnidadExistente->get_id().", '{$NewESTADO}' ,'{$NewVOLUMEN}','{$NewCAUDAL}','0','{$NewBATNIVEL}','{$FechaActualStr}');";
 
 		$result = $Model->executeSQL($sql);
-	
 	}
 }
 
