@@ -20,6 +20,7 @@ public $FactorFlujometro;
 public $Id_Last_RegistroDiario;
 public $Id_bateriaTipo;
 public $BateriaDate;
+public $Senal;
 public $Caudal;
 public $Estado2;
 public $Volumen2;
