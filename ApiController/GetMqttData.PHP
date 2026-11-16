@@ -71,10 +71,16 @@ else // si es caja u511 soleniod valve controller
 		$Anterior = new Datetime ($UnidadExistente->get_UltimaActualizacion());
 		$DiferenciaTiempo = ($Actual->getTimestamp() - $Anterior->getTimestamp())/60; // diferencia en minutos
 
+		//Valve 1
 		$NewESTADO = (property_exists($obj,'valve_1') && isset($obj->valve_1) ) ? $obj->valve_1 : 'NosSET' ;
 		$NewVOLUMEN = (property_exists($obj,'valve_2_pulse') && isset($obj->valve_2_pulse) ) ? $obj->valve_2_pulse : $UnidadExistente->get_Volumen();
 		$DiferenciaVolumen = (int)$NewVOLUMEN - (int)$UnidadExistente->get_Volumen();
 		$NewCAUDAL = ( $DiferenciaVolumen < 2 ) ? '0' : ($DiferenciaVolumen/$DiferenciaTiempo); // si la diferencia es menor a 2 para no contar caudal de un solo pulso
+		//Valve2
+		$NewESTADO2 = (property_exists($obj,'valve_2') && isset($obj->valve_2) ) ? $obj->valve_2 : 'NosSET' ;
+		$NewVOLUMEN2 = (property_exists($obj,'valve_2_pulse') && isset($obj->valve_2_pulse) ) ? $obj->valve_2_pulse : ( $UnidadExistente->Volumen2 ?? '0');
+		$DiferenciaVolumen2 = (int)$NewVOLUMEN2 - (int)( $UnidadExistente->Volumen2 ?? '0');
+		$NewCAUDAL2 = ( $DiferenciaVolumen < 2 ) ? '0' : ($DiferenciaVolumen/$DiferenciaTiempo); // si la diferencia es menor a 2 para no contar caudal de un solo pulso
 
 		$NewBATNIVEL =  (property_exists($obj,'battery') && isset($obj->battery) ) ? $obj->battery : ($UnidadExistente->BatNivel ?? '0');
 
