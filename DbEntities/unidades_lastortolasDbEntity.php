@@ -9,6 +9,9 @@ class unidades_lastortolasDbEntity {
   public $SENAL;
   public $VOLTAJE;
   public $DATETIME;
+  public $ESTADO2;
+  public $VOLUMEN2;
+  public $CAUDAL2;
 	  	
   function get_CAUDALforHtmlTable() { 
     switch ($this->CAUDAL) {

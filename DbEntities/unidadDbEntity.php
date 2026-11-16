@@ -20,6 +20,10 @@ public $FactorFlujometro;
 public $Id_Last_RegistroDiario;
 public $Id_bateriaTipo;
 public $BateriaDate;
+public $Caudal;
+public $Estado2;
+public $Volumen2;
+public $Caudal2;
 	    
 
   function get_id() { return $this->Id; }
