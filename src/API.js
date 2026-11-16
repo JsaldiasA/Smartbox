@@ -748,25 +748,41 @@ function FieldEstado( Estado ) {
 
 }
    
-
-function FieldCaudal( Caudal ) {
+function FieldCaudal( Unidad ) {
+	let Caudal;
+	if(Unidad) {
+		
+		switch ( Unidad.id_unidadTipo ) {
+		case '2': //SIRECOR7600
+			Caudal = Unidad.Caudal;
+			break;
+		case '3': // milesight
+			Caudal = Unidad.FactorFlujometro != null ? (Math.round(Unidad.Caudal*Unidad.FactorFlujometro)) : (Unidad.Caudal +'(Pulsos)')
+			break;
+		default:
+			// Code to execute if expression matches no cases
+			return '';
+		}
+	}
+	else return '';
 	  
 
-			switch (Caudal) {
+		switch (Caudal) {
 
 			case '999':
+			case Caudal > 140:
 				// Code to execute if expression === value1
 				return  ' <div class="bg-danger text-white">Mayor a 140!</div>  ';
 			
 			case '-999':
+			case Caudal < 5:
 				// Code to execute if expression === value2
 				return  ' <div class="bg-danger text-white">Menor a 5!</div>  ';
 			
 			default:
 				// Code to execute if expression matches no cases
 				return Caudal;
-			}
-
+		}
 }
 
 function FieldBattery( level ) {

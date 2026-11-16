@@ -766,7 +766,7 @@ class CuartelesPage extends Page
 				Activity = FieldActivity(rowU.UltimaActualizacion);
 				BateryLevel =	FieldBattery(rowU.BatNivel);
 				Signal = FieldSignal(rowU.Senal, rowU.UltimaActualizacion);		
-				Caudal = FieldCaudal(rowU.Caudal);
+				Caudal = FieldCaudal(rowU);
 				Volumen = FieldVolumen(rowU);	
 			}	
 			else{
@@ -791,6 +791,7 @@ class BootstrapAccordeon
 		this.accordionElement = document.createElement('div');
 		this.accordionElement.className = 'accordion';
 		this.AcordionItems;
+		
 	}
 
 }
