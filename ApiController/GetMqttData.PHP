@@ -85,8 +85,8 @@ else // si es caja u511 soleniod valve controller
 		$NewBATNIVEL =  (property_exists($obj,'battery') && isset($obj->battery) ) ? $obj->battery : ($UnidadExistente->BatNivel ?? '0');
 
 		$sql = "INSERT INTO unidades_lastortolas
-		( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`)
-		VALUES( ".$UnidadExistente->get_id().", '{$NewESTADO}' ,'{$NewVOLUMEN}','{$NewCAUDAL}','0','{$NewBATNIVEL}','{$FechaActualStr}');";
+		( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`, ESTADO2, VOLUMEN2, CAUDAL2)
+		VALUES( ".$UnidadExistente->get_id().", '{$NewESTADO}' ,'{$NewVOLUMEN}','{$NewCAUDAL}','0','{$NewBATNIVEL}','{$FechaActualStr}' , '{$NewESTADO}' ,'{$NewVOLUMEN}','{$NewCAUDAL}');";
 
 		$result = $Model->executeSQL($sql);
 	}
