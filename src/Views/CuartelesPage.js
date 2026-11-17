@@ -89,9 +89,9 @@ class CuartelesPage extends Page
 				
 				unidadesDataTable = [];			 
 				appModel.Cuarteles.forEach(row => {
-				let unidad = appModel.Unidades.find(t => t.Id == row.Id_unidad) ;
+				let unidad = appModel.Unidades.find(t => t.Id === row.Id_unidad) ;
 					
-				    if( (row["Id_zona"] == rowZona["Id"]) && unidad) {
+				    if( (row["Id_zona"] == rowZona["Id"]) && (row.Interface != '1') && (unidad )) {
 						unidadesDataTable.push( unidad );
 					}
 				});
@@ -753,28 +753,61 @@ class CuartelesPage extends Page
 				
 		UnidadesFiltradas.forEach(rowU => {
 			
-			let	Ubicacion = '',Serie = '' ,Estado= '' ,Activity = '',BateryLevel = '',Signal = '',Caudal = '',Volumen = '' ;	
+			let	Ubicacion = '',Serie = '' ,Estado= 'Sin Registros' ,Activity = '',BateryLevel = '',Signal = '',Caudal = '',Volumen = '' ;	
 
 			let Cuartel = appModel.Cuarteles.find( c => c.Id_unidad == rowU.Id);
+			
+			let CuartelEnInterface2 = appModel.Cuarteles.find( c => ((c.Id_unidad == rowU.Id) && (c.Interface == '1')) );
+
 
 			Ubicacion = Cuartel ? Cuartel.Name : 'Sin cuartel' ;
+			let Interface = Cuartel ? Cuartel.Interface : null;
 			Serie = `<button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#${this.Id_modalUnidadVer}" data-bs-unidadid="${ rowU.Id }"  ${ Cuartel ? ( "data-bs-cuartelid=" +Cuartel.Id) : "" } >${rowU['Serie']}</button>`;
 
 			if(rowU.Id_Last_RegistroDiario)
 			{	
-				Estado = FieldEstado(rowU.Estado);
+				switch(Interface) {
+
+					case null:
+					case undefined:
+						Estado = FieldEstado(rowU.Estado);
+						Caudal = FieldCaudal(rowU);
+						Volumen = FieldVolumen(rowU);	
+						break;
+					case '0':
+						Estado = FieldEstado(rowU.Estado) + '(1)';
+						Caudal = FieldCaudal(rowU);
+						Volumen = FieldVolumen(rowU);	
+					break;
+				}
 				Activity = FieldActivity(rowU.UltimaActualizacion);
 				BateryLevel =	FieldBattery(rowU.BatNivel);
 				Signal = FieldSignal(rowU.Senal, rowU.UltimaActualizacion);		
-				Caudal = FieldCaudal(rowU);
-				Volumen = FieldVolumen(rowU);	
-			}	
-			else{
-				Estado = 'Sin Registros';
+		
 			}		
 			
 			dataTable.push({Ubicacion: Ubicacion ,Serie: Serie,Estado: Estado,Activity: Activity,BateryLevel: BateryLevel, Signal: Signal,Caudal: Caudal,Volumen: Volumen});
+		    if( CuartelEnInterface2 )
+			{
+
+				Ubicacion = CuartelEnInterface2.Name ;
+				Serie = `<button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#${this.Id_modalUnidadVer}" data-bs-unidadid="${ rowU.Id }"  ${  "data-bs-cuartelid=" +CuartelEnInterface2.Id } >${rowU['Serie']}</button>`;
+
+				if(rowU.Id_Last_RegistroDiario)
+				{	
+					Estado = FieldEstado(rowU.Estado2) + '(2)';
+					Caudal = FieldCaudal(rowU);
+					Volumen = FieldVolumen(rowU);				
+					Activity = FieldActivity(rowU.UltimaActualizacion);
+					BateryLevel =	FieldBattery(rowU.BatNivel);
+					Signal = FieldSignal(rowU.Senal, rowU.UltimaActualizacion);		
+				}		
+				dataTable.push({Ubicacion: Ubicacion ,Serie: Serie,Estado: Estado,Activity: Activity,BateryLevel: BateryLevel, Signal: Signal,Caudal: Caudal,Volumen: Volumen});
+			}
+
+		
 		});
+
 
 		return this.RenderTable( headers, dataTable);
 	}

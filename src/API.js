@@ -729,7 +729,6 @@ function FieldFecha( date ) {
 
 function FieldEstado( Estado ) {
 
-
 	switch (Estado) {
 		case 'ON':
 		case '1':
