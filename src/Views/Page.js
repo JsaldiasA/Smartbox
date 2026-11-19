@@ -242,3 +242,57 @@ class BootstrapGrid
 }
   
 
+class BootstrapAccordion
+{
+	constructor(  Id ) {
+
+		this.accordionElement = document.createElement('div');
+		this.accordionElement.className = 'accordion';
+		this.accordionElement.id = Id;
+	}
+
+	CreateAccodionItem( Title, HtmlContent, Id )
+	{
+		const accordionItem = document.createElement('div');
+		accordionItem.className = 'accordion-item';
+
+		const ItemHeader= document.createElement('h2');
+		ItemHeader.className = 'accordion-header';
+		ItemHeader.id = 'heading'+Id;
+
+		const HeaderBtn =  document.createElement('button');
+		HeaderBtn.className = 'accordion-button collapsed';
+		HeaderBtn.type = 'button' ;
+		HeaderBtn.setAttribute('data-bs-toggle', "collapse" ); 
+		HeaderBtn.setAttribute('data-bs-target', "#collapse"+Id ) ;
+		HeaderBtn.setAttribute('aria-expanded' , "false"  );
+		HeaderBtn.setAttribute('aria-controls',  "collapse"+Id );
+		HeaderBtn.textContent = Title;
+
+		ItemHeader.appendChild(HeaderBtn);
+
+  		const collapse =  document.createElement('div');
+		collapse.className = 'accordion-collapse collapse';
+		collapse.id = 'collapse'+Id;
+		collapse.setAttribute('aria-labelledby', "heading"+Id ); 
+		collapse.setAttribute('data-bs-parent', "#" + this.accordionElement.id ) ;
+
+		const ItemBody =  document.createElement('div');
+		ItemBody.className = 'accordion-body';
+		
+		ItemBody.innerHTML = HtmlContent;
+		collapse.appendChild(ItemBody);
+
+		accordionItem.appendChild(ItemHeader);
+		accordionItem.appendChild(collapse);
+
+		this.accordionElement.appendChild(accordionItem);
+	}
+
+	Render()
+	{
+		let HtmlContent = this.accordionElement.outerHTML;
+		return HtmlContent;
+	}
+}
+

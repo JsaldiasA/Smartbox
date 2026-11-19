@@ -242,17 +242,10 @@ class CuartelesPage extends Page
 
 				tableHTML += '	<div class="row mt-3 shadow border">';  // acordeon row
 				tableHTML += ' <div class="col p-3">';
-
-				tableHTML += '<div class="accordion" id="accordionExample">';
-				tableHTML += '<div class="accordion-item">';// acordeon ITEM CONTROL
-				tableHTML += '<h2 class="accordion-header" id="headingZero">';
-				tableHTML += ' <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseZero" aria-expanded="false" aria-controls="collapseZero"> Control </button> </h2>';
-										
-				tableHTML += '<div id="collapseZero" class="accordion-collapse collapse" aria-labelledby="headingZero" data-bs-parent="#accordionExample">';
-				
-				tableHTML += '<div class="accordion-body">'; // accordion body
-				tableHTML += '<div class="overflow-auto">'; // overflow
-
+				//Acorrdion
+				let accordion = new BootstrapAccordion( 'AccordionUnidad');
+				// Acordion Item Control
+				let accordionContent = '';
 				if( !this.IsSirecor(unidad["id_unidadTipo"]) )
 				{	
 					const GridControl = new BootstrapGrid();
@@ -290,20 +283,20 @@ class CuartelesPage extends Page
 					}
 
 					GridControl.rows.push([AbirBtn.outerHTML,'',CerrarBtn.outerHTML]);
-					tableHTML += GridControl.RenderGrid().innerHTML;
+					accordionContent += GridControl.RenderGrid().innerHTML;
 
-					tableHTML += '<div class="row border-bottom ">';
-						tableHTML += '<div class="col-auto p-3">';
-							tableHTML += `<button onclick="FunctionComandosMilesightDesdeSelect('${unidad["tag"]}')" class="btn btn-secondary">Enviar Comando</button>`;
-						tableHTML += '</div>';
-						tableHTML += '<div class="col-auto py-3">';
-							tableHTML += CreateSelectFromObjArray('SelectComandosMilesight',ComandosMilesightDefault,'Nombre','Nombre') ;
-						tableHTML += '</div>';
-					tableHTML += '</div>';
+					accordionContent += '<div class="row border-bottom ">';
+						accordionContent += '<div class="col-auto p-3">';
+							accordionContent += `<button onclick="FunctionComandosMilesightDesdeSelect('${unidad["tag"]}')" class="btn btn-secondary">Enviar Comando</button>`;
+						accordionContent += '</div>';
+						accordionContent += '<div class="col-auto py-3">';
+							accordionContent += CreateSelectFromObjArray('SelectComandosMilesight',ComandosMilesightDefault,'Nombre','Nombre') ;
+						accordionContent += '</div>';
+					accordionContent += '</div>';
 				}
 				else {
 		
-					tableHTML +='<div id="SMSTable" ></div>'; // sms table from post javascript 
+					accordionContent +='<div id="SMSTable" ></div>'; // sms table from post javascript 
 					RefreshIntervals_Ids.push(setInterval(this.Controller.GetSMSTable, 1000, unidad["Id"] ));
 
 					const GridSmS = new BootstrapGrid();
@@ -313,7 +306,7 @@ class CuartelesPage extends Page
 					GridSmS.rows.push(['Mensaje',
 						`<div class="input-group mb-3"><div class="input-group-append"><button class="btn btn-outline-secondary" type="button" onclick="ThisApp.CuartelesPage.Controller.FunctionCreateSMS(\'InputSMS\',${unidad["Id"]})" >Enviar</button></div><input type="text" class="form-control" placeholder="Escriba el SMS en mayusculas" id="InputSMS" ></div></div>`,
 					]);
-					tableHTML += GridSmS.RenderGrid().innerHTML;
+					accordionContent += GridSmS.RenderGrid().innerHTML;
 	
 					const GridSmSControlesBasicos = new BootstrapGrid();	
 					GridSmSControlesBasicos.headers = ['Controles Basicos' , '' , ''  ];
@@ -326,114 +319,61 @@ class CuartelesPage extends Page
 						`<button type="button" onclick="ThisApp.CuartelesPage.Controller.FunctionCreateSMS( 'INTERNET75',${unidad["Id"]} )" class="btn btn-primary" >Internet cada 5 min</button>`,
 						`<button type="button" onclick="ThisApp.CuartelesPage.Controller.FunctionCreateSMS( 'INTERNET900',${unidad["Id"]} )" class="btn btn-primary" >Internet cada 2 Horas</button>`]);
 					
-					tableHTML += GridSmSControlesBasicos.RenderGrid().innerHTML;	
+					accordionContent += GridSmSControlesBasicos.RenderGrid().innerHTML;	
 				}
 
-				tableHTML +='		  </div> '; // end overflow
-				tableHTML +='		  </div> '; // end Acordeon body
-				tableHTML +='		  </div> '; // end collapseZero
-				tableHTML +='		  </div> '; // end Acordeon-item CONTROL
-			
-			//	accordion ITEM Registros DIARIOS
-			tableHTML +=`
-			<div class="accordion-item">
-			<h2 class="accordion-header" id="headingOne">
-			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"  >
-			Registros diarios
-			</button>
-			</h2>
-			<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-			<div class="accordion-body">`;
-
-			// TABLA REGISTROS DIARIOS
-
-			tableHTML += `<button type="button" onclick="ThisApp.CuartelesPage.Controller.GetRegistrosDiariosTable(${unidad["Id"]})" class="btn btn-primary" >Refrescar</button>`;
-			tableHTML += '<div class="overflow-auto"> <div id="RegistrosDiariosTable"></div>  </div>';
-
-			tableHTML +='	</div>	 '; // end Acordeon body
-			tableHTML +='	</div>	 '; // end collapseZero
-			tableHTML +='   </div>	 '; // end Acordeon-item Registros DIARIOS
-
-			//	accordion Registros de iniciación		
-			tableHTML +=`
-			<div class="accordion-item">
-			<h2 class="accordion-header" id="headingTwo">
-			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-			Registros de iniciación
-			</button>
-			</h2>
-			<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-			<div class="accordion-body">
-			<div class="overflow-auto">`;
-
-			let tableE = new DataTable("#TablaEventos");
-
-			tableHTML += `<table id="TablaEventos" class="display""><thead>
-					<th scope="col">UNIDAD</th>
-					<th scope="col">INTERNET</th>
-					<th scope="col">VerCodigo</th>
-					<th scope="col">TipoBat</th>
-					<th scope="col">TIPO</th>
-					<th scope="col">TIMESTAMP</th>	
-			</thead><tbody>`;
-
-			eventos.forEach(rowE => {
-				tableHTML += `<tr> <td>${rowE["UNIDAD"]}</td><td>${rowE["INTERNET"]}</td> <td>${rowE["VerCodigo"]}</td> <td>${rowE["TipoBat"]}</td> <td>${rowE["TIPO"]}</td> <td>${rowE["TIMESTAMP"]}</td> </tr>` ;
-			});
-			tableHTML += '</tbody></table>';
+				accordion.CreateAccodionItem('Control',accordionContent,'ControlItem'  )
 				
-			$(document).ready(function(){
-			$('#TablaEventos').dataTable();
-			});
+				// accordion REGISTROS DIARIOS
+				
+				accordionContent =   `<button type="button" onclick="ThisApp.CuartelesPage.Controller.GetRegistrosDiariosTable(${unidad["Id"]})" class="btn btn-primary" >Refrescar</button>`;
+				accordionContent += '<div class="overflow-auto"> <div id="RegistrosDiariosTable"></div>  </div>';
+				accordion.CreateAccodionItem('REGISTROS DIARIOS',accordionContent,'RegistrosDiariosItem'  );
 
-			tableHTML +='		  </div> '; // end overflow
-			tableHTML +='		  </div> '; // end Acordeon body
-			tableHTML +='		  </div> '; // end collapseZero
-			tableHTML +='		  </div> '; // end Acordeon-item CONTROL
+				//	accordion Registros de iniciación		
 
-			//	accordion Registros de Edición	
-			tableHTML += `		
-			<div class="accordion-item">
-			<h2 class="accordion-header" id="headingThree">
-			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-				Edición
-			</button>
-			</h2>
-			<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-			<div class="accordion-body">`;
-			
-			const GridEdit = new BootstrapGrid();
-			GridEdit.headers = ['Editar',''];
-			GridEdit.rows.push(['Introduzca la contraseña para editar:','<input type="text" id="password" name="password" class="form-control">']);
-			GridEdit.rows.push([`<button onclick="FunctionFactorFlujometro(${unidad["Id"]})" class="btn btn-secondary">Editar FactorFlujometro</button>`,`<input type="text" id="FactorFlujometro" name="FactorFlujometro" class="form-control" placeholder="Ejemplo: 0.4 (use . no ,)">`]);
-			GridEdit.rows.push([`<button onclick="FunctionNuevaUbicacion(${unidad["Id"]})" class="btn btn-secondary">Editar ubicación</button>`,`<input type="text" id="NuevaUbicacion" name="NuevaUbicacion" class="form-control" placeholder="Ejemplo: Z1-3">`]);
-			GridEdit.rows.push([`<button onclick="FunctionNuevoNumero('${unidad["Id"]}')" class="btn btn-secondary">Editar número</button> `,`<input type="text" id="NuevoNumero" name="NuevoNumero" class="form-control" placeholder="Ejemplo: 99345469">`]);
-			GridEdit.rows.push([`<button onclick="FunctionCambiarVolMax('${unidad["Id"]}')" class="btn btn-secondary">Editar volumen máximo</button> `,`<input type="text" id="VolMax" name="VolMax" class="form-control" placeholder="Ejemplo: 1000">`]);
-			GridEdit.rows.push([`<button onclick="FunctionNuevoTipo('${unidad["Id"]}')" class="btn btn-secondary">Editar Tipo</button>`,CreateSelectFromObjArray('NuevoTipo',appModel.UnidadTipo,'Id','Nombre')]);
-			GridEdit.rows.push([`<button onclick="FunctionNuevoCuartel(${unidad["Id"]})" class="btn btn-secondary">Editar Cuartel</button>`,CreateSelectFromObjArray('Cuarteles',appModel.Cuarteles,'Id','Name')]);
-			GridEdit.rows.push([`<button onclick="FunctionEliminar('${unidad["Id"]}')" class="btn btn-danger">Eliminar</button>`,'']);
-			
-			tableHTML += GridEdit.RenderGrid().innerHTML;
+				let tableE = new DataTable("#TablaEventos");
+
+				accordionContent = `<table id="TablaEventos" class="display""><thead>
+						<th scope="col">UNIDAD</th>
+						<th scope="col">INTERNET</th>
+						<th scope="col">VerCodigo</th>
+						<th scope="col">TipoBat</th>
+						<th scope="col">TIPO</th>
+						<th scope="col">TIMESTAMP</th>	
+				</thead><tbody>`;
+
+				eventos.forEach(rowE => {
+					accordionContent += `<tr> <td>${rowE["UNIDAD"]}</td><td>${rowE["INTERNET"]}</td> <td>${rowE["VerCodigo"]}</td> <td>${rowE["TipoBat"]}</td> <td>${rowE["TIPO"]}</td> <td>${rowE["TIMESTAMP"]}</td> </tr>` ;
+				});
+				accordionContent += '</tbody></table>';
 					
-			tableHTML +='		  </div> '; // end Acordeon body
-			tableHTML +='		  </div> '; // end collapseZero
-			tableHTML +='		  </div> '; // end Acordeon-item Edición
-		
-			//	accordion Registros de Checklist
-			tableHTML += `
-			<div class="accordion-item">
-			<h2 class="accordion-header" id="headingFour">
-			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-			Checklist
-			</button>
-			</h2>
-			<div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-			<div class="accordion-body">
-			<div class="overflow-auto">`;   
+				$(document).ready(function(){
+				$('#TablaEventos').dataTable();
+				});
 
+				accordion.CreateAccodionItem('REGISTROS INICIACION',accordionContent,'RegistrosIniciacionItem'  );
+
+				//	accordion Item Edición	
+
+				const GridEdit = new BootstrapGrid();
+				GridEdit.headers = ['Editar',''];
+				GridEdit.rows.push(['Introduzca la contraseña para editar:','<input type="text" id="password" name="password" class="form-control">']);
+				GridEdit.rows.push([`<button onclick="FunctionFactorFlujometro(${unidad["Id"]})" class="btn btn-secondary">Editar FactorFlujometro</button>`,`<input type="text" id="FactorFlujometro" name="FactorFlujometro" class="form-control" placeholder="Ejemplo: 0.4 (use . no ,)">`]);
+				GridEdit.rows.push([`<button onclick="FunctionNuevaUbicacion(${unidad["Id"]})" class="btn btn-secondary">Editar ubicación</button>`,`<input type="text" id="NuevaUbicacion" name="NuevaUbicacion" class="form-control" placeholder="Ejemplo: Z1-3">`]);
+				GridEdit.rows.push([`<button onclick="FunctionNuevoNumero('${unidad["Id"]}')" class="btn btn-secondary">Editar número</button> `,`<input type="text" id="NuevoNumero" name="NuevoNumero" class="form-control" placeholder="Ejemplo: 99345469">`]);
+				GridEdit.rows.push([`<button onclick="FunctionCambiarVolMax('${unidad["Id"]}')" class="btn btn-secondary">Editar volumen máximo</button> `,`<input type="text" id="VolMax" name="VolMax" class="form-control" placeholder="Ejemplo: 1000">`]);
+				GridEdit.rows.push([`<button onclick="FunctionNuevoTipo('${unidad["Id"]}')" class="btn btn-secondary">Editar Tipo</button>`,CreateSelectFromObjArray('NuevoTipo',appModel.UnidadTipo,'Id','Nombre')]);
+				GridEdit.rows.push([`<button onclick="FunctionNuevoCuartel(${unidad["Id"]})" class="btn btn-secondary">Editar Cuartel</button>`,CreateSelectFromObjArray('Cuarteles',appModel.Cuarteles,'Id','Name')]);
+				GridEdit.rows.push([`<button onclick="FunctionEliminar('${unidad["Id"]}')" class="btn btn-danger">Eliminar</button>`,'']);
+				
+				accordionContent = GridEdit.RenderGrid().innerHTML;
+				accordion.CreateAccodionItem('Edicion',accordionContent,'EdicionItem'  );			
+		
+			    //	accordion Registros de Checklist
 				let table = new DataTable("#TablaChecklist");
 
-				tableHTML += `<table id="TablaChecklist" class="display""><thead>
+				accordionContent = `<table id="TablaChecklist" class="display""><thead>
 				<th scope="col">ID</th>
 				<th scope="col">Técnico Responsable</th>
 				<th scope="col">Fecha</th>
@@ -443,35 +383,21 @@ class CuartelesPage extends Page
 
 				appModel.ChecklistsNew.forEach(rowC => {
 					if( rowC["id_unidad"] == unidad.Id ){
-						tableHTML += `</td> <td>${rowC["Id"]}</td><td>${rowC["TecnicoResponsable"]}</td> <td>${rowC["Fecha"]}</td> <td><button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#${this.Id_modalVerChecklist}" data-bs-checklistid="${ rowC.Id }" >ver</button></td></tr>` ;
+						accordionContent += `</td> <td>${rowC["Id"]}</td><td>${rowC["TecnicoResponsable"]}</td> <td>${rowC["Fecha"]}</td> <td><button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#${this.Id_modalVerChecklist}" data-bs-checklistid="${ rowC.Id }" >ver</button></td></tr>` ;
 					}	
 				});
-					tableHTML += '</tbody></table>';
+					accordionContent += '</tbody></table>';
 				
 				$(document).ready(function(){
 				$('#TablaChecklist').dataTable();
 				});
-				
-				tableHTML +='		  </div> '; // end overflow
-				tableHTML +='		  </div> '; // end Acordeon body
-				tableHTML +='		  </div> '; // end collapseZero
-				tableHTML +='		  </div> '; // end Acordeon-item Checklist
+				accordion.CreateAccodionItem('Checklist',accordionContent,'ChecklistItem'  );
 			
-				//	accordion Registros de Checklist
-			tableHTML += `
-			<div class="accordion-item">
-			<h2 class="accordion-header" id="headingFive">
-			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-			Eventos
-			</button>
-			</h2>
-			<div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-			<div class="accordion-body">
-			<div class="overflow-auto">`;   
+			 //	accordion Item EVENTOS  
 
 				let tableM = new DataTable("#TablaEventosMessage");
 
-				tableHTML += `<table id="TablaEventosMessage" class="display""><thead>
+				accordionContent = `<table id="TablaEventosMessage" class="display""><thead>
 				<th scope="col">ID</th>
 				<th scope="col">Message</th>
 				<th scope="col">Fecha</th>
@@ -480,19 +406,17 @@ class CuartelesPage extends Page
 
 				appModel.eventMessage.forEach(rowC => {
 					if( rowC["Id_unidad"] == unidad.Id ){
-						tableHTML += `</td> <td>${rowC["Id"]}</td><td>${rowC["MessageText"]}</td> <td>${rowC["CreationDate"]}</td> <td>${rowC["Id_MessageType"]}</td></tr>` ;
+						accordionContent += `</td> <td>${rowC["Id"]}</td><td>${rowC["MessageText"]}</td> <td>${rowC["CreationDate"]}</td> <td>${rowC["Id_MessageType"]}</td></tr>` ;
 					}	
 				});
-				tableHTML += '</tbody></table>';
+				accordionContent += '</tbody></table>';
 				
 				$(document).ready(function(){
 				$('#TablaEventosMessage').dataTable();
 				});
-				
-				tableHTML +='		  </div> '; // end overflow
-				tableHTML +='		  </div> '; // end Acordeon body
-				tableHTML +='		  </div> '; // end collapseZero
-				tableHTML +='		  </div> '; // end Acordeon-item Eventos
+				accordion.CreateAccodionItem('EVENTOS',accordionContent,'EventosItem'  );
+
+				tableHTML += accordion.Render();
 
 				tableHTML += '    </div>      ';  // col
 				tableHTML += '</div>'; //end acordeon row 
@@ -512,7 +436,7 @@ class CuartelesPage extends Page
 				document.getElementById('checklist_photo').innerHTML = `<img class="img-thumbnail" src="${checklist["URL_foto"]}" "="">`;
 			}	
 
-			const myCollapsible = document.getElementById('collapseTwo');
+			const RegistrosDiariosCollapsible = document.getElementById('collapseRegistrosDiariosItem');
 			myCollapsible.addEventListener('shown.bs.collapse', function () {
 				ThisApp.CuartelesPage.Controller.GetRegistrosDiariosTable(unidad["Id"]);
 			});
@@ -522,29 +446,28 @@ class CuartelesPage extends Page
 
 	async CreateNewChecklistModal( Id_modal )
 	{
-			this.mainDiv.appendChild(this.CreateModalComponent( Id_modal ));
+		this.mainDiv.appendChild(this.CreateModalComponent( Id_modal ));
+		const verModal = document.getElementById(Id_modal);
+		const dialogModal =  document.querySelector('.modal-dialog');
+		dialogModal.className = 'modal-dialog modal-xl';
 
-			const verModal = document.getElementById(Id_modal);
-			const dialogModal =  document.querySelector('.modal-dialog');
-			dialogModal.className = 'modal-dialog modal-xl';
-
-			let ModalLabel = document.getElementById(Id_modal+'_ModalLabel');
-			let ModalBody = document.getElementById(Id_modal+'_ModalBody');
-			let ModalFooter = document.getElementById(Id_modal+'_ModalFooter');
+		let ModalLabel = document.getElementById(Id_modal+'_ModalLabel');
+		let ModalBody = document.getElementById(Id_modal+'_ModalBody');
+		let ModalFooter = document.getElementById(Id_modal+'_ModalFooter');
 	
-			verModal.addEventListener('show.bs.modal', async(event) => {
+		verModal.addEventListener('show.bs.modal', async(event) => {
 
-			const button = event.relatedTarget;
-			const Id_Unidad = button.getAttribute('data-bs-unidadid');
-			let unidad = appModel.Unidades.find(t => t.Id == Id_Unidad) ;
-			let cuartel = appModel.Cuarteles.find( c => c.Id_unidad == unidad.Id )
-			let thisChecklist = appModel.ChecklistsNew.find( ts => ts.id_unidad == unidad.Id )
+		const button = event.relatedTarget;
+		const Id_Unidad = button.getAttribute('data-bs-unidadid');
+		let unidad = appModel.Unidades.find(t => t.Id == Id_Unidad) ;
+		let cuartel = appModel.Cuarteles.find( c => c.Id_unidad == unidad.Id )
+		let thisChecklist = appModel.ChecklistsNew.find( ts => ts.id_unidad == unidad.Id )
 
-			ModalLabel.replaceChildren();
-			ModalBody.replaceChildren();
-			ModalFooter.replaceChildren();
+		ModalLabel.replaceChildren();
+		ModalBody.replaceChildren();
+		ModalFooter.replaceChildren();
 						
-			if (verModal) { 
+		if (verModal) { 
 				
 				ModalBody.innerHTML = `<div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>`;
 				RefreshIntervals_Ids.forEach(interval_ID => {	clearInterval(interval_ID)	}); // clean an set intervals
@@ -568,47 +491,46 @@ class CuartelesPage extends Page
 
 				let tableHTML = GridChecklistNew.RenderGrid().innerHTML;
 
-					const BtnClose =  document.getElementById(this.Id_modalNewChecklist+'_BtnClose');
-					BtnClose.removeAttribute('data-bs-dismiss');
-					BtnClose.setAttribute('data-bs-target','#'+this.Id_modalUnidadVer);
-					BtnClose.setAttribute('data-bs-unidadid',unidad.Id);
-					BtnClose.setAttribute('data-bs-toggle','modal');
-					
-					ModalBody.innerHTML = tableHTML;
+				const BtnClose =  document.getElementById(this.Id_modalNewChecklist+'_BtnClose');
+				BtnClose.removeAttribute('data-bs-dismiss');
+				BtnClose.setAttribute('data-bs-target','#'+this.Id_modalUnidadVer);
+				BtnClose.setAttribute('data-bs-unidadid',unidad.Id);
+				BtnClose.setAttribute('data-bs-toggle','modal');
+				ModalBody.innerHTML = tableHTML;
 
-					// Si hace click en reemplazo de bateria, desplegar select de opciones de bateria tipo.
-					const chBox_reemplazoBateria = document.getElementById('chBox_reemplazoBateria');
-					const BateriaTipo = document.getElementById('BateriaTipo');
+				// Si hace click en reemplazo de bateria, desplegar select de opciones de bateria tipo.
+				const chBox_reemplazoBateria = document.getElementById('chBox_reemplazoBateria');
+				const BateriaTipo = document.getElementById('BateriaTipo');
 
-					appModel.BateriaTipos.forEach(row => {
-						const NewOption = new Option(row["Name"], row["Id"]);
-						BateriaTipo.add(NewOption);
-					});
+				appModel.BateriaTipos.forEach(row => {
+					const NewOption = new Option(row["Name"], row["Id"]);
+					BateriaTipo.add(NewOption);
+				});
 
-					chBox_reemplazoBateria.addEventListener('click', () => {
-						BateriaTipo.disabled = chBox_reemplazoBateria.checked ? false : true ;				
-					});
-			
-					const upload = document.getElementById('upload');
-					const sortpicture = document.getElementById('sortpicture');
-				
-					// 1. Forward the custom button click to the hidden file input
-					upload.addEventListener('click', () => {
-						sortpicture.click(); 
-					});
+				chBox_reemplazoBateria.addEventListener('click', () => {
+					BateriaTipo.disabled = chBox_reemplazoBateria.checked ? false : true ;				
+				});
 
-					// 2. Catch the exact moment a file is selected and upload it
-					sortpicture.addEventListener('change', async () => {
-						if (sortpicture.files.length === 0)  alert("archivo no encontrado");
-						else  uploadPicture(sortpicture.files[0]);
-					});
+				const upload = document.getElementById('upload');
+				const sortpicture = document.getElementById('sortpicture');
+				// 1. Forward the custom button click to the hidden file input
+				upload.addEventListener('click', () => {
+					sortpicture.click(); 
+				});
 
-					const selectChecklistMotivo = document.getElementById('ChecklistMotivo');
-					appModel.ChecklistMotivos.forEach(row => {
-						const NewOption = new Option(row["Name"], row["Id"]);
-						selectChecklistMotivo.add(NewOption);
-					});	
-			}
+				// 2. Catch the exact moment a file is selected and upload it
+				sortpicture.addEventListener('change', async () => {
+					if (sortpicture.files.length === 0)  alert("archivo no encontrado");
+					else  uploadPicture(sortpicture.files[0]);
+				});
+
+				const selectChecklistMotivo = document.getElementById('ChecklistMotivo');
+				appModel.ChecklistMotivos.forEach(row => {
+					const NewOption = new Option(row["Name"], row["Id"]);
+					selectChecklistMotivo.add(NewOption);
+				});	
+		}
+
 		});
 	}
 	async CreateVerChecklistModal( Id_modal )
@@ -734,7 +656,6 @@ class CuartelesPage extends Page
 
 	RenderCuartelesTable(  UnidadesFiltradas )
 	{
-
 		UnidadesFiltradas.sort((a, b) => Date.parse(b["UltimaActualizacion"]) - Date.parse(a["UltimaActualizacion"]) ); 
 		UnidadesFiltradas.sort((a, b) => b["Estado"].localeCompare(a["Estado"]));
 
@@ -753,12 +674,9 @@ class CuartelesPage extends Page
 				
 		UnidadesFiltradas.forEach(rowU => {
 			
-			let	Ubicacion = '',Serie = '' ,Estado= 'Sin Registros' ,Activity = '',BateryLevel = '',Signal = '',Caudal = '',Volumen = '' ;	
-
+			let	Ubicacion = '',Serie = '' ,Estado= 'Sin Registros' ,Activity = '',BateryLevel = '',Signal = '',Caudal = '',Volumen = '' ;
 			let Cuartel = appModel.Cuarteles.find( c => c.Id_unidad == rowU.Id);
-			
 			let CuartelEnInterface2 = appModel.Cuarteles.find( c => ((c.Id_unidad == rowU.Id) && (c.Interface == '1')) );
-
 
 			Ubicacion = Cuartel ? Cuartel.Name : 'Sin cuartel' ;
 			let Interface = Cuartel ? Cuartel.Interface : null;
@@ -783,7 +701,6 @@ class CuartelesPage extends Page
 				Activity = FieldActivity(rowU.UltimaActualizacion);
 				BateryLevel =	FieldBattery(rowU.BatNivel);
 				Signal = FieldSignal(rowU.Senal, rowU.UltimaActualizacion);		
-		
 			}		
 			
 			dataTable.push({Ubicacion: Ubicacion ,Serie: Serie,Estado: Estado,Activity: Activity,BateryLevel: BateryLevel, Signal: Signal,Caudal: Caudal,Volumen: Volumen});
@@ -804,10 +721,7 @@ class CuartelesPage extends Page
 				}		
 				dataTable.push({Ubicacion: Ubicacion ,Serie: Serie,Estado: Estado,Activity: Activity,BateryLevel: BateryLevel, Signal: Signal,Caudal: Caudal,Volumen: Volumen});
 			}
-
-		
 		});
-
 
 		return this.RenderTable( headers, dataTable);
 	}
@@ -816,17 +730,4 @@ class CuartelesPage extends Page
 		return ( Id_UnidadTipo == '1' ||  Id_UnidadTipo == '2' ) ? true : false; // Sirecor7600 or EStanque7600
 	}
 }
-
-class BootstrapAccordeon
-{
-	constructor( ItemsTitles, Id   ) {
-		this.ItemsTitles  = ItemsTitles;
-		this.accordionElement = document.createElement('div');
-		this.accordionElement.className = 'accordion';
-		this.AcordionItems;
-		
-	}
-
-}
-
 

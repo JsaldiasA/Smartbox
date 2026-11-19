@@ -668,7 +668,34 @@ async function GetComandos_Milesight( )
 
 	}
 
+function FieldActivityNocolor( date ) {
 
+	var pastDate = new Date(date);
+	var now = new Date(new Date().toLocaleString('en', {timeZone: 'America/Santiago'}))
+
+	var minutesAgo = Math.floor((now - pastDate) / 60000) ;// 15 min mas que agregea la base de datos a la tabla unidades_lastortolas, se desconoce el porque.
+
+	if( minutesAgo < 60 )
+	{
+		return minutesAgo.toString() + ' min';
+	}
+	else
+	{
+		var hoursAgo = Math.floor((now - pastDate) / 3600000);
+
+		if( hoursAgo < 24 )
+		{
+			return hoursAgo.toString() + ' Horas';
+		}
+		else
+		{
+			var DaysAgo = Math.floor((now - pastDate) / (3600000*24));
+
+			return DaysAgo.toString() + ' Dias';
+		}
+	}	
+   
+}
 
 function FieldActivity( date ) {
 
@@ -918,37 +945,6 @@ function GetLoadingPage(  ) {
 
 }
 
-
-async function pushNotification( text )
-{
-	 if (!('serviceWorker' in navigator) || !('Notification' in window)) {
-    console.error('Service Workers or Notifications are not supported.');
-    return;
-  }
-
-  try {
-    // Register the background script file
-    const registration = await navigator.serviceWorker.register('sw.js');
-    console.log('Service Worker registered successfully:', registration);
-
-    // Step 2: Request user permission
-    const permission = await Notification.requestPermission();
-    if (permission === 'granted') {
-      console.log('Notification permission granted.');
-      
-     registration.showNotification( 'Alerta', {
-		body: text,
-      icon: "https://eco3.cl/wp-content/uploads/2025/07/cropped-ECO3-Empresa-de-tecnologia-y-gestion-de-recursos-%E2%80%A8naturales-en-Chile-32x32.png",
-      } ) ;
-
-    	} else {
-      console.warn('Notification permission denied.');
-    	}
- 	 } catch (error) {
-    console.error('Initialization failed:', error);
-  }
-
-}
 
 function DivLoadingState( HtmlElementId )
 {
@@ -1315,6 +1311,9 @@ function priorityColorText( Id_TicketPriority, text)
   			}
 			else		alert ("La operación se ha cancelado.");
 		}
+
+
+
 
 
 

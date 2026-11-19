@@ -42,7 +42,6 @@ class LoginController {
 
 		 document.getElementById('navbar').innerHTML = "";
 
-
 		 document.getElementById('main').innerHTML = `    
 
 	<div class="container vh-100 d-flex align-items-center justify-content-center">
