@@ -251,7 +251,7 @@ class BootstrapAccordion
 		this.accordionElement.id = Id;
 	}
 
-	CreateAccodionItem( Title, HtmlContent, Id )
+	CreateAccordionItem( Title, HtmlContent, Id )
 	{
 		const accordionItem = document.createElement('div');
 		accordionItem.className = 'accordion-item';
