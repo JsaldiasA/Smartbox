@@ -89,6 +89,26 @@ else // si es caja u511 soleniod valve controller
 		VALUES( ".$UnidadExistente->get_id().", '{$NewESTADO}' ,'{$NewVOLUMEN}','{$NewCAUDAL}','0','{$NewBATNIVEL}','{$FechaActualStr}' , '{$NewESTADO}' ,'{$NewVOLUMEN}','{$NewCAUDAL}');";
 
 		$result = $Model->executeSQL($sql);
+		
+		if( $NewESTADO != $UnidadExistente->Estado )  // evento cambio de estado.
+        {
+          $messageType = $model->MYSQLSelectWHERE('eventmessagetype','Id','1')[0];
+
+          $NewObj = new eventmessageDbEntity();
+
+          $NewObj->Id = '0' ;
+          $NewObj->MessageText = '{  "NewStatus": "'.$NewESTADO.'", "LastStatus": "'.$UnidadExistente->Estado.'"  }';
+          $NewObj->CreationDate = $FechaActualStr;
+          $NewObj->Id_MessageType = '1';
+          $NewObj->Id_unidad		 = $UnidadExistente->Id;
+          $NewObj->checked = '0';
+          $NewObj->EmailSended = '0';
+          $NewObj->DontSend  =  $messageType->SendEmail == "1" ? "0" : "1";  
+          // SET Default values
+          $model->MYSQLInsertInto('eventmessage' ,$NewObj);  
+        }
+
+		
 	}
 }
 
