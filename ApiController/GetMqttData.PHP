@@ -97,7 +97,7 @@ else // si es caja u511 soleniod valve controller
 
           $NewObj = new eventmessageDbEntity();
           $NewObj->Id = '0' ;
-          $NewObj->MessageText = '{ "NewStatus": "'.(($NewESTADO == '1') ? 'ON' : 'OFF').'", "LastStatus": "'.(($UnidadExistente->Estado == '1') ? 'ON' : 'OFF').'"  }';
+          $NewObj->MessageText = '{ "NewStatus": "'.(($NewESTADO == '1') ? 'ON' : 'OFF').'", "LastStatus": "'. $UnidadExistente->Estado .'"  }';
           $NewObj->CreationDate = $FechaActualStr;
           $NewObj->Id_MessageType = '1';
           $NewObj->Id_unidad		 = $UnidadExistente->Id;
