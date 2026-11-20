@@ -12,7 +12,7 @@ class LoginController {
             type: "post",    //request 
 			data:				
 			{     		
-				token: localStorage.getItem('token') ?? "",
+				token: sessionStorage.getItem('token') ?? "",
 			},
 		    statusCode: {
 				200: function() {
@@ -115,8 +115,7 @@ class LoginController {
 
 		    success: function(result){
 				
-				window.localStorage.setItem("token", result);
-				document.cookie = 'token='+result;
+				sessionStorage.setItem("token", result);
 			
 				switch(result) {
 					case "Usuario desconocido":
@@ -132,8 +131,7 @@ class LoginController {
 						console.log('password Incorrecta');
 						break;
 					default:
-						window.localStorage.setItem("token", result);
-						document.cookie = 'token='+result;
+						sessionStorage.setItem("token", result);
 						ThisApp.init();
 						break;
 				}

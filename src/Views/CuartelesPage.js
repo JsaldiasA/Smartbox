@@ -322,13 +322,13 @@ class CuartelesPage extends Page
 					accordionContent += GridSmSControlesBasicos.RenderGrid().innerHTML;	
 				}
 
-				accordion.CreateAccodionItem('Control',accordionContent,'ControlItem'  )
+				accordion.CreateAccordionItem('Control',accordionContent,'ControlItem'  )
 				
 				// accordion REGISTROS DIARIOS
 				
 				accordionContent =   `<button type="button" onclick="ThisApp.CuartelesPage.Controller.GetRegistrosDiariosTable(${unidad["Id"]})" class="btn btn-primary" >Refrescar</button>`;
 				accordionContent += '<div class="overflow-auto"> <div id="RegistrosDiariosTable"></div>  </div>';
-				accordion.CreateAccodionItem('REGISTROS DIARIOS',accordionContent,'RegistrosDiariosItem'  );
+				accordion.CreateAccordionItem('REGISTROS DIARIOS',accordionContent,'RegistrosDiariosItem'  );
 
 				//	accordion Registros de iniciación		
 
@@ -352,7 +352,7 @@ class CuartelesPage extends Page
 				$('#TablaEventos').dataTable();
 				});
 
-				accordion.CreateAccodionItem('REGISTROS INICIACION',accordionContent,'RegistrosIniciacionItem'  );
+				accordion.CreateAccordionItem('REGISTROS INICIACION',accordionContent,'RegistrosIniciacionItem'  );
 
 				//	accordion Item Edición	
 
@@ -368,7 +368,7 @@ class CuartelesPage extends Page
 				GridEdit.rows.push([`<button onclick="FunctionEliminar('${unidad["Id"]}')" class="btn btn-danger">Eliminar</button>`,'']);
 				
 				accordionContent = GridEdit.RenderGrid().innerHTML;
-				accordion.CreateAccodionItem('Edicion',accordionContent,'EdicionItem'  );			
+				accordion.CreateAccordionItem('Edicion',accordionContent,'EdicionItem'  );			
 		
 			    //	accordion Registros de Checklist
 				let table = new DataTable("#TablaChecklist");
@@ -391,7 +391,7 @@ class CuartelesPage extends Page
 				$(document).ready(function(){
 				$('#TablaChecklist').dataTable();
 				});
-				accordion.CreateAccodionItem('Checklist',accordionContent,'ChecklistItem'  );
+				accordion.CreateAccordionItem('Checklist',accordionContent,'ChecklistItem');
 			
 			 //	accordion Item EVENTOS  
 
@@ -414,12 +414,12 @@ class CuartelesPage extends Page
 				$(document).ready(function(){
 				$('#TablaEventosMessage').dataTable();
 				});
-				accordion.CreateAccodionItem('EVENTOS',accordionContent,'EventosItem'  );
+				accordion.CreateAccordionItem('EVENTOS',accordionContent,'EventosItem'  );
 
 				tableHTML += accordion.Render();
 
 				tableHTML += '    </div>      ';  // col
-				tableHTML += '</div>'; //end acordeon row 
+				tableHTML += '</div>'; //end acordeon row
 			}
 			else
 			{
@@ -435,7 +435,7 @@ class CuartelesPage extends Page
 			if( checklist ) {//col foto checlist
 				document.getElementById('checklist_photo').innerHTML = `<img class="img-thumbnail" src="${checklist["URL_foto"]}" "="">`;
 			}	
-
+			const myCollapsible = document.getElementById('collapseControlItem');
 			const RegistrosDiariosCollapsible = document.getElementById('collapseRegistrosDiariosItem');
 			myCollapsible.addEventListener('shown.bs.collapse', function () {
 				ThisApp.CuartelesPage.Controller.GetRegistrosDiariosTable(unidad["Id"]);
