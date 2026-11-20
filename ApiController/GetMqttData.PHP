@@ -72,12 +72,13 @@ else // si es caja u511 soleniod valve controller
 		$DiferenciaTiempo = ($Actual->getTimestamp() - $Anterior->getTimestamp())/60; // diferencia en minutos
 
 		//Valve 1
-		$NewESTADO = (property_exists($obj,'valve_1') && isset($obj->valve_1) ) ? $obj->valve_1 : 'NosSET' ;
+		$noValueEstado = 'Sincronizando';
+		$NewESTADO = (property_exists($obj,'valve_1') && isset($obj->valve_1) ) ? $obj->valve_1 : $noValueEstado ;
 		$NewVOLUMEN = (property_exists($obj,'valve_2_pulse') && isset($obj->valve_2_pulse) ) ? $obj->valve_2_pulse : $UnidadExistente->get_Volumen();
 		$DiferenciaVolumen = (int)$NewVOLUMEN - (int)$UnidadExistente->get_Volumen();
 		$NewCAUDAL = ( $DiferenciaVolumen < 2 ) ? '0' : ($DiferenciaVolumen/$DiferenciaTiempo); // si la diferencia es menor a 2 para no contar caudal de un solo pulso
 		//Valve2
-		$NewESTADO2 = (property_exists($obj,'valve_2') && isset($obj->valve_2) ) ? $obj->valve_2 : 'NosSET' ;
+		$NewESTADO2 = (property_exists($obj,'valve_2') && isset($obj->valve_2) ) ? $obj->valve_2 : $noValueEstado ;
 		$NewVOLUMEN2 = (property_exists($obj,'valve_2_pulse') && isset($obj->valve_2_pulse) ) ? $obj->valve_2_pulse : ( $UnidadExistente->Volumen2 ?? '0');
 		$DiferenciaVolumen2 = (int)$NewVOLUMEN2 - (int)( $UnidadExistente->Volumen2 ?? '0');
 		$NewCAUDAL2 = ( $DiferenciaVolumen < 2 ) ? '0' : ($DiferenciaVolumen/$DiferenciaTiempo); // si la diferencia es menor a 2 para no contar caudal de un solo pulso
@@ -90,14 +91,13 @@ else // si es caja u511 soleniod valve controller
 
 		$result = $Model->executeSQL($sql);
 
-		if( $NewESTADO != $UnidadExistente->Estado )  // evento cambio de estado.
+		if( ($NewESTADO != $noValueEstado) && ( $NewESTADO != $UnidadExistente->Estado ) )  // evento cambio de estado.
         {
           $messageType = $Model->MYSQLSelectWHERE('eventmessagetype','Id','1')[0];
 
           $NewObj = new eventmessageDbEntity();
-
           $NewObj->Id = '0' ;
-          $NewObj->MessageText = '{  "NewStatus": "'.$NewESTADO.'", "LastStatus": "'.$UnidadExistente->Estado.'"  }';
+          $NewObj->MessageText = '{ "NewStatus": "'.(($NewESTADO == '1') ? 'ON' : 'OFF').'", "LastStatus": "'.(($UnidadExistente->Estado == '1') ? 'ON' : 'OFF').'"  }';
           $NewObj->CreationDate = $FechaActualStr;
           $NewObj->Id_MessageType = '1';
           $NewObj->Id_unidad		 = $UnidadExistente->Id;
@@ -107,8 +107,6 @@ else // si es caja u511 soleniod valve controller
           // SET Default values
           $Model->MYSQLInsertInto('eventmessage' ,$NewObj);  
         }
-
-		
 	}
 }
 
