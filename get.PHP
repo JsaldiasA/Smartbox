@@ -113,9 +113,7 @@ if (isset($_GET['name']) )
         {
            $LastRegistro = $model->MYSQLSelectWHERE('unidades_lastortolas','Id',$unidadObj->Id_Last_RegistroDiario )[0];
 
-          if( $unidadObj->Estado == "OFF" && (float)$LastRegistro->CAUDAL > 0 ) // 
-          {
-            // Getting the last VOF event
+          if( $unidadObj->Estado == "OFF" && (float)$LastRegistro->CAUDAL > 0 ) { // Getting the last VOF event
             
             $unidadEM = $model->MYSQLSelectWHERE('eventmessage','Id_unidad',$unidadObj->Id );
             
@@ -139,7 +137,7 @@ if (isset($_GET['name']) )
               } 
             }
             else  {
-                 $NewObj = new eventmessageDbEntity();
+                $NewObj = new eventmessageDbEntity();
              } 
 
               if (isset($NewObj)) {
@@ -156,7 +154,6 @@ if (isset($_GET['name']) )
               $model->MYSQLInsertInto('eventmessage' ,$NewObj);   
             }
           }  
-        
         }   
 
         if( (int)$VOLTAJE < 20 ) //Evento bateria baja

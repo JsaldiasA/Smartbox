@@ -13,6 +13,9 @@ $Model = new model();
 
 $UnidadExistente = $Model->MYSQLSelectWHERE('unidad','tag',$obj->devEUI)[0];
 
+date_default_timezone_set('America/Santiago');
+$FechaActualString = date("Y-m-d H:i:s");
+$FechaActualObj = new Datetime ($FechaActualString);
 
 //Insertando En tabla RowData
 $sql = "INSERT INTO `rowdata`(`RowData`) VALUES ('{$data}');";
@@ -64,12 +67,8 @@ else // si es caja u511 soleniod valve controller
 	}
 	else
 	{
-		date_default_timezone_set('America/Santiago');
-  		$FechaActualStr = date("Y-m-d H:i:s");
-
-		$Actual = new Datetime ($FechaActualStr);
 		$Anterior = new Datetime ($UnidadExistente->get_UltimaActualizacion());
-		$DiferenciaTiempo = ($Actual->getTimestamp() - $Anterior->getTimestamp())/60; // diferencia en minutos
+		$DiferenciaTiempo = ($FechaActualObj->getTimestamp() - $Anterior->getTimestamp())/60; // diferencia en minutos
 
 		//Valve 1
 		$noValueEstado = 'Sincronizando';
@@ -87,7 +86,7 @@ else // si es caja u511 soleniod valve controller
 
 		$sql = "INSERT INTO unidades_lastortolas
 		( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`, ESTADO2, VOLUMEN2, CAUDAL2)
-		VALUES( ".$UnidadExistente->get_id().", '{$NewESTADO}' ,'{$NewVOLUMEN}','{$NewCAUDAL}','0','{$NewBATNIVEL}','{$FechaActualStr}' , '{$NewESTADO}' ,'{$NewVOLUMEN}','{$NewCAUDAL}');";
+		VALUES( ".$UnidadExistente->get_id().", '{$NewESTADO}' ,'{$NewVOLUMEN}','{$NewCAUDAL}','0','{$NewBATNIVEL}','{$FechaActualString}' , '{$NewESTADO}' ,'{$NewVOLUMEN}','{$NewCAUDAL}');";
 
 		$result = $Model->executeSQL($sql);
 
@@ -98,7 +97,7 @@ else // si es caja u511 soleniod valve controller
           $NewObj = new eventmessageDbEntity();
           $NewObj->Id = '0' ;
           $NewObj->MessageText = '{ "NewStatus": "'.(($NewESTADO == '1') ? 'ON' : 'OFF').'", "LastStatus": "'. $UnidadExistente->Estado .'"  }';
-          $NewObj->CreationDate = $FechaActualStr;
+          $NewObj->CreationDate = $FechaActualString;
           $NewObj->Id_MessageType = '1';
           $NewObj->Id_unidad		 = $UnidadExistente->Id;
           $NewObj->checked = '0';
@@ -107,6 +106,44 @@ else // si es caja u511 soleniod valve controller
           // SET Default values
           $Model->MYSQLInsertInto('eventmessage' ,$NewObj);  
         }
+
+		if( $NewCAUDAL && $NewESTADO == "1" && (float)$NewCAUDAL > 0 ) { // Alerta VOF, caudal con valvula off
+		
+			$unidadEM = $Model->MYSQLSelectWHERE('eventmessage','Id_unidad',$UnidadExistente->Id );
+			
+			$lastVOFmessage = null;
+			$VOFmessageTypeId = '2';
+			$VOFmessageType = $Model->MYSQLSelectWHERE('eventmessagetype','Id',$VOFmessageTypeId)[0];
+			foreach($unidadEM as $Message) { 
+				if($Message->Id_MessageType == $VOFmessageTypeId ) $lastVOFmessage = $Message;     
+				break;
+			}
+			if($lastVOFmessage)
+			{
+				$FechaLastVOFMessage= date_create($lastVOFmessage->CreationDate);
+				$DateDiff= date_diff($FechaActualObj,$FechaLastVOFMessage);
+		
+				if ($DateDiff->format("%i") > 30) {
+					$NewObj = new eventmessageDbEntity();
+				} 
+			}
+			else  {
+				$NewObj = new eventmessageDbEntity();
+			} 
+			if (isset($NewObj)) {
+			$NewObj->Id = '0' ;
+			$NewObj->MessageText = '{  "Caudal": "'.$NewCAUDAL.'", "Valvula": "OFF" }';
+			$NewObj->CreationDate = $FechaActualString;
+			$NewObj->Id_MessageType = '2';
+			$NewObj->Id_unidad		 = $UnidadExistente->Id;
+			$NewObj->checked = '0';
+			$NewObj->EmailSended = '0';
+			$NewObj->DontSend  =  $VOFmessageType->SendEmail == "1" ? "0" : "1";  
+		
+			$Model->MYSQLInsertInto('eventmessage' ,$NewObj);   
+			}
+		}
+		 
 	}
 }
 
