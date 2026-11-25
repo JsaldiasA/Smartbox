@@ -158,7 +158,7 @@ else // si es caja u511 soleniod valve controller
 			}
 		}
 		// Alerta de volumen Maximo alcanzado (VMax)
-		if( $NewVOLUMEN && $NewESTADO == "1" && (int)$NewVOLUMEN > (int)$UnidadExistente->VolMax ) //Alerta Volumen Maximo
+		if( $NewVOLUMEN && $NewESTADO == "1" && ( $UnidadExistente->VolMax != null || $UnidadExistente->VolMax != '' ) && (int)$NewVOLUMEN > (int)$UnidadExistente->VolMax ) //Alerta Volumen Maximo
 		{
 			$unidadEM = $Model->MYSQLSelectWHERE('eventmessage','Id_unidad',$UnidadExistente->Id );
 			$lastVMAXmessage = null;
