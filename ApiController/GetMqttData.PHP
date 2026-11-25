@@ -157,9 +157,41 @@ else // si es caja u511 soleniod valve controller
 				$Model->MYSQLInsertInto('eventmessage' ,$NewObj);   
 			}
 		}
+		// Alerta de volumen Maximo alcanzado (VMax)
+		if( $NewVOLUMEN && $NewESTADO == "1" && (int)$NewVOLUMEN > (int)$UnidadExistente->VolMax ) //Alerta Volumen Maximo
+		{
+			$unidadEM = $Model->MYSQLSelectWHERE('eventmessage','Id_unidad',$UnidadExistente->Id );
+			$lastVMAXmessage = null;
+			$VMAXmessageTypeId = '8'; // VMAX type, ver BD
+			$VMAXmessageType = $Model->MYSQLSelectWHERE('eventmessagetype','Id',$VMAXmessageTypeId)[0];
+			foreach($unidadEM as $Message) { 
+				if($Message->Id_MessageType == $VMAXmessageTypeId ) $lastVMAXmessage = $Message;     
+				break;
+			}
+			if($lastVMAXmessage)
+			{
+				$FechaLastVMAXMessage= date_create($lastVMAXmessage->CreationDate);
+				$DateDiff= date_diff($FechaActualObj,$FechaLastVMAXMessage);
 		
-		//if( $NewVOLUMEN && $NewESTADO == "1" && (int)$NewVOLUMEN > (int)$UnidadExistente->VolMax ) //Alerta Volumen Maximo
-		
+				if ($DateDiff->format("%i") > 10) { // crear mensaje, si no existe otro mensaje hace 10 minutos.
+					$NewObj = new eventmessageDbEntity();
+				} 
+			}
+			else  {
+				$NewObj = new eventmessageDbEntity();
+			} 
+			if (isset($NewObj)) {
+				$NewObj->Id = '0' ;
+				$NewObj->MessageText = '{  "VolumenActual": "'.$NewVOLUMEN.'", "Volumen Maximo": "'.$UnidadExistente->VolMax.'" }';
+				$NewObj->CreationDate = $FechaActualString;
+				$NewObj->Id_MessageType = $VMAXmessageTypeId;
+				$NewObj->Id_unidad		 = $UnidadExistente->Id;
+				$NewObj->checked = '0';
+				$NewObj->EmailSended = '0';
+				$NewObj->DontSend  =  $VMAXmessageType->SendEmail == "1" ? "0" : "1";  
+				$Model->MYSQLInsertInto('eventmessage' ,$NewObj);   
+			}
+		}
 	}
 }
 
