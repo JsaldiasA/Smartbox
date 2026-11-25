@@ -99,7 +99,7 @@ else // si es caja u511 soleniod valve controller
 		$NewCAUDAL2 = ( $DiferenciaVolumen < 2 ) ? '0' : ($DiferenciaVolumen/$DiferenciaTiempo); // si la diferencia es menor a 2 para no contar caudal de un solo pulso
 		
 		//Calculando Volumen En litros
-		$NewVOLUMENEnLitros = ($UnidadExistente->FactorFlujometro =! null) ?  (( $UnidadExistente->FactorFlujometro * $NewVOLUMEN )/60) : null;
+		$NewVOLUMENEnLitros = ($UnidadExistente->FactorFlujometro =! null) ?  (( (float)$UnidadExistente->FactorFlujometro * (int)$NewVOLUMEN )/60) : null;
 
 		//Insertando la informacion tomada del Json en la base de datos
 		$sql = "INSERT INTO unidades_lastortolas
@@ -161,7 +161,7 @@ else // si es caja u511 soleniod valve controller
 			}
 		}
 		// Alerta de volumen Maximo alcanzado (VMax)
-		if( $NewVOLUMENEnLitros && $NewESTADO == "1" && ( $UnidadExistente->VolMax != null || $UnidadExistente->VolMax != '' ) && (int)$NewVOLUMENEnLitros > (int)$UnidadExistente->VolMax ) //Alerta Volumen Maximo
+		if( $NewVOLUMENEnLitros && $NewESTADO == "1" && ( $UnidadExistente->VolMax != null || $UnidadExistente->VolMax != '' ) && ( (int)$NewVOLUMENEnLitros > (int)$UnidadExistente->VolMax ) ) //Alerta Volumen Maximo
 		{	
 			$unidadEM = $Model->MYSQLSelectWHERE('eventmessage','Id_unidad',$UnidadExistente->Id );
 			$lastVMAXmessage = null;
