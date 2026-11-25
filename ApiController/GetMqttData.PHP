@@ -123,7 +123,7 @@ else // si es caja u511 soleniod valve controller
         }
 
 		// Caudal con valvula off (VOF)
-		if( $NewCAUDAL && $NewESTADO == "1" && (float)$NewCAUDAL > 0 ) { // Alerta (VOF), caudal con valvula off
+		if( $NewCAUDAL && $NewESTADO == "0" && (float)$NewCAUDAL > 0 ) { // Alerta (VOF), caudal con valvula off
 		
 			$unidadEM = $Model->MYSQLSelectWHERE('eventmessage','Id_unidad',$UnidadExistente->Id );
 			$lastVOFmessage = null;
