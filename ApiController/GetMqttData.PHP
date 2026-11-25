@@ -99,7 +99,7 @@ else // si es caja u511 soleniod valve controller
 		$NewCAUDAL2 = ( $DiferenciaVolumen < 2 ) ? '0' : ($DiferenciaVolumen/$DiferenciaTiempo); // si la diferencia es menor a 2 para no contar caudal de un solo pulso
 		
 		//Calculando Volumen En litros
-		$NewVOLUMENEnLitros = ($UnidadExistente->FactorFlujometro =! null) ?  ( (float)$UnidadExistente->FactorFlujometro * (int)$NewVOLUMEN ) : null;
+		$NewVOLUMENEnLitros = ($UnidadExistente->FactorFlujometro =! null) ?   ($UnidadExistente->FactorFlujometro * $NewVOLUMEN ) : null;
 
 		//Insertando la informacion tomada del Json en la base de datos
 		$sql = "INSERT INTO unidades_lastortolas
