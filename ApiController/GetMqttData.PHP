@@ -67,33 +67,49 @@ else // si es caja u511 soleniod valve controller
 	}
 	else
 	{
+		// calculando la diferencia de tiempo con el ultimo registro.
 		$Anterior = new Datetime ($UnidadExistente->get_UltimaActualizacion());
 		$DiferenciaTiempo = ($FechaActualObj->getTimestamp() - $Anterior->getTimestamp())/60; // diferencia en minutos
-
-		//Valve 1
-		$noValueEstado = 'Sincronizando';
-		$NewESTADO = (property_exists($obj,'valve_1') && isset($obj->valve_1) ) ? $obj->valve_1 : $noValueEstado ;
-		$NewVOLUMEN = (property_exists($obj,'valve_2_pulse') && isset($obj->valve_2_pulse) ) ? $obj->valve_2_pulse : $UnidadExistente->get_Volumen();
+		
+		//Verificar si la unidad esta sincronizando
+		$IsSincronizando; // si el mensaje json proveniente de la unidad milesight no envia informacion de V1 o V2, la caja se considera sincronizando
+		if(( property_exists($obj,'valve_1') && isset($obj->valve_1) ) || ( property_exists($obj,'valve_1') && isset($obj->valve_1) )  ) 
+		{
+			$IsSincronizando = '0';
+		} else {
+			$IsSincronizando = '1';
+		}	
+		//Tomando datos desde el Json
+		//Nivel de bateria
+		$NewBATNIVEL =  (property_exists($obj,'battery') && isset($obj->battery) ) ? $obj->battery : ($UnidadExistente->BatNivel ?? '0');
+		//Valve1
+		$NewESTADO = (property_exists($obj,'valve_1') && isset($obj->valve_1) ) ? $obj->valve_1 : $UnidadExistente->Estado ;
+		$NewVOLUMEN = (property_exists($obj,'valve_2_pulse') && isset($obj->valve_2_pulse) ) ? $obj->valve_2_pulse :  ( $UnidadExistente->Volumen ?? '0'); // TODO: utilizando V2 para volumen, falta hacer el cambio
+		//Valve2
+		$NewESTADO2 = (property_exists($obj,'valve_2') && isset($obj->valve_2) ) ? $obj->valve_2 : $UnidadExistente->Estado2 ;
+		$NewVOLUMEN2 = (property_exists($obj,'valve_2_pulse') && isset($obj->valve_2_pulse) ) ? $obj->valve_2_pulse : ( $UnidadExistente->Volumen2 ?? '0');
+	
+		
+		// calculando el caudal, basandose en la diferencia de volumen divido por diferencia de tiempo con el ultimo registro
+		//Valve1
 		$DiferenciaVolumen = (int)$NewVOLUMEN - (int)$UnidadExistente->get_Volumen();
 		$NewCAUDAL = ( $DiferenciaVolumen < 2 ) ? '0' : ($DiferenciaVolumen/$DiferenciaTiempo); // si la diferencia es menor a 2 para no contar caudal de un solo pulso
 		//Valve2
-		$NewESTADO2 = (property_exists($obj,'valve_2') && isset($obj->valve_2) ) ? $obj->valve_2 : $noValueEstado ;
-		$NewVOLUMEN2 = (property_exists($obj,'valve_2_pulse') && isset($obj->valve_2_pulse) ) ? $obj->valve_2_pulse : ( $UnidadExistente->Volumen2 ?? '0');
 		$DiferenciaVolumen2 = (int)$NewVOLUMEN2 - (int)( $UnidadExistente->Volumen2 ?? '0');
 		$NewCAUDAL2 = ( $DiferenciaVolumen < 2 ) ? '0' : ($DiferenciaVolumen/$DiferenciaTiempo); // si la diferencia es menor a 2 para no contar caudal de un solo pulso
 
-		$NewBATNIVEL =  (property_exists($obj,'battery') && isset($obj->battery) ) ? $obj->battery : ($UnidadExistente->BatNivel ?? '0');
-
+		//Insertando la informacion tomada del Json en la base de datos
 		$sql = "INSERT INTO unidades_lastortolas
-		( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`, ESTADO2, VOLUMEN2, CAUDAL2)
-		VALUES( ".$UnidadExistente->get_id().", '{$NewESTADO}' ,'{$NewVOLUMEN}','{$NewCAUDAL}','0','{$NewBATNIVEL}','{$FechaActualString}' , '{$NewESTADO}' ,'{$NewVOLUMEN}','{$NewCAUDAL}');";
+		( unidad_id, ESTADO, VOLUMEN, CAUDAL, SENAL, VOLTAJE, `DATETIME`, ESTADO2, VOLUMEN2, CAUDAL2, SINCRONIZANDO)
+		VALUES( ".$UnidadExistente->get_id().", '{$NewESTADO}' ,'{$NewVOLUMEN}','{$NewCAUDAL}','0','{$NewBATNIVEL}','{$FechaActualString}' , '{$NewESTADO}' ,'{$NewVOLUMEN}','{$NewCAUDAL}','{$IsSincronizando}');";
 
 		$result = $Model->executeSQL($sql);
-
-		if( ($NewESTADO != $noValueEstado) && ( $NewESTADO != $UnidadExistente->Estado ) )  // evento cambio de estado.
+		
+		// EVENTOS
+		// Cambio de estado (SCE)
+		if(   $NewESTADO != $UnidadExistente->Estado )  // evento cambio de estado (SCE).
         {
           $messageType = $Model->MYSQLSelectWHERE('eventmessagetype','Id','1')[0];
-
           $NewObj = new eventmessageDbEntity();
           $NewObj->Id = '0' ;
           $NewObj->MessageText = '{ "NewStatus": "'.(($NewESTADO == '1') ? 'ON' : 'OFF').'", "LastStatus": "'. $UnidadExistente->Estado .'"  }';
@@ -103,14 +119,13 @@ else // si es caja u511 soleniod valve controller
           $NewObj->checked = '0';
           $NewObj->EmailSended = '0';
           $NewObj->DontSend  =  $messageType->SendEmail == "1" ? "0" : "1";  
-          // SET Default values
           $Model->MYSQLInsertInto('eventmessage' ,$NewObj);  
         }
 
-		if( $NewCAUDAL && $NewESTADO == "1" && (float)$NewCAUDAL > 0 ) { // Alerta VOF, caudal con valvula off
+		// Caudal con valvula off (VOF)
+		if( $NewCAUDAL && $NewESTADO == "1" && (float)$NewCAUDAL > 0 ) { // Alerta (VOF), caudal con valvula off
 		
 			$unidadEM = $Model->MYSQLSelectWHERE('eventmessage','Id_unidad',$UnidadExistente->Id );
-			
 			$lastVOFmessage = null;
 			$VOFmessageTypeId = '2';
 			$VOFmessageType = $Model->MYSQLSelectWHERE('eventmessagetype','Id',$VOFmessageTypeId)[0];
@@ -123,7 +138,7 @@ else // si es caja u511 soleniod valve controller
 				$FechaLastVOFMessage= date_create($lastVOFmessage->CreationDate);
 				$DateDiff= date_diff($FechaActualObj,$FechaLastVOFMessage);
 		
-				if ($DateDiff->format("%i") > 30) {
+				if ($DateDiff->format("%i") > 30) { // crear mensaje, si no existe otro mensaje hace 30 minutos.
 					$NewObj = new eventmessageDbEntity();
 				} 
 			}
@@ -131,19 +146,20 @@ else // si es caja u511 soleniod valve controller
 				$NewObj = new eventmessageDbEntity();
 			} 
 			if (isset($NewObj)) {
-			$NewObj->Id = '0' ;
-			$NewObj->MessageText = '{  "Caudal": "'.$NewCAUDAL.'", "Valvula": "OFF" }';
-			$NewObj->CreationDate = $FechaActualString;
-			$NewObj->Id_MessageType = '2';
-			$NewObj->Id_unidad		 = $UnidadExistente->Id;
-			$NewObj->checked = '0';
-			$NewObj->EmailSended = '0';
-			$NewObj->DontSend  =  $VOFmessageType->SendEmail == "1" ? "0" : "1";  
-		
-			$Model->MYSQLInsertInto('eventmessage' ,$NewObj);   
+				$NewObj->Id = '0' ;
+				$NewObj->MessageText = '{  "Caudal": "'.$NewCAUDAL.'", "Valvula": "OFF" }';
+				$NewObj->CreationDate = $FechaActualString;
+				$NewObj->Id_MessageType = '2';
+				$NewObj->Id_unidad		 = $UnidadExistente->Id;
+				$NewObj->checked = '0';
+				$NewObj->EmailSended = '0';
+				$NewObj->DontSend  =  $VOFmessageType->SendEmail == "1" ? "0" : "1";  
+				$Model->MYSQLInsertInto('eventmessage' ,$NewObj);   
 			}
 		}
-		 
+		
+		//if( $NewVOLUMEN && $NewESTADO == "1" && (int)$NewVOLUMEN > (int)$UnidadExistente->VolMax ) //Alerta Volumen Maximo
+		
 	}
 }
 

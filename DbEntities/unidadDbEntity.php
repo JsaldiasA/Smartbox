@@ -25,6 +25,7 @@ public $Caudal;
 public $Estado2;
 public $Volumen2;
 public $Caudal2;
+public $Sincronizando;
 	    
 
   function get_id() { return $this->Id; }

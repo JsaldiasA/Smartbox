@@ -12,6 +12,7 @@ class unidades_lastortolasDbEntity {
   public $ESTADO2;
   public $VOLUMEN2;
   public $CAUDAL2;
+  public $SINCRONIZANDO;
 	  	
   function get_CAUDALforHtmlTable() { 
     switch ($this->CAUDAL) {
