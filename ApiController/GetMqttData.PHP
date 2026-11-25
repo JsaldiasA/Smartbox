@@ -185,7 +185,7 @@ else // si es caja u511 soleniod valve controller
 			} 
 			if (isset($NewObj)) {
 				$NewObj->Id = '0' ;
-				$NewObj->MessageText = '{  "VolumenActual": "'.$NewVOLUMEN.'", "Volumen Maximo": "'.$UnidadExistente->VolMax.'" }';
+				$NewObj->MessageText = '{  "VolumenActual": "'.$NewVOLUMENEnLitros.'", "Volumen Maximo": "'.$UnidadExistente->VolMax.'" }';
 				$NewObj->CreationDate = $FechaActualString;
 				$NewObj->Id_MessageType = $VMAXmessageTypeId;
 				$NewObj->Id_unidad		 = $UnidadExistente->Id;
