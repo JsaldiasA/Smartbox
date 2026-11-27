@@ -11,7 +11,7 @@ class CuartelesPage extends Page
 
 		this.Titulo = 'Unidades';
 
-		this.FilterOptions = [ 'all','sirecor','milesight', 'Area externa','indefinidas','sin cuartel'];
+		this.FilterOptions = ['All','Estado ON','Sirecor','Milesight','Area Externa','Indefinidas','Sin Cuartel'];
 
 		this.SelectFiltro = document.createElement('select');
 		this.SelectFiltro.className = 'form-select';
@@ -83,7 +83,7 @@ class CuartelesPage extends Page
 
 		switch ( filtroValue ) {
 
-		case 'all':
+		case 'All':
 
 			appModel.Zonas.toReversed().forEach(rowZona => {
 				
@@ -99,8 +99,14 @@ class CuartelesPage extends Page
 			}); 
 
 			break;
+		
+		case 'Estado ON':
 
-		case 'sirecor':
+			unidadesDataTable = this.GetUnidadesDataTableByEstado('ON');
+			containerDiv.appendChild( this.RenderRowContainer( 'Estado ON',  this.RenderCuartelesTable( unidadesDataTable) ) );
+			break;
+
+		case 'Sirecor':
 			
 			unidadesDataTable = this.GetUnidadesDataTableById_unidadTipo('1');
 			containerDiv.appendChild( this.RenderRowContainer( 'Estanques',  this.RenderCuartelesTable( unidadesDataTable) ) );
@@ -109,7 +115,7 @@ class CuartelesPage extends Page
 			containerDiv.appendChild( this.RenderRowContainer( 'Sirecor',  this.RenderCuartelesTable( unidadesDataTable) ) );
 			break;
 
-		case 'milesight':
+		case 'Milesight':
 
 			unidadesDataTable = this.GetUnidadesDataTableById_unidadTipo('3');
 			containerDiv.appendChild( this.RenderRowContainer( 'Milesight',  this.RenderCuartelesTable( unidadesDataTable) ) );
@@ -118,22 +124,22 @@ class CuartelesPage extends Page
 			containerDiv.appendChild( this.RenderRowContainer( 'Milesight Energizada',  this.RenderCuartelesTable( unidadesDataTable) ) );
 			break;
 		
-		case 'Area externa':
+		case 'Area Externa':
 
 			unidadesDataTable = this.GetUnidadesDataTableAreaExterna();
-			containerDiv.appendChild( this.RenderRowContainer( 'AreaExterna',  this.RenderCuartelesTable( unidadesDataTable) ) );
+			containerDiv.appendChild( this.RenderRowContainer( 'Area Externa',  this.RenderCuartelesTable( unidadesDataTable) ) );
 			break;
 		
-		case 'indefinidas':
+		case 'Indefinidas':
 
 			unidadesDataTable = this.GetUnidadesDataTableIndefinidas();
-			containerDiv.appendChild( this.RenderRowContainer( 'indefinidas',  this.RenderCuartelesTable( unidadesDataTable) ) );
+			containerDiv.appendChild( this.RenderRowContainer( 'Indefinidas',  this.RenderCuartelesTable( unidadesDataTable) ) );
 			break;
 
-		case 'sin cuartel':
+		case 'Sin Cuartel':
 
 			unidadesDataTable = this.GetUnidadesDataTableSinCuartel();
-			containerDiv.appendChild( this.RenderRowContainer( 'Sin cuartel',  this.RenderCuartelesTable( unidadesDataTable) ) );
+			containerDiv.appendChild( this.RenderRowContainer( 'Sin Cuartel',  this.RenderCuartelesTable( unidadesDataTable) ) );
 			break;
 		
 		default:
@@ -595,7 +601,7 @@ class CuartelesPage extends Page
 		});
 	}
 
-	GetUnidadesDataTableById_unidadTipo( unidadTipo  )
+	GetUnidadesDataTableById_unidadTipo( unidadTipo )
 	{		
 		// no considera cuarteles de area externa.
 		let UnidadesFiltradas = [];
@@ -606,10 +612,24 @@ class CuartelesPage extends Page
 				{   
 					let unidad = appModel.Unidades.find( u => u.Id == row["Id_unidad"]);
 		
-					if( unidad && unidad["id_unidadTipo"] == unidadTipo  ) {
+					if( unidad && unidad["id_unidadTipo"] == unidadTipo ) {
 						UnidadesFiltradas.push( unidad );
 					}
 				}	
+			});
+			
+		return UnidadesFiltradas;
+	}
+
+	GetUnidadesDataTableByEstado( )
+	{		
+		let UnidadesFiltradas = [];
+
+			appModel.Unidades.forEach(Unidad => {
+				
+				if( Unidad.Estado == '' || Unidad.Estado == 'ON' || Unidad.Estado == '1' ) {
+					UnidadesFiltradas.push( Unidad );
+				}
 			});
 			
 		return UnidadesFiltradas;
@@ -631,8 +651,7 @@ class CuartelesPage extends Page
 		return UnidadesFiltradas;
 	}
 
-
-	GetUnidadesDataTableIndefinidas( unidadTipo  )
+	GetUnidadesDataTableIndefinidas( unidadTipo )
 	{		
 		let UnidadesFiltradas = [];
 
@@ -646,7 +665,7 @@ class CuartelesPage extends Page
 		return UnidadesFiltradas;
 	}
 
-	GetUnidadesDataTableSinCuartel( unidadTipo  )
+	GetUnidadesDataTableSinCuartel( unidadTipo )
 	{		
 		let UnidadesFiltradas = [];
 
@@ -660,7 +679,7 @@ class CuartelesPage extends Page
 		return UnidadesFiltradas;
 	}
 
-	RenderCuartelesTable(  UnidadesFiltradas )
+	RenderCuartelesTable( UnidadesFiltradas )
 	{
 		UnidadesFiltradas.sort((a, b) => Date.parse(b["UltimaActualizacion"]) - Date.parse(a["UltimaActualizacion"]) ); 
 		UnidadesFiltradas.sort((a, b) => b["Estado"].localeCompare(a["Estado"]));
