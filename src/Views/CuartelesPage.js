@@ -65,7 +65,7 @@ class CuartelesPage extends Page
 		let headers = [ 'Ultimo registro' , ' '];
 		let DataTable = [];
 
-		DataTable.push( { Item: "Estado",  Value: FieldEstado(UltimoRegistro['ESTADO']) } );
+		DataTable.push( { Item: "Estado",  Value: FieldEstado( thisUnidad) } );
 		DataTable.push( { Item: "Caudal",  Value: UltimoRegistro['CAUDAL']} );
 		DataTable.push( { Item: "Senal",  Value: UltimoRegistro['SENAL']} );
 		DataTable.push( { Item: "Volumen",  Value: UltimoRegistro['VOLUMEN']} );
@@ -85,7 +85,7 @@ class CuartelesPage extends Page
 
 		case 'all':
 
-			appModel.Zonas.forEach(rowZona => {
+			appModel.Zonas.toReversed().forEach(rowZona => {
 				
 				unidadesDataTable = [];			 
 				appModel.Cuarteles.forEach(row => {
@@ -143,11 +143,10 @@ class CuartelesPage extends Page
 
 	async refreshMainTable( containerDiv )
 	{	
-		let lastUltimosRigistros = appModel.UltimosRegistros; 
 		let lastUnidades = appModel.Unidades;
-		await Promise.all([appModel.RefreshUltimosRegistros(),appModel.RefreshUnidades()]);
+		await Promise.all([appModel.RefreshUnidades()]);
 
-		if( lastUnidades != appModel.Unidades && lastUltimosRigistros != appModel.UltimosRegistros ){
+		if( lastUnidades != appModel.Unidades  ){
 			await this.GetMainTable( containerDiv );
 		}	
 	}
@@ -228,12 +227,19 @@ class CuartelesPage extends Page
 				{	
 					const GridConfiguracion = new BootstrapGrid();
 					GridConfiguracion.headers = ['Configuracion',''];
+					GridConfiguracion.rows.push(['Volumen Maximo', ( unidad.VolMax + '[L]' )?? 'Sin registrar']);
 					GridConfiguracion.rows.push(['VerCodigo',lastEvento["VerCodigo"]]);
 					GridConfiguracion.rows.push(['INTERNET',`cada ${ Number(lastEvento["INTERNET"])*4/60} minutos `]);
 					GridConfiguracion.rows.push(['VerCodigo',lastEvento["TipoBat"]]);
 					GridConfiguracion.rows.push(['TipoBat',lastEvento["VerCodigo"]]);
 					GridConfiguracion.rows.push(['Bateria',`${ unidad["Id_bateriaTipo"] ? appModel.BateriaTipos.find(bt => bt.Id == unidad.Id_bateriaTipo).Name : 'No registrada' }`]);
 					GridConfiguracion.rows.push(['Fecha de bateria',`${ unidad["BateriaDate"] ?? 'No registrada'  }`]);
+					tableHTML += GridConfiguracion.RenderGrid().innerHTML;
+				}
+				else {
+					const GridConfiguracion = new BootstrapGrid();
+					GridConfiguracion.headers = ['Configuracion',''];
+					GridConfiguracion.rows.push(['Volumen Maximo',(unidad.VolMax + '[L]' ) ?? 'Sin registrar']);
 					tableHTML += GridConfiguracion.RenderGrid().innerHTML;
 				}	
 
@@ -246,7 +252,7 @@ class CuartelesPage extends Page
 				let accordion = new BootstrapAccordion( 'AccordionUnidad');
 				// Acordion Item Control
 				let accordionContent = '';
-				if( !this.IsSirecor(unidad["id_unidadTipo"]) )
+				if( !this.IsSirecor(unidad["id_unidadTipo"]) && cuartel )
 				{	
 					const GridControl = new BootstrapGrid();
 					GridControl.headers = [`Control ${ cuartel.Interface != null ? 'Interface '+ cuartel.Interface  : ''}`,'',''];
@@ -269,17 +275,17 @@ class CuartelesPage extends Page
 
 						case null:
 							ComandosMilesightDefault = appModel.Comandos_Milesight.filter(C => C.Default == 1 || C.Default == null);
-						break;
+							break;
 
 						case "0":
 							ComandosMilesightDefault = appModel.Comandos_Milesight.filter(C => C.Interface == 0 || C.Interface == null);
-						break;
+							break;
 
 						case "1":
 							AbirBtn.setAttribute( "onclick", `FunctionComandosMilesight('Abrir V1','${unidad["tag"]}')`) ;
 							CerrarBtn.setAttribute( "onclick", `FunctionComandosMilesight('Cerrar V1','${unidad["tag"]}')`);
 							ComandosMilesightDefault = appModel.Comandos_Milesight.filter(C => C.Interface == 1 || C.Interface == null);
-						break; 	
+							break; 	
 					}
 
 					GridControl.rows.push([AbirBtn.outerHTML,'',CerrarBtn.outerHTML]);
@@ -435,7 +441,7 @@ class CuartelesPage extends Page
 			if( checklist ) {//col foto checlist
 				document.getElementById('checklist_photo').innerHTML = `<img class="img-thumbnail" src="${checklist["URL_foto"]}" "="">`;
 			}	
-			const myCollapsible = document.getElementById('collapseControlItem');
+			const myCollapsible = document.getElementById('collapseRegistrosDiariosItem');
 			const RegistrosDiariosCollapsible = document.getElementById('collapseRegistrosDiariosItem');
 			myCollapsible.addEventListener('shown.bs.collapse', function () {
 				ThisApp.CuartelesPage.Controller.GetRegistrosDiariosTable(unidad["Id"]);
@@ -688,12 +694,12 @@ class CuartelesPage extends Page
 
 					case null:
 					case undefined:
-						Estado = FieldEstado(rowU.Estado);
+						Estado = FieldEstado(rowU);
 						Caudal = FieldCaudal(rowU);
 						Volumen = FieldVolumen(rowU);	
 						break;
 					case '0':
-						Estado = FieldEstado(rowU.Estado) + '(1)';
+						Estado = FieldEstado(rowU) + '(1)';
 						Caudal = FieldCaudal(rowU);
 						Volumen = FieldVolumen(rowU);	
 					break;
@@ -712,7 +718,7 @@ class CuartelesPage extends Page
 
 				if(rowU.Id_Last_RegistroDiario)
 				{	
-					Estado = FieldEstado(rowU.Estado2) + '(2)';
+					Estado = FieldEstado2(rowU) + '(2)';
 					Caudal = FieldCaudal(rowU);
 					Volumen = FieldVolumen(rowU);				
 					Activity = FieldActivity(rowU.UltimaActualizacion);

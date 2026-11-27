@@ -22,6 +22,7 @@ class AppSmartbox
   async init()
   {
     this.navbar();
+     this.InitFooter();
     await this.GenerateEventCenterNavbar();
     this.GenerateEventCenterNavbar_IntervalId = setInterval(this.GenerateEventCenterNavbar, 10000);
     await this.LoginController.checkToken();
@@ -29,6 +30,38 @@ class AppSmartbox
     this.CuartelesPage.GetMain();
 
   }
+
+  InitFooter(){
+    let footer = document.getElementById('footer');
+    footer.className = "fixed-bottom bg-white text-dark p-1";
+    
+    setInterval(this.GetMqttBridgeApp, 5000);
+
+  }
+
+  async GetMqttBridgeApp(){
+    
+    appModel.RefreshExternalApps_monitor();
+    let footer = document.getElementById('footer');
+    let MqttBridgeApp = appModel.ExternalApps_monitor.find( App => App.Id == 2 );
+
+    let now = new Date(new Date().toLocaleString('en', {timeZone: 'America/Santiago'}))
+    let LastUpdateInMinutes =   Math.floor((now -  new Date( MqttBridgeApp.LastUpdate )) / 60000);
+
+    if( LastUpdateInMinutes > 2  )
+    {
+      footer.className = "fixed-bottom bg-danger text-white p-1";
+      footer.innerHTML= `Bridge DESCONECTADO <i class="bi bi-exclamation-triangle-fill text-warning fs-5"></i>`;
+    }
+    else
+    {
+      footer.className = "fixed-bottom bg-light p-1 ";
+      footer.innerHTML= `Bridge Online <i class="bi bi-check-circle-fill text-success fs-5"></i>`;
+    }  
+
+  }
+
+
 
   async   GenerateEventCenterNavbar()
   {
@@ -49,9 +82,10 @@ class AppSmartbox
 
             if(!SendedToast)
             {
+              let eventMessageType =  appModel.eventMessageType.find( emt => emt.Id == e.Id_MessageType ); 
               let  Cuartel = appModel.Cuarteles.find( c => c.Id_unidad == e.Id_unidad ); 
               let  Unidad = appModel.Unidades.find( u => u.Id == e.Id_unidad );
-              const ToastTitle = "Alerta en " + ( Cuartel ? Cuartel.Name : (Unidad ? Unidad.tag : e.Id_unidad ) )  ;
+              const ToastTitle = `Alerta ${eventMessageType.Name} en ` + ( Cuartel ? Cuartel.Name : (Unidad ? Unidad.tag : e.Id_unidad ) )  ;
 
               ThisApp.showToast( ToastTitle  , e.MessageText, e.CreationDate  )  ;
               SendedToasts.push({ Id_eventMessage: e.Id })

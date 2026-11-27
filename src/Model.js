@@ -6,25 +6,31 @@ class Model
 
   async init()
   {
-     let [ Zonas, Cuarteles, eventMessage,UltimosRegistros, Unidades,ChecklistsNew,eventMessagesTypes,Tickets,TicketStatus,RfvTickets,RfvTicketStatus,UnidadTipo,TicketPriorities,ChecklistMotivos,BateriaTipos,Comandos_Milesight] = await Promise.all([GetZonas(),GetCuarteles(),GetEventMessages(),GetUltimosRegistros(),GetUnidades(), GetChecklistsNew(), GetEventMessagesType(),GetTicket(),GetTicketStatus(),GetRfvTicket(),GetRfvTicketStatus(),GetUnidaTipo(), GetTicketPriority(),GetChecklistMotivos(),GetBateriaTipos(),GetComandos_Milesight()]);
+     let [ Zonas, Cuarteles, eventMessage,UltimosRegistros, Unidades,ChecklistsNew,eventMessagesTypes,Tickets,TicketStatus,RfvTickets,RfvTicketStatus,UnidadTipo,TicketPriorities,ChecklistMotivos,BateriaTipos,Comandos_Milesight,ExternalApps_monitor] = await Promise.all([GetZonas(),GetCuarteles(),GetEventMessages(),GetUltimosRegistros(),GetUnidades(), GetChecklistsNew(), GetEventMessagesType(),GetTicket(),GetTicketStatus(),GetRfvTicket(),GetRfvTicketStatus(),GetUnidaTipo(), GetTicketPriority(),GetChecklistMotivos(),GetBateriaTipos(),GetComandos_Milesight(),GetExternalApps_monitor()]);
 
 	 this.Zonas = Zonas;		
 	 this.Cuarteles = Cuarteles;
 	 this.eventMessage		= eventMessage;
 	 this.UltimosRegistros = UltimosRegistros;
 	 this.Unidades =  Unidades;
-    this.ChecklistsNew = ChecklistsNew;	
-    this.eventMessagesTypes = eventMessagesTypes;	
-    this.Tickets = Tickets;
-    this.TicketStatus = TicketStatus;
-    this.RfvTickets = RfvTickets;
-    this.RfvTicketStatus = RfvTicketStatus;
-    this.UnidadTipo = UnidadTipo;
-    this.TicketPriorities = TicketPriorities;
-    this.ChecklistMotivos = ChecklistMotivos; 
-    this.BateriaTipos = BateriaTipos;
-       this.Comandos_Milesight = Comandos_Milesight;
+   this.ChecklistsNew = ChecklistsNew;	
+   this.eventMessagesTypes = eventMessagesTypes;	
+   this.Tickets = Tickets;
+   this.TicketStatus = TicketStatus;
+   this.RfvTickets = RfvTickets;
+   this.RfvTicketStatus = RfvTicketStatus;
+   this.UnidadTipo = UnidadTipo;
+   this.TicketPriorities = TicketPriorities;
+   this.ChecklistMotivos = ChecklistMotivos; 
+   this.BateriaTipos = BateriaTipos;
+   this.Comandos_Milesight = Comandos_Milesight;
+   this.ExternalApps_monitor = ExternalApps_monitor;
   }
+
+   async RefreshExternalApps_monitor() {
+	  this.ExternalApps_monitor = await GetExternalApps_monitor();
+  }
+
 
   async RefreshTickets()
   {

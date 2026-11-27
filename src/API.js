@@ -554,6 +554,23 @@ async function GetUnidaTipo( )
   	  });
 
 	}	
+	
+
+async function GetExternalApps_monitor( )
+	{
+		
+		var URL = UrlBase +"/ApiController/ExternalApps_monitor/Get.php"
+		return $.ajax({
+            url:URL,    //the page containing php script
+            type: "post",    //request 
+			dataType:'json',
+
+		}).then(function(response){
+      //console.log("getRecord response: "+JSON.stringify(response));
+      return response;
+  	  });
+
+	}
 
 async function GetEventMessages( )
 	{
@@ -754,9 +771,13 @@ function FieldFecha( date ) {
 }
 
 
-function FieldEstado( Estado ) {
+function FieldEstado( Unidad ) {
 
-	switch (Estado) {
+	if(Unidad.Sincronizando == '1') {
+		return "Sincronizando";
+	}
+
+	switch (Unidad.Estado) {
 		case 'ON':
 		case '1':
 			return  '<div class="bg-danger text-white">ON</div>' ;
@@ -769,7 +790,31 @@ function FieldEstado( Estado ) {
 	
 		default:
 			
-			return Estado;
+			return Unidad.Estado;
+	}
+
+}
+
+function FieldEstado2( Unidad ) {
+
+	if(Unidad.Sincronizando == '1') {
+		return "Sincronizando";
+	}
+
+	switch (Unidad.Estado2) {
+		case 'ON':
+		case '1':
+			return  '<div class="bg-danger text-white">ON</div>' ;
+		
+		case '0':
+			return  'OFF';
+		case null:
+		case '':
+			return  '<i class="bi bi-arrow-clockwise text-success fs-3"></i>';
+	
+		default:
+			
+			return Unidad.Estado2;
 	}
 
 }
@@ -793,22 +838,21 @@ function FieldCaudal( Unidad ) {
 	else return '';
 	  
 
-		switch (Caudal) {
+	if (Unidad.Estado == '1' || Unidad.Estado == 'ON') {
 
-			case '999':
-			case Caudal > 140:
-				// Code to execute if expression === value1
-				return  ' <div class="bg-danger text-white">Mayor a 140!</div>  ';
-			
-			case '-999':
-			case Caudal < 5:
-				// Code to execute if expression === value2
-				return  ' <div class="bg-danger text-white">Menor a 5!</div>  ';
-			
-			default:
-				// Code to execute if expression matches no cases
-				return Caudal;
+		if( Caudal == '999' ||  (Caudal > 140) )
+			{return  ' <div class="bg-danger text-white">Mayor a 140!</div>  ';}
+		else if( Caudal == '-999' || ((Caudal < 5) && (Unidad.Estado == '1')))
+			{return  ' <div class="bg-danger text-white">Menor a 5!</div>  ';}
+		else { return Caudal;}
+
+	} else {
+		if(  Caudal != 0 && Caudal != '' && Caudal != null ) {
+			return  ' <div class="bg-danger text-white">  Flujo con VOFF <i class="bi bi-exclamation-triangle"></i></div>  ';
 		}
+		else { return Caudal;}	
+	}
+		
 }
 
 function FieldBattery( level ) {
@@ -845,16 +889,23 @@ function FieldBattery( level ) {
 function FieldVolumen( Unidad ) {
 	if(Unidad) {
 
+		let Volumen; 
 		switch ( Unidad.id_unidadTipo ) {
 		case '2': //SIRECOR7600
-			return Unidad.Volumen;
+			Volumen = Unidad.Volumen;
 			break;
 		case '3': // milesight
-			return Unidad.FactorFlujometro != null ? (Math.round(Unidad.Volumen*Unidad.FactorFlujometro)) : (Unidad.Volumen +'(Pulsos)')
+			 Volumen = Unidad.FactorFlujometro != null ? (Math.round(Unidad.Volumen*Unidad.FactorFlujometro)) : (Unidad.Volumen +'(Pulsos)');
+			break;
 		default:
 			// Code to execute if expression matches no cases
 			return '';
 		}
+
+		return	(Unidad.VolMax && (Unidad.Estado == '1' || Unidad.Estado == 'ON' ) ) ? ( Volumen + `<div class="text-danger">Max: ${ Unidad.VolMax }</div>` ) : Volumen;
+	
+
+
 	}
 	else return '';
 }
